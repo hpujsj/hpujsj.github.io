@@ -72,6 +72,221 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/" class="article-date">
+  <time datetime="2015-10-13T18:14:36.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/">SQL Server 使用快照事务隔离避免死锁</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用基于行版本控制的隔离级别：2005中支持快照事务隔离和指定READ_COMMITTED隔离级别的事务使用行版本控制，可以将读与写操作之间发生的死锁几率降至最低： SET ALLOW_SNAPSHOT_ISOLATION ON –事务可以指定 SNAPSHOT 事务隔离级别; SET READ_COMMITTED_SNAPSHOT ON –指定 READ_COMMITTED 隔离级别的事务将使用行版本控制而不是锁定。默认情况下(没有开启此选项，没有加with nolock提示)，SELECT语句会对请求的资源加S锁(共享锁)；而开启了此选项后，SELECT不会对请求的资源加S锁。 在数据库中设置READ COMMITTED SNAPSHOT 或 ALLOW SNAPSHOT ISOLATIONON ON时，查询数据时不再使用请求共享锁，如果请求的行正被锁定(例如正在被更新)，SQL_Server会从行版本存储区返回最早的关于该行的记录(SQL_server会在更新时将之前的行数据在tempdb库中形成一个链接列表。</p>
+<p>select name,user_access,user_access_desc,<br> snapshot_isolation_state,snapshot_isolation_state_desc,<br> is_read_committed_snapshot_on<br>from sys.databases;</p>
+<p>ALTER DATABASE DBName SET SINGLE_USER WITH ROLLBACK IMMEDIATE<br>ALTER DATABASE DBName SET ALLOW_SNAPSHOT_ISOLATION ON<br>ALTER DATABASE DBName SET READ_COMMITTED_SNAPSHOT ON<br>ALTER DATABASE DBName SET MULTI_USER</p>
+<p>注意：设置 READ_COMMITTED_SNAPSHOT选项时，数据库中只允许存在执行 ALTER DATABASE命令的连接。在 ALTER DATABASE完成之前，数据库中决不能有其他打开的连接。数据库不必一定要处于单用户模式中。 参考：<a href="https://msdn.microsoft.com/zh-cn/library/tcbchxcb(v=vs.80" target="_blank" rel="noopener">使用快照隔离 https://msdn.microsoft.com/zh-cn/library/tcbchxcb(v=vs.80).aspx</a>.aspx)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/" data-id="cjnibxgi20082gg0frv3s83y3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" class="article-date">
+  <time datetime="2015-10-12T21:43:37.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/">需要我们了解的SQL Server阻塞原因与解决方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上篇说<a href="http://www.cnblogs.com/cnsym/p/3227766.html" target="_blank" rel="noopener">SQL Server应用模式之OLTP系统性能分析</a>。五种角度分析sql性能问题。本章依然是SQL性能 五种角度其一“阻塞与死锁”</p>
+<p>这里通过连接在sysprocesses里字段值的组合来分析阻塞源头，可以把阻塞分为以下5种常见的类型（见表）。waittype,open_tran,status,都是sysprocesses里的值，“自我修复？”列的意思,就是指阻塞能不能自动消失。 <strong> 5种常见的阻塞类型</strong></p>
+<p>类型</p>
+<p>waittype</p>
+<p>open_tran</p>
+<p>status</p>
+<p>自我修复</p>
+<p>原因/其他特征</p>
+<p>1</p>
+<p>不为0</p>
+<blockquote>
+<p>=0</p>
+</blockquote>
+<p>runnable</p>
+<p>是的，当语句运行结束后</p>
+<p>语句运行的时间比较长，运行时需等待某些系统资源（如硬盘读写、CPU或内存等）。</p>
+<p>2</p>
+<p>0x0000</p>
+<blockquote>
+<p>0</p>
+</blockquote>
+<p>sleeping</p>
+<p>不能，但是如果运行 KILL语句，这个链接能够很容易被终止</p>
+<p>可能客户端遇到了一个语句执行超时，或者主动取消了上一语句的执行，但是没有回滚开启的事务，在SQL Trace里能够看到一个Attention事件</p>
+<p>3</p>
+<p>0x0000 0x0800 0x0063</p>
+<blockquote>
+<p>=0</p>
+</blockquote>
+<p>runnable</p>
+<p>不能。知道客户端吧所有结果都主动取走，或者主动断开连接，可以运行KILL语句去终止它，但是可能要花长达30秒</p>
+<p>客户端没有及时把所有结果都取走，这时可能open_tran=0，事务隔离级别也为默认（READ COMMITTED），但这个连接还会持有锁资源</p>
+<p>4</p>
+<p>0x0000</p>
+<blockquote>
+<p>0</p>
+</blockquote>
+<p>rollback</p>
+<p>是的</p>
+<p>在SQL Trace里能够看到这个SPID已经发来了一个Attention事件，说明客户端已经遇到了超时，或者主动要求回滚事务</p>
+<p>5</p>
+<p>各种值都有可能</p>
+<blockquote>
+<p>=0</p>
+</blockquote>
+<p>runnable</p>
+<p>不能，直到客户端取消语句运行或者主动断开连接。可以运行KILL语句终止它，但是可能要花长达30秒</p>
+<p>应用程序运行中产生死锁，在SQL Server中以阻塞形式体现。Sysprocesses里阻塞和被阻塞的连接hostname值是一样的</p>
+<p>  下面详细介绍这些类型产生的原因，以及解决方法</p>
+<p>类型1：由于语句运行时间太长而导致的阻塞，语句本身在正常运行中，只须等待某些系统资源。</p>
+<p>解决方法： 要解决这一类阻塞，数据库管理员需要和数据库应用设计人员合作，共同解决以下问题。</p>
+<ol>
+<li>语句本身有没有可优化的空间？ 这里包括修改语句本身降低复杂度、修改表格设计、调整索引等。</li>
+<li>SQL Server整体性能如何？是不是有资源瓶颈影响了语句执行速度？ 当SQL Server 遇到诸如内存、硬盘读写、CPU等资源瓶颈是，原来能很快完成的语句有可能会花很长时间。</li>
+<li>如果语句天生就很复杂，无法调优（很多处理报表的语句就是这样），就须考虑怎样把这一类应用（一般就是数据仓库应用）从OLTP系统中隔离出来。</li>
+</ol>
+<p>类型2：由于一个未按预期提交的事务导致的阻塞</p>
+<p>这一类阻塞的特征，就是问题连接早就进入了空闲状态（sysprocesses.status=’sleeping’和sysprocesses.cmd=’AWAITING COMMAND’），但是，如果检查sysprocesses.open_tran，就会发现它不为0，以及事务没有提交。这类问题很多都是因为应用端遇到一个执行超时，或者其他原因，当时执行的语句被提前终止了，但是连接还保留着。应用没有跟随发来的事务提交或回滚指令，导致一个事务被遗留在SQL Server里。 遇到这类问题，许多使用者会误以为是SQL Server端什么地方没有处理好。其实，执行超时（command timeout）完全是一个客户端的行为。当客户端应用向SQL Server发来语句执行请求时，自己会有一个执行超时设置。一般ADO或ADO.NET的连接超时时限是30秒。如果30秒以内SQL Server没有完成语句返回任何结果，客户端就会发送一个Attention的消息给SQL Server，告诉SQL Server它不想继续等下去了。SQL Server收到这个消息后，会终止当前正在运行的语句（或批处理）。但是，为了维护客户端的逻辑，SQL Server默认不会自动回滚或提交这个连接已经打开的事务，而是等待客户端的后续决定。如果客户端不发来回滚或提交指令，SQL Server会永远的把这个事务保持下去，直到客户端断开连接为止。 这里可以用下面这个实验来模拟这个问题。在Management Studio里创建一个连接到SQL Server，运行下面的批处理语句：</p>
+<p><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p>use sqlnexus<br>        go<br>BEGIN TRAN<br>SELECT <em><br>FROM ReadTrace.tblInterestingEvents<br>WITH(HOLDLOCK) SELECT<br>    \</em><br>FROM sysobjects s1,sysobjects<br>    s2 COMMIT TRAN</p>
+<p><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></p>
+<p>由于使用了HOLDLOCK参数，第一句SELECT会在运行结束后，在表格上维持一个TAB的S锁。如果批处理全部完成，这个锁会在提交事务的时候释放。但是第二句的SELECT会执行很久。请在等待3～4秒钟以后取消执行。然后运行下面的语句，检查open_tran和锁的情况。</p>
+<p>SELECT @@TRANCOUNT<br>GO sp_lock GO</p>
+<p>通过结果（见图）可以得知： <img src="http://images.cnitblog.com/blog/326630/201308/01171538-1bb326e52b414e1ca6988331067ee7f0.jpg" alt=""> (1)     批处理被取消的时候，“COMMIT TRAN”这条语句没有被执行到。SQL Server没有对“BEGIN TRAN”开启的那个事务做任何处理，只保持其活动的状态。 (2)     第一句SELECT带来的锁由于事务没有结束，所以锁还保持着（objID=85575343, Type=TAB, Mode=IS）。 现在，如果有其他连接要修改ReadTrace.tblInterestingEvents这张表，就会被阻塞住。 解决办法： 1. 应用程序本身必须意识到审核语句都有可能遇到意外终止情况，做好错误处理工作。这些工作包括 a)   在做SQL Server调用的时候，必须加上错误捕捉和处理语句 SQL Server客户端驱动程序（包括ODBC和OLE DB）当语句执行遇到意外终止（包括超时）的时候，都会向应用返回错误信息。客户端在捕捉到错误信息时。除了做记录以外（这对问题定位非常有帮助），还要运行下面这句话，把没有提交的事务回滚掉。</p>
+<p>IF @@TRANCOUNT&gt;0 ROLLBACK TRAN</p>
+<p>  有些程序员会问，我在T-SQL批处理里已经写了T-SQL层面的错误捕捉和处理语句（IF @@ERROR&lt;&gt;0 ROLLBACK TRAN）,还有必要让应用程序再做一遍么？需要意识到的是，有些异常（比如超时）终止的是整个T-SQL批处理的执行，而不仅仅是当前语句。所以当这些异常发生的时候，T-SQL层面错误捕捉和处理语句很可能也一起被取消了。它们不能发挥想象中的作用。在应用程序里的错误捕捉和处理语句是必不可少的。 b)   设置连接属性“SET SACT_ABORT ON” 当SET SACT_ABORT为ON时，如果执行T-SQL语句产生运行错误，整个事务将会终止并回滚 当SET SACT_ABORT为OFF时，处理方法不是唯一的。有时只回滚产生错误的T-SQL语句，而事务将继续进行处理。如果错误很严重，及时SET SACT_ABORT 为OFF，也可能回滚整个事务。OFF是默认设置。 如果没有办法很快规范应用程序的错误捕捉和处理语句，一个最快的方法就是在每个连接建立以后，或者是容易出问题的存储过程的开头，运行“SET XACT_ABORT ON”，让SQL Server帮助应用程序回滚事务。 c)   考虑是否要关闭连接池 一般的SQL Server应用都会使用连接池来得到良好的性能。如果有一个连接忘记把事务关闭就推出连接，那么这个连接会被交还给连接池，但是这个时候事务不会被清理。客户端驱动程序会在这个连接下一次被重用的时候（又有新的用户要建立连接），发一句sp_reset_connection命令清理当前连接上次遗留下来的所有对象，包括回滚未提交的事务。如果连接交还给连接池以后很久都没有被重用，那它的事务就会持续长时间，引起阻塞。有些Java程序使用的驱动程序，提供连接池功能，但是不提供连接重用时的事务清理功能。这样的连接池对应用开发质量要求很高，比较容易发生阻塞。 如果不能很快的实施建议a)和b)，把连接池关闭能缩短食事务持续时间，也能从一定程度上缓解阻塞问题。 2. 分析为什么连接会遇到异常终止 这里又得谈到错误信息记录了。有了错误信息，就可以判定是超时问题，还是其他SQL Server错误。如果是超时问题，可按照第一种阻塞进行处理。 还有一种孤儿事务的来源，是连接开启了隐式事务（implicit transaction）而没有加入及时提交事务的机制。如果连接处于隐式事务模式（SET IMPLICIT_TRANSACTIONS ON），并且连接当前不再事务中，则执行下列任何一条语句都会开启一个新的事务。</p>
+<p>ALTER TABLE</p>
+<p>FETCH</p>
+<p>REVOKE</p>
+<p>CREATE</p>
+<p>GRANT</p>
+<p>SELECT</p>
+<p>DELETE</p>
+<p>INSERT</p>
+<p>TRUNCATE_TABLE</p>
+<p>DROP</p>
+<p>OPEN</p>
+<p>UPDATE</p>
+<p>对于因为此设置为ON而自动打开的事务，SQL Server会自动帮你打开事务，但是不会自动帮你提交。用户必须在该事务结束后将其显式提交或回滚。否则，当用户断开连接时，事务及其包含的所有数据更改将被回滚。事务提交后，执行上述任意一条语句又会启动一个新事务。隐式事务模式将始终生效，知道连接执行SET IMPLICIT_TRANSACTIONS OFF语句使连接恢复为自动提交模式。在自动提交模式下，所有单个语句在成功完成时将被提交，不会有事务遗留。 为什么会有连接要开启隐式事务呢？除了程序员有意为之以外，很多是客户端数据库连接驱动，或者空间为了实现它的事务功能（注意不是SQL Server通过T-SQL语句直接提供的）而选用这个机制。如果应用程序出现意外，或者脚本没有处理好，会有应用层事务未提交的现象。在SQL Server里也体现为一个孤儿事务。严格约束应用层对事务的使用，直接使用SQL Server里面的事务，是避免这种问题出现的好方法。  </p>
+<p>类型3：由于客户端没有及时把结果集取出而导致的语句长时间运行。</p>
+<p> 语句在SQL Server内执行总时间不仅包含SQL Server的执行时间，还包含把结果集发给客户端的时间。如果结果集比较大，SQL Server会分几次打包发出，每发一次，都要等待客户端的确认。只有确认以后，SQL Server才会发送下一个结果集包。所有结果都发完以后，SQL Server才认为语句执行完毕，释放执行申请的资源（包括锁资源）。 如果处于某种原因，客户端应用处理结果非常缓慢甚至没有相应，或者干脆不理睬SQL Server发送结果集的请求，则SQL Server会耐心的等待，因此会导致语句长时间执行而发生阻塞。 解决方法：</p>
+<ol>
+<li>在设计程序时，一定要慎重返回大结果集。这种行为不仅会对SQL Server和网络带来很大负担，对应用程序本身来讲，也要花很多资源去处理结果集。如果最终用户只需要部分结果集就可以，则在发送SQL Server指令的时候就要指定好。要避免居于不管三七二十一所有数据都要，而结果集只取走开头一部分去展示这样的行为发生。</li>
+<li>如果应用程序的确须返回大结果集，例如一些报表系统，则要考虑报表数据库和生产数据库分开。</li>
+<li>如果1和2在短期内不能实现，可以和最终用户协商，返回大结果集的连接使用READ UNCOMMITTED事务隔离级别。这样查询语句就不会申请S锁了。</li>
+</ol>
+<p>类型4：阻塞的源头连接一直处于rollback状态。</p>
+<p>这种情况常是由第一类情况衍生来的。有时候数据库管理员发现一个连接阻塞住了别人，为了解决问题，会让连接主动退出或强制退出（轻质退出应用，或者直接在SQL Server端KILL连接）。对于大部分情况，这些措施会消除阻塞。但是要记住的是，不管是在客户端退出，还是要服务器端KILL，为了维护数据库事务的一致性，SQL Server都会对连接还没有来得及完成提交的事务做回滚动作。SQL Server要找到所有当前事务修改过的记录，把它们改回原来的状态。所以，如果一个DELETE、INSERT或UPDATE已经运行了一个小时，可能回滚也需要一个小时，在这个过程中，阻塞还会延续，我们只能等待。 有些用户可能等不及，直接重启SQL Server。当SQL Server关闭的时候，回滚动作会被中断，SQL Server会被很快关掉，但是这个回滚动作在下次SQL Server重启的时候会重新开始（数据库做恢复的时候）。重启的时候如果回滚不能很快结束，整个数据库都不可用，可能会带来更严重的后果。 解决方法： 最好的方法是在工作时间尽量不要做这种大的修改操作。这些操作尽量安排在半夜或者周末的时间完成。如果操作已经做了很久，最好耐心等它做完。如果一定要在有工作负荷的时候做，最好把一个大操作分成若干小操作分步完成。  </p>
+<p>类型5：应用程序运行中产生死锁，在SQL Server中以阻塞形式体现。</p>
+<p>一个客户端的应用在运行过程中会使用到许多资源，包括线程资源，信号量资源，内存资源，IO资源等，SQL Server也是资源之一。如果发生死锁的两端不全是SQL Server，SQL Server的死锁判断机制可能不起作用。这时如果应用端没有处理好，可能会永远等下去。而SQL Server内部的表现可能仅仅是一个阻塞。但是这个阻塞不会自动消除。这样的阻塞对SQL Server的性能会产生很大影响。 下面我们举两个这种应用端死锁的例子。 1)  在应用的一个线程中开启不止一个数据库连接而产生的死锁（见图）。 假设应用有一个线程有这样的逻辑： ●  开始运行 ●  建立数据库连接A，调用存储过程ProcA。打开结果集A。 ●  建立数据库连接B，调用存储过程ProcB。打开结果集B。 ●  轮流读取结果集A、B，整合输出最终结果。 ●  关闭结果集A、B，关机连接A、B。 ●  结束运行 <img src="http://images.cnitblog.com/blog/326630/201308/01171636-34c58042436e47bab5a3904bd711d864.jpg" alt=""> 在正常情况下这样的设计看上去没有问题，但是实际上很脆弱。因为在线程内部，这个逻辑是线程执行的。假设存储过程ProcA是一个事务，在返回结果集之前因为一些操作申请了一些排他锁，而ProcB为了返回结果又要用到这些锁，那会发生什么情况呢？ 发生的情况会是连接A在等线程把连接B上的结果读出来，再来处理结果集A，而连接B等待连接A完成事务后再释放锁。双方相互等待，产生思索。 1)  两个线程间的死锁（见图）。 如果应用有两个线程，每个线程各开一个数据库连接，那上面的逻辑不会出问题。因为运行ProcA的那个线程会先做完，释放阻塞住连接B的锁，让B也能够接着跑完。但是假设有下列逻辑： 线程A：建立数据库连接A，不断读取表格A，按条取出记录，做一定处理后发给线程B的输入缓存。 线程B：建立数据库连接B，从输入缓存读取数据，依据收到的记录对表格A进行修改。 这个逻辑会产生什么问题呢？我们知道表格修改会在表上申请一些排他锁。如果线程A正在读取这条记录，修改动作会被阻塞住。这个时候线程B就会进入等待状态。但是线程A需要线程B输入缓存清空后才能写入。如果线程B还没来得及清空，它也不得不等待，这时候也会产生死锁（在SQL Server里是一个阻塞）。 <img src="http://images.cnitblog.com/blog/326630/201308/01171710-13a4bcd66ec14b6fa57fb59baebc8190.jpg" alt=""> 解决方法: 复杂的程序还可能会出现其他的死锁形式。为了避免这种死锁，要在应用调用SQL Server的时候设置执行超时，并写好错误处理机制（参见阻塞原因2）。一旦死锁发生，SQL Server的操作在等待一段时间后会因为超时而放弃，并释放出SQL Server内部的资源，解决死锁。 <strong>小结：应更多从程序设计着手解决阻塞问题</strong> 很多用户有一种误解，认为阻塞是一个数据库问题。当阻塞问题发生的时候，都希望从数据库层面找到方法，一劳永逸地解决问题。可是，阻塞本身是为了完成事务的隔离，是应用程序向SQL Server提出的要求。所以很多时候，光从数据库端努力是不能解决阻塞问题的。在应用程序层面也要做很多工作。例如应用在做连接的时候选择什么样的隔离级别，事务开始和结束的时间点选择，连接的建立和回收机制，指令复杂度的控制等。应用程序还应该考虑到控制结果集大小，并及时从SQL Server端取走数据。还要考虑SQL Server指令执行时间长短控制，以及发生超时或其他意外后的错误处理机制等。尤其是对高并发量、高响应要求的关键业务系统，在设计应用时必须要考虑好上面这些关键因素。对于关键的业务逻辑，必须逐个审查，保证应用选择的是能够满足业务需求的最低隔离级别，事务的大小已经控制到了最小的粒度。而运行的语句，也要有良好的数据库设计，保证它不会随着数据库的增大和用户量的增多，占用更多的资源和运行时间。如果做不到这几点，就会容易发生应用在用户量比较少，或者数据库比较小的初始阶段性能不错，但是当用户量增长或数据量增大以后性能越来越慢的问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/10/13/e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjnibxgje009ygg0feiox3n2s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/" class="article-date">
+  <time datetime="2015-10-08T22:43:04.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>启动SQL Server Profiler，创建Trace(跟踪).</strong> 启动SQL Server Profiler工具(在Microsoft SQL Server Management Studio的工具菜单上就发现它)，创建一个Trace,Trace属性选择主要是包含: Deadlock graph Lock: Deadlock Lock: Deadlock Chain RPC:Completed SP:StmtCompleted SQL:BatchCompleted SQL:BatchStarting <strong>分析死锁</strong> 如下图，我们可以看到第一个会话在SPID 54,第二个会话在SPID 55,一旦SQL Server发现死锁，它就会确定一个优胜者，可成功执行，和另一个作为牺牲品，要回滚。 可以到看到EventClass列中，两条SQL:BatchCompleted事件紧跟在Lock:DealLock后面，其中一条，它就是作为牺牲品，它会被回滚.而另一条SQL:BatchCompleted将会是优胜者，成功执行。 那么，谁是优胜者，谁是牺牲品呢? 不用着急，通过DealLock graph事件，所返回来的信息，我们可以知道结果。 <img src="http://image20.it168.com/201111_500x375/867/cdf5ced3ff071285.png" alt=""> <img src="http://image20.it168.com/201111_500x375/867/629364eed3b930f6.png" alt=""> 我们虽然不能明白DealLock graph图示的含义，但通过图中描述的关系，我们知道一些有用的信息。图中左右两旁椭圆形相当一个处理节点(Process Node),当鼠标移动到上面的时候，可以看到内部执行的代码，如Insert,UPdate,Delete.有打叉的左边椭圆形就是牺牲者，没有打叉的右边椭圆形是优胜者。中间两个长方形就是一个资源节点(Resource Node)，描述数据库中的对象,如一个表、一行或一个索引。在我们当前的实例中，资源节点描述的是，在聚集索引请求获得排它锁(X)。椭圆形与长方形之间，带箭头的连线表示，处理节点与资源节点的关系，包含描述锁的模式. 接下来我们更详细的看图里面的数据说明。 先看右边作为优胜者的这椭圆形，我们可以看到内容包含有： <strong>服务器进程 ID</strong>： 服务器进程标识符 (SPID)，即服务器给拥有锁的进程分配的标识符。 <strong>服务器批 ID</strong>： 服务器批标识符 (SBID)。 <strong>执行上下文 ID</strong>： 执行上下文标识符 (ECID)。与指定 SPID 相关联的给定线程的执行上下文 ID。ECID = {0,1,2,3, …n}，其中 0 始终表示主线程或父线程，并且 {1,2,3, …n} 表示子线程。 <strong>死锁优先级</strong>： 进程的死锁优先级有关可能值的详细信息，请参阅 SET DEADLOCK_PRIORITY (Transact-SQL)。 <strong>已用日志</strong>： 进程所使用的日志空间量。 <strong>所有者 ID</strong>： 正在使用事务并且当前正在等待锁的进程的事务 ID。 <strong>事务描述符</strong>： 指向描述事务状态的事务描述符的指针。 这些数据描述，对于我们理解死锁，只需要知道其中的一些就够，除非我们在专门SQL Server机构工作，才可能要深入理解它们。 <img src="http://image20.it168.com/201111_500x375/867/915884fb2522edca.png" alt=""> 下面我们来看左边作为牺牲品的这椭圆形处理节点，它告诉我们以下信息： 它是一个失败的事务。(蓝色的交叉表示) 它是作为牺牲品的T-SQL代码。 它对右下方的资源节点有一个排它锁(X). 它对右上方的资源节点请求 一个排它锁(X). <img src="http://image20.it168.com/201111_500x375/867/d9515ef0e0bbbe90.png" alt=""> 我们再来看中间两个长方形的资源节点,两个处理节点对它们各自都使用权，来执行它们各自的代码，同时又有对对方使用资源请求的动作，从而发生了资源的竞争。 这也就让我们明白死锁发生的原因。 这里说明下资源节点的一些信息： HoBT：　　堆或 B 树。 用于保护没有聚集索引的表中的 B 树(索引)或堆数据页的锁 associated objid: 关联的对象ID,这里只是索引关联的对象ID. Index name:索引名 <img src="http://image20.it168.com/201111_500x375/867/1868d081f509c9dd.png" alt=""> 让我们再对SQL Server Profiler监视到的数据，作一次整理： 回顾图： <img src="http://image20.it168.com/201111_500x375/867/e0041122b9ebfafa.png" alt=""> 在第3行SQL:BatchStarting, SPID 54 (第一个会话启动),在索引PK__DealLock__3214EC274222D4EF获得一个排它锁，再处理等待状态，(因为在这个实例中我设置了Waitfor Delay ‘00:00:05’) 在第6行SQL:BatchStarting, SPID 55 (第二个会话启动),在索引PK__DealLock__3214EC2745F365D3获得一个排它锁，再处理等待状态，(因为在这个实例中我设置了Waitfor Delay ‘00:00:05’) 两个进程都各自获得一个排它锁(X),几秒过去，它们就开始请求排它锁。 SPID 54 (第一个会话),先对PK__DealLock__3214EC2745F365D3请求一个排它锁(X),但PK__DealLock__3214EC2745F365D3当前已经给SPID 55 (第二个会话)获得。SPID 54要于等待。 同时， SPID 55 (第二个会话),开始对PK__DealLock__3214EC274222D4EF请求一个排它锁(X),但PK__DealLock__3214EC274222D4EF当前已经给SPID 54 (第一个会话)获得。SPID 55要等待。 这里就出现了进程阻塞，从而发生死锁。 SQL Server 检查到这两个进程(第一个&amp;第二个会话)发生死锁，并对占用资源比较少的进程，列入牺牲品名单，将它终止(Kill)。通过左右椭圆形进程节点显示，可以发现已用日志最少的是左边的进程节点。 SPID 54 (第一个会话)被回滚(Rollback)，SPID 55 (第二个会话)执行成功。 到这里我们已算完成了，对死锁的监视和分析。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/" data-id="cjnibxgg2003bgg0fr04e45kz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" class="article-date">
@@ -170,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" data-id="cjnibie5e00406w0fs2um42cq" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" data-id="cjnibxggb003tgg0fyg4j0mb1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -582,7 +797,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" data-id="cjnibie8900a46w0fshwxpvyt" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" data-id="cjnibxgjn00a4gg0fooa7npwo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -623,7 +838,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" data-id="cjnibie5l004e6w0fdcpanzcu" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" data-id="cjnibxggi0047gg0fhl33vmy4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1561,7 +1776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" data-id="cjnibie8d00a86w0fxszrw90n" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" data-id="cjnibxgjq00a8gg0f5sptckv7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1700,7 +1915,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" data-id="cjnibie8g00aa6w0fuuq8yjly" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" data-id="cjnibxgju00aagg0f0pieffmy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1741,7 +1956,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjnibie4c00286w0f4k26cihl" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjnibxgfb0021gg0fo81mzm4b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1784,134 +1999,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjnibie6p007b6w0ffut56brd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" class="article-date">
-  <time datetime="2015-05-06T01:04:35.000Z" itemprop="datePublished">2015-05-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/">JVM内存区域划分Eden Space、Survivor Space、Tenured Gen，Perm Gen解释</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>jvm区域总体分两类，heap区和非heap区。heap区又分：Eden Space（伊甸园）、Survivor Space(幸存者区)、Tenured Gen（老年代-养老区）。 非heap区又分：Code Cache(代码缓存区)、Perm Gen（永久代）、Jvm Stack(java虚拟机栈)、Local Method Statck(本地方法栈)。 HotSpot虚拟机GC算法采用分代收集算法： 1、一个人（对象）出来（new 出来）后会在Eden Space（伊甸园）无忧无虑的生活，直到GC到来打破了他们平静的生活。GC会逐一问清楚每个对象的情况，有没有钱（此对象的引用）啊，因为GC想赚钱呀，有钱的才可以敲诈嘛。然后富人就会进入Survivor Space（幸存者区），穷人的就直接kill掉。 2、并不是进入Survivor Space（幸存者区）后就保证人身是安全的，但至少可以活段时间。GC会定期（可以自定义）会对这些人进行敲诈，亿万富翁每次都给钱，GC很满意，就让其进入了Genured Gen(养老区)。万元户经不住几次敲诈就没钱了，GC看没有啥价值啦，就直接kill掉了。 3、进入到养老区的人基本就可以保证人身安全啦，但是亿万富豪有的也会挥霍成穷光蛋，只要钱没了，GC还是kill掉。 分区的目的：新生区由于对象产生的比较多并且大都是朝生夕灭的，所以直接采用标记-清理算法。而养老区生命力很强，则采用复制算法，针对不同情况使用不同算法。 非heap区域中Perm Gen中放着类、方法的定义，jvm Stack区域放着方法参数、局域变量等的引用，方法执行顺序按照栈的先入后出方式。  </p>
-<h2 id="GC工作机制"><a href="#GC工作机制" class="headerlink" title="GC工作机制"></a>GC工作机制</h2><p>SUN的jvm内存池被划分为以下几个部分： <strong>Eden**</strong> Space (heap)<strong> 内存最初从这个线程池分配给大部分对象。   </strong>Survivor Space (heap)<strong> 用于保存在eden space内存池中经过垃圾回收后没有被回收的对象。   </strong>Tenured Generation (heap)<strong> 用于保持已经在survivor space内存池中存在了一段时间的对象。   </strong>Permanent Generation (non-heap)<strong> 保存虚拟机自己的静态(reflective)数据，例如类（class）和方法（method）对象。Java虚拟机共享这些类数据。这个区域被分割为只读的和只写的。   </strong>Code Cache (non-heap)** HotSpot Java虚拟机包括一个用于编译和保存本地代码（native code）的内存，叫做“代码缓存区”（code cache）。   简单来讲，jvm的内存回收过程是这样的： 对象在Eden Space创建，当Eden Space满了的时候，gc就把所有在Eden Space中的对象扫描一次，把所有有效的对象复制到第一个Survivor Space，同时把无效的对象所占用的空间释放。当Eden Space再次变满了的时候，就启动移动程序把Eden Space中有效的对象复制到第二个Survivor Space，同时，也将第一个Survivor Space中的有效对象复制到第二个Survivor Space。如果填充到第二个Survivor Space中的有效对象被第一个Survivor Space或Eden Space中的对象引用，那么这些对象就是长期存在的，此时这些对象将被复制到Permanent Generation。 若垃圾收集器依据这种小幅度的调整收集不能腾出足够的空间，就会运行Full GC，此时jvm gc停止所有在堆中运行的线程并执行清除动作。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" data-id="cjnibie6k006x6w0f6jkldlfi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" class="article-date">
-  <time datetime="2015-05-06T00:44:22.000Z" itemprop="datePublished">2015-05-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/">jps、jinfo、jstat、jstack、jmap、jconsole等命令简介</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>JDK提供了几个很实用的工具，如下： <strong>jinfo</strong>：观察运行中的java程序的运行环境参数：参数包括Java System属性和JVM命令行参数，java class path等信息。命令格式：jinfo 进程pid <strong>jps</strong>：用来显示本地的java进程，可以查看本地运行着几个java程序，并显示他们的进程号。命令格式：jps   或 jps 远程服务ip地址    （默认端口1099） <strong>jstat</strong>：一个极强的监视VM内存工具。可以用来监视VM内存内的各种堆和非堆的大小及其内存使用量。 <strong>jstack</strong>：可以观察到jvm中当前所有线程的运行情况和线程当前状态。, 如果现在运行的java程序呈现hung的状态，jstack是非常有用的。命令格式：jstack 进程pid <strong>当程序出现死锁的时候，使用命令：jstack 进程ID &gt; jstack.log，然后在jstack.log文件中，搜索关键字“BLOCKED”，定位到引起死锁的地方。</strong> <strong>jmap</strong>：观察运行中的jvm物理内存的占用情况（如：产生哪些对象，及其数量）。命令格式：jmap [option] pid option参数如下： <strong>-heap</strong>：打印jvm heap的情况 <strong>             -histo：</strong>打印jvm heap的直方图。其输出信息包括类名，对象数量，对象占用大小。 <strong>             -histo：live ：</strong>同上，但是只答应存活对象的情况 <strong>             -permstat：</strong>打印permanent generation heap情况 使用jmap进行 heap dump的例子： jmap -dump:format=b,file=<filename> <pid> 打印内存统计图：jmap -histo:live <pid> 结果中每行显示了当前堆中每种类类型的信息，包含被分配的实例个数及其消耗的字节数。选项“live”，表示只统计存活的对象 需要注意的是，jmap不是运行分析工具，在生成统计图时JVM可能会暂停，因此当生成统计图时需要确认这种暂停对程序是可接受的。 <strong>jconsole</strong>：一个java GUI监视工具，可以以图表化的形式显示各种数据。并可通过远程连接监视远程的服务器VM。</pid></pid></filename></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" data-id="cjnibie6j006u6w0f3l0pgwg9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" class="article-date">
-  <time datetime="2015-05-05T23:09:41.000Z" itemprop="datePublished">2015-05-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/">Java VM参数配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 内部服务参数配置：</p>
-<p>JAVA_OPTS=”-server -XX:+UseParNewGC -Xms1024m -Xmx2048m -XX:MaxNewSize=128m -XX:NewSize=128m -XX:PermSize=96m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC -XX:+CMSPermGenSweepingEnabled -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:CMSInitiatingOccupancyFraction=1 -XX:+CMSIncrementalMode -XX:MaxTenuringThreshold=0 -XX:SurvivorRatio=20000 -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=0  -XX:CMSIncrementalDutyCycleMin=10 -XX:CMSIncrementalDutyCycle=30 -XX:CMSMarkStackSize=8M -XX:CMSMarkStackSizeMax=32M” 前端应用参数配置：</p>
-<p> JAVA_OPTS=”-server  -Xmx4096m -Xms4096m -Xmn480m -Xss256k -XX:PermSize=128m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC -XX:ParallelGCThreads=8 -XX:CMSFullGCsBeforeCompaction=0 -XX:+UseCMSCompactAtFullCollection -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=7 -XX:GCTimeRatio=19 -Xnoclassgc -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:-CMSParallelRemarkEnabled -XX:CMSInitiatingOccupancyFraction=70 -XX:SoftRefLRUPolicyMSPerMB=0”</p>
-<p>  参数说明： <strong>-Xmx1280m</strong>：设置JVM最大可用内存为1280m。最大可设为3550m。具体应用可适当调整。 <strong>-Xms1280m</strong>：设置JVM初始内存为1280m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。 <strong>-Xmn480m</strong>：设置年轻代大小为480m。整个堆大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。 <strong>-Xss256k</strong>：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。 <strong>-XX:PermSize=64m</strong>：指定 jvm 中 Perm Generation 的最小值。 这个参数需要看你的实际情况。可以通过jmap 命令看看到底需要多少。 <strong>-XX:MaxPermSize=128m</strong>：指定 Perm Generation 的最大值 <strong>-XX:+UseConcMarkSweepGC**</strong>：<strong>设置并发收集器 </strong>-XX:ParallelGCThreads=8<strong>**：</strong>配置并行收集器的线程数，即：同时多少个线程一起进行垃圾回收。此值最好配置与处理器数目相等。 <strong>-XX:CMSFullGCsBeforeCompaction=0**</strong>：<strong>由于并发收集器不对内存空间进行压缩、整理，所以运行一段时间以后会产生“碎片”，使得运行效率降低。此值设置运行多少次GC以后对内存空间进行压缩、整理。 </strong>-XX:+UseCMSCompactAtFullCollection<strong>**：</strong>打开对年老代的压缩。可能会影响性能，但是可以消除碎片。 <strong>-XX:SurvivorRatio=8**</strong>：<strong>每个survivor space 和 eden之间的比例。 </strong>-XX:MaxTenuringThreshold=7<strong>**：</strong>设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概率。 <strong>-XX:GCTimeRatio=19**</strong>：<strong>设置垃圾回收时间占程序运行时间的百分比，公式为1/(1+n)。 </strong>-Xnoclassgc<strong>**：</strong>禁用类垃圾回收，性能会有一定提高。 <strong>-XX:+DisableExplicitGC**</strong>：<strong>当此参数打开时，在程序中调用System.gc()将会不起作用。默认是off。 </strong>-XX:+UseParNewGC<strong>**：</strong>设置年轻代为并行收集。可与CMS收集同时使用。 <strong>-XX:-CMSParallelRemarkEnabled**</strong>：<strong>在使用 UseParNewGC 的情况下 , 尽量减少 mark 的时间。 </strong>-XX:CMSInitiatingOccupancyFraction=70<strong>**：</strong>指示在 old generation 在使用了 70% 的比例后 , 启动 concurrent collector。 <strong>-XX:SoftRefLRUPolicyMSPerMB=0**</strong>：**每兆堆空闲空间中SoftReference的存活时间。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" data-id="cjnibie6i006q6w0fsaxda0kh" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjnibxghn0076gg0foi3s0cew" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1978,23 +2066,23 @@
       <ul>
         
           <li>
+            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/feature/">我们的未来</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/21/react/">react</a>
           </li>
         
           <li>
             <a href="/2018/10/21/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/23/jvm/">jvm</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/09/heehhh/">heehhh</a>
           </li>
         
       </ul>
