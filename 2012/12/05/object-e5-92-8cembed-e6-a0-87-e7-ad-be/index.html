@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>OBJECT和EMBED标签  | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、介绍： 我们要在网页中正常显示flash内容，那么页面中必须要有指定flash路径的标 签。也就是OBJECT和EMBED标签。OBJECT标签是用于windows平台的IE浏览器的，而EMBED是用于windows和 Macintosh平台下的Netscape Navigator浏览器以及Macintosh平台下的IE浏览器。windows平台的IE利用Activex控件来播放flash而其">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OBJECT和EMBED标签 ">
+<meta property="og:url" content="http://www.daahe.com/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="一、介绍： 我们要在网页中正常显示flash内容，那么页面中必须要有指定flash路径的标 签。也就是OBJECT和EMBED标签。OBJECT标签是用于windows平台的IE浏览器的，而EMBED是用于windows和 Macintosh平台下的Netscape Navigator浏览器以及Macintosh平台下的IE浏览器。windows平台的IE利用Activex控件来播放flash而其">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OBJECT和EMBED标签 ">
+<meta name="twitter:description" content="一、介绍： 我们要在网页中正常显示flash内容，那么页面中必须要有指定flash路径的标 签。也就是OBJECT和EMBED标签。OBJECT标签是用于windows平台的IE浏览器的，而EMBED是用于windows和 Macintosh平台下的Netscape Navigator浏览器以及Macintosh平台下的IE浏览器。windows平台的IE利用Activex控件来播放flash而其">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-object-e5-92-8cembed-e6-a0-87-e7-ad-be" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" class="article-date">
+  <time datetime="2012-12-04T18:59:45.000Z" itemprop="datePublished">2012-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OBJECT和EMBED标签 
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、介绍： 我们要在网页中正常显示flash内容，那么页面中必须要有指定flash路径的标 签。也就是OBJECT和EMBED标签。OBJECT标签是用于windows平台的IE浏览器的，而EMBED是用于windows和 Macintosh平台下的Netscape Navigator浏览器以及Macintosh平台下的IE浏览器。windows平台的IE利用Activex控件来播放flash而其它的浏览器则 使用Netscape插件技术来播放flash。 下面是简单的网页中插入flash的代码示例： Code:      二、为什么要使用以上全部的标签？能省略某些标签不？ OBJECT 标签是用于windows IE3.0及以后浏览器或者其它支持Activex控件的浏览器。“classid”和“codebase”属性必须要精确地按上例所示的写法写，它们告 诉浏览器自动下载flash player的地址。如果你没有安装过flash player 那么IE3.0以后的浏览器会跳出一个提示框访问是否要自动安装flash player。当然，如果你不想让那些没有安装flash player的用户自动下载播放器，或许你可以省略掉这些代码。 EMBED标签是用于Netscape Navigator2.0及以后的浏览器或其它支持Netscape插件的浏览器。“pluginspage”属性告诉浏览器下载flash player的地址，如果还没有安装flash player的话，用户安装完后需要重启浏览器才能正常使用。 为了确保大多数浏览器能正常显 示flash，你需要把EMBED标签嵌套放在OBJECT标签内，就如上面代码例子一样。支持Activex控件的浏览器将会忽略OBJECT标签内的 EMBED标签。Netscape和使用插件的IE浏览器将只读取EMBED标签而不会识别OBJECT标签。也就是说，如果你省略了EMBED标签，那 firefox就不能识别你的flash了（不过纳闷的是，省略了object只写embed，IE也能正常显示flash，呵呵，具体的再仔细看看 了）。 下面列出了用于发布影片的OBJECT和EMBED标签的必要以及可选属性。 一、必需属性： ·CLASSID-设置浏览器的Activex控件，仅用于OBJECT标签。 ·CODEBASE-设置flash Activex控件的位置，因而如果浏览器如果没有安装的话，可以自动下载安装。仅用于OBJECT标签。 ·WIDTH-以百分比或象素指定flash影片的宽度。 ·HEIGHT-以百分比或象素指定flash影片的高度。 ·SRC-指定影片的下载地址。仅用于EMBED标签。 ·PLUGINSPAGE-设置flash 插件的位置，因而如果浏览器如果没有安装的话，可以自动下载安装。仅用于EMBED标签。 ·MOVIE-指定影片的下载地址。仅用于OBJECT标签。 二、可选属性及可用的值： ·ID-设定变量名，用于脚本代码的引用。仅用于OBJECT。 ·NAME -设定变量名，用于脚本代码（如javascript）的引用。仅用于EMBED。 ·SWLIVECONNECT - （true或false）指定当flash player第一次下载时，是否启用java。如果些属性省略，默认值为false。你果你在相同页同使用javascript和flash，java必须使用FSCommand来工作。 ·PLAY -（true或false）指定flash影片是否在下载完成后就自动播放，如果省略此属性，则默认为true。 ·LOOP - （true或false）指定影片播放完最后一帧后是停止还是继续循环播放，如果省略此属性，则默认为true。 ·MENU - （true或false） ·True 显示全部的菜单，允许用户放大，缩小等控制影片播放等操作。 ·False 显示只包含设置选项和关于flash的菜单。 ·QUALITY - (low, high, autolow, autohigh, best ) ·Low 速度优于美观，而且不应用反锯齿。 ·Autolow 刚开始着重于速度，但当需要时随时提升美观。 ·Autohigh 同时着重播放速度和美观，但需要时则牺牲美观来保证播放速度。 ·Medium 应用一些反锯齿而不平滑位图。它质量高于low设置而低于high设置。 ·High 美观优于播放速度，而且一直应用反锯齿。如果影片不包含动画，位图会被平滑化;而如果影片包含动画，位图将不变平滑。 ·Best 提供最好的显示质量而不考虑播放速度。所有输出都应用反锯齿及所有位图都被平滑化。 ·SCALE - (showall, noborder, exactfit) ·Default(Show all)影片在指定的区域内显示，但保持原始的比例。影片两侧将会出现边框。 ·No Boder 收缩影片以适合指定的区域，保持影片不失真，但部分影片将可能将裁切。然而保持影片的原始比例。 ·Exact Fit 使整个影片在指定的区域内显示，影片有可能变形失真，而且不保持原始的比例。 ·ALIGN - (l, t, r, b) ·默认为居中，当浏览器窗口小于影片时，边缘会被裁切。 ·Left,Right,Top,Bottom按照相应的设置沿浏览器的边缘对齐。如果需要，另外三边将被裁切。 ·SALIGN - (l, t, r, b, tl, tr, bl, br) ·L,R,T,B ·TL,TR ·BL,BR ·WMODE- (window, opaque, transparent) 设置flash影片的window mode属性，指定flash在浏览器中的透明，层叠及位置。 ·Window 影片在浏览器中自己的矩形窗口内播放。 ·Opaque 影片隐藏了所有在它后面的内容。 ·Transparent 使flash影片透明，显示透明影片后面的网页内容。这将会降低动画的性能。而且这个属性不是在所有浏览器中都可用的。 ·BGCOLOR - （#RRGGBB, 十六进制RGB值。）指定影片的背景颜色。使用这个属性覆盖flash中设定的背景颜色。 ·BASE - 设定基准目录或URL，用来解决所以flash中的相对路径。类似网页中的标签。 ·FLASHVARS 传递变量到flash player，需要flash player6及以后的版本。 ·传递root级变量到影片。字符串的格式是用“&amp;”分隔的name=value集。 ·浏览器支持64kB大小的字符串长度。 ·更多关于FlashVars的信息，请查看相关文档。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" data-id="cjnibie6s007j6w0fw4n8ydev" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2012/12/06/one-summers-day/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          one summer&#39;s day
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">onInterceptTouchEvent和onTouchEvent</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

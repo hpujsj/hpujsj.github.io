@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>清除Linux系统中/var/spool/clientmqueue目录 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="linux系统运行一段时间后会发现/var/spool/clientmqueue/目录很大，甚至占满了不大的磁盘空间，这些文件是如何产生的，能否清除，如何清除呢？ 该目录下的文件是corntab操作产生的，这些文件一般要通过mail的形式发给对应的用户的，如果sendMail没有启动，这些文件就会长期保存在这里. 这些文件可以清除，但清除方法不能用一般的rm方法，会示显示参数列表过长（-bash:">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="清除Linux系统中&#x2F;var&#x2F;spool&#x2F;clientmqueue目录">
+<meta property="og:url" content="http://www.daahe.com/2011/08/26/e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="linux系统运行一段时间后会发现/var/spool/clientmqueue/目录很大，甚至占满了不大的磁盘空间，这些文件是如何产生的，能否清除，如何清除呢？ 该目录下的文件是corntab操作产生的，这些文件一般要通过mail的形式发给对应的用户的，如果sendMail没有启动，这些文件就会长期保存在这里. 这些文件可以清除，但清除方法不能用一般的rm方法，会示显示参数列表过长（-bash:">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="清除Linux系统中&#x2F;var&#x2F;spool&#x2F;clientmqueue目录">
+<meta name="twitter:description" content="linux系统运行一段时间后会发现/var/spool/clientmqueue/目录很大，甚至占满了不大的磁盘空间，这些文件是如何产生的，能否清除，如何清除呢？ 该目录下的文件是corntab操作产生的，这些文件一般要通过mail的形式发给对应的用户的，如果sendMail没有启动，这些文件就会长期保存在这里. 这些文件可以清除，但清除方法不能用一般的rm方法，会示显示参数列表过长（-bash:">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/08/26/e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95/" class="article-date">
+  <time datetime="2011-08-26T02:42:50.000Z" itemprop="datePublished">2011-08-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      清除Linux系统中/var/spool/clientmqueue目录
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>linux系统运行一段时间后会发现/var/spool/clientmqueue/目录很大，甚至占满了不大的磁盘空间，这些文件是如何产生的，能否清除，如何清除呢？ 该目录下的文件是corntab操作产生的，这些文件一般要通过mail的形式发给对应的用户的，如果sendMail没有启动，这些文件就会长期保存在这里. 这些文件可以清除，但清除方法不能用一般的rm方法，会示显示参数列表过长（-bash: /bin/rm: Argument list too long）无法用rm直接删除. 正确的清除方法如下: 以root身份进入/var/spool/clientmqueue/，执行： ls|xargs rm -f 就能全部删除了 如何才能不产生这些文件呢？彻底的解决方法如下： 将crontab里面的命令后面加上 &gt; /dev/null 2&gt;&amp;1。 如：ls -l / &gt; /dev/null 2&gt;&amp;1 源自：<a href="http://blog.3gstdy.com/archives/642" target="_blank" rel="noopener">http://blog.3gstdy.com</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/08/26/e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95/" data-id="cjnibie5m004i6w0frb4mhe7p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/08/28/e6-81-92-e6-98-9f-e6-83-a8-e8-a2-ab-e9-bb-91-e6-b4-9e-e6-92-95-e6-88-90-e7-a2-8e-e7-89-87-e5-90-9e-e5-99-ac/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          实拍 恒星瞬间被黑洞撕成碎片吞噬
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/08/15/java-e5-9f-ba-e7-a1-80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

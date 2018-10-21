@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>常用的Intent的URI及示例 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“http://blog.3gstdy.com/&amp;quot;); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri u">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的Intent的URI及示例">
+<meta property="og:url" content="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“http://blog.3gstdy.com/&amp;quot;); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri u">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的Intent的URI及示例">
+<meta name="twitter:description" content="以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“http://blog.3gstdy.com/&amp;quot;); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri u">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" class="article-date">
+  <time datetime="2010-11-19T17:13:23.000Z" itemprop="datePublished">2010-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用的Intent的URI及示例
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“<a href="http://blog.3gstdy.com/&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com/&quot;)</a>; Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri uri = Uri.parse(“geo:52.76,-79.0342”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 三、打开拨号界面 ,类型是Intent.ACTION_DIAL Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_DIAL, uri); 四、直接拨打电话,与三不同的是，这个直接拨打电话，而不是打开拨号界面 Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_CALL, uri); 五、卸载一个应用，Intent的类别是Intent.ACTION_DELETE Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_DELETE, uri); 六、安装应用程序,Intent的类别是Intent.ACTION_PACKAGE_ADDED Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED, uri); 七、播放音频文件 Uri uri = Uri.parse(“file:///sdcard/download/everything.mp3”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.setType(“audio/mp3”); 八、打开发邮件界面 Uri uri= Uri.parse(“mailto:<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); 九、发邮件,与八不同这里是将邮件发送出去， Intent intent = new Intent(Intent.ACTION_SEND); String[] tos = { “<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“ }; String[] ccs = { “<a href="mailto:webmaster@3gstdy.com" target="_blank" rel="noopener">webmaster@3gstdy.com</a>“ }; intent.putExtra(Intent.EXTRA_EMAIL, tos); intent.putExtra(Intent.EXTRA_CC, ccs); intent.putExtra(Intent.EXTRA_TEXT, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_SUBJECT, “<a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“message/rfc882”); Intent.createChooser(intent, “Choose Email Client”); //发送带附件的邮件 Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(Intent.EXTRA_SUBJECT, “The email subject text”); intent.putExtra(Intent.EXTRA_STREAM, “file:///sdcard/mysong.mp3”); intent.setType(“audio/mp3”); startActivity(Intent.createChooser(intent, “Choose Email Client”)); 十、发短信 Uri uri= Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.putExtra(“sms_body”, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“vnd.android-dir/mms-sms”); 十一、直接发邮件 Uri uri= Uri.parse(“smsto://100861”); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; 十二、发彩信 Uri uri= Uri.parse(“content://media/external/images/media/23”); Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_STREAM, uri); intent.setType(“image/png”); 十三、# Market 相关 1 //寻找某个应用 Uri uri = Uri.parse(“market://search?q=pname:pkg_name”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where pkg_name is the full package path for an application 2 //显示某个应用的相关信息 Uri uri = Uri.parse(“market://details?id=app_id”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where app_id is the application ID, find the ID //by clicking on your application on Market home //page, and notice the ID from the address bar 十四、路径规划 Uri uri = Uri.parse(“<a href="http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)" target="_blank" rel="noopener">http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)</a>; Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where startLat, startLng, endLat, endLng are a long with 6 decimals like: 50.123456</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" data-id="cjnibie5b003w6w0f0amgrq2v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android中的Intent和Intent-fliter
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">火灾自救逃生15法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SQLITE数据类型 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型： NULL: 表示一个NULL值 INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储. REAL: IEEE 浮点数 TEXT: 按照字符串来存储 BLOB">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLITE数据类型">
+<meta property="og:url" content="http://www.daahe.com/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型： NULL: 表示一个NULL值 INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储. REAL: IEEE 浮点数 TEXT: 按照字符串来存储 BLOB">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLITE数据类型">
+<meta name="twitter:description" content="SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型： NULL: 表示一个NULL值 INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储. REAL: IEEE 浮点数 TEXT: 按照字符串来存储 BLOB">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" class="article-date">
+  <time datetime="2011-03-22T11:09:26.000Z" itemprop="datePublished">2011-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQLITE数据类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型：</p>
+<p>NULL: 表示一个NULL值</p>
+<p>INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储.</p>
+<p>REAL: IEEE 浮点数</p>
+<p>TEXT: 按照字符串来存储</p>
+<p>BLOB: 按照二进制值存储,不做任何改变.</p>
+<p>要注意,这些类型是值本身的属性,而不是列的属性.</p>
+<p>但是为了和其他DBMS(以及SQL标准)兼容，在其create table语句中可以指定列的类型，为此,SQLite有个列相似性的概念(Column Affinity). 列相似性是列的属性,SQLite有以下几种列相似性:</p>
+<p>TEXT: TEXT列使用NULL,TEXT或者BLOB存储任何插入到此列的数据,如果数据是数字,则转换为TEXT.</p>
+<p>NUMERIC: NUMERIC列可以使用任何存储类型,它首先试图将插入的数据转换为REAL或INTEGER型的,如果成功则存储为REAL和INTEGER型,否则不加改变的存入.</p>
+<p>INTEGER:和NUMERIC类似,只是它将可以转换为INTEGER值都转换为INTEGER，如果是REAL型，且没有小数部分，也转为INTEGER</p>
+<p>REAL: 和NUMERIC类型 只是它将可以转换为REAL和INTEGER值都转换为REAL.</p>
+<p>NONE:不做任何改变的尝试.</p>
+<p>SQLite根据create table语句来决定每个列的列相似性.规则如下(大小写均忽略):</p>
+<p>1. 如果数据类型中包括INT,则是INTEGER</p>
+<p>2. 如果数据类型中包括CHAR,CLOB,TEXT则是TEXT</p>
+<p>3. 如果数据类型中包括BLOB,或者没有指定数据类型,则是NONE</p>
+<p>4. 如果数据类型中包括REAL,FLOA或者DOUB,则是REAL</p>
+<p>5. 其余的情况都是NUMERIC</p>
+<p>由上可知,对于sqlite来说 char,varchar,nchar,nvarchar等都是等价的，且后面最大长度也是没有意义的。但是对于其他DBMS却不是相同的。另外，列相似性仅仅是向Sqlite提出了一个存储数据的建议，即使实际存储的数据类型和列相似性不一致，SQLite还是可以成功插入的，下面给出一个例子来说明下以上论述，注意，这个例子需要在SQLite的命令行下运行，如果在SQLite Expert工具下执行，SQLite会进行一些额外的处理。要注意SQLite的这种特性可能会给SQLite的ADO驱动造成一些麻烦，因为.NET都是强类型的语言，必须把数据库中的字段转换为合适的类型，所以在插入数据的时候，还是应该严格的按照create table中的定义插入数据。</p>
+<p>(2)自增列</p>
+<p>在SQL Server中，只需要指定identity(1,1)就可以设定自增列，但是在SQLite中不支持这样做。在SQLite中，任何一张表都有一个字段类型是Integer，且是自增的，这个列是作为B树的索引的，它的名字是ROWID，如下图所示：</p>
+<p>test2表虽然只有一列，但是ROWID列还是存在的。在程序中对任何一张表都可以使用ROWID作为自增列。不过这样可能导致和其他数据库的不兼容，SQLite中如果一个列的声明类型是Integer，并且是主键，那么这个列的名字就成为ROWID的别名。注意，声明类型必须是 Integer，而不能是int或bigint之类。例如：</p>
+<p>注意上面例子的最后3条语句，它显示了SQLite默认的自增列算法是在当前表中最大的数再加1，这样可能导致的结果是ID被重复使用——当最后一条数据被删除的时候。这与SQL Server的Identity列的行为是不一致的，例如：</p>
+<p>SQL Server会记住每一次插入的序号，哪怕它已经被删除了。要实现SQL Server 这样的效果，需要使用autoincrement关键字。如下例所示：</p>
+<p>不过 autoincrement关键字不被SQL Server支持(我不知道SQL 92标准中是否有此关键字)，同样SQL Server的 indentity关键字在SQLite中也无法使用，因为SQLite只要求声明类型必须是integer才可以启用自增列。所以，我想不出什么方法能使建库的脚本能够不加修改的被两种数据库使用。</p>
+<p>(3) 日期函数</p>
+<p>Sqlite的日期函数比较有特色，它的使用本质上是调用C的库函数strftime,基本使用方法如下：</p>
+<p>(4) 不被支持的特性</p>
+<p>用户自定义函数，存储过程</p>
+<p>外键的约束(不过可以通过自定义触发器来替代)</p>
+<p>right out join , full out join</p>
+<p>grant revoke</p>
+<p>SQLITE数据类型　　SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型：　　NULL: 表示一个NULL值　　INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储.　　REAL: IEEE 浮点数　　TEXT: 按照字符串来存储　　BLOB: 按照二进制值存储,不做任何改变.　　要注意,这些类型是值本身的属性,而不是列的属性.　　但是为了和其他DBMS(以及SQL标准)兼容，在其create table语句中可以指定列的类型，为此,SQLite有个列相似性的概念(Column Affinity). 列相似性是列的属性,SQLite有以下几种列相似性:　　TEXT: TEXT列使用NULL,TEXT或者BLOB存储任何插入到此列的数据,如果数据是数字,则转换为TEXT.　　NUMERIC: NUMERIC列可以使用任何存储类型,它首先试图将插入的数据转换为REAL或INTEGER型的,如果成功则存储为REAL和INTEGER型,否则不加改变的存入.　　INTEGER:和NUMERIC类似,只是它将可以转换为INTEGER值都转换为INTEGER，如果是REAL型，且没有小数部分，也转为INTEGER　　REAL: 和NUMERIC类型 只是它将可以转换为REAL和INTEGER值都转换为REAL.　　NONE:不做任何改变的尝试.　　SQLite根据create table语句来决定每个列的列相似性.规则如下(大小写均忽略):　　1. 如果数据类型中包括INT,则是INTEGER　　2. 如果数据类型中包括CHAR,CLOB,TEXT则是TEXT　　3. 如果数据类型中包括BLOB,或者没有指定数据类型,则是NONE　　4. 如果数据类型中包括REAL,FLOA或者DOUB,则是REAL　　5. 其余的情况都是NUMERIC　　由上可知,对于sqlite来说 char,varchar,nchar,nvarchar等都是等价的，且后面最大长度也是没有意义的。但是对于其他DBMS却不是相同的。另外，列相似性仅仅是向Sqlite提出了一个存储数据的建议，即使实际存储的数据类型和列相似性不一致，SQLite还是可以成功插入的，下面给出一个例子来说明下以上论述，注意，这个例子需要在SQLite的命令行下运行，如果在SQLite Expert工具下执行，SQLite会进行一些额外的处理。要注意SQLite的这种特性可能会给SQLite的ADO驱动造成一些麻烦，因为.NET都是强类型的语言，必须把数据库中的字段转换为合适的类型，所以在插入数据的时候，还是应该严格的按照create table中的定义插入数据。　　(2)自增列　　在SQL Server中，只需要指定identity(1,1)就可以设定自增列，但是在SQLite中不支持这样做。在SQLite中，任何一张表都有一个字段类型是Integer，且是自增的，这个列是作为B树的索引的，它的名字是ROWID，如下图所示：　　test2表虽然只有一列，但是ROWID列还是存在的。在程序中对任何一张表都可以使用ROWID作为自增列。不过这样可能导致和其他数据库的不兼容，SQLite中如果一个列的声明类型是Integer，并且是主键，那么这个列的名字就成为ROWID的别名。注意，声明类型必须是 Integer，而不能是int或bigint之类。例如：　　注意上面例子的最后3条语句，它显示了SQLite默认的自增列算法是在当前表中最大的数再加1，这样可能导致的结果是ID被重复使用——当最后一条数据被删除的时候。这与SQL Server的Identity列的行为是不一致的，例如：　　SQL Server会记住每一次插入的序号，哪怕它已经被删除了。要实现SQL Server 这样的效果，需要使用autoincrement关键字。如下例所示：　　不过 autoincrement关键字不被SQL Server支持(我不知道SQL 92标准中是否有此关键字)，同样SQL Server的 indentity关键字在SQLite中也无法使用，因为SQLite只要求声明类型必须是integer才可以启用自增列。所以，我想不出什么方法能使建库的脚本能够不加修改的被两种数据库使用。　　(3) 日期函数　　Sqlite的日期函数比较有特色，它的使用本质上是调用C的库函数strftime,基本使用方法如下：　　(4) 不被支持的特性　　用户自定义函数，存储过程　　外键的约束(不过可以通过自定义触发器来替代)　　right out join , full out join　　grant revoke</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" data-id="cjnibie7v009r6w0flbw0ig5u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android用sax读取XML时不能读取换行符号后面的内容的问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android创建sdcard详细图解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

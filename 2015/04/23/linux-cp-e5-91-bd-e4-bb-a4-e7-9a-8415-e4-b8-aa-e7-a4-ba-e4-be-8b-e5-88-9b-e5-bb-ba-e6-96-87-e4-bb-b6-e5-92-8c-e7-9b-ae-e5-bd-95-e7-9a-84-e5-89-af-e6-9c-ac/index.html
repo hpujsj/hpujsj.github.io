@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Linux cp 命令的15个示例 - 创建文件和目录的副本 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用cp命令来实现。 copy 命令是什么 正如我们在上文提到的，cp是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。 1. 不带任何参数下，运行cp这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux cp 命令的15个示例 - 创建文件和目录的副本">
+<meta property="og:url" content="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用cp命令来实现。 copy 命令是什么 正如我们在上文提到的，cp是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。 1. 不带任何参数下，运行cp这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/134411r8in1vzsuppvz1wd.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_127.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_128.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_129.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_130.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_131.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_132.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_133.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_134.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_135.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_136.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_137.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_138.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_139.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_140.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_141.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_142.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_143.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_144.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_145.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_146.png">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_147.png">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux cp 命令的15个示例 - 创建文件和目录的副本">
+<meta name="twitter:description" content="拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用cp命令来实现。 copy 命令是什么 正如我们在上文提到的，cp是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。 1. 不带任何参数下，运行cp这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2015/04/134411r8in1vzsuppvz1wd.png">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" class="article-date">
+  <time datetime="2015-04-22T17:44:23.000Z" itemprop="datePublished">2015-04-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux cp 命令的15个示例 - 创建文件和目录的副本
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用<strong>cp</strong>命令来实现。</p>
+<h3 id="copy-命令是什么"><a href="#copy-命令是什么" class="headerlink" title="copy 命令是什么"></a>copy 命令是什么</h3><p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/134411r8in1vzsuppvz1wd.png" alt=""> 正如我们在上文提到的，<strong>cp</strong>是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。</p>
+<h4 id="1-不带任何参数下，运行cp"><a href="#1-不带任何参数下，运行cp" class="headerlink" title="1. 不带任何参数下，运行cp"></a>1. 不带任何参数下，运行cp</h4><p>这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像这样子输入：</p>
+<ol>
+<li>$ cp myfile.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_127.png" alt="Copy without options"> 如果我们没有输入绝对路径，这意味着我们正在当前目录下拷贝一个文件。在上面的实例中，<strong>myfile.txt</strong>位于<strong>/home/pungki/Documents</strong>目录下。如果我们当前目录正是<strong>/home/pungki/Documets</strong>,那么没有必要输入<strong>/home/pungki/Documents/myfile.txt</strong>来拷贝文件。当<strong>/home/pungki/office</strong>是一个目录，则文件会拷贝到里面。</p>
+<h4 id="2-同时拷贝多个文件"><a href="#2-同时拷贝多个文件" class="headerlink" title="2. 同时拷贝多个文件"></a>2. 同时拷贝多个文件</h4><p>要在同时拷贝多个文件，我们只需要将多个文件用空格隔开。如下示例：</p>
+<ol>
+<li>$ cp file_1.txt file_2.txt file_3.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_128.png" alt="Copying multiple files"></p>
+<h4 id="3-拷贝一个目录"><a href="#3-拷贝一个目录" class="headerlink" title="3. 拷贝一个目录"></a>3. 拷贝一个目录</h4><p>要拷贝一个目录的话会有点棘手。你需要添加 <strong>-r</strong> 或者 <strong>-R</strong> 选项来实现。<strong>-r</strong>或<strong>-R</strong> 选项表明递归操作。无论该目录是否为空目录，<strong>这个选项都是必要的</strong>。如下示例：</p>
+<ol>
+<li>$ cp -r directory_1 /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_129.png" alt="Copy directory"> 需要注意的一件事，你需要<strong>移除在目录名尾部的斜杠</strong>。否则你会收到类似的错误信息<strong>cp: omitting directory‘directory_1/</strong>’ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_130.png" alt="Copy directory error"> 如果你收到错误信息，则目录不会被拷贝到目标文件夹。</p>
+<h4 id="4-创建文件的硬链接，而不是拷贝它们"><a href="#4-创建文件的硬链接，而不是拷贝它们" class="headerlink" title="4. 创建文件的硬链接，而不是拷贝它们"></a>4. 创建文件的硬链接，而不是拷贝它们</h4><p>拷贝文件意味着你必须使用一些存储空间来储存拷贝的文件。有时候出于某种原因，你可能想要创建“快捷方式”或者链接到文件，而不是拷贝它们。要做到这一点，我们可以使用<strong>-l</strong>选项。</p>
+<ol>
+<li>$ cp -l file_4.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_131.png" alt="Copy hardlinks"> 从上图看出，我们看到<strong>file_4.txt</strong>的硬链接已经拷贝到<strong>/home/pungki/office/file_4.txt</strong>。标记有同样的 inode, <strong>835386</strong>。但是请注意，硬链接不能用来创建目录。下面让我们看一个例子。 _原目录 directory_1 的 inode 值是 278230_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_132.png" alt="Inode number of original directory"> _原文件 file_5.txt 的 inode 值是 279231_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_133.png" alt="Original inode number of file"> _对 directory_1 执行 cp 命令_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_134.png" alt="Copy using -rl options"> _拷贝的 directory_1副本的 inode 值是 274800_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_135.png" alt="Inode number of copied directory"> _拷贝的 file_5.txt副本的 inode 值是 279231。跟它的原文件一样_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_136.png" alt="Inode number of copied file"></p>
+<h4 id="5-创建文件的符号链接"><a href="#5-创建文件的符号链接" class="headerlink" title="5. 创建文件的符号链接"></a>5. 创建文件的符号链接</h4><p>也有一种链接叫做 <strong>软链接</strong> 或 <strong>符号链接</strong>。我们用 <strong>-s</strong> 选项来实现。下面是命令的示例。</p>
+<ol>
+<li>$ cp -s /home/pungki/Documents/file_6.txt file_6.txt</li>
+</ol>
+<p>创建符号链接只能在当前目录下进行。在上面的截图中，我们想要创建符号链接 <strong>/home/pungki/office/file_6.txt 指向原文件 /home/pungki/Documents/file_6.txt</strong>。但是为了创建符号链接，<strong>我必须</strong>在将/home/pungki/office作为目标目录。一旦我设法进入目录，我就可以向上面一样运行 cp <strong>-s</strong> 命令。 现在你列出文件详情，你会看到<strong>/home/pungki/office/file_6.txt</strong>指向了原文件。在其文件名后标记了箭头符号。 <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_137.png" alt="Symbolic links"></p>
+<h4 id="6-不随符号链接拷贝原文件"><a href="#6-不随符号链接拷贝原文件" class="headerlink" title="6. 不随符号链接拷贝原文件"></a>6. 不随符号链接拷贝原文件</h4><p>[译注:意思是只拷贝符号链接文件] 我们可以用 <strong>-P</strong> 选项来实现。当对符号链接使用 cp 命令，它会照原样拷贝它自身。来看看下面的示例。</p>
+<ol>
+<li>$ cp -P file_6.txt ./movie</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_138.png" alt="Copy using -P option"> 如你所见，cp 命令照原样拷贝<strong>file_6.txt</strong>自身。文件类型仍然是一个符号链接。</p>
+<h4 id="7-随符号链接拷贝原文件"><a href="#7-随符号链接拷贝原文件" class="headerlink" title="7. 随符号链接拷贝原文件"></a>7. 随符号链接拷贝原文件</h4><p>现在我们可以试一下<strong>-L</strong>选项。基本上，这个刚好与上面的 -P 选项 <strong>相反</strong>。下面是个示例：</p>
+<ol>
+<li>$ cp -L file_6.txt ./movie</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_139.png" alt="Copy using -L option"> 使用这个选项，拷贝的文件将会和<strong>file_6.txt</strong>原文件一样。我们可以从文件大小看出来。拷贝的文件有<strong>50 字节</strong>而当<strong>file_6.txt</strong>作为符号链接时文件大小只有<strong>33 字节</strong>。</p>
+<h4 id="8-文件归档"><a href="#8-文件归档" class="headerlink" title="8. 文件归档"></a>8. 文件归档</h4><p>当我们去拷贝一个目录时，我们会用<strong>-r</strong>或者<strong>-R</strong>选项。但是我们也可以用<strong>-a</strong>选项来归档文件。这样会创建文件和目录的<strong>准确套录</strong>，如果有的话也可以包括符号链接。下面是示例：[译注：-a 会保留原文件或目录的属性]</p>
+<ol>
+<li>$ cp -a directory_1/ /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_140.png" alt="Copy using -a option"> 上列的命令会拷贝一个名为 directory_1 的目录到<strong>/home/pungki/office</strong>目录下。如你所见，<strong>file_6.txt</strong>依然作为符号链接被复制。</p>
+<h4 id="9-显示正在做什么"><a href="#9-显示正在做什么" class="headerlink" title="9. 显示正在做什么"></a>9. 显示正在做什么</h4><p>默认情况下，当拷贝作业成功时，我们仅仅会再次看到命令提示符。如果你想了解在拷贝文件时都发生了什么，我们可以用 <strong>-v</strong> 选项。</p>
+<ol>
+<li>$ cp -v *.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_141.png" alt="Verbose option"> 当我们从当前目录下拷贝所有的 txt 文件到 <strong>/home/pungki/office</strong> 目录，<strong>-v</strong>选项会显示正在操作的过程。这些额外的信息会帮助我们了解更多拷贝过程。</p>
+<h4 id="10-当原文件较目标文件新时拷贝"><a href="#10-当原文件较目标文件新时拷贝" class="headerlink" title="10. 当原文件较目标文件新时拷贝"></a>10. 当原文件较目标文件新时拷贝</h4><p>我们用 <strong>-u</strong>选项来实现。下面是具体示例:</p>
+<ol>
+<li>$ cp -vu *.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_142.png" alt="Copy only if newer"> 起初我们看到<strong>file_1.txt 是0字节</strong>大小。然后我们用 vi 编辑，加入一些内容并保存。接下来，我们发现文件大小已经变为了 36 个字节。 与此同时在<strong>/home/pungki/office</strong>目录中，我们<strong>已经包含了所有</strong>txt文件。当我们用 -u 选项，结合 -v 选项来查看具体操作，cp 命令会只拷贝比目标目录下新的文件。因此，我们看到<strong>只有 file_1.txt 拷贝到 /home/pungki/office 目录下</strong>。</p>
+<h4 id="11-使用交互模式"><a href="#11-使用交互模式" class="headerlink" title="11. 使用交互模式"></a>11. 使用交互模式</h4><p>交互模式下会询问是否覆盖目标目录下的文件。使用 <strong>-i</strong> 选项，启用交互模式。</p>
+<ol>
+<li>$ cp -ir directory_1/ /home/pungki/office/</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_143.png" alt="Interactive mode"></p>
+<h4 id="12-创建备份文件"><a href="#12-创建备份文件" class="headerlink" title="12. 创建备份文件"></a>12. 创建备份文件</h4><p>当目标目录已经含有同名文件，默认情况下 cp 命令会覆盖目标目录下的同名文件。使用 <strong>–backup</strong> 选项，cp 命令会为每一个现有的目标文件做一个备份。../office 相对于 /home/pungki/office 。下面是示例：</p>
+<ol>
+<li>$ cp –backup=simple -v *.txt ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_144.png" alt="Backup option"> 正如我们看到的，<strong>–backup=simple</strong> 选项会创建一个在文件名末尾用波浪符标记(~)的备份文件。<strong>–backup</strong> 选项也有一些其他控制：</p>
+<ul>
+<li><strong>none, off</strong>:从不备份(即使给出 –backup)</li>
+<li><strong>numbered, t</strong>:用编号备份</li>
+<li><strong>existing, nil</strong> :如果编号备份存在则使用编号备份，否者用简易备份[译注：也就是用波浪号]</li>
+<li><strong>simple, never</strong> :总是使用简易备份</li>
+</ul>
+<h4 id="13-只拷贝文件属性"><a href="#13-只拷贝文件属性" class="headerlink" title="13. 只拷贝文件属性"></a>13. 只拷贝文件属性</h4><p>cp 命令也提供给我们 <strong>–attributes-only</strong> 选项。顾名思义，这个选项只会拷贝文件名及其属性，不会拷贝任何数据。下面是示例：</p>
+<ol>
+<li>$ cp –attributes-only file_6.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_145.png" alt="Copy attributes only"> 从上图看出， <strong>原文件 file_6.txt 有 50 字节</strong>大小。用了 <strong>–attributes-only</strong>选项，<strong>拷贝的文件只有0字节</strong>大小。这是因为文件内容并没有拷贝。</p>
+<h4 id="14-强制拷贝"><a href="#14-强制拷贝" class="headerlink" title="14. 强制拷贝"></a>14. 强制拷贝</h4><p>用了 <strong>-f</strong> 选项会强制进行拷贝操作。如果目标文件不能打开，可以用 <strong>-f</strong> 尝试一下。</p>
+<ol>
+<li>$ cp -f *.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_146.png" alt="Copy with force"></p>
+<h4 id="15-在拷贝之前先删除目标"><a href="#15-在拷贝之前先删除目标" class="headerlink" title="15. 在拷贝之前先删除目标"></a>15. 在拷贝之前先删除目标</h4><p>我们可以用，<strong>–remove-destination 选项</strong> 实现。这个选项与上面的<strong>-f选项形成对照</strong>。如果 cp 命令在目标目录下发现同名文件， cp 命令会先删除目标文件，然后再拷贝一份新的。下面是示例：</p>
+<ol>
+<li>$ cp –remove-destination *.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_147.png" alt="Remove destination option"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>cp 命令是 Linux 下最基础的命令之一。对于那些想要学习 Linux 的人，必须得把这个命令掌握。当然你也可以在你的终端下键入<strong>man cp</strong> 或者 <strong>cp –help</strong> 来显示更多帮助信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" data-id="cjnibie7s009l6w0f21m6ni79" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux 增加非标准端口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">防御暴力破解SSH攻击</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

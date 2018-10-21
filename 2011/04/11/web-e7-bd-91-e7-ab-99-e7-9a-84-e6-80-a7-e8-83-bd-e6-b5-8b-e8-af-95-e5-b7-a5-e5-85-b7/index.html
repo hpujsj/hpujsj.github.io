@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Web网站的性能测试工具 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="随着Web 2.0技术的迅速发展，许多公司都开发了一些基于Web的网站服务，通常在设计开发Web应用系统的时候很难模拟出大量用户同时访问系统的实际情况，因此，当Web网站遇到访问高峰时，容易发生服务器响应速度变慢甚至服务中断。为了避免这种情况，需要一种能够真实模拟大量用户访问Web应用系统的性能测试工具进行压力测试，来测试静态HTML页面的响应时间，甚至测试动态网页（包括ASP、PHP、JSP等）">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web网站的性能测试工具">
+<meta property="og:url" content="http://www.daahe.com/2011/04/11/web-e7-bd-91-e7-ab-99-e7-9a-84-e6-80-a7-e8-83-bd-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="随着Web 2.0技术的迅速发展，许多公司都开发了一些基于Web的网站服务，通常在设计开发Web应用系统的时候很难模拟出大量用户同时访问系统的实际情况，因此，当Web网站遇到访问高峰时，容易发生服务器响应速度变慢甚至服务中断。为了避免这种情况，需要一种能够真实模拟大量用户访问Web应用系统的性能测试工具进行压力测试，来测试静态HTML页面的响应时间，甚至测试动态网页（包括ASP、PHP、JSP等）">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web网站的性能测试工具">
+<meta name="twitter:description" content="随着Web 2.0技术的迅速发展，许多公司都开发了一些基于Web的网站服务，通常在设计开发Web应用系统的时候很难模拟出大量用户同时访问系统的实际情况，因此，当Web网站遇到访问高峰时，容易发生服务器响应速度变慢甚至服务中断。为了避免这种情况，需要一种能够真实模拟大量用户访问Web应用系统的性能测试工具进行压力测试，来测试静态HTML页面的响应时间，甚至测试动态网页（包括ASP、PHP、JSP等）">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-web-e7-bd-91-e7-ab-99-e7-9a-84-e6-80-a7-e8-83-bd-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/04/11/web-e7-bd-91-e7-ab-99-e7-9a-84-e6-80-a7-e8-83-bd-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7/" class="article-date">
+  <time datetime="2011-04-11T03:25:37.000Z" itemprop="datePublished">2011-04-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Web网站的性能测试工具
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>随着Web 2.0技术的迅速发展，许多公司都开发了一些基于Web的<a href="http://www.williamlong.info/archives/1253.html" target="_blank" rel="noopener">网站服务</a>，通常在设计开发Web应用系统的时候很难模拟出大量用户同时访问系统的实际情况，因此，当Web网站遇到访问高峰时，容易发生服务器响应速度变慢甚至服务中断。为了避免这种情况，需要一种能够真实模拟大量用户访问Web应用系统的性能测试工具进行压力测试，来测试静态HTML页面的响应时间，甚至测试动态网页（包括ASP、PHP、JSP等）的响应时间，为服务器的性能优化和调整提供数据依据。 我推荐各位Web 2.0开发测试人员使用Microsoft 的<a href="http://www.microsoft.com/technet/archive/itsolutions/intranet/downloads/webstres.mspx" target="_blank" rel="noopener">Web Application Stress Tool</a>这个工具软件，这个微软提供的小工具仅9.58M，很小巧且实用。虽然功能上比不了专业的LoadRunner，但LoadRunner体积庞大，价格不菲，一般的企业也不会花那么多钱去购买LoadRunner，而微软的WAS则是完全免费，并且主要的功能都有，够用就行。 Microsoft Web Application Stress Tool能有效测试一个网站的负载性能，这个软件可以通过脚本模拟100个强并发用户的访问，并模拟实际用户的一些点击操作，WAS还可以连接上远程Windows网站服务器的性能计数器（Performance Counter），通过对服务器性能（CPU/内存等）的性能分析来找到系统的瓶颈。CPU使用百分比反映了处理器开销，CPU使用百分比持续地超过75%是性能瓶颈在于处理器的一个明显的迹象。 每次测试运行结束后WAS会生成详细的报表，WAS报表可以从View菜单选择Reports查看。 另外，CSDN也<a href="http://sd.csdn.net/subject/testtool.htm" target="_blank" rel="noopener">总结了</a>一些其他的测试工具，包括性能测试工具和功能测试工具，前十大测试工具排名如下： <strong>业级自动化测试工具WinRunner</strong> Mercury Interactive公司的WinRunner是一种企业级的功能测试工具，用于检测应用程序是否能够达到预期的功能及正常运行。通过自动录制、检测和回放用户的应用操作，WinRunner能够有效地帮助测试人员对复杂的企业级应用的不同发布版进行测试，提高测试人员的工作效率和质量，确保跨平台的、复杂的企业级应用无故障发布及长期稳定运行。 <strong>工业标准级负载测试工具Loadrunner</strong> LoadRunner 是一种预测系统行为和性能的负载测试工具。通过以模拟上千万用户实施并发负载及实时性能监测的方式来确认和查找问题，LoadRunner 能够对整个企业架构进行测试。通过使用LoadRunner ，企业能最大限度地缩短测试时间，优化性能和加速应用系统的发布周期。 <strong>全球测试管理系统testdirector</strong> TestDirector 是业界第一个基于Web的测试管理系统，它可以在您公司内部或外部进行全球范围内测试的管理。通过在一个整体的应用系统中集成了测试管理的各个部分，包括需求管理，测试计划，测试执行以及错误跟踪等功能，TestDirector极大地加速了测试过程。 <strong>功能测试工具Rational Robot</strong> IBM Rational Robot 是业界最顶尖的功能测试工具，它甚至可以在测试人员学习高级脚本技术之前帮助其进行成功的测试。它集成在测试人员的桌面 IBM Rational TestManager 上，在这里测试人员可以计划、组织、执行、管理和报告所有测试活动，包括手动测试报告。这种测试和管理的双重功能是自动化测试的理想开始。 <strong>单元测试工具xUnit系列</strong> 目前的最流行的单元测试工具是xUnit系列框架，常用的根据语言不同分为JUnit（java），CppUnit（C++），DUnit （Delphi ），NUnit（.net），PhpUnit（Php ）等等。该测试框架的第一个和最杰出的应用就是由Erich Gamma （《设计模式》的作者）和Kent Beck（XP（Extreme Programming）的创始人 ）提供的开放源代码的JUnit. <strong>功能测试工具SilkTest</strong> Borland SilkTest 2006属于软件功能测试工具，是Borland公司所提出软件质量管理解决方案的套件之一。这个工具采用精灵设定与自动化执行测试，无论是程序设计新手或资深的专家都能快速建立功能测试，并分析功能错误。 <strong>性能测试工具WAS</strong> Microsoft Web Application Stress Tool 是由微软的网站测试人员所开发，专门用来进行实际网站压力测试的一套工具。透过这套功能强大的压力测试工具，您可以使用少量的Client端计算机仿真大量用户上线对网站服务所可能造成的影响。 <strong>自动化白盒测试工具Jtest</strong> Jtest是parasoft公司推出的一款针对java语言的自动化白盒测试工具，它通过自动实现java的单元测试和代码标准校验，来提高代码的可靠性。parasoft同时出品的还有C++ test，是一款C/C++白盒测试工具。 <strong>功能和性能测试的工具JMeter</strong> JMeter是Apache组织的开放源代码项目，它是功能和性能测试的工具，100%的用java实现。 <strong>性能测试和分析工具WEBLODE</strong> webload是RadView公司推出的一个性能测试和分析工具，它让web应用程序开发者自动执行压力测试；webload通过模拟真实用户的操作，生成压力负载来测试web的性能。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/04/11/web-e7-bd-91-e7-ab-99-e7-9a-84-e6-80-a7-e8-83-bd-e6-b5-8b-e8-af-95-e5-b7-a5-e5-85-b7/" data-id="cjnibie78008j6w0fo4feo2b1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/04/12/android-e5-a6-82-e4-bd-95-e5-88-a4-e6-96-ad-e7-bd-91-e7-bb-9c-e7-b1-bb-e5-9e-8bwifi-e8-bf-98-e6-98-af3g/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android如何判断网络类型:WIFI还是3G
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/04/07/android-e9-9d-a2-e4-b8-b4-e4-ba-94-e5-a4-a7-e6-8c-91-e6-88-98-ef-bc-9a-e9-99-8d-e4-bd-8e-e5-88-86-e5-8c-96-e6-94-b9-e5-96-84-e4-bd-93-e9-aa-8c/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android面临五大挑战：降低分化 改善体验</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

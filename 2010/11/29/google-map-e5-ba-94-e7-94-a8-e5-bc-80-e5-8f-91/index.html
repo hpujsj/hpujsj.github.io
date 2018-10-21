@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Google Map应用开发 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大家知道Google地图开放的地理信息平台，在Android开发使用Google的地图十分方便，因为在Android中Google给出了相应的组件MapView。 下面我简要的介绍一下MapView的使用方法： 一、准备工作:生成apiKey，要使用Google Map必须指定一个apiKey。生成方式如下： 1. 首先先要获取你的debug keystore位置： 打开Eclipse—&amp;gt;W">
+<meta name="keywords" content="Android,开发,Google Map,MapView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Map应用开发">
+<meta property="og:url" content="http://www.daahe.com/2010/11/29/google-map-e5-ba-94-e7-94-a8-e5-bc-80-e5-8f-91/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="大家知道Google地图开放的地理信息平台，在Android开发使用Google的地图十分方便，因为在Android中Google给出了相应的组件MapView。 下面我简要的介绍一下MapView的使用方法： 一、准备工作:生成apiKey，要使用Google Map必须指定一个apiKey。生成方式如下： 1. 首先先要获取你的debug keystore位置： 打开Eclipse—&amp;gt;W">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/5680747256aaba79fa8c394b6091d3fd.png">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google Map应用开发">
+<meta name="twitter:description" content="大家知道Google地图开放的地理信息平台，在Android开发使用Google的地图十分方便，因为在Android中Google给出了相应的组件MapView。 下面我简要的介绍一下MapView的使用方法： 一、准备工作:生成apiKey，要使用Google Map必须指定一个apiKey。生成方式如下： 1. 首先先要获取你的debug keystore位置： 打开Eclipse—&amp;gt;W">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/5680747256aaba79fa8c394b6091d3fd.png">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-google-map-e5-ba-94-e7-94-a8-e5-bc-80-e5-8f-91" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/29/google-map-e5-ba-94-e7-94-a8-e5-bc-80-e5-8f-91/" class="article-date">
+  <time datetime="2010-11-29T01:48:06.000Z" itemprop="datePublished">2010-11-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Google Map应用开发
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家知道Google地图开放的地理信息平台，在Android开发使用Google的地图十分方便，因为在Android中Google给出了相应的组件MapView。 下面我简要的介绍一下MapView的使用方法： 一、准备工作:生成apiKey，要使用Google Map必须指定一个apiKey。生成方式如下： 1. 首先先要获取你的debug keystore位置： 打开Eclipse—&gt;Windows—&gt;Preferences—&gt;Android—&gt;Build 查看默认的debug keystore位置，我的是C:Documents and SettingsMYNAME .androiddebug.keystore 2. 在cmd中执行: keytool -list -keystore ~/.android/debug.keystore 或者是： keytool -list -alias androiddebugkey -keystore “路径debug.keystore “ -storepass android -keypass android 双引号中的为你keystore位置， 注意，你的双引号一定要有，否则就会报错：keytool error: java.lang.RuntimeException: Usage error, and is not a legal command 执行结果： androiddebugkey, May 4, 2009, PrivateKeyEntry, Certificate fingerprint (MD5): XX:XX:XX:XX:XX:XX:XX:XX…………. 这里的XX:XX:XX:XX:XX:XX:XX:XX………….就是你的认证指纹 3. 打开<a href="http://code.google.com/intl/zh-CN/android/maps-api-signup.html" target="_blank" rel="noopener">http://code.google.com/intl/zh-CN/android/maps-api-signup.html</a> 填入你的认证指纹(MD5)即可获得apiKey了,结果显示如下： 感谢您注册 Android 地图 API 密钥！ 您的密钥是： XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 4. 使用得到的apiKey: 在layout中加入MapView android:id=”@+id/mapview” android:layout_width=”fill_parent” android:layout_height=”fill_parent” android:apiKey=”XXXXXXXXXXXXXXXXXXXXXXXXXXXX” /&gt; 第二、创建一个Android工程使用带有Google API的SDK. 在AndroidManifest.xml的application标签中加入以下代码,表明要使用的地图库 <uses-library android:name="com.google.android.maps"> 第三、创建View的XML文档 <relativelayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout\_width="fill\_parent" android:layout\_height="fill\_parent"> &lt;com.google.android.maps.MapView android:id=”@+id/mapView” android:layout_width=”fill_parent” android:layout_height=”fill_parent” android:apiKey=”0sO38cxd8r3Wfv4_fjXis25jM5WDuFv9BqDgSng” /&gt; </relativelayout> 第四、创建一个继承MapActivity的Activity public class GoogleMap extends MapActivity implements View.OnClickListener{ private MapView mapView = null; private MapController mapCtrl; private GeoPoint geoPoint; public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); super.setContentView(R.layout.googlemap); } @Override protected boolean isRouteDisplayed() { return false; } @Override public void onClick(View arg0) { } } 第五、设置地图视图 在onCreate方法中设置地图 mapView = (MapView)findViewById(R.id.mapView); mapView.setEnabled(true);//开启地图 mapView.setClickable(true);// 允许通过触摸拖动地图 mapView.setBuiltInZoomControls(true);// 可以多点触摸放大 mapView.setSatellite(true);// 使用卫星图 mapCtrl = (MapController) mapView.getController(); mapCtrl.setZoom(15); geoPoint = new GeoPoint((int) ((36.68717 + 0.00010) <em> 1000000), (int) ((117.10398 + 0.00641) </em> 1000000)); mapCtrl.setCenter(geoPoint); mapCtrl.animateTo(geoPoint);// 通过动画方式移动到指定坐标 六、结果 帖一图片作为结果吧 <a href="http://hpujsj.gotoip4.com/blog/wp-content/uploads/2010/11/device.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/5680747256aaba79fa8c394b6091d3fd.png" alt="" title="device"></a></uses-library></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/29/google-map-e5-ba-94-e7-94-a8-e5-bc-80-e5-8f-91/" data-id="cjnibie6800656w0f6gmh29et" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapView/">MapView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/12/05/e6-a8-aa-e7-ab-96-e5-b1-8f-e5-88-87-e6-8d-a2-e6-88-96-e6-8c-89-e8-bf-94-e5-9b-9e-e6-97-b6-e8-a6-81-e6-b3-a8-e9-94-80-e7-9b-b8-e5-85-b3-e7-9b-91-e5-90-ac/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          横竖屏切换或按返回时要注销相关监听
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/11/27/e7-bd-91-e7-ab-99-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e5-ba-94-e8-af-a5-e7-9f-a5-e9-81-93-e7-9a-8462-e4-bb-b6-e4-ba-8b/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">网站开发人员应该知道的62件事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="达合">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="website">
+<meta property="og:title" content="达合">
+<meta property="og:url" content="http://www.daahe.com/page/11/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="达合">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="达合">
+<meta name="twitter:description" content="达合">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/" class="article-date">
+  <time datetime="2011-03-22T13:35:43.000Z" itemprop="datePublished">2011-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/">Android用sax读取XML时不能读取换行符号后面的内容的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用SAX解析XML文档效率比较高，占用内存比较少，所以是Android中解析XML的首先方案。但使用SAX解析XML文档编写程序确不太方便，如果对SAX解析机制不太了解的话，很容易漏掉文本内容。 使用SAX解析XML主要用到的方法有以下3个: public void startElement(String uri, String localName, String qName, Attributes attributes) public void endElement(String s, String s1, String s2) throws SAXException public void characters(char[] arg0, int arg1, int arg2) 从字面意思可以猜出他们的作用。startElement：SAX解析XML文档遇到一个标签时会调用该方法，endElement是当遇到一个标签结果时调用此方法，characters：当遇到一个标签之间的内容时调用此方法。 一般来说按照上面的描述，写一个Handler是很容易的。但有一个问题容易忽视。一个标签之间的字符比较多时，或者字符串中包含有”n”等特殊字符时，就会出现字符丢失的现象。 <data> <title> Android用sax读取XML时 不能读取换行符号 后面的内容的问题 </title> </data> 遇到这种问题不要怀疑SAX不能解析标签中含有”n”或字符比较多的XML。实际上是我们写的Handler是有问题的。SAX在解析XML时，当遇到一个标签中的内容比较多时，就会多次调用characters。所以我们在写Handler时要考虑到这种情况。就不会丢字符了。以下是一种解决方案：建立一个StringBuffer.每次遇到一个标签开始时就清空这个StringBuffer。在每次调用characters时都将字符放到StringBuffer中。在endElement时，StringBuffer中的内容就是一个标签中的完整字符串。</p>
+<p>StringBuffer sb = new StringBuffer();</p>
+<p>public void startElement(String uri, String localName, String qName,</p>
+<p>Attributes attributes) throws SAXException {</p>
+<p>sb.delete(0,sb.length());</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void characters(char[] arg0, int arg1, int arg2) throws SAXException{</p>
+<p>sb.append(arg0, arg1, arg2);</p>
+<p>}</p>
+<p>public void endElement(String s, String s1, String s2) throws SAXException {</p>
+<p>//TODO 此时StringBuffer中的内容就是标签内的完整字符串。</p>
+<p>}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjnibie41001m6w0frh5a0b4x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" class="article-date">
+  <time datetime="2011-03-22T11:09:26.000Z" itemprop="datePublished">2011-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/">SQLITE数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型：</p>
+<p>NULL: 表示一个NULL值</p>
+<p>INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储.</p>
+<p>REAL: IEEE 浮点数</p>
+<p>TEXT: 按照字符串来存储</p>
+<p>BLOB: 按照二进制值存储,不做任何改变.</p>
+<p>要注意,这些类型是值本身的属性,而不是列的属性.</p>
+<p>但是为了和其他DBMS(以及SQL标准)兼容，在其create table语句中可以指定列的类型，为此,SQLite有个列相似性的概念(Column Affinity). 列相似性是列的属性,SQLite有以下几种列相似性:</p>
+<p>TEXT: TEXT列使用NULL,TEXT或者BLOB存储任何插入到此列的数据,如果数据是数字,则转换为TEXT.</p>
+<p>NUMERIC: NUMERIC列可以使用任何存储类型,它首先试图将插入的数据转换为REAL或INTEGER型的,如果成功则存储为REAL和INTEGER型,否则不加改变的存入.</p>
+<p>INTEGER:和NUMERIC类似,只是它将可以转换为INTEGER值都转换为INTEGER，如果是REAL型，且没有小数部分，也转为INTEGER</p>
+<p>REAL: 和NUMERIC类型 只是它将可以转换为REAL和INTEGER值都转换为REAL.</p>
+<p>NONE:不做任何改变的尝试.</p>
+<p>SQLite根据create table语句来决定每个列的列相似性.规则如下(大小写均忽略):</p>
+<p>1. 如果数据类型中包括INT,则是INTEGER</p>
+<p>2. 如果数据类型中包括CHAR,CLOB,TEXT则是TEXT</p>
+<p>3. 如果数据类型中包括BLOB,或者没有指定数据类型,则是NONE</p>
+<p>4. 如果数据类型中包括REAL,FLOA或者DOUB,则是REAL</p>
+<p>5. 其余的情况都是NUMERIC</p>
+<p>由上可知,对于sqlite来说 char,varchar,nchar,nvarchar等都是等价的，且后面最大长度也是没有意义的。但是对于其他DBMS却不是相同的。另外，列相似性仅仅是向Sqlite提出了一个存储数据的建议，即使实际存储的数据类型和列相似性不一致，SQLite还是可以成功插入的，下面给出一个例子来说明下以上论述，注意，这个例子需要在SQLite的命令行下运行，如果在SQLite Expert工具下执行，SQLite会进行一些额外的处理。要注意SQLite的这种特性可能会给SQLite的ADO驱动造成一些麻烦，因为.NET都是强类型的语言，必须把数据库中的字段转换为合适的类型，所以在插入数据的时候，还是应该严格的按照create table中的定义插入数据。</p>
+<p>(2)自增列</p>
+<p>在SQL Server中，只需要指定identity(1,1)就可以设定自增列，但是在SQLite中不支持这样做。在SQLite中，任何一张表都有一个字段类型是Integer，且是自增的，这个列是作为B树的索引的，它的名字是ROWID，如下图所示：</p>
+<p>test2表虽然只有一列，但是ROWID列还是存在的。在程序中对任何一张表都可以使用ROWID作为自增列。不过这样可能导致和其他数据库的不兼容，SQLite中如果一个列的声明类型是Integer，并且是主键，那么这个列的名字就成为ROWID的别名。注意，声明类型必须是 Integer，而不能是int或bigint之类。例如：</p>
+<p>注意上面例子的最后3条语句，它显示了SQLite默认的自增列算法是在当前表中最大的数再加1，这样可能导致的结果是ID被重复使用——当最后一条数据被删除的时候。这与SQL Server的Identity列的行为是不一致的，例如：</p>
+<p>SQL Server会记住每一次插入的序号，哪怕它已经被删除了。要实现SQL Server 这样的效果，需要使用autoincrement关键字。如下例所示：</p>
+<p>不过 autoincrement关键字不被SQL Server支持(我不知道SQL 92标准中是否有此关键字)，同样SQL Server的 indentity关键字在SQLite中也无法使用，因为SQLite只要求声明类型必须是integer才可以启用自增列。所以，我想不出什么方法能使建库的脚本能够不加修改的被两种数据库使用。</p>
+<p>(3) 日期函数</p>
+<p>Sqlite的日期函数比较有特色，它的使用本质上是调用C的库函数strftime,基本使用方法如下：</p>
+<p>(4) 不被支持的特性</p>
+<p>用户自定义函数，存储过程</p>
+<p>外键的约束(不过可以通过自定义触发器来替代)</p>
+<p>right out join , full out join</p>
+<p>grant revoke</p>
+<p>SQLITE数据类型　　SQLite与其他常见的DBMS的最大不同是它对数据类型的支持。其他常见的DBMS通常支持强类型的数据，也就是每一列的类型都必须预先指定，但是SQLite采用的是弱类型的字段。实际上，其内部仅有下列五种存储类型：　　NULL: 表示一个NULL值　　INTEGER: 用来存储一个整数,根据大小可以使用1,2,3,4,6,8位来存储.　　REAL: IEEE 浮点数　　TEXT: 按照字符串来存储　　BLOB: 按照二进制值存储,不做任何改变.　　要注意,这些类型是值本身的属性,而不是列的属性.　　但是为了和其他DBMS(以及SQL标准)兼容，在其create table语句中可以指定列的类型，为此,SQLite有个列相似性的概念(Column Affinity). 列相似性是列的属性,SQLite有以下几种列相似性:　　TEXT: TEXT列使用NULL,TEXT或者BLOB存储任何插入到此列的数据,如果数据是数字,则转换为TEXT.　　NUMERIC: NUMERIC列可以使用任何存储类型,它首先试图将插入的数据转换为REAL或INTEGER型的,如果成功则存储为REAL和INTEGER型,否则不加改变的存入.　　INTEGER:和NUMERIC类似,只是它将可以转换为INTEGER值都转换为INTEGER，如果是REAL型，且没有小数部分，也转为INTEGER　　REAL: 和NUMERIC类型 只是它将可以转换为REAL和INTEGER值都转换为REAL.　　NONE:不做任何改变的尝试.　　SQLite根据create table语句来决定每个列的列相似性.规则如下(大小写均忽略):　　1. 如果数据类型中包括INT,则是INTEGER　　2. 如果数据类型中包括CHAR,CLOB,TEXT则是TEXT　　3. 如果数据类型中包括BLOB,或者没有指定数据类型,则是NONE　　4. 如果数据类型中包括REAL,FLOA或者DOUB,则是REAL　　5. 其余的情况都是NUMERIC　　由上可知,对于sqlite来说 char,varchar,nchar,nvarchar等都是等价的，且后面最大长度也是没有意义的。但是对于其他DBMS却不是相同的。另外，列相似性仅仅是向Sqlite提出了一个存储数据的建议，即使实际存储的数据类型和列相似性不一致，SQLite还是可以成功插入的，下面给出一个例子来说明下以上论述，注意，这个例子需要在SQLite的命令行下运行，如果在SQLite Expert工具下执行，SQLite会进行一些额外的处理。要注意SQLite的这种特性可能会给SQLite的ADO驱动造成一些麻烦，因为.NET都是强类型的语言，必须把数据库中的字段转换为合适的类型，所以在插入数据的时候，还是应该严格的按照create table中的定义插入数据。　　(2)自增列　　在SQL Server中，只需要指定identity(1,1)就可以设定自增列，但是在SQLite中不支持这样做。在SQLite中，任何一张表都有一个字段类型是Integer，且是自增的，这个列是作为B树的索引的，它的名字是ROWID，如下图所示：　　test2表虽然只有一列，但是ROWID列还是存在的。在程序中对任何一张表都可以使用ROWID作为自增列。不过这样可能导致和其他数据库的不兼容，SQLite中如果一个列的声明类型是Integer，并且是主键，那么这个列的名字就成为ROWID的别名。注意，声明类型必须是 Integer，而不能是int或bigint之类。例如：　　注意上面例子的最后3条语句，它显示了SQLite默认的自增列算法是在当前表中最大的数再加1，这样可能导致的结果是ID被重复使用——当最后一条数据被删除的时候。这与SQL Server的Identity列的行为是不一致的，例如：　　SQL Server会记住每一次插入的序号，哪怕它已经被删除了。要实现SQL Server 这样的效果，需要使用autoincrement关键字。如下例所示：　　不过 autoincrement关键字不被SQL Server支持(我不知道SQL 92标准中是否有此关键字)，同样SQL Server的 indentity关键字在SQLite中也无法使用，因为SQLite只要求声明类型必须是integer才可以启用自增列。所以，我想不出什么方法能使建库的脚本能够不加修改的被两种数据库使用。　　(3) 日期函数　　Sqlite的日期函数比较有特色，它的使用本质上是调用C的库函数strftime,基本使用方法如下：　　(4) 不被支持的特性　　用户自定义函数，存储过程　　外键的约束(不过可以通过自定义触发器来替代)　　right out join , full out join　　grant revoke</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" data-id="cjnibie7v009r6w0flbw0ig5u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/" class="article-date">
+  <time datetime="2011-03-18T06:37:44.000Z" itemprop="datePublished">2011-03-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/">Android创建sdcard详细图解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android创建sdcard步骤一、cmd进入tools目录输入mksdcard -l mycard 100M F:mysdcard.img 1. mycard命令可以使用三种尺寸：字节、K和M。如果只使用数字，表示字节。后面还可以跟K，如262144K，也表示256M。 2. mycard建立的虚拟文件最小为8M，也就是说，模拟器只支持大于8M的虚拟文件。 3. -l命令行参数表示虚拟磁盘的卷标，可以没有该参数。 4. 虚拟文件的扩展名可以是任意的，如mycard.abc。 5. mksdcard命令不会自动建立不存在的目录，因此，在执行上面命令之前，要先在当前目录中建立一个card目录。 6. mksdcard命令是按实际大小生成的sdcard虚拟文件。也就是说，生成256M的虚拟文件的尺寸就是256M，如果生成较大的虚拟文件，要看看自己的硬盘空间够不够哦！ Android创建sdcard步骤二、激活sdcard 1.命令行输入：emulator -avd my_android1.5 -sdcard F:mysdcard.img 我在命令行输入激活不了，不知为什么！待解决！ emulator: ERROR: the user data image is used by another emulator. aborting 2.如果在开发环境（Eclipse）中，可以在Run Configuration对话框中设置启动参数 Android创建sdcard设置启动参数 或者在Preferences–&gt;Android–&gt;Launch加入 Android创建sdcard操作图解 Android创建sdcard步骤三、sdcard中加入内容 F:android-sdk-windows-1.5_r3tools&gt;adb push E:Xunleigive.mp3 /sdcard/give.mp3</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/" data-id="cjnibie3n00106w0fc7ehn82r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/17/listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/" class="article-date">
+  <time datetime="2011-03-17T10:04:31.000Z" itemprop="datePublished">2011-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/17/listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/">ListView的Item中有CheckBox，Button，导致OnItemClick不响应的解决办法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ListView的Item中有CheckBox，Button，导致OnItemClick不响应的解决办法 ListView的item中加入checkbox后导致ListView对OnItemClick事件无法响应，原因是因为checkbox的事件响应优先级高于List Item，所以屏蔽了ListItem的单击事件。 解决方案：设置checkbox的android:focusable=”false”即可！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/17/listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/" data-id="cjnibie6p00786w0fq6yr92t1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/17/e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2/" class="article-date">
+  <time datetime="2011-03-17T06:29:12.000Z" itemprop="datePublished">2011-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/私人日志/">私人日志</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/17/e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2/">待写博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、Activity的生命周期 2、SQLite数据类型 SQLite允许忽略数据类型，但是，仍然建议在Create Table语句中指定数据类型，因为数据类型有利于增强程序的可读性。SQLite支持常见的数据类型，如VARCHAR、NVARCHAR、TEXT、 INTEGER、FLOAT、BOOLEAN、CLOB、BLOB、TIMESTAMP、NUMERIC、VARYING、CHARACTER、 NATl0NAI, VARYINGCHARACTER。 3、Android设备将发布时会有一个内部的SQLite数据库。这个数据库的目的是允许用户和开发者一个可以在活动中储存信息的地方。 4、sax 读取多行文本时，不能读取换行符号后面的内容 CDATA部分: 之前说过在在文档中,如果包含&amp;等这样的字符,我们就要转义,用实体引用.但是,如果在较大的文档中,我们不想遍历每个无效的字符,也就是说,我们不想一个个的查看字符,然后将不合法的转义,那么我们就可以将他们包装到CDATA中,进行批量的转义,如,下面的就不合法: 1. I don’t know how to use “&lt;” and “&amp;” in xml 复制代码 因为在上面的PCDATA中直接用了”&lt;” 和”&amp;”,所以次XML不合法.但是我们可以用下面的: 1. 复制代码 以上就合法了,一般使用CDATA转义那些可能包含非法字符的大段的XML文本.除此之外,还可以将这和规则添加到DTD和 XML Schema中,我们以后会说的. 注意:用””还包含你的文本 . 5、ListView 滚动到底部装载下面数据，用户startManagerCurror管理curror. 6、程序员开发时，一点建议：一个模块在开发到一定阶段，要梳理一下当前的进度，剩余没有完成点，越细越好，越具体越好，不要概括，比如：注册用户时用户名字还没有作重复性验证，产品还不能删除等具体到一点的内容。这样明确了当前面临的任务，就不会像没有头的苍蝇东做一点西做一点， 7、Flex 分页组件，数据的持久化。（结构化到对象，对象到结构化） 8、WEB应用查找问题解问题的一般方法，逢山开路,遇水架桥 9、化装品展示系，开发组件 10、网址网，允许公众增加网址。根据点击点排名。分类。不能重复加，吸引草根网站。名字命名为草根网址</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/17/e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2/" data-id="cjnibie5g00446w0fmpu39i24" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/17/e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1/" class="article-date">
+  <time datetime="2011-03-17T05:34:57.000Z" itemprop="datePublished">2011-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/17/e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1/">中国设备商忙建Android应用商店 谷歌如何赚钱</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　孙燕飚 　　[ 大家都可以免费使用Android操作系统，而第三方应用程序商店也使谷歌无法获得更多收入。谷歌如何从中获利？ ]　 　　苹果模式移动互联网时代爆红使其终端和平台模式都成为业内模仿对象。在平台上，Android可以算是有力挑战者。 　　但是《第一财经日报》记者发现，使用Android系统中国设备商都在自建应用程序商店，在中国，第三方应用程序商店也非常普遍。与完全封闭的苹果模式相比，谷歌为何有如此大的区别呢？ 　　第三方应用程序商店 　　谷歌CEO埃里克·施密特此前表示，每天激活35万部Android终端，拥有170种兼容的设备，与27家原始设备制造商、169家运营商在69个国家合作，并且应用程序商店有超过15万种软件——这一数字在九个月里增长了2倍。 　　施密特并没有解释清楚Android平台模式和苹果APP Store的本质不同。在苹果模式中，去年上半年APP Store收入22亿美元，苹果和开发者三七分成，苹果可以将6.6亿美元收入囊中。但谷歌Android模式或许并不相同，在中国设备制造商更多选择了自建应用程序商店模式。 　　“康佳智能电视的Android的应用商店会自己建，不会借助第三方力量。”康佳集团彩电事业部研发中心系统软件所所长裴来隆3月14日对《第一财经日报》表示，虽然谷歌主导了Android智能终端操作系统，但谷歌Android Market并没有进入中国，包括谷歌地图等服务也没有进入中国，这给Android终端厂家留下很多机会，“如果谁的Android的应用商店得到更多用户和开发者支持，谁就有可能在其中找到新的盈利点。” 　　同样基于此，李开复离开谷歌后创办的创新工场，其打造的最大项目——点心，就瞄准了Android手机应用的通道。点心智能操作系统COO黄庄表示，点心是想成为移动互联网内容和应用的通道，通过与应用内容提供商收入分成方式来盈利。 　　而创新工场已公布的“豌豆荚手机精灵”、““掌上应用汇”、“魔图精灵”等正在研发的项目和未来将要开发的项目，都可以通过点心这一通道，顺利流向最终的移动互联网用户。 　　最先由TCL和长虹投资的广州欢网，也瞄准了Android电视的应用通道。 　　艾媒咨询数据显示，目前仅仅一年时间，全球已有300家Android应用商店，其中中国有50家，还以每年30%速度在增长。 　　盈利模式待解 　　大家都可以免费使用Android操作系统，而应用程序商店自建也使谷歌无法获得更多收入。谷歌如何从中获利？ 　　“其实Android Market在中国也可以访问和下载，只是付费方式还存在问题。”艾媒咨询总经理张毅表示，目前谷歌并没有强推Android Market，任由第三方应用商店成长，主要也是让Android终端和应用快速普及。 　　“第三方应用商店希望的盈利模式有三种，一是与开发者分成，二是植入广告，三是帮助开发者推广，收取推广费用。”张毅表示，由于现在大家的规模都有限，具体的盈利模式还在摸索中。 　　“太多的第三方Android应用商店，导致Android应用散落在大海里一样，用户很难找到想要的应用。”黄庄也并不看好太多第三方应用商店模式。 　　而这可能也是谷歌早已预料的结果，因为能像苹果APP Store一统江山，可能还只有缔造Android的谷歌。 　　张毅透露，谷歌大中华区有关负责人曾向他表示，谷歌绝对不会免费提供Android，在Android应用商店上，谷歌有自己的布局和计划。 　　而在越来越多的终端上植入所有谷歌应用，包括搜索、邮件、文档等工具，或许会让谷歌仍然成为移动互联网领域最大的广告平台。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/17/e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1/" data-id="cjnibie4q002s6w0fiwsqmvaq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/17/e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80/" class="article-date">
+  <time datetime="2011-03-17T02:59:34.000Z" itemprop="datePublished">2011-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/17/e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80/">收集一些网址</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flash类别： <a href="http://www.sonyericsson.com/cws/home?cc=cn&amp;lc=zh" target="_blank" rel="noopener">http://www.sonyericsson.com/cws/home?cc=cn&amp;lc=zh</a> 设计 <a href="http://mo-jie.blogbus.com/" target="_blank" rel="noopener">http://mo-jie.blogbus.com/</a> 技术类: 1、<a href="http://www.chenjunlu.com/" target="_blank" rel="noopener">http://www.chenjunlu.com/</a> <a href="http://www.chenjunlu.com/" target="_blank" rel="noopener"></a>数据库,Google技术,android,OS,还有一些实事评论，影评</p>
+<h1 id="关于使用国外主机服务网站如何备案的经验"><a href="#关于使用国外主机服务网站如何备案的经验" class="headerlink" title="关于使用国外主机服务网站如何备案的经验"></a>关于使用国外主机服务网站如何备案的经验</h1><p><a href="http://www.di15.com/2010/04/web-site-hosting-services-on-the-use-of-foreign-experience-in-how-to-record/" target="_blank" rel="noopener">http://www.di15.com/2010/04/web-site-hosting-services-on-the-use-of-foreign-experience-in-how-to-record/</a></p>
+<h1 id="Google-开始对-Android-应用提供版权保护"><a href="#Google-开始对-Android-应用提供版权保护" class="headerlink" title="Google 开始对 Android 应用提供版权保护"></a>Google 开始对 Android 应用提供版权保护</h1><p><a href="http://www.chenjunlu.com/2010/08/google-provide-copy-protection-android-market-applications/" target="_blank" rel="noopener">http://www.chenjunlu.com/2010/08/google-provide-copy-protection-android-market-applications/</a> <a href="http://www.chenjunlu.com/" target="_blank" rel="noopener">http://www.chenjunlu.com/</a> 经典文章</p>
+<h1 id="Oracle-传奇"><a href="#Oracle-传奇" class="headerlink" title="Oracle 传奇"></a><a href="http://www.chenjunlu.com/2011/02/oracle-legend/" target="_blank" rel="noopener">Oracle 传奇</a></h1><h1 id="告诉你一个真实的中国互联网：精英与草根"><a href="#告诉你一个真实的中国互联网：精英与草根" class="headerlink" title="告诉你一个真实的中国互联网：精英与草根"></a><a href="http://www.chenjunlu.com/2010/07/the-real-internet-of-china/" target="_blank" rel="noopener">告诉你一个真实的中国互联网：精英与草根</a></h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/17/e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80/" data-id="cjnibie5k004c6w0ftzs713zm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/13/e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae/" class="article-date">
+  <time datetime="2011-03-13T13:12:18.000Z" itemprop="datePublished">2011-03-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/13/e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae/">给一线开发人员一点小的建议</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>作为从事软件开发的一线程序员，我们每天都在不停地响应项目的需要，实现项目预定的功能。这些工作对刚开始作程序工作的程序员来说，可能是比较新鲜，对老程序员来说就有些枯燥乏味。老程序员感觉枯燥乏味之一，便是重复性工作。一些常用的代码写了一遍又一遍。
+
+所以今天我给出的建议一：是将常用的代码建立一个代码库。以后如果遇到相同，或相似的功能，就从以前的代码中找。自己写过的代码是很熟悉的，所以很容易找到。直接copy后，稍加修改就OK了。其实早就听老程序员说过，写代码就是一个复制，粘贴的过程，我想他们一定是积累了大量的代码，遇到问题很容易找到相关的代码来参考。
+
+今天给出我的建议二：做为一名代码开发人员，为自己建立一个常用工具类包。这个包就像工人的一个工具箱，医生的药箱。里面放着常用到的类。比如说String工具类，日期工具类，File工具类，XML工具类等。在开发自己的项目时直接将这个包加进来。在遇到问题是直接从这些工具类里面找API。比如说我在平时工作中就遇到要将数据从Excle，XML等转到数据库中的工作，所以我就将这个问题总结下来，专门做了一个程序包([数据格式转换工具 dataCross](http://datacross.3gstdy.com/ &quot;数据格式转换&quot;))
+
+代码库是解决一些相同或相似的特殊问题的。而工具类是解决一些常见的小问题的。自己的代码是自己最熟悉的，利用好它们，能帮助你快速解决工作中的一些问题，不管是代码库还是工具类，都是一个长期积累的过程。需要在平时工作中不断完善。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/13/e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae/" data-id="cjnibie5s004y6w0f4gunwqtf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/" class="article-date">
+  <time datetime="2011-03-09T01:46:01.000Z" itemprop="datePublished">2011-03-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/">Red Hat的版本号代表什么含义</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux是GNU/Linux的缩写，通常指各种Linux发行版的通称。常见的Linux厂家主要有Redhat/Novell等。 Redhat有两大Linux产品系列，其一是免费的Fedora Core系列主要用于桌面版本，提供了较多新特性的支持。另外一个产品系列是收费的Enterprise系列，这个系列分成：AS/ES/WS等分支。 Advanced Server，缩写即AS。AS在标准Linux内核的基础上，做了性能上的增强，并提高了可靠性，集成了众多常见服务器的驱动程序。可轻松识别IBM/DELL/HP等常见机架式服务器的磁盘阵列卡等设备。 AS主要版本2.x/3.x/4.x，也就是我们所说的AS3/AS4每一个版本还有若干个升级，例如最早推出的AS4后，遇到了一些更新此时就会发 布AS4 Update1，以后还会陆续有AS4 Update2/Update3等出现简称AS4u1/AS4u2/AS4u3等。这和微软的发布形式也是非常类似的，微软的Windows NT4 从SP1出到SP6，Windows2000从SP1出到SP4。。。。 AS这些Update版本所包含的主要程序包版本都有一定差别，最好不要混用，否则很容易出现问题。Prima和Plesk的安装包，对于各种发行版都有了针对性的设计，在下载页面上，通常都会标识出来，支持哪些版本和哪些update的系统。 ES，是AS的精简版本。他与常见的AS系列的区别是，AS支持到4路以上CPU，而ES只能支持两路CPU。AS和ES在大多数程序包上并无区别， 只在内核等少数软件包上有差异。AS和ES的售价差别比较大，通常ES用在随服务器一同购买的OEM版本中。例如购买DELL服务器，搭配的Linux会 是ES系列。如果要搭配AS系列，则需要多花数千元。 WS，是ES的进一步简化版，主要针对企业内部的桌面办公市场，国内较少采用。 Redhat的Fedora Core Linux和Enterprise Linux，都需要遵循GNU协议即需要发布自己的源代码。 所以，对于免费的Fedora Core Linux，从Redhat网站上可以直接下载ISO刻盘，还能下载到SRPM的ISO，即程序包源码光盘。对于收费的Enterprise Linux系列，是一款商业产品，所以网站上不能下载到ISO文件，需要购买正式授权方可。由于Enterprise Linux也需要遵循GNU协议，故必须发布源代码。所以在Redhat的网站上，可以获得AS/ES/WS系列的SRPM源码ISO文件。这些文件可以 被自由的下载，修改代码，重新编译使用。 一个名为Community Enterprise Operating System的项目诞生了。他的缩写既是CentOS。CentOS社区将Redhat的网站上的所有源代码下载下来，进行重新编译。重新编译后，由于 AS/ES/WS是商业产品，必须将所有Redhat的Logo和标识改成自己的CentOS标识。比如将AS4原版的SRPM源码编译后，就成为了 CentOS 4.0。AS4Update1的源码编译后，就成为了CentOS4.1。AS4Update2的源码编译后，就成为了CentOS4.2。同 理，CentOS的3.x/4.x都对应着相应的版本。 所以我们说，CentOS就是Redhat的AS/ES/WS的免费版本。使用CentOS，可以获得和AS/ES相同的性能和感受。CentOS除 了提供标准的编号1~4或者1~5的若干张ISO以外，还提供了最小化1CD的Server光盘。用Server光盘安装好的系统，就是一个最小化的 Linux内核加上常用的httpd/mysql等包不包含Xwindows桌面等对于服务器无用的软件。 Prima、Plesk、Virtuozzo和都可以安装在CentOS上。 CentOS 中国科学技术大学(USTC)镜像站点(每小时更新一次)下载地址：<a href="http://centos.ustc.edu.cn/" title="http://centos.ustc.edu.cn/" target="_blank" rel="noopener">http://centos.ustc.edu.cn/</a> <a href="http://download.chinaunix.net/download.php?id=25105&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.2-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25054&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.1-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25055&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.1-x86_64-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31679&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31680&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-LiveCD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31681&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-netinstall.iso</a> <a href="http://download.chinaunix.net/download.php?id=31682&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-x86_64-bin-DVD-1of2.iso</a> <a href="http://download.chinaunix.net/download.php?id=25240&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.3-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25241&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.3-x86_64-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=30555&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-4of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30556&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-1of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30557&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-2of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30558&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-3of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30559&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-5of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30560&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-6of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30561&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=30562&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-x86_64-bin-DVD.iso</a> red Hat 官方下载地址 <a href="https://rhn.redhat.com/rhn/software/downloads/AllISOs.do" target="_blank" rel="noopener">https://rhn.redhat.com/rhn/software/downloads/AllISOs.do</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/" data-id="cjnibie7000806w0fuyh5dqlf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-85-b3-e4-ba-8e-e8-a7-86-e9-a2-91-e4-bc-9a-e8-ae-ae-e9-a1-b9-e7-9b-ae-e5-bc-80-e5-8f-91-e5-89-8d-e7-9a-84-e4-b8-80-e4-ba-9b-e8-af-9d" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/02/26/e5-85-b3-e4-ba-8e-e8-a7-86-e9-a2-91-e4-bc-9a-e8-ae-ae-e9-a1-b9-e7-9b-ae-e5-bc-80-e5-8f-91-e5-89-8d-e7-9a-84-e4-b8-80-e4-ba-9b-e8-af-9d/" class="article-date">
+  <time datetime="2011-02-26T15:13:35.000Z" itemprop="datePublished">2011-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/02/26/e5-85-b3-e4-ba-8e-e8-a7-86-e9-a2-91-e4-bc-9a-e8-ae-ae-e9-a1-b9-e7-9b-ae-e5-bc-80-e5-8f-91-e5-89-8d-e7-9a-84-e4-b8-80-e4-ba-9b-e8-af-9d/">关于视频会议项目开发前的一些话</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>任何一个项目的开发都不是一帆风顺的。同样这个项目今后也将面临这样或那样的问题，也许我们的项目会因为种种原因中断，所以，我们要做好思想准备。既不能冒进，也不能保守。 当遇到困难时不要轻易放弃，我们要有长期为之工作的思想准备，也许几个月，也许要几年。 我们也不能凭借一时的冲动，计划在很短的时间内完成很多模块，往往期望越高失望越大。正所谓乐极生悲，物极必反！ 总之，我们不要一时的火焰三丈，而是要持续的温暖！ <strong>罗马不是一天建成的，我们一直在努力！</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/02/26/e5-85-b3-e4-ba-8e-e8-a7-86-e9-a2-91-e4-bc-9a-e8-ae-ae-e9-a1-b9-e7-9b-ae-e5-bc-80-e5-8f-91-e5-89-8d-e7-9a-84-e4-b8-80-e4-ba-9b-e8-af-9d/" data-id="cjnibie4y003a6w0feh1upe5p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

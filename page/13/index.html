@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="达合">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="website">
+<meta property="og:title" content="达合">
+<meta property="og:url" content="http://www.daahe.com/page/13/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="达合">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="达合">
+<meta name="twitter:description" content="达合">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" class="article-date">
+  <time datetime="2010-11-20T22:15:54.000Z" itemprop="datePublished">2010-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/">Android中的Intent和Intent-fliter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARCH_ACTION，以及与之相关的请求数据是网页地址URI格式。如何为组件声明自己的Intent Filter? 常见的方法是在AndroidManifest.xml文件中用属性<intent-filter>描述组件的Intent Filter。 前面我们提到，隐式Intent（<strong>Explicit Intents</strong>）和Intent Filter（<strong>Implicit Intents</strong>）进行比较时的三要素是Intent的动作、数据以及类别。实际上，一个隐式Intent请求要能够传递给目标组件，必要通过这三个方面的检查。如果任何一方面不匹配，Android都不会将该隐式Intent传递给目标组件。接下来我们讲解这三方面检查的具体规则。</intent-filter></p>
+<h3 id="1．动作测试"><a href="#1．动作测试" class="headerlink" title="1．动作测试"></a>1．动作测试</h3><p><intent-filter>元素中可以包括子元素<action>，比如： <intent-filter> <action android:name="”com.example.project.SHOW\_CURRENT”"> <action android:name="”com.example.project.SHOW\_RECENT”"> <action android:name="”com.example.project.SHOW_PENDING”"> </action></action></action></intent-filter> 一条<intent-filter>元素至少应该包含一个<action>，否则任何Intent请求都不能和 该<intent-filter>匹配。如果Intent请求的Action和<intent-filter>中个某一 条<action>匹配，那么该Intent就通过了这条<intent-filter>的动作测试。如果Intent请求 或<intent-filter>中没有说明具体的Action类型，那么会出现下面两种情况。 (1) 如果<intent-filter>中没有包含任何Action类型，那么无论什么Intent请求都无法和这条<intent-filter>匹配； (2) 反之，如果Intent请求中没有设定Action类型，那么只要<intent-filter>中包含有Action类型，这个Intent请求就将顺利地通过<intent-filter>的行为测试。</intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></action></intent-filter></intent-filter></action></intent-filter></action></intent-filter></p>
+<h3 id="2．类别测试"><a href="#2．类别测试" class="headerlink" title="2．类别测试"></a>2．类别测试</h3><p><intent-filter>元素可以包含<category>子元素，比如： <intent-filter .=""> <category android:name="”android.Intent.Category.DEFAULT”"> <category android:name="”android.Intent.Category.BROWSABLE”"> </category></category></intent-filter> 只有当Intent请求中所有的Category与组件中某一个IntentFilter的<category>完全匹配时，才会让该 Intent请求通过测试，IntentFilter中多余的<category>声明并不会导致匹配失败。一个没有指定任何类别测试的 IntentFilter仅仅只会匹配没有设置类别的Intent请求。</category></category></category></intent-filter></p>
+<h3 id="3．数据测试"><a href="#3．数据测试" class="headerlink" title="3．数据测试"></a>3．数据测试</h3><p>数据在<intent-filter>中的描述如下： <intent-filter .=""> &lt;data android:type=”video/mpeg” android:scheme=”http” . . . /&gt; &lt;data android:type=”audio/mpeg” android:scheme=”http” . . . /&gt; </intent-filter> <data>元素指定了希望接受的Intent请求的数据URI和数据类型，URI被分成三部分来进行匹配：scheme、 authority和path。其中，用setData()设定的Inteat请求的URI数据类型和scheme必须与IntentFilter中所指 定的一致。若IntentFilter中还指定了authority或path，它们也需要相匹配才会通过测试。</data></intent-filter></p>
+<h3 id="4-简单例子说明"><a href="#4-简单例子说明" class="headerlink" title="4.简单例子说明"></a>4.简单例子说明</h3><p>讲解完Intent基本概念之后，接下来我们就使用Intent激活Android自带的电话拨号程序，通过这个实例你会发现，使用Intent并不像其概念描述得那样难。最终创建Intent的代码如下所示。 <strong>Intent i = new Intent(Intent.ACTION_DIAL,Uri.parse(“tel://13800138000″));</strong> 创建好Intent之后，你就可以通过它告诉Android希望启动新的Activity了。 <strong>startActivity(i);</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" data-id="cjnibie3m000x6w0fntylc6dx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" class="article-date">
+  <time datetime="2010-11-19T17:13:23.000Z" itemprop="datePublished">2010-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/">常用的Intent的URI及示例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“<a href="http://blog.3gstdy.com/&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com/&quot;)</a>; Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri uri = Uri.parse(“geo:52.76,-79.0342”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 三、打开拨号界面 ,类型是Intent.ACTION_DIAL Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_DIAL, uri); 四、直接拨打电话,与三不同的是，这个直接拨打电话，而不是打开拨号界面 Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_CALL, uri); 五、卸载一个应用，Intent的类别是Intent.ACTION_DELETE Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_DELETE, uri); 六、安装应用程序,Intent的类别是Intent.ACTION_PACKAGE_ADDED Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED, uri); 七、播放音频文件 Uri uri = Uri.parse(“file:///sdcard/download/everything.mp3”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.setType(“audio/mp3”); 八、打开发邮件界面 Uri uri= Uri.parse(“mailto:<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); 九、发邮件,与八不同这里是将邮件发送出去， Intent intent = new Intent(Intent.ACTION_SEND); String[] tos = { “<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“ }; String[] ccs = { “<a href="mailto:webmaster@3gstdy.com" target="_blank" rel="noopener">webmaster@3gstdy.com</a>“ }; intent.putExtra(Intent.EXTRA_EMAIL, tos); intent.putExtra(Intent.EXTRA_CC, ccs); intent.putExtra(Intent.EXTRA_TEXT, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_SUBJECT, “<a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“message/rfc882”); Intent.createChooser(intent, “Choose Email Client”); //发送带附件的邮件 Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(Intent.EXTRA_SUBJECT, “The email subject text”); intent.putExtra(Intent.EXTRA_STREAM, “file:///sdcard/mysong.mp3”); intent.setType(“audio/mp3”); startActivity(Intent.createChooser(intent, “Choose Email Client”)); 十、发短信 Uri uri= Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.putExtra(“sms_body”, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“vnd.android-dir/mms-sms”); 十一、直接发邮件 Uri uri= Uri.parse(“smsto://100861”); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; 十二、发彩信 Uri uri= Uri.parse(“content://media/external/images/media/23”); Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_STREAM, uri); intent.setType(“image/png”); 十三、# Market 相关 1 //寻找某个应用 Uri uri = Uri.parse(“market://search?q=pname:pkg_name”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where pkg_name is the full package path for an application 2 //显示某个应用的相关信息 Uri uri = Uri.parse(“market://details?id=app_id”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where app_id is the application ID, find the ID //by clicking on your application on Market home //page, and notice the ID from the address bar 十四、路径规划 Uri uri = Uri.parse(“<a href="http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)" target="_blank" rel="noopener">http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)</a>; Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where startLat, startLng, endLat, endLng are a long with 6 decimals like: 50.123456</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" data-id="cjnibie5b003w6w0f0amgrq2v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" class="article-date">
+  <time datetime="2010-11-18T23:33:21.000Z" itemprop="datePublished">2010-11-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/生活/">生活</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/">火灾自救逃生15法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大火来了别忙跑 护身法宝不可少 毛巾捂鼻法：浓烟和热浪是火灾中危害最严重的因素，火灾中多数人是因为烟熏或烟气中毒而死。因此疏散中应用湿毛巾捂住口鼻，以起到降温和过滤的作用。 棉被护身法：受到火灾威胁无法很快逃生时，应当机立断用浸湿的棉被、毛毯、棉大衣盖在身上，确定逃生路线后用最快的速度通过火场到达安全区域，但千万不可将塑料雨衣用作保护物。 逃生有道不慌乱 逆风匍匐好经验 逆风疏散法：逃生过程中要注意根据风向来确定疏散方向，为躲避火焰和烟气，应当朝着火场上风处逃生。这样也可获得更多的逃生时间。 匍匐前进法：由于火灾发生时烟气大多聚集在上部空间，因此在逃生过程中，应尽量将身体贴近地面匍匐或弯腰前进。 救命绳索家常备 成功自救不拖累 绳索自救法：当房间外面已被大火封住，无法从大门逃出去时，家中有绳索的，可直接将其一端拴在门、窗框或重物上顺绳爬下。在此过程中要注意手脚并用，脚成绞状夹紧绳子，双手交替一上一下往下爬，并尽量用手套、毛巾将手保护好，防止顺势滑下时脱手或将手磨伤。 被单拧结法：家里没有备用绳索时，可把床单、被罩和窗帘等撕成条并拧成麻花状，如果长度不够可将数条床单、被罩等连接在一起，按绳索逃生的方法沿外墙爬下。但要确定将床单、被罩等扎紧扎实，避免其断裂或结头脱落。 艺高胆大蜘蛛侠 顺竿滑下甭害怕 管线下滑法：当建筑物外墙或阳台上有漏水管、电线杆、避雷针引线等竖直管线时，可借助其下滑至地面。同时应注意一次下滑的人数不宜过多，以防止逃生途中因管线损坏而致人坠落。 竹竿插地法：被火困在房间时，可将结实的竹竿、晾衣竿直接从阳台或窗台斜插到室外地面或下一层平台，固定好后顺竿滑下。 想方设法快转移 奔向安全新阵地 搭桥过渡法：高层居民可在阳台、窗户、屋顶平台处用木板、竹竿等较坚固的物体搭架到相邻单元或相邻建筑上，以此作为跳板过渡到相对安全的区域。　 楼梯转移法：当火势自下而上迅速蔓延而将楼梯封死时，住在上部楼层的居民可通过老虎窗、天窗等迅速爬到屋顶，转移到另一人家或另一单元的楼梯进行疏散。 隔火绝热防烟侵 放水降温泡浴盆 毛毯隔火法：室外起火时，如发现门已发烫，千万不要开门，以防止火势窜入房间。可将毛毯等织物钉或夹在门上，并不断往上浇水冷却，防止外部火焰及烟气侵入，从而达到抑制火势蔓延速度、延长逃生时间的目的。 卫生间避难法：如果所有的逃生路线都被封闭，可利用卫生间进行避难，用毛巾紧塞门缝，把水泼在地下降温，也可躺在放满水的浴缸里躲避。但千万不可钻到床底、阁楼、衣橱等处避难，因为这些地方可燃物多，且容易聚集烟气。 攀爬避火靠毅力 谨慎跳楼真勇气 攀爬避火法：室内着火无法从大门逃生时，可以攀爬到阳台、窗台的脚手架、雨篷等突出物上以躲避火势。 跳楼求生法：火场上切勿轻易跳楼！在万不得已的情况下，住在低楼层的居民可采取跳楼的方法进行逃生。但首先要根据周围地形选择高度差较小的地面作为落地点，然后将席梦思床垫、沙发垫、厚棉被等抛下做缓冲物，并使身体重心尽量放低，做好准备以后再跳。 成功求救躲劫难 痛定思痛胜涅磐 火场求救法：如果所有的逃生路线都被大火封锁，要立即退回室内等待救援。这时，应在窗口、阳台或屋顶处向外大声呼叫、敲击金属物品或投掷软物品，白天应挥动鲜艳布条发出求救信号，晚上可挥动手电筒或白布引起救援人员的注意。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" data-id="cjnibie5n004l6w0fmenfcm4c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" class="article-date">
+  <time datetime="2010-11-16T16:20:23.000Z" itemprop="datePublished">2010-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/">40 位改变了互联网的人（上）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>互联网让世界紧密连接在一起，Web 改变了我们的阅读，沟通，娱乐，购物，社交，以及经商的习惯，社会网络甚至让我们找回了儿时的玩伴。互联网的历史伴随着各种伟大的想法以及对这些想法的实现，而它们的背后，是一些曾经、正在或将要改变互联网的人。这是本文的第一部分。</p>
+<h2 id="Vint-Cerf-与-Bob-Kahn-互联网之父"><a href="#Vint-Cerf-与-Bob-Kahn-互联网之父" class="headerlink" title="Vint Cerf 与 Bob Kahn - 互联网之父"></a>Vint Cerf 与 Bob Kahn - 互联网之父</h2><p>互联网之父 <a href="http://en.wikipedia.org/wiki/Vint_Cerf" target="_blank" rel="noopener">Vint Cerf</a> （1943年6月23日生于美国，犹太人）与 <a href="http://en.wikipedia.org/wiki/Bob_Kahn" target="_blank" rel="noopener">Bob Kahn</a> （1938年12月23日生于美国，犹太人）创建了 TCP/IP 通信协议，有了它，全球的计算机可以相互交流。Vint Cerf 曾经说过，互联网是人类的写照，垃圾邮件时这个免费服务的副产品之一。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c4ef9bc42b67e2a71a6ad78124f9a331.jpg" alt=""> TCP/IP设计者，左为Bob Kahn，右为Vint Cert</p>
+<h2 id="Tim-Berners-Lee-Web-之父"><a href="#Tim-Berners-Lee-Web-之父" class="headerlink" title="Tim Berners-Lee - Web 之父"></a>Tim Berners-Lee - Web 之父</h2><p><a href="http://en.wikipedia.org/wiki/Tim_Berners-Lee" target="_blank" rel="noopener">Tim Berners-Lee</a> （1955年6月8日生于英国）发明了 Web，他编写了第一个 Web 浏览器和服务器，并设计了一种在网络信息的不同部分之间创建链接即超文本的方法，他目前作为 W3C 的负责人在维护 Web 标准，并继续改进他的伟大发明。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/674e2f1523373db494c118cbf5b324b4.jpg" alt=""></p>
+<h2 id="Ray-Tomlinson-Email-之父"><a href="#Ray-Tomlinson-Email-之父" class="headerlink" title="Ray Tomlinson - Email 之父"></a>Ray Tomlinson - Email 之父</h2><p>电子邮件之父 <a href="http://en.wikipedia.org/wiki/Ray_Tomlinson" target="_blank" rel="noopener">Ray Tomlinson</a> （1941年生于美国纽约州）是一位程序员，他的努力使全球不同地方的人可以相互通信，他无意中选用了 @ 作为电子邮件地址的标志，如今，全球每天有超过 10 亿人在键盘上敲这个字符。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/7a776a4c5174e7948b45e46c6653936d.jpg" alt=""></p>
+<h2 id="Michael-Hart-电子书之父"><a href="#Michael-Hart-电子书之父" class="headerlink" title="Michael Hart - 电子书之父"></a>Michael Hart - 电子书之父</h2><p><a href="http://en.wikipedia.org/wiki/Michael_S._Hart" target="_blank" rel="noopener">Michael Hart</a> （1943年3月8日生于美国）推动了电子书的诞生，打破了知识的障碍，他创办了一个叫做 Gutenberg 的项目，这个世界上最早的电子图书馆改变了我们的阅读习惯，藏书包括公有版权图书以及有明确授权许可的图书。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/48ba7bd6b8c925267a78dd574d9ca4e3.jpg" alt=""></p>
+<h2 id="Gary-Thuerk-垃圾邮件之父"><a href="#Gary-Thuerk-垃圾邮件之父" class="headerlink" title="Gary Thuerk - 垃圾邮件之父"></a>Gary Thuerk - 垃圾邮件之父</h2><p>垃圾邮件是一种颇有些年头的营销技术，1978年，<a href="http://en.wikipedia.org/wiki/Gary_Thuerk" target="_blank" rel="noopener">Gary Thuerk</a> 曾通过 ARPANET 向他的客户群发了一封推销 DEC 公司最新 T系列 VAX 系统的邮件，他不曾料到的是，这是世界上第一封垃圾邮件。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/282ed89dc586a77738350e95e546593b.jpg" alt=""></p>
+<h2 id="Scott-Fahlman-笑脸符之父"><a href="#Scott-Fahlman-笑脸符之父" class="headerlink" title="Scott Fahlman - 笑脸符之父"></a>Scott Fahlman - 笑脸符之父</h2><p><a href="http://en.wikipedia.org/wiki/Scott_Fahlman" target="_blank" rel="noopener">Scott Fahlman</a>（1948年3月21日生于美国）首次使用 :-) ASCII 符号表示笑脸，希望借此在消息中活跃气氛，如今，所有人都在即时消息，聊天以及电子邮件中使用这个符号。参阅：<a href="http://www.comsharp.com/GetKnowledge/zh-CN/TeamBlogTimothyPage_K532.aspx" target="_blank" rel="noopener">当 Web 表情走入现实</a>。此外，他也是一位富有成就的计算机科学家，在语义网络、神经网络、Lisp语言等方面作出了贡献。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/7d2cb583a5c069b99228bbdaf0ea8bf0.jpg" alt=""></p>
+<h2 id="Marc-Andreessen-Netscape-浏览器之父"><a href="#Marc-Andreessen-Netscape-浏览器之父" class="headerlink" title="Marc Andreessen - Netscape 浏览器之父"></a>Marc Andreessen - Netscape 浏览器之父</h2><p><a href="http://en.wikipedia.org/wiki/Marc_Andreessen" target="_blank" rel="noopener">Marc Andreessen</a> （1971 年7月10日生于美国）带来了互联网浏览革命，他设计了第一款被广泛使用的浏览器——Mosaic。Mosaic 后来商业化运营成为 Netscape Navigator，1999年被AOL以42亿美元收购。此后他与人创办了Opsware公司，主要开发服务器和网络设备的管理软件，2007年被HP 以16亿美元收购。Marc Andreessen 还是社会化网络平台 Ning 的联合创始人，并投资了一系列知名的互联网创业项目，包括 Digg，Plazes 以及 Twitter。他是硅谷最有影响力的人物，是HP、eBay、Facebook等多家公司的董事。最近他与Ben Horowitz共同创办的投资公司颇受瞩目，第一个投资项目是社会化浏览器<a href="http://cloud.csdn.net/a/20101108/281535.html" target="_blank" rel="noopener">RockMelt</a>。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/a1ef2cc31ec7383713839e0f13355cc7.jpg" alt=""></p>
+<h2 id="Jarkko-Oikarinen-IRC-聊天之父"><a href="#Jarkko-Oikarinen-IRC-聊天之父" class="headerlink" title="Jarkko Oikarinen - IRC 聊天之父"></a>Jarkko Oikarinen - IRC 聊天之父</h2><p><a href="http://en.wikipedia.org/wiki/Jarkko_Oikarinen" target="_blank" rel="noopener">Jarkko Oikarinen</a> （1967 年8月16日生于芬兰）1988年开发了第一个在线聊天工具，IRC。IRC 在 1991 年伊拉克入侵科威特时声名远扬，当时，电视和广播信号都被切断，是 IRC 使最新的消息得以传播。Oikarinen在硕士和博士阶段主要从事计算机图形学和医疗成像方面的研究。后先后担任了几家移动开发公司的研发负责人。目前 在诺基亚工作。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/cea3bc1d8e7ea828f4599092022d4acb.gif" alt=""></p>
+<h2 id="Robert-Tappan-Morris-蠕虫病毒之父"><a href="#Robert-Tappan-Morris-蠕虫病毒之父" class="headerlink" title="Robert Tappan Morris - 蠕虫病毒之父"></a>Robert Tappan Morris - 蠕虫病毒之父</h2><p>蠕虫病毒和黑客不同，后者是亲自入侵，而蠕虫病毒则借助一段代码完成入侵任务。1988年，<a href="http://en.wikipedia.org/wiki/Robert_Tappan_Morris" target="_blank" rel="noopener">Robert Tappan Morris</a>（1965 年11月8日生于美国）在康奈尔大学读研究生时无意中编写了 Morris 蠕虫病毒，通过互联网迅速扩散，并带来了巨大损失（现在看其实也不大，有个统计数字，高限时53万美元）。而他的原意只是写一个测量互联网大小的程序，可 是很多网络管理员不配合，数字老是不准，于是他就把程序设计成可以自我复制……他自己也付出了代价，成为第一个以违反《美国计算机欺诈和滥用法》被起诉的 人。1990年被判有罪，缓刑三年，从事社区服务工作400个小时，并处罚金。 1995年他与著名程序员Paul Graham一起用Lisp编写了第一个互联网商店软件Viaweb，后以4800万美元卖给Yahoo。1999年他获得哈佛大学博士，现在是MIT教 授。他与Paul Graham还合办了知名的创业投资公司Y Combinator，并开发了Lisp方言Arc。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2e7af8587b7a8c225a4b90193484663b.jpg" alt=""></p>
+<h2 id="David-Bohnett-Geocities-创始人"><a href="#David-Bohnett-Geocities-创始人" class="headerlink" title="David Bohnett - Geocities 创始人"></a>David Bohnett - <strong>Geocities 创始人</strong></h2><p><a href="http://en.wikipedia.org/wiki/David_Bohnett" target="_blank" rel="noopener">David Bohnett</a>（1956年4月2日生于美国） 1994 年和 John Rezner 一起创办了 GeoCities，成为当时互联网上最大的社区，是最早为网民提供免费网页空间的服务商。2009年10月27日，SeoCities 倒闭。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/469428318d49cf999d70cfe639ab099e.jpg" alt=""></p>
+<h2 id="Ward-Cunningham-维基之父"><a href="#Ward-Cunningham-维基之父" class="headerlink" title="Ward Cunningham - 维基之父"></a>Ward Cunningham - 维基之父</h2><p>美国程序员 <a href="http://en.wikipedia.org/wiki/Ward_Cunningham" target="_blank" rel="noopener">Ward Cunningham</a> （1949年5月26日生于美国）开发了第一个维基系统，供人们协同创建和编辑在线内容。Wiki 的名字出自夏威夷语“快速”。他也是设计模式、重构、极限编程、CRC等编程实践与方法的先驱。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/0f0c7a6600aed8cab5993f8c24343afa.jpg" alt=""></p>
+<h2 id="Sabeer-Bhatia-Hotmail-之父"><a href="#Sabeer-Bhatia-Hotmail-之父" class="headerlink" title="Sabeer Bhatia - Hotmail 之父"></a>Sabeer Bhatia - Hotmail 之父</h2><p><a href="http://en.wikipedia.org/wiki/Sabeer_Bhatia" target="_blank" rel="noopener">Sabeer Bhatia</a>（1968年12月30日生于印度）与苹果公司的同事 <a href="http://en.wikipedia.org/wiki/Jack_Smith_%28Hotmail%29" target="_blank" rel="noopener">Jack Smith</a> 创 办了Firepower公司，原本打算开发一个基于Web的数据库，结果发现基于Web的邮件更靠谱（想法来自Smith），于是Hotmail诞生了 （名字中包含HTML四个字母）。1997年Hotmail以 4 亿美金的价格卖给了微软。他于 1998 年被 Draper Fisher Jurvetson 基金评为年度创业家，曾于 2002 年被时代周刊列为值得关注的人之一。他于 2009 年收购了 Jaxtyr，一个旨在取代 Skype 的免费语音电话系统。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/fa4af2ed4155adcf7da5e2bed4f3ed16.jpg" alt=""></p>
+<h2 id="Matt-Drudge-Drudge-Report-的创办人"><a href="#Matt-Drudge-Drudge-Report-的创办人" class="headerlink" title="Matt Drudge - Drudge Report 的创办人"></a>Matt Drudge - <strong>Drudge Report 的创办人</strong></h2><p><a href="http://en.wikipedia.org/wiki/Matt_Drudge" target="_blank" rel="noopener">Matt Drudge</a>（1966年10月27日生于美国）创办了新闻聚合网站，Drudge Report。该网站以最先报告克林顿拉链门而闻名于世。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2284b2cdbb310dd5c7204208b127600b.jpg" alt=""></p>
+<h2 id="Larry-Page-和-Sergey-Brin-Google-创始人"><a href="#Larry-Page-和-Sergey-Brin-Google-创始人" class="headerlink" title="Larry Page 和 Sergey Brin - Google 创始人"></a>Larry Page 和 Sergey Brin - Google 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Larry_Page" target="_blank" rel="noopener">Larry Page</a>（1973年3月26日生于美国）与 <a href="http://en.wikipedia.org/wiki/Sergey_Brin" target="_blank" rel="noopener">Sergey Brin</a>（1973年8月21日生于前苏联莫斯科）改变了我们搜索和使用互联网的方式，他们创办了搜索巨人，Google，并迅速成长。他们靠自有资金起家，后来接受了来自斯坦福的私人投资。他们是一家注重技术超过生意的公司。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/84e8e412596d3f400a33b75d53f4b395.jpg" alt=""></p>
+<h2 id="Bill-Gates-微软创始人"><a href="#Bill-Gates-微软创始人" class="headerlink" title="Bill Gates - 微软创始人"></a>Bill Gates - 微软创始人</h2><p><a href="http://en.wikipedia.org/wiki/Bill_gates" target="_blank" rel="noopener">Bill Gates</a>（1955年10月28日生于美国）创办了微软，后来，他开发了全新的图形用户界面的 DOS 系统，并称之为 Windows。他的终身目标是将计算机放到每一个家庭的每一张桌子。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/e2991794c455c283604c7b55f6d808d7.jpg" alt=""></p>
+<h2 id="Steve-Jobs-苹果创始人"><a href="#Steve-Jobs-苹果创始人" class="headerlink" title="Steve Jobs - 苹果创始人"></a>Steve Jobs - 苹果创始人</h2><p><a href="http://en.wikipedia.org/wiki/Steve_Jobs" target="_blank" rel="noopener">Steve Jobs</a>（1955年2月24日生于美国）的个人电脑思想引领他在计算机软件和硬件领域完成了一列革命，改变了我们日常工作，娱乐与交流的方式，他创造了简洁，干净的 Web 设计风格。苹果与 Jobs 的故事，是一个有关意志，创造，天才，以及创新热情的故事。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f5ece755405dfa66f9a720efd13749b1.jpg" alt=""></p>
+<h2 id="David-Filo-和-Jerry-Yang-Yahoo-创始人"><a href="#David-Filo-和-Jerry-Yang-Yahoo-创始人" class="headerlink" title="David Filo 和 Jerry Yang - Yahoo 创始人"></a>David Filo 和 Jerry Yang - Yahoo 创始人</h2><p><a href="http://en.wikipedia.org/wiki/David_Filo" target="_blank" rel="noopener">David Filo</a>（1966年4月20日生于美国）和<a href="http://en.wikipedia.org/wiki/Jerry_Yang_%28entrepreneur%29" target="_blank" rel="noopener">杨致远</a>（1968年11月6日生于中国台北）创办 Yahoo! 并使这个公司成为全球品牌。Yahoo! 改变了人们相互沟通，查找信息的方式。关于 Yahoo! 的命名，他们认为是出于对这个词汇的含义的喜欢，粗鲁，不世故，怪异。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2062423b63ae7491273fef0ff0c7e6fd.jpg" alt=""></p>
+<h2 id="Brad-Fitzpatrick-Live-Journal-创始人"><a href="#Brad-Fitzpatrick-Live-Journal-创始人" class="headerlink" title="Brad Fitzpatrick - Live Journal 创始人"></a>Brad Fitzpatrick - Live Journal 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Brad_Fitzpatrick" target="_blank" rel="noopener">Brad Fitzpatrick</a>（1980 年2月5日生于美国艾奥瓦）创办了 LiveJournal，最早的博客系统之一。他还是一系列免费软件的作者，如被 LiveJournal, Facebook 以及 YouTube 所使用的 memcached。LiveJournal 现在依然是一个活跃的社区，人们在这里发表博客日志并在线交流。Fitzpatrick还是OpenID的创造者。目前效力于Google。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b9e00bff6e870bb52896308b0f3140a2.jpg" alt=""></p>
+<h2 id="Shawn-Fanning-Napster-创始人"><a href="#Shawn-Fanning-Napster-创始人" class="headerlink" title="Shawn Fanning - Napster 创始人"></a>Shawn Fanning - Napster 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Shawn_Fanning" target="_blank" rel="noopener">Shawn Fanning</a>（1980 年11月20日生于美国） 开发了 Napster，一个 P2P 文件分享软件，用户将他们希望分享的文件放到一个指定的目录供别的用户下载。Napster 在 2001 年巅峰时刻，拥有 2500 万用户，它后来因一系列官司而关闭。Napster 引发了后来被苹果主宰的数字音乐革命。Napster 后来被 Roxio 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/825affa6d0bc59faca0224d1fcc67616.jpg" alt=""></p>
+<h2 id="Peter-Thiel-Paypal-创始人"><a href="#Peter-Thiel-Paypal-创始人" class="headerlink" title="Peter Thiel - Paypal 创始人"></a>Peter Thiel - Paypal 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Peter_Thiel" target="_blank" rel="noopener">Peter Thiel</a>（1967年生于原西德，长于美国加州）是 Paypal 的合伙创始人之一，Paypal 开创了在线支付的先河，它拥有一个非常复杂的交易框架，并允许一小部分开发团体使用他们的代码。Paypal 后来以 15 亿美金的价格卖给了 eBay。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/8248b233b81f95c222ba374337fd7c33.jpg" alt=""></p>
+<h2 id="40-位改变了互联网的人（下）"><a href="#40-位改变了互联网的人（下）" class="headerlink" title="40 位改变了互联网的人（下）"></a><a href="http://blog.3gstdy.com/archives/146" target="_blank" rel="noopener">40 位改变了互联网的人（下）</a></h2><p>英文原文出自：<a href="http://www.hongkiat.com/" target="_blank" rel="noopener">hongkiat.com</a> <a href="http://www.hongkiat.com/blog/40-people-who-changed-the-internet/" target="_blank" rel="noopener">40 People Who Changed the Internet</a> （原文作者：Aurora Gatbonton）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjnibie7l00996w0fl9aaocy1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" class="article-date">
+  <time datetime="2010-11-16T16:19:48.000Z" itemprop="datePublished">2010-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/">40 位改变了互联网的人（下）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>互联网让世界紧密连接在一起，Web 改变了我们的阅读，沟通，娱乐，购物，社交，以及经商的习惯，社会网络甚至让我们找回了儿时的玩伴。互联网的历史伴随着各种伟大的想法以及对这些想法的实 现，而它们的背后，是一些曾经，正在或将要改变互联网的人。这是本文的第二部分，</p>
+<h2 id="Pierre-Morad-Omidyar-Ebay-创始人"><a href="#Pierre-Morad-Omidyar-Ebay-创始人" class="headerlink" title="Pierre Morad Omidyar - Ebay 创始人"></a>Pierre Morad Omidyar - Ebay 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Pierre_Omidyar" target="_blank" rel="noopener">Pierre Omidyar</a> 创立了一个在线交易平台，人们可以在这里买卖任何东西。他们为用户设立了信誉级别，借助人性的力量维护这一切。Omidyar 的伟大在于对人的天性的洞察，他知道人们乐于购买任何东西，你认为是垃圾的东西，别人会当作宝贝。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c2f8389a689906813a3fd04d4e54dbdf.jpg" alt=""></p>
+<h2 id="Jimmy-Wales-Wikipedia-创始人"><a href="#Jimmy-Wales-Wikipedia-创始人" class="headerlink" title="Jimmy Wales - Wikipedia 创始人"></a>Jimmy Wales - Wikipedia 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jimmy_Wales" target="_blank" rel="noopener">Jimmy Wales</a> 创立了世界上最大的百科全书，这个百科全书的词条，任何人都可以参与编辑，该站点创立于2001年，现在成了互联网上最受欢迎的参考资料来源。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/9108fcf62aab0ee306f858fc667f37de.jpg" alt=""></p>
+<h2 id="Stewart-Butterfield-与-Caterina-Fake-Flickr-创始人"><a href="#Stewart-Butterfield-与-Caterina-Fake-Flickr-创始人" class="headerlink" title="Stewart Butterfield 与 Caterina Fake - Flickr 创始人"></a>Stewart Butterfield 与 Caterina Fake - Flickr 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Stewart_Butterfield" target="_blank" rel="noopener">Stewart Butterfield</a> 和他的妻子 <a href="http://en.wikipedia.org/wiki/Caterina_Fake" target="_blank" rel="noopener">Caterina Fake</a> 创立了 Flcikr，一个在线照片分享站点，他们的设想是，人们需要的不再是影集，而是照片流。Flickr 于 2005 年被 Yahoo 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/1a74a562bc1ae6c24144fb15f3c9fc6c.jpg" alt=""></p>
+<h2 id="Jonathan-Abrams-Friendster-创始人"><a href="#Jonathan-Abrams-Friendster-创始人" class="headerlink" title="Jonathan Abrams - Friendster 创始人"></a>Jonathan Abrams - Friendster 创始人</h2><p>Jonathan Abrams 同 Cris Emmanuel 一道创立了 Friendster，帮助人们交友，他们从 Match.com 获得灵感。这个第一个走向主流的社会网络站点。用户在上面创建自己的资料页，写上自己喜欢的电影与书籍，同朋友以及朋友的朋友链接。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f8749be0cfc0656bc9001505075a1a14.jpg" alt=""></p>
+<h2 id="Niklas-Zennstrom-Skype-创始人"><a href="#Niklas-Zennstrom-Skype-创始人" class="headerlink" title="Niklas Zennstrom - Skype 创始人"></a>Niklas Zennstrom - Skype 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Niklas_Zennstrom" target="_blank" rel="noopener">Niklas Zennstrom</a> 同别人一起创立了有史以来成长最快的沟通平台 Skype，为全球用户提供高质量的语音通话功能，他们的系统可以在 Winodws，Linux，苹果以及移动设备上使用。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/bf0e97d58ce951ebcce7fb7ddb3b3c86.jpg" alt=""></p>
+<h2 id="Bram-Cohen-BT-之父"><a href="#Bram-Cohen-BT-之父" class="headerlink" title="Bram Cohen - BT 之父"></a>Bram Cohen - BT 之父</h2><p>如果说，Napster 是第一代文件交换服务，<a href="http://en.wikipedia.org/wiki/Bram_Cohen" target="_blank" rel="noopener">Bram Cohen</a> 改变了文件交换的概念并立即引来大量用户的追随。BT 使用了这样一个黄金定律，上传得越多，下载得越快。BT 将文件分割成若干小块，任何拥有某个文件一小块的用户都可以参与分享，这样，参与的人越多，下载越快。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6987bbbfb9c858591587fb2b7190f889.jpg" alt=""></p>
+<h2 id="Reid-Hoffman-LinkedIn-创始人"><a href="#Reid-Hoffman-LinkedIn-创始人" class="headerlink" title="Reid Hoffman - LinkedIn 创始人"></a>Reid Hoffman - LinkedIn 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Reid_Hoffman" target="_blank" rel="noopener">Reid Hoffman</a> 曾是 Paypal 的执行副总裁，他创立了社会网络站点 LinkedIn，注册用户可以维护一个自己的生意上的好友库，他们可以求职，买卖简历，或招聘。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/5ac5954d649d518d7191ab1e605e153e.jpg" alt=""></p>
+<h2 id="Matt-Mullenweg-Wordpress-创始人"><a href="#Matt-Mullenweg-Wordpress-创始人" class="headerlink" title="Matt Mullenweg - Wordpress 创始人"></a>Matt Mullenweg - Wordpress 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Matt_Mullenweg" target="_blank" rel="noopener">Matt Mullenweg</a> 创立了世界上最受欢迎的开源博客系统，WordPress，使用 WordPress 系统的著名站点包括 Techcrunch, Huffingtonpost, Mashable 等等。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6993eea6f6efe541ce77e2d8cdf70f40.jpg" alt=""></p>
+<h2 id="Chad-Hurley-Steve-Chen-与-Jawed-Karim-Youtube-创始人"><a href="#Chad-Hurley-Steve-Chen-与-Jawed-Karim-Youtube-创始人" class="headerlink" title="Chad Hurley, Steve Chen, 与 Jawed Karim - Youtube 创始人"></a>Chad Hurley, Steve Chen, 与 Jawed Karim - Youtube 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Chad_Hurley" target="_blank" rel="noopener">Chad Hurley</a> , <a href="http://en.wikipedia.org/wiki/Steve_Chen_%28YouTube%29" target="_blank" rel="noopener">Steve Chen</a> , 以及 <a href="http://en.wikipedia.org/wiki/Jawed_Karim" target="_blank" rel="noopener">Jawed Karim</a> 曾一起在 Paypal 工作过，他们后来创建了 Youtube 视频分享网站，如今这个网站每天播放的短片超过1亿。最初，他们的工作按各自的技能分工，Chad Hurley 负责界面和 Logo 设计，Steve Chen 和 Jawed Karim 则负责开发，后来他们按各自的兴趣分工管理工作，Chad Hurley 是 CEO，Steve Chen 是 CTO。一年半以后，Google 以16亿美元收购 YouTube。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/a80417edba2fdd561ea92a4aff2c26f3.jpg" alt=""></p>
+<h2 id="Craig-Newmark-Craigslist-创始人"><a href="#Craig-Newmark-Craigslist-创始人" class="headerlink" title="Craig Newmark - Craigslist 创始人"></a>Craig Newmark - Craigslist 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Craig_Newmark" target="_blank" rel="noopener">Craig Newmark</a> 的 Craigslist 彻底改变了传统分类广告，让传统报业为之胆战。Craigslist 最早是 Newmark 和朋友们分享的一份邮件列表，后来发展壮大成无所不包的在线分类广告。请参阅：<a href="http://www.comsharp.com/GetKnowledge/zh-CN/TeamBlogTimothyPage_K212.aspx" target="_blank" rel="noopener">Craigslist 创始人 Craig Newmark 访谈录</a> 。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ca18b102714e35b7b87863603bd2874f.jpg" alt=""></p>
+<h2 id="Julian-Assange-Wikileaks-创始人"><a href="#Julian-Assange-Wikileaks-创始人" class="headerlink" title="Julian Assange - Wikileaks 创始人"></a>Julian Assange - Wikileaks 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Julian_Assange" target="_blank" rel="noopener">Julian Assange</a> 创办了一个网站，专门发表从全球各地泄露出来的机密文件，他设计了一个软件，可以将泄密者的身份彻底抹掉，这样，谁也不知道这份文件是什么时候被什么人泄 露出去的。Wikileaks 将自己视为一个不经审查的泄密文件百科全书。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/33a5c654a2fbc747d079daa4097be819.jpg" alt=""></p>
+<h2 id="Dick-Costolo-FeedBurner-创始人"><a href="#Dick-Costolo-FeedBurner-创始人" class="headerlink" title="Dick Costolo - FeedBurner 创始人"></a>Dick Costolo - FeedBurner 创始人</h2><p>Dick Costolo 设计了一个系统，FeedBurner，通过 RSS 从各家网站获取最新内容，聚合到一起，FeedBurner 于 2007 年被 Google 收购，Dick Costolo 现任 Twitter CEO。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/35cf5ce1415244424f4ce3df23d721c2.jpg" alt=""></p>
+<h2 id="Mark-Zuckerberg-Facebook-创始人"><a href="#Mark-Zuckerberg-Facebook-创始人" class="headerlink" title="Mark Zuckerberg - Facebook 创始人"></a>Mark Zuckerberg - Facebook 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Mark_Zuckerberg" target="_blank" rel="noopener">Mark Zuckerberg</a> 创办了 Facebook 以帮助大学生和自己的朋友们保持联系，他们通过过更新自己的在线状态，告诉朋友们自己正在做什么，他们还晒照片，上传视频，聊天，交友，加入圈子等等。该 站目前据信有5亿用户，并遍布除了俄罗斯，中国，日本，韩国之外的所有国家，Zuckerberg 表示，Facebook 的规模是 MySpace 的两倍。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ddd276b1f402aed9e22f06c066e9845c.jpg" alt=""></p>
+<h2 id="Jack-Dorsey-Twitter-创始人"><a href="#Jack-Dorsey-Twitter-创始人" class="headerlink" title="Jack Dorsey - Twitter 创始人"></a>Jack Dorsey - Twitter 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jack_Dorsey" target="_blank" rel="noopener">Jack Dorsey</a> 创办了 Twitter，一个朋友或家人随时分享自己目前状态的站点，这是一个世界上发展最快的交流媒体，用户通过发送一段不超过 140 字符的文字，向他们的追随者播报各种消息。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/019e96f1ff1ff12b59e0c45b914552c5.jpg" alt=""></p>
+<h2 id="Joshua-Schachter-Delicious-创始人"><a href="#Joshua-Schachter-Delicious-创始人" class="headerlink" title="Joshua Schachter - Delicious 创始人"></a>Joshua Schachter - Delicious 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Joshua_Schachter" target="_blank" rel="noopener">Joshua Schachter</a> 创办了 del.icio.us 网站，让人们存储或分享书签，这是一个自我维护的系统，人们为他们的书签设置关键词标签，并投票。Del.icio.us 现被 Yahoo 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b539afa8cda295b71fcd61401abb9699.jpg" alt=""></p>
+<h2 id="Jeff-Bezos-Amazon-创始人"><a href="#Jeff-Bezos-Amazon-创始人" class="headerlink" title="Jeff Bezos - Amazon 创始人"></a>Jeff Bezos - Amazon 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jeff_Bezos" target="_blank" rel="noopener">Jeff Bezos</a> 创办了世界上最大的在线商店，Amazon，使购物比去当地的商店更快捷。他们目前推出了 Kindle 电子阅读器，让用户下载他们在线书店中的书籍。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ba519c3eba7a33d2c7ca0adf3ba05b97.jpg" alt=""> 本文国际来源：<a href="http://www.hongkiat.com/" target="_blank" rel="noopener">hongkiat.com</a> <a href="http://www.hongkiat.com/blog/40-people-who-changed-the-internet/" target="_blank" rel="noopener">40 People Who Changed the Internet</a> （原文作者：Aurora Gatbonton）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjnibie7l00986w0f3jpc3334" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" class="article-date">
+  <time datetime="2010-11-16T14:44:57.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/">Android数据库ContentProvider封装原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends ContentProvider { private static final String TAG = “NotePadProvider”; private static final String DATABASE_NAME = “note_pad.db”; //数据库存储文件名，包含了.db后缀 private static final int DATABASE_VERSION = 2; //数据库版本号，这个是自己定义的，未来扩展数据库时自己可以方便的定义升级规则 private static final String NOTES_TABLE_NAME = “notes”; //表名 private static HashMap sNotesProjectionMap; //常规的Notes private static HashMap sLiveFolderProjectionMap; //LiveFoder内容 private static final int NOTES = 1; private static final int NOTE_ID = 2; private static final int LIVE_FOLDER_NOTES = 3; private static final UriMatcher sUriMatcher; //通常我们操作数据库的Uri比如content://android/cwj/1103这样的Uri均通过 UriMatcher注册并识别的。 private static class DatabaseHelper extends SQLiteOpenHelper { //数据库辅助子类 DatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); } @Override public void onCreate(SQLiteDatabase db) { //首次生成数据库，执行sql命令创建一个表 db.execSQL(“CREATE TABLE “ + NOTES_TABLE_NAME + “ (“ + Notes._ID + “ INTEGER PRIMARY KEY,” + Notes.TITLE + “ TEXT,” + Notes.NOTE + “ TEXT,” + Notes.CREATED_DATE + “ INTEGER,” + Notes.MODIFIED_DATE + “ INTEGER” + “);”); } @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { //刚来数据的版本，就是为了定义我们如果未来数据库需要扩展，帮助用户识别并根据规则自动升级数据库文件 Log.w(TAG, “Upgrading database from version “ + oldVersion + “ to “ + newVersion + “, which will destroy all old data”); db.execSQL(“DROP TABLE IF EXISTS notes”); //由于这里没有做细节处理，如果有新版本，删除老的表，我们未来不能这样处理，这仅仅是Google的例子而已所以删除老版本数据 onCreate(db); } } private DatabaseHelper mOpenHelper; @Override public boolean onCreate() { //这里重写ContentProvider的onCreate方法做一些初始化操作 mOpenHelper = new DatabaseHelper(getContext()); return true; } //有关数据库的查询操作，Android的SQLite提供了一个SQLiteQueryBuilder方法再次将SQL命令封装了下，单独分离出表名，排序方法等 @Override public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) { SQLiteQueryBuilder qb = new SQLiteQueryBuilder(); qb.setTables(NOTES_TABLE_NAME); switch (sUriMatcher.match(uri)) { case NOTES: qb.setProjectionMap(sNotesProjectionMap); break; case NOTE_ID: qb.setProjectionMap(sNotesProjectionMap); qb.appendWhere(Notes._ID + “=” + uri.getPathSegments().get(1)); break; case LIVE_FOLDER_NOTES: qb.setProjectionMap(sLiveFolderProjectionMap); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } String orderBy; if (TextUtils.isEmpty(sortOrder)) { orderBy = NotePad.Notes.DEFAULT_SORT_ORDER; } else { orderBy = sortOrder; } SQLiteDatabase db = mOpenHelper.getReadableDatabase(); Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy); c.setNotificationUri(getContext().getContentResolver(), uri); return c; } @Override public String getType(Uri uri) { switch (sUriMatcher.match(uri)) { case NOTES: case LIVE_FOLDER_NOTES: return Notes.CONTENT_TYPE; case NOTE_ID: return Notes.CONTENT_ITEM_TYPE; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } } 有关数据的插入操作，重写ContentProvider的insert方法即可 @Override public Uri insert(Uri uri, ContentValues initialValues) { if (sUriMatcher.match(uri) != NOTES) { throw new IllegalArgumentException(“Unknown URI “ + uri); } ContentValues values; if (initialValues != null) { values = new ContentValues(initialValues); } else { values = new ContentValues(); } Long now = Long.valueOf(System.currentTimeMillis()); if (values.containsKey(NotePad.Notes.CREATED_DATE) == false) { values.put(NotePad.Notes.CREATED_DATE, now); } if (values.containsKey(NotePad.Notes.MODIFIED_DATE) == false) { values.put(NotePad.Notes.MODIFIED_DATE, now); } if (values.containsKey(NotePad.Notes.TITLE) == false) { Resources r = Resources.getSystem(); values.put(NotePad.Notes.TITLE, r.getString(android.R.string.untitled)); } if (values.containsKey(NotePad.Notes.NOTE) == false) { values.put(NotePad.Notes.NOTE, “”); } SQLiteDatabase db = mOpenHelper.getWritableDatabase(); long rowId = db.insert(NOTES_TABLE_NAME, Notes.NOTE, values); if (rowId &gt; 0) { Uri noteUri = ContentUris.withAppendedId(NotePad.Notes.CONTENT_URI, rowId); getContext().getContentResolver().notifyChange(noteUri, null); //通知数据库内容有改变 return noteUri; } throw new SQLException(“Failed to insert row into “ + uri); } @Override public int delete(Uri uri, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.delete(NOTES_TABLE_NAME, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.delete(NOTES_TABLE_NAME, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } @Override public int update(Uri uri, ContentValues values, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.update(NOTES_TABLE_NAME, values, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.update(NOTES_TABLE_NAME, values, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } 最后我们需要在构造奔雷时就监听Uri，如果处理的Uri需要其他程序获知，需要在Androidmanifest.xml文件中显式的导出provider的Uri定义 static { sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH); sUriMatcher.addURI(NotePad.AUTHORITY, “notes”, NOTES); sUriMatcher.addURI(NotePad.AUTHORITY, “notes/#”, NOTE_ID); sUriMatcher.addURI(NotePad.AUTHORITY, “live_folders/notes”, LIVE_FOLDER_NOTES); sNotesProjectionMap = new HashMap(); sNotesProjectionMap.put(Notes._ID, Notes._ID); sNotesProjectionMap.put(Notes.TITLE, Notes.TITLE); sNotesProjectionMap.put(Notes.NOTE, Notes.NOTE); sNotesProjectionMap.put(Notes.CREATED_DATE, Notes.CREATED_DATE); sNotesProjectionMap.put(Notes.MODIFIED_DATE, Notes.MODIFIED_DATE); // Support for Live Folders. sLiveFolderProjectionMap = new HashMap(); sLiveFolderProjectionMap.put(LiveFolders._ID, Notes._ID + “ AS “ + LiveFolders._ID); sLiveFolderProjectionMap.put(LiveFolders.NAME, Notes.TITLE + “ AS “ + LiveFolders.NAME); // Add more columns here for more robust Live Folders. } } 最后帮助初学者简单的概括下Android的ContentProvider类的作用，就是尽可能的减少SQL语句的编写在外部操作，封装成方法，而有关SQL语言的执行在DatabaseHelper中也被简化和分离出了，而SQL语句主要是体现在选择表的字段，where这样的条件限定语句大大减少了我们日常的开发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjnibie3v001d6w0f8a7y8a6z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" class="article-date">
+  <time datetime="2010-11-16T03:01:43.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/">Google Android UI之困境：统一还是分化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android 的 UI 话题，恐怕是Google 和OEM制造商之间的一个主要冲突。本文作者Ben Hookway是一家<a href="http://tv.hexun.com/" target="_blank" rel="noopener">视频</a>公司的CEO ，他分析了Google未来的UI 战略以及发展趋势。</p>
+<p><a href="http://hpujsj.gotoip4.com/blog/wp-content/uploads/2010/11/125643844.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/905860f1a6892dfb4e1e41a5340c4fef.jpg" alt="" title="125643844"></a></p>
+<p>用户界面（UI）的话题，总是会带来强烈的争论。这有点像电视领域——每个人都是专家，因为每个人都是用户。 早在 2002 年，那时候的<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">电信</a>运营商就有一套自己的 UI 定制界面——例如Vodafone Live 和Orange SPV。当然，这遭到很多OEM 制造商的反对，应为制造商往往希望在产品中突出自己的品牌，而不是运营商的品牌。 OEM 制造商的困境 所以3 年过去了，OEM 制造商都只是在 Windows Mobile 和Symbian 手机界面上小幅改动，而不是按照运营商的要求创造一套新UI。同时，运营商也看到，自己定制 UI 并不能得到期望的回报，所以这事儿就散了。 随 着 2007 年 iPhone 的爆发，UI 又重新成为了最热门的话题。iPhone 成为了标杆，几乎所有 OEM 制造商都努力开发自己的 UI 界面——它们被称作 HTC Sense ，Moto Blur，Sony Ericsson Rachael，三星 TouchWiz ， LG S-Class。 此时，运营商试图组建更庞大的团队来研究和控制手机 UI 。Vodafone，Orange 和 T-Mobile 都投入了 100 个以上的人力来研究和定制 UI 。这股潮流也蔓延到了大洋彼岸，Verizon 和 AT&amp;T 也投入了数百万美元建立相关的研究所。 这也促成了一些专业的设计公司和产品，例如 TAT Cascades 和 Mentor Inflexion 。 最新的传言是 Google 将严格控制 Android 的 UI，让不同厂商的设备提供统一的界面。这将改变目前 Android 阵营的零散状态，避免很多因为厂商定制 UI 而引发的问题。 然而，这对 Google 的合作伙伴来说不是一个好消息。冲突的核心是，Google 希望像苹果那样获取更多的控制权限，控制硬件指标，控制软件性能，控制内置服务。 当然，苹果和 Google 的商业模式大不一样。 苹果能够从芯片，外观，软件，广告，服务，到品牌，渠道，零售价格做到全程控制，而 Google 做不到，它只控制软件。 苹果能够按照自己的节奏，每年发布一款新机。而 Google 的合作伙伴每年生产一百款新机。 苹果投入很多广告，把旗下多款产品建立起一个统一的品牌。Google 很少为自己的合作伙伴产品投放广告。 最重要的是，Google 必须依赖于 OEM 制造商，才能制造出产品。 OEM 的世界里，竞争激烈，生存条件恶劣，利润稀薄。价格和 UI：这两个因素几乎都被制约了——价格被 ODM 厂商制约，UI 被 Google 制约（即将制约）。 在以前， OEM 厂商要玩转这个游戏，就必须发展差异化 UI，而现在 Google 即将把这点权利给夺走。Google 不切实际地走向了苹果的商业模式。 这只能让事情越来越糟。 横跨四个屏幕的战争 接下来的战斗将蔓延到你的整个生活——不止是手机，还要加上电视，电脑，平板。由多屏幕组成的“用户体验生态系统”（Experience Ecosystem），能让用户把操作经验和习惯轻松地由一个屏幕过渡到另外一个屏幕。 浏览器已经缩小了笔记本电脑，手机，电视和汽车的距离，而“App”即将采用这种模式发展。 如 果要让手机，电视和电脑无缝连接起来，需要一个“统一”的用户体验。苹果在这里又成为了典范：Mac ，iPhone ，iPad 都采用类似的手势和操作方法，而且还形成了一套应用程序的设计指南。更何况还有 iTunes 和 MobileMe 云服务，这些元素凑在一起组成了第一个“用户体验生态系统”（Experience Ecosystem）。 而在 Android 阵营里，Google 最近发布了 Google TV。所以要在手机和电视上提供“统一”的用户体验，将是一件最重要的事情。如果你看到手机制造商把触角延伸到<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">数码</a>相框，无绳电话，机顶盒等产品，千万别感到惊讶。 控制硬件的一致性，将有利于完善 UI 响应和画面质量。但是，Google 能达到苹果那样的硬件一致性？Android 的下一个版本就是一次尝试。 围绕 UI 的争论将愈演愈烈 想象一下吧，你购买了基于 Android 的平板和电视，它们能相互同步播放视频节目。浏览器已经提供了这两种平台上的用户体验一致性，但其他很多程序做不到。 随着厂商的增加，设备的增加。围绕 Android UI 的争论不会消失，而是会越来越激烈。 OEM 制造商需要利用差异化的 UI 来提升自己品牌的忠诚度，构建自己的“用户体验生态系统”。但上升一个层次，Android 整个集团也需要一个“用户体验生态系统”来维护集团的利益。 Google 是接受 UI 分化的现实？还是从根本上改变这个市场？它会怎么做？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjnibie6700626w0fjes17ho0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ui/">ui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" class="article-date">
+  <time datetime="2010-11-16T00:00:23.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/">Android:Activity中onCreate方法的参数及用途</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>写过Android程序的都知道Activity中有一个名称叫onCreate的方法。该方法是在Activity创建时被系统调用，是一个Activity生命周期的开始。可是有一点容易被忽视，就是onCreate方法的参数saveInstallState。因为在一般的程序开发中，很少用到这个参数。 onCreate方法的完整定义如下: `public void onCreate(Bundle saveInstallState){ super.onCreate(saveInstallState); }`     从上面的代码可以看出，onCreate方法的参数是一个Bundle类型的参数。Bundle类型的数据与Map类型的数据相似，都是以key-value的形式存储数据的。     从字面上看saveInstallState，是保存实例状态的。实际上，saveInstallState也就是保存Activity的状态的。那么，saveInstallState中的状态数据是从何处而来的呢？下面我们介绍Activity的另一个方法onSaveInstallState。     onSaveInstallState方法是用来保存Activity的状态的。当一个Activity在生命周期结束前，会调用该方法保存状态。这个方法有一个参数名称与onCreate方法参数名称相同。如下所示： `public void onSaveInstallState(Bundle saveInstallState){ super.onSaveInstallState(saveInstallState); }`     在实际应用中，当一个Activity结束前，如果需要保存状态，就在onSaveInstallState中，将状态数据以key-value的形式放入到saveInstallState中。这样，当一个Activity被创建时，就能从onCreate的参数saveInstallState中获得状态数据。     状态这个参数在实现应用中有很大的用途，比如：一个游戏在退出前，保存一下当前游戏运行的状态，当下次开启时能接着上次的继续玩下去。再比如：电子书程序，当一本小说被阅读到第199页后退出了（不管是内存不足还是用户自动关闭程序），当下次打开时，读者可能已忘记了上次已阅读到第几页了，但是，读者想接着上次的读下去。如果采用saveInstallState参数，就很容易解决上述问题。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjnibie4700206w0fof2vks93" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" class="article-date">
+  <time datetime="2010-11-07T20:45:51.000Z" itemprop="datePublished">2010-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DataCross/">DataCross</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/">罗马不是一天建成的，我们一直在努力－关于DataCross</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>DataCross是一个数据格式转换工具，致力于为Java项目提供可靠，方便的格式转换服务；提高项目开发效率，降低项目开发成本。     DataCross源自于实际，以前工作中经常将数据从一种格式转换成另一种格式，次数多了就想能不能做成一个通用性的工具，这样以后再有这类数据格式转换工作时，就可以攻玉直接参与使用了，而不必将原来的许多代码重复多次，基于这样的想法，开始了datacross项目,DataCross和所有的开源项目一样，是一个不断完善的过程。比如开始时，将建立数据库连接等操作都包含进datacross中。后来在另一个场合发现不太通用,所以去掉了数据库连接功能，数据库连接由外界调用程序员提供。再比如开始时，想到了数据过虑，就是从Reader中读取数据时，判断是否符合条件。只有符合条件的才能读取出来,后来发现也不太实用就去掉了。所以这个项目是一个不断完善的过程。在完善过程中，我会考虑版本的向后兼容性。保证不修改用户程序就能升级datacross的jar包。     datacross能将数据在XML,数据库,Text,Excel,SQL,JSON等格式间相互转换,要求数据必须是矢量数据，也就是说一批数据中的每两组数据的结构相同。     datacross具有广泛的使用价值。比如：将数据中的表用datacross导出成xml或其它格式的文档离线存储起来，就能实现数据库的备份,一旦需要还原也可以使用datacross直接从xml或其它格式的文档中提取数据到数据库中。比如两个异步的系统之间要同步数据，可以用datacross将数据从一个系统中导出成一种共用格式的数据文档，然后将该文档送到另一个系统中，再用datacross导入。再比如说，现在的信息系统一般要用到许多的报表，只要你给出一个合理的SQL语句，就能将报表数据导出成Excel，html等格式的报表文档中。 项目地址:[http://datacross.daahe.com/](http://datacross.daahe.com/)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjnibie5u00536w0f4tmmwttf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/datacross/">datacross</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/格式转换/">格式转换</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" class="article-date">
+  <time datetime="2010-11-07T18:45:28.000Z" itemprop="datePublished">2010-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flex/">Flex</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/">Flex弹出页面不能监听到主程序中的事件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用PopupManager.createPopup弹出窗口后，不能在主应用中监听到弹出窗口中的事件。因为，从PopupManager.createPopup() 创建的显示对象DisplayObjects 不是application的子类，按照冒泡事件特性，当然添加在application对象的监听器就没法捕获此事件了。 要解决这个问题，我们需要了解一些FLEX的框架，如下图所示： <a href="http://blog.daahe.com/wp-content/uploads/2012/12/6ba30910dd3e356724a1cc4a4be913c6.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/6ba30910dd3e356724a1cc4a4be913c6.jpg" alt="" title="e3e0369924414e4f6f068c28"></a> 从这张图，我们可以清楚的看出，FLEX应用程序的弹出框不是application容器的子类，而是systemmananger的子类 因此在flex中我们捕获popup的事件应该这样来做： this.systemManager.addEventListener(AuthonSuccessEvent.AUTHON_SUCCESS, onAuthonSuccessHandler);</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjnibie64005u6w0fq1vgfsdy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flex/">Flex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hibernate/">Hibernate</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/jvm/">jvm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/道听途说/">道听途说</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Google-Map/">Google Map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapView/">MapView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/datacross/">datacross</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/切换/">切换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/格式转换/">格式转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/横屏/">横屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/注销/">注销</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/监听/">监听</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/竖屏/">竖屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/返回/">返回</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Google-Map/" style="font-size: 10px;">Google Map</a> <a href="/tags/MapView/" style="font-size: 10px;">MapView</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/datacross/" style="font-size: 10px;">datacross</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/xp-启动不输入密码/" style="font-size: 10px;">xp 启动不输入密码</a> <a href="/tags/切换/" style="font-size: 10px;">切换</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a> <a href="/tags/开发/" style="font-size: 15px;">开发</a> <a href="/tags/数据转换/" style="font-size: 10px;">数据转换</a> <a href="/tags/格式转换/" style="font-size: 10px;">格式转换</a> <a href="/tags/横屏/" style="font-size: 10px;">横屏</a> <a href="/tags/注销/" style="font-size: 10px;">注销</a> <a href="/tags/监听/" style="font-size: 10px;">监听</a> <a href="/tags/竖屏/" style="font-size: 10px;">竖屏</a> <a href="/tags/返回/" style="font-size: 10px;">返回</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/21/react/">react</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/23/jvm/">jvm</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/22/redis-e4-b8-ba-e4-bb-80-e4-b9-88-e4-bd-bf-e7-94-a8-e5-8d-95-e8-bf-9b-e7-a8-8b-e5-8d-95-e7-ba-bf-e7-a8-8b-e6-96-b9-e5-bc-8f-e4-b9-9f-e8-bf-99-e4-b9-88-e5-bf-ab/">Redis 为什么使用单进程单线程方式也这么快</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/09/heehhh/">heehhh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
