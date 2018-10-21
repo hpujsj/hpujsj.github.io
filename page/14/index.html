@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" class="article-date">
+  <time datetime="2010-11-16T00:00:23.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/">Android:Activity中onCreate方法的参数及用途</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>写过Android程序的都知道Activity中有一个名称叫onCreate的方法。该方法是在Activity创建时被系统调用，是一个Activity生命周期的开始。可是有一点容易被忽视，就是onCreate方法的参数saveInstallState。因为在一般的程序开发中，很少用到这个参数。 onCreate方法的完整定义如下: `public void onCreate(Bundle saveInstallState){ super.onCreate(saveInstallState); }`     从上面的代码可以看出，onCreate方法的参数是一个Bundle类型的参数。Bundle类型的数据与Map类型的数据相似，都是以key-value的形式存储数据的。     从字面上看saveInstallState，是保存实例状态的。实际上，saveInstallState也就是保存Activity的状态的。那么，saveInstallState中的状态数据是从何处而来的呢？下面我们介绍Activity的另一个方法onSaveInstallState。     onSaveInstallState方法是用来保存Activity的状态的。当一个Activity在生命周期结束前，会调用该方法保存状态。这个方法有一个参数名称与onCreate方法参数名称相同。如下所示： `public void onSaveInstallState(Bundle saveInstallState){ super.onSaveInstallState(saveInstallState); }`     在实际应用中，当一个Activity结束前，如果需要保存状态，就在onSaveInstallState中，将状态数据以key-value的形式放入到saveInstallState中。这样，当一个Activity被创建时，就能从onCreate的参数saveInstallState中获得状态数据。     状态这个参数在实现应用中有很大的用途，比如：一个游戏在退出前，保存一下当前游戏运行的状态，当下次开启时能接着上次的继续玩下去。再比如：电子书程序，当一本小说被阅读到第199页后退出了（不管是内存不足还是用户自动关闭程序），当下次打开时，读者可能已忘记了上次已阅读到第几页了，但是，读者想接着上次的读下去。如果采用saveInstallState参数，就很容易解决上述问题。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjnicwads001u5h0fmy61yltj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjnicny7i004xyp0fgveksn0e" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjnicwafh004x5h0f6lb7jdqc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/datacross/">datacross</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/格式转换/">格式转换</a></li></ul>
@@ -146,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjnicny7u005vyp0fec2rcgnl" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjnicwafx005y5h0f1l6rmeqr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -191,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjnicny980092yp0fhfrajjp1" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjnicwahg00955h0fpp8n9iin" class="article-share-link">Share</a>
       
       
     </footer>
@@ -234,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjnicny990093yp0fqmsr51nz" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjnicwahh00965h0f0n7zfr8y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -275,7 +316,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" data-id="cjnicny6u003oyp0f5seeje3b" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" data-id="cjnicwaev003o5h0f54572p8r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -316,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" data-id="cjnicny62002eyp0fhg2ihz3a" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" data-id="cjnicwae5002e5h0fo6bt3ak4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -357,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" data-id="cjnicny7g004syp0fvb239es2" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" data-id="cjnicwaff004s5h0fntbu8nsb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -398,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/09/01/e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4/" data-id="cjnicny6g0030yp0fabcctnfb" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/09/01/e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4/" data-id="cjnicwaei00305h0f0fj5ufw5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -439,48 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/08/25/e4-bb-8a-e5-a4-a9-e7-bb-b4-e6-8a-a4-e7-bd-91-e7-ab-99-e6-97-b6-ef-bc-8c-e4-b8-8d-e5-b0-8f-e5-bf-83-e5-b0-86bbs-e7-a8-8b-e5-ba-8f-e7-bb-99-e5-88-a0-e9-99-a4-e4-ba-86-e3-80-82/" data-id="cjnicny6c002typ0fqrd7sc6w" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-e4-bd-bf-e7-94-a8findviewbyid-e5-be-97-e5-88-b0null" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/08/25/android-e4-bd-bf-e7-94-a8findviewbyid-e5-be-97-e5-88-b0null/" class="article-date">
-  <time datetime="2010-08-25T08:04:21.000Z" itemprop="datePublished">2010-08-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/08/25/android-e4-bd-bf-e7-94-a8findviewbyid-e5-be-97-e5-88-b0null/">Android 使用findViewById得到null</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天调试一段程序发现一个隐蔽的小问题，找了好久才找到问题。 我用layout定义了一个button. 但是在程序中无法用findViewById获得到它的引用（得到的是null）。 layout.xml定义如下 <code>&lt;Button id=&quot;@+pageBar/next_bt&quot; android:layout_width=&quot;80px&quot; android:layout_height=&quot;40px&quot; android:text=&quot;下页&quot;/&gt;</code> nextBt = (Button)findViewById(R.pageBar.next_bt); 得到的结果nextBt为null; 百思不解，最后仔细查看，与其它代码对比，终于发现一个小问题，就是id的问题。不应该使用<code>id=&quot;@+pageBar/next_bt&quot;(据说是android的原来的风格)</code> 现在的风格是<code>android:id=&quot;@+pageBar/next_bt&quot;</code> 修改后就可以了。 以下我在网上找了其它原因: 1、在setContentView之前调用findViewById 2、layout文件夹，layout-land和layout-port文件夹没有分清，导致修改的layout文件没有起效果 3、想要得到的xml布局中的View不在当前活动中，要使用View layout=inflater.inflate(R.layout.{布局文件}, null)得到控件所在的布局View，R.layout.{布局文件}就是你想要得到的控件所在的布局。然后利用这个布局来寻找 转载请标明出处：<a href="../">3G Study</a> :<a href="http://blog.3gstdy.com/archives/43" target="_blank" rel="noopener">http://blog.3gstdy.com/archives/43</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/08/25/android-e4-bd-bf-e7-94-a8findviewbyid-e5-be-97-e5-88-b0null/" data-id="cjnicny58000uyp0f6eipd5nf" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/08/25/e4-bb-8a-e5-a4-a9-e7-bb-b4-e6-8a-a4-e7-bd-91-e7-ab-99-e6-97-b6-ef-bc-8c-e4-b8-8d-e5-b0-8f-e5-bf-83-e5-b0-86bbs-e7-a8-8b-e5-ba-8f-e7-bb-99-e5-88-a0-e9-99-a4-e4-ba-86-e3-80-82/" data-id="cjnicwaed002t5h0f14qsvymf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -547,6 +547,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/21/world-without-language/">无言的世界</a>
           </li>
         
@@ -560,10 +564,6 @@
         
           <li>
             <a href="/2018/10/21/react/">react</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/hello-world/">Hello World</a>
           </li>
         
       </ul>
