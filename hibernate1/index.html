@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>hibernate1 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第1**章 准备源代码阅读环境与Hibernate的基本配置** 1.1 概述 本书将通过深度解读Hibernate源代码来分析Hibernate的架构设计与实现原理，所以在开始之前，我们应该拥有一份Hibernate的源代码，并对源代码有一个大概的了解。这样，我们就可以很方便地结合Hibernate源代码阅读后面的章节。本章主要讲解如何搭建源代码阅读环境，以及介绍Hibernate项目的基本配置">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="website">
+<meta property="og:title" content="hibernate1">
+<meta property="og:url" content="http://www.daahe.com/hibernate1/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="第1**章 准备源代码阅读环境与Hibernate的基本配置** 1.1 概述 本书将通过深度解读Hibernate源代码来分析Hibernate的架构设计与实现原理，所以在开始之前，我们应该拥有一份Hibernate的源代码，并对源代码有一个大概的了解。这样，我们就可以很方便地结合Hibernate源代码阅读后面的章节。本章主要讲解如何搭建源代码阅读环境，以及介绍Hibernate项目的基本配置">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hibernate1">
+<meta name="twitter:description" content="第1**章 准备源代码阅读环境与Hibernate的基本配置** 1.1 概述 本书将通过深度解读Hibernate源代码来分析Hibernate的架构设计与实现原理，所以在开始之前，我们应该拥有一份Hibernate的源代码，并对源代码有一个大概的了解。这样，我们就可以很方便地结合Hibernate源代码阅读后面的章节。本章主要讲解如何搭建源代码阅读环境，以及介绍Hibernate项目的基本配置">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hibernate1/index.html" class="article-date">
+  <time datetime="2015-04-03T19:26:55.000Z" itemprop="datePublished">2015-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hibernate1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>第1**</strong>章 准备源代码阅读环境与<strong><strong>Hibernate</strong></strong>的基本配置**</p>
+<p><strong>1.1</strong> <strong>概述</strong></p>
+<p>本书将通过深度解读Hibernate源代码来分析Hibernate的架构设计与实现原理，所以在开始之前，我们应该拥有一份Hibernate的源代码，并对源代码有一个大概的了解。这样，我们就可以很方便地结合Hibernate源代码阅读后面的章节。本章主要讲解如何搭建源代码阅读环境，以及介绍Hibernate项目的基本配置和详细的实体映射配置等内容，详细的Hibernate项目配置将在第2章讲解。</p>
+<p><strong>1.**</strong>2<strong> </strong>建立源代码阅读环境**</p>
+<p><strong>1.2.1**</strong>安装<strong>**JDK</strong></p>
+<p>JDK是Java程序开发包，是我们开发运行Java程序的基础。接下来我们安装的Eclipse也是运行在Java虚拟机之上的。Java虚拟机也有多个实现，我们选用原Sun公司的虚拟机，随着Oracle收购Sun的成功，现在已经成为Oracle的产品了。我们准备安装6.x版本的JDK。下载地址如下：<a href="http://java.sun.com/javase/downloads/widget/jdk6.jsp。我们选择下载Windows版本的JDK。" target="_blank" rel="noopener">http://java.sun.com/javase/downloads/widget/jdk6.jsp。我们选择下载Windows版本的JDK。</a></p>
+<p>运行刚才下载的JDK安装文件。进入安装初始化界面。这时您要等待一会，具体时间视机器的速度而定。在此期间，安装向导程序会收集机器的一些配置信息，为以后的安装提供依据。</p>
+<p>图1-1是JDK功能安装选项。你可以安装开发工具、演示程序及样例、源代码、公共JRE、JavaDB等。其中，开发工具、演示程序及样例是必须安装的，其他几项是可以选择安装的，如果你不需要，可以点击其前的下拉图标选择“现在不安装此功能”即可。开发工具中包含我们必须用到的编译环境和运行Java程序需要的虚拟机。演示程序及样例中有一些小应用程序的源码，可以帮助我们学习Java的相关技术。源代码中包含Java公共API（Application Programming Interface，应用程序编程接口）的类，安装这项后，如果我们想了解Java中的某个类的内部实现方式，就可以在此找到其源代码。公共JRE是一个独立的虚拟机运行环境。Java DB是一个附带的数据库，这里可以不用安装。</p>
+<p>图1-1 JDK功能安装选项</p>
+<p>在安装JRE时，你可以更改安装路径，安装到其他位置。在此，我们保持默认的安装路径。如果点击“取消”，将不会安装独立的JRE。</p>
+<p><strong>1.2.2</strong> <strong>安装**</strong>Eclipse<strong>**及相关插件</strong></p>
+<p>Eclipse是一个Java集成开发环境，由IBM在1998年11月开始开发，在2001年11月开源。此后IBM和其他8个组织一起建立了Eclipse协会和eclipse.org网站，共同推动Eclipse的发展。目前Eclipse作为一个开源的集成开发环境被全球IT开发人员广泛使用。其下载地址是：<a href="http://www.eclipse.org/downloads/。因为以后我们讲解Hibernate的时候会与J2EE项目相结合。所以我们下载时选择Eclipse" target="_blank" rel="noopener">http://www.eclipse.org/downloads/。因为以后我们讲解Hibernate的时候会与J2EE项目相结合。所以我们下载时选择Eclipse</a> IDE for Java EE Developers版本的Eclipse，并且是Windows版本。下载完成解压后，即可运行使用。</p>
+<p>Eclipse主窗口称为工作台，包含菜单栏、工具栏、编辑器和视图等内容。工具栏下方放置编辑器和其他视图的区域，称为工作台页面。此页面包含界面的大部分可见部分：编辑器和视图。</p>
+<p>在今后我们阅读分析Hibernate源代码的过程中，Eclipse将会为我们提供十分便捷的帮助。其中，Hierarchy视图可以方便地帮助我们查看类或接口继承关系。我们可以在视图或编辑器中点击右键，选择要查看的类或接口，选择Open Type Hierarchy或者按快捷键F4，就可以打开该类或接口的继承关系视图了，如图1-2。</p>
+<p>图1-2 Eclipse的Hierarchy视图</p>
+<p>另外用快捷键Ctrl+T可以快速地弹出一个类或接口的继承关系列表窗口。同样地，Call Hierarchy视图可以帮助我们查看一个方法被其他方法调用的情况。我们在一个方法上点击右键，选择要查看的方法，选择Open Call Hierarchy或用快捷键Ctrl+Alt+H，就可以打开该方法的调用关系视图，如图1-3所示。</p>
+<p>图1-3 Eclipse的Call Hierarchy视图</p>
+<p><strong>1.2.3</strong> <strong>安装**</strong>SVN<strong>**插件</strong></p>
+<p>2010年11月9日，Hibernate开发团队宣布使用Gif控制Hibernate的源代码。在迁移到Git中时，放弃一些较老的版本。考虑到目前国内使用SVN的读者居多，有必要讲解一下SVN的使用方法。如果有读者想了解Gif的使用方法可到本书的附录中查阅。</p>
+<p>SVN（subversion）是近年来崛起的版本管理工具，目前，绝大多数开源软件都使用SVN作为代码版本管理软件，其最新版本的下载地址是：<a href="http://subclipse.tigris.org/update_1.6.x。适用于3.2以上版本的Eclipse。在Eclipse中，通过自带的插件安装工具，可以十分方便地下载安装这个插件。具体操作步骤是：菜单Help→Software" target="_blank" rel="noopener">http://subclipse.tigris.org/update_1.6.x。适用于3.2以上版本的Eclipse。在Eclipse中，通过自带的插件安装工具，可以十分方便地下载安装这个插件。具体操作步骤是：菜单Help→Software</a> Updates→Find and Install…→Search for new features to install。如图1-4。</p>
+<p>图1-4创建SVN插件下载站点</p>
+<p>新增一个更新站点后保存。点击完成后进入选择更新界面，如图1-5。</p>
+<p>图1-5 选择SVN插件安装项目</p>
+<p>在此我们更新所有的Subclipse包，之后重新启动Eclipse即可。那么怎么知道我们的SVN是否安装成功呢？我们可以在Eclipse菜单Windows→Show View→Other中看到SVN的视图。如图1-6所示。</p>
+<p>图1-6 视图列表中的SVN视图</p>
+<p><strong>1.2.4</strong> <strong>安装**</strong>Hibernate<strong>**插件</strong></p>
+<p>这里介绍两款Hibernate的Eclipse插件：Synchronizer和Hibernate Tools。</p>
+<p>Synchronizer是一款开源Hibernate的Eclipse插件，能帮助我们自动生成一些与Hibernate框架相关的Java代码和配置文件。并且当Hibernate映射文件发生变化后，Synchronizer能自动更新Java代码。它能生成以下对象：数据类、代理接口、复合主键、枚举类、复合对象、子类、DAO。</p>
+<p>目前，Synchronizer安装地址如下：</p>
+<p><a href="http://hibernatesynch.sourceforge.net/" target="_blank" rel="noopener">http://hibernatesynch.sourceforge.net/</a></p>
+<p>通过Eclipse的插件更新工具，输入上面的一个地址即可安装，步骤与安装SVN插件基本相同，在此不再详细说明。读者可试着自己安装该插件。</p>
+<p>Hibernter Tools是另一款优秀的Eclipse下的Hibernate插件，它是Hibernate 3的一个完整的工具集，其中包含一个Hibernate自带的插件。Hibernate Tools是JBoss Tools的一个核心组件，因此也是JBoss Developer Studio的一部分，如图1-7 。</p>
+<p>可以使用Eclipse的安装程序安装这一插件。地址是：<a href="http://download.jboss.org/jbosstools/updates/stable" target="_blank" rel="noopener">http://download.jboss.org/jbosstools/updates/stable</a></p>
+<p>图1-7 JBoss Tools中的Hibernate Tools</p>
+<p>选择其中的Hibernate Tools安装即可。安装后重新启动Eclipse，在视图列表中会有Hibernate项目，如图1-8所示。</p>
+<p>图1-8 视图列表中的Hibernate视图</p>
+<p><strong>1.2.5</strong> <strong>安装**</strong>MySQL<strong>**数据库</strong></p>
+<p>在MySQL官方网站可以下载MySQL的安装程序。下载地址为：<a href="http://dev.mysql.com/downloads/。下载符合你的计算机配置的版本（要注意操作系统和处理器位数）。下载后运行安装程序如图1-9。" target="_blank" rel="noopener">http://dev.mysql.com/downloads/。下载符合你的计算机配置的版本（要注意操作系统和处理器位数）。下载后运行安装程序如图1-9。</a></p>
+<p>图1-9 MySQL的安装界面</p>
+<p>图1-10 选择MySQL Server安装类型</p>
+<p>如图1-10所示，MySQL Server安装类型有三种：典型、完全、自定义。如果你想指定安装路径或选择安装组件，可以采用自定义的安装方式。我们选择典型安装方式。点击Next就进入安装进度界面，如图1-11。</p>
+<p>图1-11 安装进度</p>
+<p>安装完成后会有一个配置向导。根据向导的提示可以一步一步地完成MySQL的配置。</p>
+<p><strong>1.3**</strong>获取<strong><strong>Hibernate</strong></strong>源代码**</p>
+<p>Hibernate于2010年10月4日发布了3.6.0最终版本。在这个版本中有以下改进：</p>
+<p>不再支持JDK1.4；</p>
+<p>将Hibernate-annotations和Hibernate-jmx整合到Hibernate核心代码中来；</p>
+<p>改进了类型支持；</p>
+<p>修改了DTD的URL；</p>
+<p>改进了文档，增加了新手指南；</p>
+<p>强化了注释对discriminators,字段级别的读/写表达式和时间戳版本的支持；</p>
+<p>改进了对Envers的支持；</p>
+<p>我们有三种方式获取Hibernate源代码：</p>
+<p>1）第一种方式：到SourceForge官方网站上获取。网址为：<a href="http://sourceforge.net/projects/hibernate/files/hibernate3/。" target="_blank" rel="noopener">http://sourceforge.net/projects/hibernate/files/hibernate3/。</a></p>
+<p>2）第二种方式：到Jobss官方网站上获取，网址为：<a href="http://repository.jboss.org/maven2/org/hibernate/。" target="_blank" rel="noopener">http://repository.jboss.org/maven2/org/hibernate/。</a></p>
+<p>3）第三种方式：通过Gif客户端下载。下载路径：<a href="https://github.com/hibernate" target="_blank" rel="noopener">https://github.com/hibernate</a></p>
+<p>下载Hibernate源码后，解压加入到一个新的工程中，其目录结构如图1-14所示</p>
+<p>图1-14 Hibernate3.5.0-Final的目录结构图</p>
+<p>注意当把以上包加入到工程中后，Eclipse就会自动编译，之后会出现一些错误提示，如：下载后的Hibernate源码文件中org.hibernate.hql.antlr是空的，编译时会提示源文件丢失。细心的读者会发现，该包中只有一个HTML文件，打开后有以下提示：</p>
+<p>A special package for ANTLR-generated parser classes.</p>
+<p>NOTE: The classes in this package are generated from the ANTLR grammar files, do not register them into version control.</p>
+<p>即，这个包是一个特殊的包，该包中的类是由ANTLR解析器根据脚本文件生成的。生成步骤如下：</p>
+<p>1、将antlr.jar配置到环境变量CLASSPATH中，或拷到jdk的lib下面。</p>
+<p>2、打开命令行，进入源码的grammar文件夹(coresrcmainantlr)。可以看到以下文件：hql.g、hql-sql.g、order-by.g、order-by-render.g、sql-gen.g。</p>
+<p>3、依次运行上述脚本java antlr.Tool hql.g；java antlr.Tool hql-sql.g；java antlr.Tool sql-gen.g。生成源代码。</p>
+<p>4、把生成的java源文件考到org.hibernate.hql.antlr包中。</p>
+<p><strong>1.4 Hibernate**</strong>源代码的组织结构**</p>
+<p>下载完Hibernate源代码后，在Eclipse中Package explorer的结构如图1-15所示。下面我们对Hibernate源代码包结构做一下简单的说明。以便大家对Hibernate有一个大致的了解。</p>
+<p>Hibernate源代码主要包括：核心包core、注解包annotations、缓存包cache-ehcache, cache-infinispan, cache-jbosscache, cache-oscache,cache-swarmcache、连接池包connection-c3p0, connection-proxool、ejb实体管理包entitymanager、持久化类审查包envers、Java管理方案的扩展包jmx，还有一些存放测试用例的包和Hibernate自带的实例包等。Hibernate3.5.0-final版将bernate-annotations, hibernate-entitymanager and hibernate-envers整合到核心包中来。</p>
+<p>图1-15 Hibernate核心包结构</p>
+<p>接下来我们看看每一类别中所包含有哪些包和主要的类以及它们的用途等。Hibernate核心包结构包含以下几个大类。</p>
+<p><strong>1.4.1</strong> <strong>核心**</strong>API**</p>
+<p>org.hibernate包存放的是Hibernate核心接口，如SessionFactory、Session、Transaction、Query、Criteria等。还有一些常用的异常类：HibernateException、SessionException、QueryException等。</p>
+<p>org.hibernate.cfg包存入的是配置hibernate的相关API和类，如：Configuration、SettingsFactory、Settings、Mappings。</p>
+<p>org.hibernate.criterion包提供了一组查询API的实现。我们可以使用它们组装出复杂的查询，以及一些常用的统计查询。</p>
+<p>org.hibernate.mapping包定义了Hibernate配置时的元模型。包含了与实体配置文档相关的类，如：Table、Property、ManyToOne等。</p>
+<p>org.hibernate.metadata包定义了一组API，用于访问Hibernate运行时的数据元模型。</p>
+<p>org.hibernate.classic包向后兼容了Hibernate2.1的一些API，而这些API在Hibernate3.5中已过时。</p>
+<p>org.hibernte.stat包暴露了有关Hibernate运行时的一些统计数据。</p>
+<p><strong>1.4.2</strong> <strong>扩展的**</strong>SPI**</p>
+<p>org.hibernate.cache定义了Hibernate二级缓存的一些API/SPI，以及对其的实现。</p>
+<p>org.hibernate.connection实现了获得JDBC连接的机制。</p>
+<p>org.hibernate.collection为集合类封装类定义了框架。</p>
+<p>org.hibernate.dialect实现了底层数据库的SQL方言。</p>
+<p>org.hibernate.event为Hibernate定义了一个事件框架。</p>
+<p>org.hibernate.id为Hibernate提供了不同的实体Id生成机制。</p>
+<p>org.hibernate.jdbc实现了分发SQL语句到数据库的机制，并实现了与JDBC的互动。</p>
+<p>org.hibernate.loader实现了处理JDBC结果集的功能。</p>
+<p>org.hibernate.persister包实现持久对象和表之间的映射，是Hibernate的核心包。它还有两个子包，collection实现了集合的持久化机制，负责持久化集合的对象。Entity实现了实体的持久化机制，并定义了Hibernate运行负责单个实体的持久化。</p>
+<p>org.hibernate.proxy定义了延迟加载代理实体的框架。</p>
+<p>org.hibernate.transaction实现了底层事务机制(JTA，JDBC)，并提供了获得应用服务器事务管理器的策略。</p>
+<p>org.hibernate.tuple为实体在对象级别上定义了一个运行时的元模型，并实现了各式各样实体类型的差异化。</p>
+<p>org.hibernate.usertype用户自己定义类型的接口。</p>
+<p>org.hibernate.type处理Java属性类型与JDBC字段类型的应射。</p>
+<p><strong>1.4.3</strong> <strong>Bytecode</strong> <strong>包</strong></p>
+<p>org.hibernate.bytecode包含一些bytecode库的插件，便于在Hibernate中使用。。Hibernate使用bytecode有三种情形：1、为了优化反射机制：提高访问POJO实体和组件的构造方法或属性的速度。2、为了生成代理：在运行过程中创建用于延迟加载的代理；3、属性级别的拦截：在延迟加载和脏数据跟踪时，为拦截属性级别访问构建实体类的说明。</p>
+<p>org.hibernate.intercept这个包实现了基于CGLIB字节码的延迟加载属性的拦截机制。</p>
+<p><strong>1.4.4 Infinispan包</strong></p>
+<p>Infinispan是JBoss Cache的后续项目，是一个数据网格平台，是一个分布式的缓存系统。Hibernate为了整合Infinispan提供了相应的接口，它们存放在包org.hibernate.cache.infinispan，这样在Hibernte中就使用Infinispan作为缓存系统了。</p>
+<p><strong>1.4.5 JBossCache包</strong></p>
+<p>JBoss Cache是Hibernate推荐使用的缓存。在Hibernate中整合JBoss Cache的程序存放在包org.hibernate.cache.jbc中。</p>
+<p><strong>1.4.6 其他的包</strong></p>
+<p>org.hibernate.impl包存放的是hibernate的核心接口的实现类，如SessionFactoryImpl、SessionImpl、QueryImpl等。这些类是Hibernate具体实现，包含了ORM的一些具体算法，也体现出许多Hibernate的设计思想。也是我们今后分析Hibernate运行的主要对象。</p>
+<p>org.hibernate.engine包中的类比较分散，多是由其他包“共享”而来的，并且实现了一些关键的算法。</p>
+<p>其他的包就不一一介绍了，如果想了解可去查看API文档资料。</p>
+<p><strong>1.5</strong> <strong>创建一个简单的**</strong>Hibernate<strong>**项目</strong></p>
+<p>通过前几个小节，我们配置好了开发环境，接下来我们建立一个Web工程。初步认识一下Hibernate。</p>
+<p>在建立项目之前，我们先明确一下这个项目的内容。该项目是一个简单的学生信息管理系统。其中有学生实体、班级实体、课程实体。一个班级包含零个或多个学生，一个学生可以修多门课程。一门课程可以被多个学生选择。这个项目名称为students，包含一个一对多的关系：班级与学生；也包含一个多对多的关系：学生与课程。这个项目使用MySQL数据库存储数据。</p>
+<p><strong>1.5.1**</strong>在<strong><strong>MySQL</strong></strong>中创建表**</p>
+<p>根据前面的分析，我们需要创建4张表：班级表、学生表、课程表、学生课程映射表。表结构图如下：</p>
+<p>表1-1 班级表clazz</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>班级名称</p>
+<p>name</p>
+<p>varchar</p>
+<p>100</p>
+<p>表1-2学生表student</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>学号</p>
+<p>number</p>
+<p>varchar</p>
+<p>50</p>
+<p>姓名</p>
+<p>name</p>
+<p>varchar</p>
+<p>20</p>
+<p>年龄</p>
+<p>age</p>
+<p>int</p>
+<p>班级ID</p>
+<p>clazz_id</p>
+<p>int</p>
+<p>表1-3课程表course</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>课程名称</p>
+<p>name</p>
+<p>varchar</p>
+<p>100</p>
+<p>表1-4学生课程表std_cor</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>课程ID</p>
+<p>course_id</p>
+<p>int</p>
+<p>学生ID</p>
+<p>std_id</p>
+<p>int</p>
+<p><strong>1.5.2**</strong>创建一个<strong>**Web Project</strong></p>
+<p>使用Eclipse的创建工程向导建立一个Web工程。在工程名称中输入students，作为我们的工程名。其余选项采用默认设置。如图1-16 。</p>
+<p>图1-16 创建Java工程向导</p>
+<p>把以下包加入到WebContent/WEB-INFO/lib下，并加入到ClASSPATH中：antlr-2.7.6.jar,c3p0-0.9.1.jar、cglib-2.2.jar、commons-collections-3.1.jar、commons-logging-1.1.jar、dom4j-1.6.1.jar、ehcache-1.5.0.jar、hibernate-jpa-2.0-api-1.0.0.Final.jar、hibernate-testing.jar、hibernate3.jar、infinispan-core-4.0.0.FINAL.jar、javaee.jar、javassist-3.9.0.GA.jar、jbosscache-core-3.2.1.GA.jar、jta-1.1.jar、log4j-1.2.14.jar、mysql-connector-java-5.0.8-bin.jar、oscache-2.1.jar、proxool-0.8.3.jar、slf4j-api-1.5.8.jar、slf4j-log4j12-1.4.2.jar、swarmcache-1.0RC2.jar。</p>
+<p>创建存放pojo的包org.st.pojo，存放dao的包org.st.dao。</p>
+<p><strong>1.5.3</strong> <strong>配置**</strong>Hibernate**</p>
+<p>首先用向导创建一个Hibernate Configuration File（cfg.xml），如图1-17。</p>
+<p>图1-17 创建Hibernate配置文档</p>
+<p>选择Hibernate配置文件的存放路径。我们将其存放在students工程的源代码目录中，即在src目录中。点击Next进入下一步：</p>
+<p>图1-18 选择Hibernate配置文件的存放路径</p>
+<p>图1-19 设置Hibernate配置文件</p>
+<p>图1-20创建并配置Hibernate Console</p>
+<p>图1-21 配置Hibernate Console的classpath</p>
+<p>创建并设置好Hibernate的配置文件后。将Eclipse切换到Hibernate视图。在Hibernate Configurations窗口中可以看到刚才配置的students，以及数据库中的表信息，如图1-22。说明刚才的配置是正确的。如果不能看到数据库中的表，请检查您的配置文件，看看什么地方设置错了。如果没有看到Hibernate Configurations窗口，可以选择Windows－Show View－Other打开该窗口。</p>
+<p>图1-22 Hibernate Configurations窗口</p>
+<p><strong>1.5.4</strong> <strong>反向工程</strong></p>
+<p>接下来将我们介绍如何使用Hibernate Code Generation产生Hibernate映射文件和Java类文件。首先将Eclipse切换到Hibernate视图，在工具栏中可以看到如图1-23的下拉按钮，点击后会有Hibernate Code Generation Configurations项目。</p>
+<p>图1-23 反向工程按在工具栏上的位置</p>
+<p>选择该项。弹出如图1-24的窗口。点击左侧窗口的添加按钮，增加一个Hibernate反向工程配置文档。在Main选项卡中设置好名称、工程名称、生成的Hibernate文档及Java文件存放路径，包名等。</p>
+<p>图1-24配置反向工程</p>
+<p>点击Setup按钮设置reveng.xml项目，选择好存放路径。如果Database schema中为空，可以点击其下面的Refresh按钮刷新。然后选中其中的表，点击Include按钮将其导入到Table filters中。如果点击Exclude，在反向工程时会将其排除在外，不对其反向。点击“Finish”完成设置。如图1-25。</p>
+<p>图1-25 反向工程过滤设置</p>
+<p>切换到Exporters选项卡。如图1-26 所示。</p>
+<p>图1-26 设置导出对象</p>
+<p>选择导出项目，这里我们选择Domain Code、Hibernate XML Mappings和DAO code，这样一来我们在运行反向工程时，只会生成与表相对应的pojo Java类文件、Hibernate映射文件和DAO类文件。</p>
+<p>点击Apply保存以上设置。点击Run运行反向工程。运行成功后，工程的源代码目录中会生成如图1-27 所示的文件：</p>
+<p>图1-27 反向工程后生成的文件</p>
+<p>其中Student.java等文件是POJO对象，StudentHome.java等是DAO，Student.hbm.xml等是实体映射文件，hibernate.cfg.xml是Hibernate的配置文件，里面包含数据库连接等参数。其中POJO、DAO、映射文件等名称的生成规则可以通过指定命名策略来改变。为了便于查看代码，另外建立一个包org.st.dao专门存放DAO。将反向工程生成的StudentHome.java放入到这个包中来。在反向工程时，学生与课程的多对多的关系被分成了两个一对多的关系。我们可以手工修改一下Student.hbm.xml和Course.hbm.xml文件。修改成多对多的关系。如代码清单1-1和代码清单1-2。</p>
+<p>代码清单1-1 实体Student的映射文件</p>
+<p>代码清单1-2 实体Course的映射文件</p>
+<p>下面我们创建一个SessionFactory。用来初始化Hibernate，并给DAO提供Session。如代码清单1-3所示。</p>
+<p>代码清单1-3 SessionFactory</p>
+<p>public class HibernateSessionFactory {</p>
+<p>private static String resource = “/hibernate.cfg.xml”;</p>
+<p>private static SessionFactory sessionFactory;</p>
+<p>static {</p>
+<p>try {</p>
+<p>sessionFactory = new Configuration().configure(resource).buildSessionFactory();</p>
+<p>} catch (Exception e) {</p>
+<p>System.err.println(“%%%% Error Creating sessionFactory %%%%”);</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>private HibernateSessionFactory() {</p>
+<p>}</p>
+<p>public static SessionFactory getSessionFactory() {</p>
+<p>return sessionFactory;</p>
+<p>}</p>
+<p>}</p>
+<p>在用Hibernate插件反向工程生成的DAO中，我们可以看到其获得SessionFactory的代码如代码清单1-4所示。SessionFactory是从容器的上下文中获得的。所以，当程序运行时，我们要向容器的上下文中放入一个SessionFactory。</p>
+<p>代码清单1-4 DAO是获得SessionFactory的方法</p>
+<p>protected SessionFactory getSessionFactory() {</p>
+<p>try {</p>
+<p>return (SessionFactory) new InitialContext()</p>
+<p>.lookup(“SessionFactory”);</p>
+<p>} catch (Exception e) {</p>
+<p>log.error(“Could not locate SessionFactory in JNDI”, e);</p>
+<p>throw new IllegalStateException(“Could not locate SessionFactory in JNDI”);</p>
+<p>}</p>
+<p>}</p>
+<p>为了向容器的上下文中放入一个SessionFactory。我们可以在Web应用中注册一个监听器。在应用启动时由监听器向容器中放入一个SessionFactory。监听器配置见代码清单1-5。监听器代码如代码清单1-6 所示。</p>
+<p>代码清单1-5 配置加载Hibernate的监听器</p>
+<p>org.st.HibernateContextLoaderListener</p>
+<p>代码清单1-6 Hibernate监听器</p>
+<p>public class HibernateContextLoaderListener implements ServletContextListener{</p>
+<p>private InitialContext initialContext;</p>
+<p>/**</p>
+<p>* Default constructor.</p>
+<p>* @throws NamingException</p>
+<p>*/</p>
+<p>public HibernateContextLoaderListener() throws NamingException {</p>
+<p>initialContext = new InitialContext();</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void contextDestroyed(ServletContextEvent arg0) {</p>
+<p>try {</p>
+<p>initialContext.destroySubcontext(“SessionFactory”);</p>
+<p>} catch (NamingException e) {</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void contextInitialized(ServletContextEvent arg0) {</p>
+<p>try {</p>
+<p>initialContext.bind(“SessionFactory”, HibernateSessionFactory.getSessionFactory());</p>
+<p>} catch (NamingException e) {</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>接下来我们创建几个jsp页面。使用刚才生成的DAO，保存我的实体类。具体代码请查看随书光盘Students项目。</p>
+<p>项目中包含一个一对多的关系——班级对学生和一个多对多的关系——学生对课程。从liststudents.jsp中保存实体的代码如代码清单1-7所示。一个学生属于一个班级，所以对一个学生要创建一个班级实体对象clazz，此处是根据班级的id从数据库中查找出来的。一个学生可以选择多门课程，所以要为一个学生创建一个课程集合courses，然后根据课程的id从数据库中查找出课程放入到courses集合中。最后是调用studentHome保存学生实体。</p>
+<p>代码清单1-7 保存Student的代码</p>
+<p>//创建学生实体</p>
+<p>Student s = new Student();</p>
+<p>s.setNumber(number);</p>
+<p>s.setName(name);</p>
+<p>s.setAge(Integer.parseInt(age));</p>
+<p>//创建班级实体。班级实体与学生实体是一对多的关系。</p>
+<p>Clazz clazz = null;</p>
+<p>if(clazzid != null &amp;&amp; !””.equals(clazzid)){</p>
+<p>clazz = clazzHome.findById(Integer.parseInt(clazzid));</p>
+<p>s.setClazz(clazz);</p>
+<p>}</p>
+<p>//创建多个课程实体,课程实体与学生实体是多对多的关系</p>
+<p>if(courseids != null){</p>
+<p>Set courses = s.getCourses();</p>
+<p>for(String courseid : courseids){</p>
+<p>courses.add(courseHome.findById(Integer.parseInt(courseid)));</p>
+<p>}</p>
+<p>}</p>
+<p>//保存学生实体</p>
+<p>studentHome.persist(s);</p>
+<p><strong>1.6</strong> <strong>创建一个简单的SSH**</strong>项目**</p>
+<p>SSH项目是Struts+Spring+Hibernate的有机整合。利用三框架将J2EE项目分成表现层、业务层、持久层等。为了便于结合着Struts2.0和Spring讲解Hibernate。我们需将第1.5节的students例子改造一下，加入Struts和Spring框架，使之成为一个SSH项目。</p>
+<p>首先向项目中加入Struts包和Spring包。并将其加入到CLASSPATH中。</p>
+<p><strong>1.6.1</strong> <strong>配置**</strong>Struts**</p>
+<p>在web.xml中增加Struts过滤器FilterDispatcher，如代码清单1-8。</p>
+<p>代码清单1-8 配置Struts过滤器</p>
+<p>struts</p>
+<p>org.apache.struts2.dispatcher.FilterDispatcher</p>
+<p>struts</p>
+<p>*.action</p>
+<p>增加完过滤器后，在src源代码目录中创建一个struts的配置文件，代码清单1-9。内容如下：</p>
+<p>其中struts.objectFactory的值设置为spring，这样一来Struts配置文件中的action可交于Spring来管理，也就是说Struts可以引用Spring管理的Bean。</p>
+<p>代码清单1-9 Struts的配置文件</p>
+<p>“-//Apache Software Foundation//DTD Struts Configuration 2.0//EN”</p>
+<p>“<a href="http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;" target="_blank" rel="noopener">http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</a></p>
+<p><strong>1.6.2</strong> <strong>配置**</strong>Spring**</p>
+<p>配置Spring主要是配置一个监听器，当应用启动后，初始化Spring的上下文。其中需要一个上下文参数contextConfigLocation，用以指明Spring配置文档所在位置。这里采用classpath的方式。我们将applicationContext.xml放在src目录下。如代码清单1-10。</p>
+<p>代码清单1-10 加载Spring的监听器</p>
+<p>contextConfigLocation</p>
+<p>classpath:/applicationContext*.xml</p>
+<p>org.springframework.web.context.ContextLoaderListener</p>
+<p>org.springframework.web.context.request.RequestContextListener</p>
+<p><strong>1.6.3**</strong>配置<strong>**Hibernate</strong></p>
+<p>有了Spring框架，我们可以将Hibernate的SessionFactory放入到Spring配置文件中进行管理。Spring为了集成Hibernate，提供了一些现成的SessionFactory。如：LocalSessionFactoryBean，AnnotationSessionFactoryBean等。现在我们采用AnnotationSessionFactoryBean配置Hibernate的SessionFactory，代码如清单1-11所示。使用AnnotationSessionFactoryBean必须有一个数据库连接池，我们在此使用开源的数据源数据库连接池，配置数据源如代码清单，代码如清单1-12所示。</p>
+<p>代码清单1-11 在Spring配置SessionFactory</p>
+<p>classpath:/org/st/pojo</p>
+<p>org.hibernate.dialect.MySQL5Dialect</p>
+<p>false</p>
+<p>代码清单1-12 在Spring中配置数据源</p>
+<p>org.gjt.mm.mysql.Driver</p>
+<p>jdbc:mysql://127.0.0.1:3306/student</p>
+<p>user</p>
+<p>password</p>
+<p>至此，Struts+Spring+Hibernate框架整合完毕。接下来就可以将原来的代码拆分到各个不同的功能层次中去，使代码显得层次分明、结构条理、易于维护。具体的修改过程在此就不一一介绍了。需要的读者可查看本书附带的源码。</p>
+<p><strong>1.7</strong> <strong>小结</strong></p>
+<p>本章主要讲述了如何搭建一个学习和开发Hibernate的环境，并讲述了Hibernate的结构。然后在此基础上创建一个Hibernate工程students。在此工程中展示了如何使用Hibernate。最后又对students工程进行完善，整合Struts框架和Spring框架。至此，students成为一个完整的SSH项目。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/hibernate1/index.html" data-id="cjni9cdau00achq0f41x2oexu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
