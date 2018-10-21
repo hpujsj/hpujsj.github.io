@@ -72,6 +72,146 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sys-sysprocesses-transact-sql" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/14/sys-sysprocesses-transact-sql/" class="article-date">
+  <time datetime="2015-10-13T21:45:12.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/sys-sysprocesses-transact-sql/">sys.sysprocesses (Transact-SQL)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>含正在 SQL Server 实例上运行的进程的相关信息。这些进程可以是客户端进程或系统进程。若要访问 sysprocesses，您必须位于 master 数据库上下文中，或者必须使用由三部分构成的名称 master.dbo.sysprocesses。</p>
+<p>列名</p>
+<p>数据类型</p>
+<p>说明</p>
+<p>spid</p>
+<p><strong>smallint</strong></p>
+<p>SQL Server 会话 ID。</p>
+<p>kpid</p>
+<p><strong>smallint</strong></p>
+<p>Windows 线程 ID。</p>
+<p>blocked</p>
+<p><strong>smallint</strong></p>
+<p>正在阻塞请求的会话的 ID。如果此列为 NULL，则表示请求未被阻塞，或锁定会话的会话信息不可用（或无法进行标识）。 -2 = 阻塞资源由孤立的分布式事务拥有。 -3 = 阻塞资源由延迟的恢复事务拥有。 -4 = 由于内部闩锁状态转换而无法确定阻塞闩锁所有者的会话 ID。</p>
+<p>waittype</p>
+<p><strong>binary(2)</strong></p>
+<p>保留。</p>
+<p>waittime</p>
+<p><strong>bigint</strong></p>
+<p>当前等待时间（毫秒）。 0 = 进程不等待。</p>
+<p>lastwaittype</p>
+<p><strong>nchar(32)</strong></p>
+<p>指示上次或当前等待类型名称的字符串。</p>
+<p>waitresource</p>
+<p><strong>nchar(256)</strong></p>
+<p>锁资源的文本化表示法。</p>
+<p>dbid</p>
+<p><strong>smallint</strong></p>
+<p>当前正由进程使用的数据库 ID。</p>
+<p>uid</p>
+<p><strong>smallint</strong></p>
+<p>执行命令的用户 ID。如果用户数和角色数超过 32,767，则发生溢出或返回 NULL。有关详细信息，请参阅查询 SQL Server 系统目录。</p>
+<p>cpu</p>
+<p><strong>int</strong></p>
+<p>进程的累计 CPU 时间。无论 SET STATISTICS TIME 选项是 ON 还是 OFF，都为所有进程更新该项。</p>
+<p>physical_io</p>
+<p><strong>int</strong></p>
+<p>进程的累计磁盘读取和写入。</p>
+<p>memusage</p>
+<p><strong>int</strong></p>
+<p>当前为此进程分配的过程缓存中的页数。一个负数，表示进程正在释放由另一个进程分配的内存。</p>
+<p>login_time</p>
+<p><strong>datetime</strong></p>
+<p>客户端进程登录到服务器的时间。对于系统进程，将存储 SQL Server 的启动时间。</p>
+<p>last_batch</p>
+<p><strong>datetime</strong></p>
+<p>客户端进程上次执行远程存储过程调用或 EXECUTE 语句的时间。对于系统进程，将存储 SQL Server 的启动时间。</p>
+<p>ecid</p>
+<p><strong>smallint</strong></p>
+<p>用于唯一标识代表单个进程进行操作的子线程的执行上下文 ID。</p>
+<p>open_tran</p>
+<p><strong>smallint</strong></p>
+<p>进程的打开事务数。</p>
+<p>status</p>
+<p><strong>nchar(30)</strong></p>
+<p>进程 ID 状态。可能的值有： <strong>dormant</strong> = SQL Server 正在重置会话。 <strong>running</strong> = 会话正在运行一个或多个批。多个活动的结果集 (MARS) 启用后，会话可以运行多个批。有关详细信息，请参阅使用多个活动的结果集 (MARS)。 <strong>background</strong> = 会话正在运行一个后台任务，例如死锁检测。 <strong>rollback</strong> = 会话具有正在处理的事务回滚。 <strong>pending</strong> = 会话正在等待工作线程变为可用。 <strong>runnable</strong> = 会话中的任务在等待获取时间量程时位于计划程序的可执行队列中。 <strong>spinloop</strong> = 会话中的任务正在等待调节锁变为可用。 <strong>suspended</strong> = 会话正在等待事件（如 I/O）完成。</p>
+<p>sid</p>
+<p><strong>binary(86)</strong></p>
+<p>用户的全局唯一标识符 (GUID)。</p>
+<p>hostname</p>
+<p><strong>nchar(128)</strong></p>
+<p>工作站的名称。</p>
+<p>program_name</p>
+<p><strong>nchar(128)</strong></p>
+<p>应用程序的名称。</p>
+<p>hostprocess</p>
+<p><strong>nchar(10)</strong></p>
+<p>工作站进程 ID 号。</p>
+<p>cmd</p>
+<p><strong>nchar(16)</strong></p>
+<p>当前正在执行的命令。</p>
+<p>nt_domain</p>
+<p><strong>nchar(128)</strong></p>
+<p>客户端的 Windows 域（如果使用 Windows 身份验证）或可信连接的 Windows 域。</p>
+<p>nt_username</p>
+<p><strong>nchar(128)</strong></p>
+<p>进程的 Windows 用户名（如果使用 Windows 身份验证）或可信连接的 Windows 用户名。</p>
+<p>net_address</p>
+<p><strong>nchar(12)</strong></p>
+<p>为每个用户工作站上的网络适配器分配的唯一标识符。当用户登录时，该标识符插入 net_address 列。</p>
+<p>net_library</p>
+<p><strong>nchar(12)</strong></p>
+<p>用于存储客户端网络库的列。每个客户端进程都在网络连接上进入。网络连接有一个与这些进程关联的网络库，该网络库使得这些进程可以建立连接。有关详细信息，请参阅网络协议和 TDS 端点。</p>
+<p>loginame</p>
+<p><strong>nchar(128)</strong></p>
+<p>登录名。</p>
+<p>context_info</p>
+<p><strong>binary(128)</strong></p>
+<p>使用 SET CONTEXT_INFO 语句存储在批中的数据。</p>
+<p>sql_handle</p>
+<p><strong>binary(20)</strong></p>
+<p>表示当前正在执行的批或对象。 <strong>注意</strong>   此值是从对象的批或内存地址派生的。通过使用基于 SQL Server 哈希的算法无法计算此值。</p>
+<p>stmt_start</p>
+<p><strong>int</strong></p>
+<p>为指定 sql_handle 运行当前 SQL 语句的起始偏移量。</p>
+<p>stmt_end</p>
+<p><strong>int</strong></p>
+<p>所指定 sql_handle 的当前 SQL 语句的结束偏移量。 -1 指出当前语句为指定的 sql_handle 运行到 fn_get_sql 函数返回结果的结尾。</p>
+<p>request_id</p>
+<p><strong>int</strong></p>
+<p>请求 ID。用于标识在特定会话中运行的请求。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/10/14/sys-sysprocesses-transact-sql/" data-id="cjnivgf01008duu0fz4gcky2u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/" class="article-date">
@@ -106,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/" data-id="cjnicwagw00835h0fxm63vo1t" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/10/14/sql-server-e5-bf-ab-e7-85-a7-e4-ba-8b-e5-8a-a1-e9-9a-94-e7-a6-bb-e6-ad-bb-e9-94-81-e9-81-bf-e5-85-8d/" data-id="cjnivgezz0089uu0ffiv514ku" class="article-share-link">Share</a>
       
       
     </footer>
@@ -236,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/10/13/e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjnicwai2009x5h0f2rw819po" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/10/13/e9-9c-80-e8-a6-81-e6-88-91-e4-bb-ac-e4-ba-86-e8-a7-a3-e7-9a-84sql-server-e9-98-bb-e5-a1-9e-e5-8e-9f-e5-9b-a0-e4-b8-8e-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjnivgf1b009yuu0f32bhkdqz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -277,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/" data-id="cjnicwaep003c5h0fwmd41hpn" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/" data-id="cjnivgexy003euu0fxxifugr7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -385,7 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" data-id="cjnicwaey003u5h0fgy1x47mq" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" data-id="cjnivgey5003uuu0ftr0rip8u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -797,7 +937,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" data-id="cjnicwai600a35h0fin5slr8g" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" data-id="cjnivgf1k00a4uu0fxx6ez9zi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -838,7 +978,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" data-id="cjnicwaf500485h0fhjbur3co" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" data-id="cjnivgeyb0046uu0fhe5uwc9r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1776,7 +1916,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" data-id="cjnicwaib00a75h0flwcy8llo" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" data-id="cjnivgf1m00a8uu0f5qd1c3lv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1915,7 +2055,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" data-id="cjnicwaie00a95h0frkg3x4n0" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" data-id="cjnivgf1r00aauu0fr36uhoyf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1956,50 +2096,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjnicwadx00225h0f1tj1js1r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" class="article-date">
-  <time datetime="2015-05-07T03:03:09.000Z" itemprop="datePublished">2015-05-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/">MS SQL 检查死锁</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>select spid, blocked, loginame, last_batch, status, cmd, hostname, program_name from sys.sysprocesses where spid in ( select blocked from sys.sysprocesses where blocked &lt;&gt; 0 ) or (blocked &lt;&gt;0);    </p>
-<p>SELECT request_session_id spid,OBJECT_NAME(resource_associated_entity_id)tableName FROM sys.dm_tran_locks WHERE resource_type=’OBJECT’;</p>
-<pre><code>kill 70;
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjnicwagi00775h0f12rkk4zv" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjnivgex80024uu0fr287f3qv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2013,7 +2110,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -2066,6 +2163,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
           </li>
         
@@ -2079,10 +2180,6 @@
         
           <li>
             <a href="/2018/10/21/feature/">我们的未来</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/react/">react</a>
           </li>
         
       </ul>

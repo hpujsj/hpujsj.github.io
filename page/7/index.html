@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e5-a6-82-e4-bd-95-e6-89-93-e5-bc-80anroid-e7-b3-bb-e7-bb-9f-e8-87-aa-e5-b8-a6-e9-82-ae-e4-bb-b6-e5-ba-94-e7-94-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/09/19/e5-a6-82-e4-bd-95-e6-89-93-e5-bc-80anroid-e7-b3-bb-e7-bb-9f-e8-87-aa-e5-b8-a6-e9-82-ae-e4-bb-b6-e5-ba-94-e7-94-a8/" class="article-date">
+  <time datetime="2012-09-19T04:54:03.000Z" itemprop="datePublished">2012-09-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/09/19/e5-a6-82-e4-bd-95-e6-89-93-e5-bc-80anroid-e7-b3-bb-e7-bb-9f-e8-87-aa-e5-b8-a6-e9-82-ae-e4-bb-b6-e5-ba-94-e7-94-a8/">如何打开Anroid系统自带邮件应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在网上很容易找到如何调用系统自带的邮件系统发送邮件，但是关于如何打开邮件应用的主界面的文章很少。 <a href="http://blog.daahe.com/wp-content/uploads/2012/09/20110925113745320.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/09/20110925113745320-180x300.jpg" alt="" title="20110925113745320"></a> android系统一般都会带系统自带的Email应用，包括一些定制机。android自带的Email应用的包名是com.android.email，这个可以从应用管理器中查找到。只有一个包名信息打开应用不太可能。android系统允许通过组件名(ComponentName)打开一个应用。组件是包含应用包名和主Activity的对象。如何找到Email的主Activity呢？通过执行如下代码可以列如系统中所有应用的主Activity类和主包名。 private String listPackage() { List<applicationinfo> mApplications = null; PackageManager manager = getPackageManager(); Intent mainIntent = new Intent(Intent.ACTION_MAIN, null); // 取出Intent mainIntent.addCategory(Intent.CATEGORY_LAUNCHER); // 分辨出位默认Laucher启动的程序 final List<resolveinfo> apps = manager.queryIntentActivities(mainIntent, 0); // 利用包管理器将起取出来 Collections.sort(apps, new ResolveInfo.DisplayNameComparator(manager)); StringBuffer sb = new StringBuffer(); if (apps != null) { final int count = apps.size(); if (mApplications == null) { mApplications = new ArrayList<applicationinfo>(count); } mApplications.clear(); for (int i = 0; i &lt; count; i++) { ResolveInfo info = apps.get(i); sb.append(“Label:”).append(info.loadLabel(manager)).append(“;\n\r”); sb.append(“packageName:”).append(info.activityInfo.applicationInfo.packageName).append(“;\n\r”); sb.append(“name:”).append(info.activityInfo.name).append(“;\n\r”); sb.append(“icon:”).append(info.activityInfo.loadIcon(manager)).append(“\n\r\n\r”); } } return sb.toString(); } 通过查找发现Email的主Activity的类名是com.android.email.activity.Welcome。这样打开邮件主界面就很易容了。 ApplicationInfo application = new ApplicationInfo(); application.name = “电邮”; application.className = “com.android.email.activity.Welcome”; application.packageName = “com.android.email”; ComponentName c = new ComponentName(“com.android.email”,”com.android.email.activity.Welcome”); Intent intent = new Intent(); intent.setComponent(c); startActivity(intent);</applicationinfo></resolveinfo></applicationinfo></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/09/19/e5-a6-82-e4-bd-95-e6-89-93-e5-bc-80anroid-e7-b3-bb-e7-bb-9f-e8-87-aa-e5-b8-a6-e9-82-ae-e4-bb-b6-e5-ba-94-e7-94-a8/" data-id="cjnivgey2003nuu0f8eswe9ea" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-android-e9-97-ae-e9-a2-98" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/09/10/android-e9-97-ae-e9-a2-98/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/09/10/android-e9-97-ae-e9-a2-98/" data-id="cjnicwado001l5h0ff3uhlck8" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/09/10/android-e9-97-ae-e9-a2-98/" data-id="cjnivgewv001huu0fyiwnzavd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/02/29/paizhao-boke-ceshi/" data-id="cjnicwagr007q5h0f653yxf7m" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/02/29/paizhao-boke-ceshi/" data-id="cjnivgezt007suu0f25bjloi5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/02/17/e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6/" data-id="cjnicwafd004n5h0fp401pleu" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/02/17/e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6/" data-id="cjnivgeyj004kuu0ff4ka7692" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" data-id="cjnicwaet003j5h0flo9qy43c" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" data-id="cjnivgey1003luu0f17ujs5aj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" data-id="cjnicwad0000n5h0fviqrt2u6" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" data-id="cjnivgewb000iuu0fijjo0mun" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" data-id="cjnicwadi001b5h0fpox1ya2m" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" data-id="cjnivgewo0014uu0fj0i75dz3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -349,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjnicwahk009c5h0f0semon10" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjnivgf0x009duu0fbsvhq8xq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -390,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjnicwacz000l5h0fxrbwch1p" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjnivgewe000nuu0f9qkls7kr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -431,48 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjnicwaee002v5h0f04070asn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" class="article-date">
-  <time datetime="2011-12-14T01:57:39.000Z" itemprop="datePublished">2011-12-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/">解决android.content.res.Resources NotFoundException的一个方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在<a href="http://blog.3gstdy.com/archives/755" target="_blank" rel="noopener">android</a>开发中会用一些资源，这些资源以不同形式存在，比如说图片，xml等，android为这些不同类型的资源统一编号，生成资源类R 。如下： <code>public final class R { public static final class anim { public static final int popup_enter=0x7f040000; public static final int popup_exit=0x7f040001; } public static final class drawable { public static final int gradient_bg=0x7f020000; public static final int icon=0x7f020001; } public static final class layout { public static final int city_item=0x7f030000; } }</code> 在编译器编译程序时可以找到的资源，但在运行时却找不到，会出现如下异常： 12-14 01:40:58.452: WARN/AppWidgetHostView(627): android.content.res.Resources$<a href="http://blog.3gstdy.com/archives/755" target="_blank" rel="noopener">NotFoundException</a>: <a href="http://blog.3gstdy.com/archives/755" target="_blank" rel="noopener">Resource ID</a> #0x7f030000 出现此类异常时，可以根据 Resource ID到资源类R中找相关的资源。比如0x7f030000，对应的是city_item布局文件，就可以将问题缩小到更小的范围。对于这类运行时找不到资源，但资源又确实存在的问题，可能的编译打包时出现问题，没有将该资源加入。可修改一下该资源，让编译器重新编译。 引用一下其他网友的解决方案： 1、 今天遇到类似这样问题，后来在找到解决方案，把AndroidManifest.xml里面的版本改为8（我原来的是10），问题解决了，原因是这样的:主要是原来的那个工程占用现在的这个虚拟机，不能正常加载现在的这个工程. 把原来的那个工程移除掉，把原来的工程的androidmanifest.xml文件考到现在的这个工程就可以了，不改版本号也可以运行。。自己尝试一下会感悟很多的 再有就是点击Project -&gt;Clean一下这个项目 也可以的。 2、 ERROR/AndroidRuntime(279): android.content.res.Resources $NotFoundException: String resource ID #0x7f050008 解决方案： 可能存在的问题是eclipse缓存影响了现有项目的运行，清除一下缓存即可以了。。。 3、android.content.res.Resources$NotFoundException 今天编程时遇到了这种异常产生异常的代码如 下：distanceChoiceView.setText(PreferenceStoreData.getIntByKey(AroundActivity.this, FinalConst.arroudDistance, 500));产生原因在于 TextView.setText(value) ,其中value必须是String 类型的。而我上面赋值的时Int 类型，所以出错。解决方 法：distanceChoiceView.setText(“”+PreferenceStoreData.getIntByKey(AroundActivity.this, FinalConst.arroudDistance, 500)); 源自：<a href="http://blog.3gstdy.com/archives/755" target="_blank" rel="noopener">http://blog.3gstdy.com/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" data-id="cjnicwafj00525h0f07cmhwnf" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjnivgexq002vuu0f68g48voh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -486,7 +486,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -539,6 +539,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
           </li>
         
@@ -552,10 +556,6 @@
         
           <li>
             <a href="/2018/10/21/feature/">我们的未来</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/react/">react</a>
           </li>
         
       </ul>
