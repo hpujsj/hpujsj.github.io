@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android中如何自定义Menu菜单 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们又如何来自定义Menu呢？下面我就主要来讲讲如何在Android上自定义Menu菜单，希望对大家有所帮助。 用过UCWEB-Android版的人都应该对其特殊的menu有印象，把menu做成Tab-Menu(支持分页的Menu)，可以容纳比 Android传统的menu更丰富的内容(Android的menu超过6项则缩略在[更多]里)，本文参考网上的例子(作 者:CoffeeCole,emai">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中如何自定义Menu菜单">
+<meta property="og:url" content="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="我们又如何来自定义Menu呢？下面我就主要来讲讲如何在Android上自定义Menu菜单，希望对大家有所帮助。 用过UCWEB-Android版的人都应该对其特殊的menu有印象，把menu做成Tab-Menu(支持分页的Menu)，可以容纳比 Android传统的menu更丰富的内容(Android的menu超过6项则缩略在[更多]里)，本文参考网上的例子(作 者:CoffeeCole,emai">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/842e58e46fe4f38fc4901da8470c02ae.gif">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中如何自定义Menu菜单">
+<meta name="twitter:description" content="我们又如何来自定义Menu呢？下面我就主要来讲讲如何在Android上自定义Menu菜单，希望对大家有所帮助。 用过UCWEB-Android版的人都应该对其特殊的menu有印象，把menu做成Tab-Menu(支持分页的Menu)，可以容纳比 Android传统的menu更丰富的内容(Android的menu超过6项则缩略在[更多]里)，本文参考网上的例子(作 者:CoffeeCole,emai">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/842e58e46fe4f38fc4901da8470c02ae.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" class="article-date">
+  <time datetime="2011-12-14T01:28:25.000Z" itemprop="datePublished">2011-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中如何自定义Menu菜单
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们又如何来自定义Menu呢？下面我就主要来讲讲如何在Android上自定义Menu菜单，希望对大家有所帮助。 用过UCWEB-Android版的人都应该对其特殊的menu有印象，把menu做成Tab-Menu(支持分页的Menu)，可以容纳比 Android传统的menu更丰富的内容(Android的menu超过6项则缩略在[更多]里)，本文参考网上的例子(作 者:CoffeeCole,email:<a href="mailto:longkefan@foxmail.com" target="_blank" rel="noopener">longkefan@foxmail.com</a>),对例子进行简化以及封装，使其作为一个复合控件融入自己的 framework。 先来看看本文程序运行的效果： <img src="http://blog.daahe.com/wp-content/uploads/2012/12/842e58e46fe4f38fc4901da8470c02ae.gif" alt=""> TabMenu 本身就是一个PopupWindow，PopupWindow上面放了两个GridView,第一个GridView就是分页标签，位于 PopupWindow的顶部，第二个GridView是菜单，位于PopupWindow的主体。为了实现PopupWindow的弹出/退出的动画效 果，本文使用了以下代码： 在工程的res文件夹里添加anim子目录，再新建文件popup_enter.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>set<code></code>xmlns:android<code>=</code>“<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“<code></code>&gt;`</p>
+<p><code>&lt;`</code>translate<code></code>android:fromYDelta<code>=</code>“100%p”<code></code>android:toYDelta<code>=</code>“0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;`</code>alpha<code></code>android:fromAlpha<code>=</code>“0.0”<code></code>android:toAlpha<code>=</code>“1.0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;/`</code>set<code></code>&gt;`</p>
+<p>新建文件popup_exit.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>set<code></code>xmlns:android<code>=</code>“<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“<code></code>&gt;`</p>
+<p><code>&lt;`</code>translate<code></code>android:fromYDelta<code>=</code>“0”<code></code>android:toYDelta<code>=</code>“100%p”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;`</code>alpha<code></code>android:fromAlpha<code>=</code>“1.0”<code></code>android:toAlpha<code>=</code>“0.0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;/`</code>set<code></code>&gt;`</p>
+<p>在工程的values文件夹里新建文件popup_animation.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>resources<code></code>&gt;`</p>
+<p><code>&lt;`</code>style<code></code>name<code>=</code>“PopupAnimation”<code></code>parent<code>=</code>“android:Animation”<code></code>&gt;`</p>
+<p><code>&lt;`</code>item<code></code>name<code>=</code>“android:windowEnterAnimation”<code>&gt;@anim/popup_enter&lt;/</code>item<code></code>&gt;`</p>
+<p><code>&lt;`</code>item<code></code>name<code>=</code>“android:windowExitAnimation”<code>&gt;@anim/popup_exit&lt;/</code>item<code></code>&gt;`</p>
+<p><code>&lt;/`</code>style<code></code>&gt;`</p>
+<p><code>&lt;/`</code>resources<code></code>&gt;`</p>
+<p>main.xml的源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>LinearLayout<code></code>android:id<code>=</code>“@+id/LinearLayout01”`</p>
+<p><code>android:layout_width`</code>=<code>&quot;fill_parent&quot;` `android:layout_height</code>=<code></code>“fill_parent”`</p>
+<p><code>xmlns:android`</code>=<code>&quot;[http://schemas.android.com/apk/res/android](http://schemas.android.com/apk/res/android)&quot;</code>&gt;`</p>
+<p><code>&lt;`</code>TextView<code></code>android:id<code>=</code>“@+id/TextView01”<code></code>android:layout_height<code>=</code>“wrap_content”`</p>
+<p><code>android:layout_width`</code>=<code>&quot;fill_parent&quot;` `android:text</code>=<code>&quot;扩展Menu----hellogv&quot;</code>&gt;&lt;/<code>TextView</code>&gt;`</p>
+<p><code>&lt;/`</code>LinearLayout<code></code>&gt;`</p>
+<p>TabMenu的封装类TabMenu.java的源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+<p>79</p>
+<p>80</p>
+<p>81</p>
+<p>82</p>
+<p>83</p>
+<p>84</p>
+<p>85</p>
+<p>86</p>
+<p>87</p>
+<p>88</p>
+<p>89</p>
+<p>90</p>
+<p>91</p>
+<p>92</p>
+<p>93</p>
+<p>94</p>
+<p>95</p>
+<p>96</p>
+<p>97</p>
+<p>98</p>
+<p>99</p>
+<p>100</p>
+<p>101</p>
+<p>102</p>
+<p>103</p>
+<p>104</p>
+<p>105</p>
+<p>106</p>
+<p>107</p>
+<p>108</p>
+<p>109</p>
+<p>110</p>
+<p>111</p>
+<p>112</p>
+<p>113</p>
+<p>114</p>
+<p>115</p>
+<p>116</p>
+<p>117</p>
+<p>118</p>
+<p>119</p>
+<p>120</p>
+<p>121</p>
+<p>122</p>
+<p>123</p>
+<p>124</p>
+<p>125</p>
+<p>126</p>
+<p>127</p>
+<p>128</p>
+<p>129</p>
+<p>130</p>
+<p>131</p>
+<p>132</p>
+<p>133</p>
+<p>134</p>
+<p>135</p>
+<p>136</p>
+<p>137</p>
+<p>138</p>
+<p>139</p>
+<p>140</p>
+<p>141</p>
+<p>142</p>
+<p>143</p>
+<p>144</p>
+<p>145</p>
+<p>146</p>
+<p>147</p>
+<p>148</p>
+<p>149</p>
+<p>150</p>
+<p>151</p>
+<p>152</p>
+<p>153</p>
+<p>154</p>
+<p>155</p>
+<p>156</p>
+<p>157</p>
+<p>158</p>
+<p>159</p>
+<p>160</p>
+<p>161</p>
+<p>162</p>
+<p>163</p>
+<p>164</p>
+<p>165</p>
+<p>166</p>
+<p>167</p>
+<p>168</p>
+<p>169</p>
+<p>170</p>
+<p>171</p>
+<p>172</p>
+<p>173</p>
+<p>174</p>
+<p>175</p>
+<p>176</p>
+<p>177</p>
+<p>178</p>
+<p>179</p>
+<p>180</p>
+<p>181</p>
+<p>182</p>
+<p>183</p>
+<p>184</p>
+<p>185</p>
+<p>186</p>
+<p>187</p>
+<p>188</p>
+<p>189</p>
+<p>190</p>
+<p>191</p>
+<p>192</p>
+<p>193</p>
+<p>194</p>
+<p>195</p>
+<p>196</p>
+<p>197</p>
+<p>198</p>
+<p>199</p>
+<p>200</p>
+<p>201</p>
+<p>202</p>
+<p>203</p>
+<p>204</p>
+<p>205</p>
+<p>206</p>
+<p>207</p>
+<p>208</p>
+<p>209</p>
+<p>210</p>
+<p>211</p>
+<p>212</p>
+<p>213</p>
+<p>214</p>
+<p>215</p>
+<p><code>package</code> <code>com.testTabMenu;</code></p>
+<p><code>import</code> <code>android.content.Context;</code></p>
+<p><code>import</code> <code>android.graphics.Color;</code></p>
+<p><code>import</code> <code>android.graphics.drawable.ColorDrawable;</code></p>
+<p><code>import</code> <code>android.view.Gravity;</code></p>
+<p><code>import</code> <code>android.view.View;</code></p>
+<p><code>import</code> <code>android.view.ViewGroup;</code></p>
+<p><code>import</code> <code>android.widget.BaseAdapter;</code></p>
+<p><code>import</code> <code>android.widget.GridView;</code></p>
+<p><code>import</code> <code>android.widget.ImageView;</code></p>
+<p><code>import</code> <code>android.widget.LinearLayout;</code></p>
+<p><code>import</code> <code>android.widget.PopupWindow;</code></p>
+<p><code>import</code> <code>android.widget.TextView;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView.OnItemClickListener;</code></p>
+<p><code>import</code> <code>android.widget.LinearLayout.LayoutParams;</code></p>
+<p><code>public</code> <code>class</code> <code>TabMenu</code> <code>extends</code> <code>PopupWindow{</code></p>
+<p><code>private</code> <code>GridView gvBody, gvTitle;</code></p>
+<p><code>private</code> <code>LinearLayout mLayout;</code></p>
+<p><code>private</code> <code>MenuTitleAdapter titleAdapter;</code></p>
+<p><code>public</code> <code>TabMenu(Context context,OnItemClickListener titleClick,OnItemClickListener bodyClick,</code></p>
+<p><code>MenuTitleAdapter titleAdapter,`</code>int<code></code>colorBgTabMenu,<code></code>int<code></code>aniTabMenu){`</p>
+<p><code>super`</code>(context);`</p>
+<p><code>mLayout =</code> <code>new</code> <code>LinearLayout(context);</code></p>
+<p><code>mLayout.setOrientation(LinearLayout.VERTICAL);</code></p>
+<p><code>//标题选项栏</code></p>
+<p><code>gvTitle =</code> <code>new</code> <code>GridView(context);</code></p>
+<p><code>gvTitle.setLayoutParams(`</code>new<code></code>LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));`</p>
+<p><code>gvTitle.setNumColumns(titleAdapter.getCount());</code></p>
+<p><code>gvTitle.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);</code></p>
+<p><code>gvTitle.setVerticalSpacing(`</code>1<code></code>);`</p>
+<p><code>gvTitle.setHorizontalSpacing(`</code>1<code></code>);`</p>
+<p><code>gvTitle.setGravity(Gravity.CENTER);</code></p>
+<p><code>gvTitle.setOnItemClickListener(titleClick);</code></p>
+<p><code>gvTitle.setAdapter(titleAdapter);</code></p>
+<p><code>gvTitle.setSelector(`</code>new<code></code>ColorDrawable(Color.TRANSPARENT));<code></code>//选中的时候为透明色`</p>
+<p><code>this`</code>.titleAdapter=titleAdapter;`</p>
+<p><code>//子选项栏</code></p>
+<p><code>gvBody =</code> <code>new</code> <code>GridView(context);</code></p>
+<p><code>gvBody.setLayoutParams(`</code>new<code></code>LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));`</p>
+<p><code>gvBody.setSelector(`</code>new<code></code>ColorDrawable(Color.TRANSPARENT));<code></code>//选中的时候为透明色`</p>
+<p><code>gvBody.setNumColumns(`</code>4<code></code>);`</p>
+<p><code>gvBody.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);</code></p>
+<p><code>gvBody.setVerticalSpacing(`</code>10<code></code>);`</p>
+<p><code>gvBody.setHorizontalSpacing(`</code>10<code></code>);`</p>
+<p><code>gvBody.setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>gvBody.setGravity(Gravity.CENTER);</code></p>
+<p><code>gvBody.setOnItemClickListener(bodyClick);</code></p>
+<p><code>mLayout.addView(gvTitle);</code></p>
+<p><code>mLayout.addView(gvBody);</code></p>
+<p><code>//设置默认项</code></p>
+<p><code>this`</code>.setContentView(mLayout);`</p>
+<p><code>this`</code>.setWidth(LayoutParams.FILL_PARENT);`</p>
+<p><code>this`</code>.setHeight(LayoutParams.WRAP_CONTENT);`</p>
+<p><code>this`</code>.setBackgroundDrawable(<code>new` `ColorDrawable(colorBgTabMenu));</code>// 设置TabMenu菜单背景`</p>
+<p><code>this`</code>.setAnimationStyle(aniTabMenu);`</p>
+<p><code>this`</code>.setFocusable(<code>true</code>);<code></code>// menu菜单获得焦点 如果没有获得焦点menu菜单中的控件事件无法响应`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetTitleSelect(`</code>int<code></code>index)`</p>
+<p><code>{</code></p>
+<p><code>gvTitle.setSelection(index);</code></p>
+<p><code>this`</code>.titleAdapter.SetFocus(index);`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetBodySelect(`</code>int<code></code>index,<code></code>int<code></code>colorSelBody)`</p>
+<p><code>{</code></p>
+<p><code>int</code> <code>count=gvBody.getChildCount();</code></p>
+<p><code>for`</code>(<code>int` `i=</code>0<code></code>;i&lt;count;i++)`</p>
+<p><code>{</code></p>
+<p><code>if`</code>(i!=index)`</p>
+<p><code>((LinearLayout)gvBody.getChildAt(i)).setBackgroundColor(Color.TRANSPARENT);</code></p>
+<p><code>}</code></p>
+<p><code>((LinearLayout)gvBody.getChildAt(index)).setBackgroundColor(colorSelBody);</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetBodyAdapter(MenuBodyAdapter bodyAdapter)</code></p>
+<p><code>{</code></p>
+<p><code>gvBody.setAdapter(bodyAdapter);</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 自定义Adapter，TabMenu的每个分页的主体</code></p>
+<p><code>*</code></p>
+<p><code>*/</code></p>
+<p><code>static</code> <code>public</code> <code>class</code> <code>MenuBodyAdapter</code> <code>extends</code> <code>BaseAdapter {</code></p>
+<p><code>private</code> <code>Context mContext;</code></p>
+<p><code>private</code> <code>int</code> <code>fontColor,fontSize;</code></p>
+<p><code>private</code> <code>String[] texts;</code></p>
+<p><code>private</code> <code>int`</code>[] resID;`</p>
+<p><code>/**</code></p>
+<p><code>* 设置TabMenu的分页主体</code></p>
+<p><code>* @param context 调用方的上下文</code></p>
+<p><code>* @param texts 按钮集合的字符串数组</code></p>
+<p><code>* @param resID 按钮集合的图标资源数组</code></p>
+<p><code>* @param fontSize 按钮字体大小</code></p>
+<p><code>* @param color 按钮字体颜色</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>MenuBodyAdapter(Context context, String[] texts,`</code>int<code>[] resID,` `int` `fontSize,</code>int<code></code>fontColor)`</p>
+<p><code>{</code></p>
+<p><code>this`</code>.mContext = context;`</p>
+<p><code>this`</code>.fontColor = fontColor;`</p>
+<p><code>this`</code>.texts = texts;`</p>
+<p><code>this`</code>.fontSize=fontSize;`</p>
+<p><code>this`</code>.resID=resID;`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>int</code> <code>getCount() {</code></p>
+<p><code>return</code> <code>texts.length;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>Object getItem(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>makeMenyBody(position);</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>long</code> <code>getItemId(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>position;</code></p>
+<p><code>}</code></p>
+<p><code>private</code> <code>LinearLayout makeMenyBody(`</code>int<code></code>position)`</p>
+<p><code>{</code></p>
+<p><code>LinearLayout result=`</code>new<code></code>LinearLayout(<code>this</code>.mContext);`</p>
+<p><code>result.setOrientation(LinearLayout.VERTICAL);</code></p>
+<p><code>result.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);</code></p>
+<p><code>result.setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>TextView text =</code> <code>new</code> <code>TextView(`</code>this<code></code>.mContext);`</p>
+<p><code>text.setText(texts[position]);</code></p>
+<p><code>text.setTextSize(fontSize);</code></p>
+<p><code>text.setTextColor(fontColor);</code></p>
+<p><code>text.setGravity(Gravity.CENTER);</code></p>
+<p><code>text.setPadding(`</code>5<code>,` `5</code>,<code></code>5<code>,` `5</code>);`</p>
+<p><code>ImageView img=`</code>new<code></code>ImageView(<code>this</code>.mContext);`</p>
+<p><code>img.setBackgroundResource(resID[position]);</code></p>
+<p><code>result.addView(img,`</code>new<code></code>LinearLayout.LayoutParams(<code></code>new<code></code>LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)));`</p>
+<p><code>result.addView(text);</code></p>
+<p><code>return</code> <code>result;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>View getView(`</code>int<code></code>position, View convertView, ViewGroup parent) {`</p>
+<p><code>return</code> <code>makeMenyBody(position);</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 自定义Adapter,TabMenu的分页标签部分</code></p>
+<p><code>*</code></p>
+<p><code>*/</code></p>
+<p><code>static</code> <code>public</code> <code>class</code> <code>MenuTitleAdapter</code> <code>extends</code> <code>BaseAdapter {</code></p>
+<p><code>private</code> <code>Context mContext;</code></p>
+<p><code>private</code> <code>int</code> <code>fontColor,unselcolor,selcolor;</code></p>
+<p><code>private</code> <code>TextView[] title;</code></p>
+<p><code>/**</code></p>
+<p><code>* 设置TabMenu的title</code></p>
+<p><code>* @param context 调用方的上下文</code></p>
+<p><code>* @param titles 分页标签的字符串数组</code></p>
+<p><code>* @param fontSize 字体大小</code></p>
+<p><code>* @param fontcolor 字体颜色</code></p>
+<p><code>* @param unselcolor 未选中项的背景色</code></p>
+<p><code>* @param selcolor 选中项的背景色</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>MenuTitleAdapter(Context context, String[] titles,</code> <code>int</code> <code>fontSize,</code></p>
+<p><code>int</code> <code>fontcolor,`</code>int<code></code>unselcolor,<code></code>int<code></code>selcolor) {`</p>
+<p><code>this`</code>.mContext = context;`</p>
+<p><code>this`</code>.fontColor = fontcolor;`</p>
+<p><code>this`</code>.unselcolor = unselcolor;`</p>
+<p><code>this`</code>.selcolor=selcolor;`</p>
+<p><code>this`</code>.title =<code></code>new<code></code>TextView[titles.length];`</p>
+<p><code>for</code> <code>(`</code>int<code></code>i =<code></code>0<code></code>; i &lt; titles.length; i++) {`</p>
+<p><code>title[i] =</code> <code>new</code> <code>TextView(mContext);</code></p>
+<p><code>title[i].setText(titles[i]);</code></p>
+<p><code>title[i].setTextSize(fontSize);</code></p>
+<p><code>title[i].setTextColor(fontColor);</code></p>
+<p><code>title[i].setGravity(Gravity.CENTER);</code></p>
+<p><code>title[i].setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>int</code> <code>getCount() {</code></p>
+<p><code>return</code> <code>title.length;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>Object getItem(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>title[position];</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>long</code> <code>getItemId(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>title[position].getId();</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 设置选中的效果</code></p>
+<p><code>*/</code></p>
+<p><code>private</code> <code>void</code> <code>SetFocus(`</code>int<code></code>index)`</p>
+<p><code>{</code></p>
+<p><code>for`</code>(<code>int` `i=</code>0<code></code>;i&lt;title.length;i++)`</p>
+<p><code>{</code></p>
+<p><code>if`</code>(i!=index)`</p>
+<p><code>{</code></p>
+<p><code>title[i].setBackgroundDrawable(`</code>new<code></code>ColorDrawable(unselcolor));<code></code>//设置没选中的颜色`</p>
+<p><code>title[i].setTextColor(fontColor);`</code>//设置没选中项的字体颜色`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>title[index].setBackgroundColor(`</code>0x00<code>);</code>//设置选中项的颜色`</p>
+<p><code>title[index].setTextColor(selcolor);`</code>//设置选中项的字体颜色`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>View getView(`</code>int<code></code>position, View convertView, ViewGroup parent) {`</p>
+<p><code>View v;</code></p>
+<p><code>if</code> <code>(convertView ==</code> <code>null`</code>) {`</p>
+<p><code>v = title[position];</code></p>
+<p><code>}</code> <code>else</code> <code>{</code></p>
+<p><code>v = convertView;</code></p>
+<p><code>}</code></p>
+<p><code>return</code> <code>v;</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>testTabMenu介绍了数据的定义以及TabMenu的使用，源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+<p>79</p>
+<p>80</p>
+<p>81</p>
+<p>82</p>
+<p>83</p>
+<p>84</p>
+<p>85</p>
+<p>86</p>
+<p>87</p>
+<p>88</p>
+<p>89</p>
+<p>90</p>
+<p>91</p>
+<p>92</p>
+<p>93</p>
+<p>94</p>
+<p>95</p>
+<p>96</p>
+<p><code>package</code> <code>com.testTabMenu;</code></p>
+<p><code>import</code> <code>android.app.Activity;</code></p>
+<p><code>import</code> <code>android.graphics.Color;</code></p>
+<p><code>import</code> <code>android.os.Bundle;</code></p>
+<p><code>import</code> <code>android.view.Gravity;</code></p>
+<p><code>import</code> <code>android.view.Menu;</code></p>
+<p><code>import</code> <code>android.view.View;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView.OnItemClickListener;</code></p>
+<p><code>import</code> <code>android.widget.Toast;</code></p>
+<p><code>public</code> <code>class</code> <code>testTabMenu</code> <code>extends</code> <code>Activity {</code></p>
+<p><code>TabMenu.MenuBodyAdapter []bodyAdapter=`</code>new<code></code>TabMenu.MenuBodyAdapter[<code>3</code>];`</p>
+<p><code>TabMenu.MenuTitleAdapter titleAdapter;</code></p>
+<p><code>TabMenu tabMenu;</code></p>
+<p><code>int</code> <code>selTitle=`</code>0<code></code>;`</p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onCreate(Bundle savedInstanceState) {</code></p>
+<p><code>super`</code>.onCreate(savedInstanceState);`</p>
+<p><code>setContentView(R.layout.main);</code></p>
+<p><code>//设置分页栏的标题</code></p>
+<p><code>titleAdapter =</code> <code>new</code> <code>TabMenu.MenuTitleAdapter(`</code>this<code>,` `new` `String[] {` `&quot;常用&quot;</code>,`</p>
+<p><code>&quot;设置&quot;`</code>,<code></code>“工具”<code></code>},<code></code>16<code>,` `0xFF222222</code>,Color.LTGRAY,Color.WHITE);`</p>
+<p><code>//定义每项分页栏的内容</code></p>
+<p><code>bodyAdapter[`</code>0<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;常用1&quot;</code>,<code></code>“常用2”<code></code>, },`</p>
+<p><code>new</code> <code>int`</code>[] { R.drawable.menu_test,`</p>
+<p><code>R.drawable.menu_bookmark},`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>bodyAdapter[`</code>1<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;设置1&quot;</code>,<code></code>“设置2”<code></code>,`</p>
+<p><code>&quot;设置3&quot;`</code>},<code></code>new<code></code>int<code></code>[] { R.drawable.menu_edit,`</p>
+<p><code>R.drawable.menu_delete, R.drawable.menu_fullscreen},`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>bodyAdapter[`</code>2<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;工具1&quot;</code>,<code></code>“工具2”<code></code>,`</p>
+<p><code>&quot;工具3&quot;`</code>,<code></code>“工具4”<code></code>},<code></code>new<code></code>int<code></code>[] { R.drawable.menu_copy,`</p>
+<p><code>R.drawable.menu_cut, R.drawable.menu_normalmode,</code></p>
+<p><code>R.drawable.menu_quit },`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>tabMenu=`</code>new<code></code>TabMenu(<code>this</code>,`</p>
+<p><code>new</code> <code>TitleClickEvent(),</code></p>
+<p><code>new</code> <code>BodyClickEvent(),</code></p>
+<p><code>titleAdapter,</code></p>
+<p><code>0x55123456`</code>,<code></code>//TabMenu的背景颜色`</p>
+<p><code>R.style.PopupAnimation);`</code>//出现与消失的动画`</p>
+<p><code>tabMenu.update();</code></p>
+<p><code>tabMenu.SetTitleSelect(`</code>0<code></code>);`</p>
+<p><code>tabMenu.SetBodyAdapter(bodyAdapter[`</code>0<code></code>]);`</p>
+<p><code>}</code></p>
+<p><code>class</code> <code>TitleClickEvent</code> <code>implements</code> <code>OnItemClickListener{</code></p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onItemClick(AdapterView&lt;?&gt; arg0, View arg1,</code> <code>int</code> <code>arg2,</code></p>
+<p><code>long</code> <code>arg3) {</code></p>
+<p><code>selTitle=arg2;</code></p>
+<p><code>tabMenu.SetTitleSelect(arg2);</code></p>
+<p><code>tabMenu.SetBodyAdapter(bodyAdapter[arg2]);</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>class</code> <code>BodyClickEvent</code> <code>implements</code> <code>OnItemClickListener{</code></p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onItemClick(AdapterView&lt;?&gt; arg0, View arg1,</code> <code>int</code> <code>arg2,</code></p>
+<p><code>long</code> <code>arg3) {</code></p>
+<p><code>tabMenu.SetBodySelect(arg2,Color.GRAY);</code></p>
+<p><code>String str=`</code>“第”<code>+String.valueOf(selTitle)+</code>“栏/n/r”`</p>
+<p><code>+`</code>“第”<code>+String.valueOf(arg2)+</code>“项”<code></code>;`</p>
+<p><code>Toast.makeText(testTabMenu.`</code>this<code>, str,` `500</code>).show();`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>@Override</code></p>
+<p><code>/**</code></p>
+<p><code>* 创建MENU</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>boolean</code> <code>onCreateOptionsMenu(Menu menu) {</code></p>
+<p><code>menu.add(`</code>“menu”<code>);</code>// 必须创建一项`</p>
+<p><code>return</code> <code>super`</code>.onCreateOptionsMenu(menu);`</p>
+<p><code>}</code></p>
+<p><code>@Override</code></p>
+<p><code>/**</code></p>
+<p><code>* 拦截MENU</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>boolean</code> <code>onMenuOpened(`</code>int<code></code>featureId, Menu menu) {`</p>
+<p><code>if</code> <code>(tabMenu !=</code> <code>null`</code>) {`</p>
+<p><code>if</code> <code>(tabMenu.isShowing())</code></p>
+<p><code>tabMenu.dismiss();</code></p>
+<p><code>else</code> <code>{</code></p>
+<p><code>tabMenu.showAtLocation(findViewById(R.id.LinearLayout01),</code></p>
+<p><code>Gravity.BOTTOM,</code> <code>0`</code>,<code></code>0<code></code>);`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>return</code> <code>false`</code>;<code></code>// 返回为true 则显示系统menu`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>这样，我们就基本实现了Android自定义Menu菜单的功能，谢谢阅读！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjniaoehm009hh40fgoni1dqy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          从ActivityGroup的Child Activity返回数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2007年的学习计划</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

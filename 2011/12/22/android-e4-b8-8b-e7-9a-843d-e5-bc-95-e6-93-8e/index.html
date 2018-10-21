@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android下的图形引擎 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android下的图形引擎">
+<meta property="og:url" content="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="file:///C:/Users/wuliuhua/AppData/Local/Temp/%29A%5BY%29I%7E%5D%28ZC9Z%5B3Y%29IDK7LK.gif">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android下的图形引擎">
+<meta name="twitter:description" content="1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引">
+<meta name="twitter:image" content="file:///C:/Users/wuliuhua/AppData/Local/Temp/%29A%5BY%29I%7E%5D%28ZC9Z%5B3Y%29IDK7LK.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" class="article-date">
+  <time datetime="2011-12-22T08:41:55.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android下的图形引擎
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引擎，基于OpenGL ES技术开发，物理引擎为Box2D，因此能够实现一些较为复杂的物理效果，该项目最新版本为 2.0.3 (09/07/10)。总体来说，此引擎最大的优点在于其开发文档相当之完备，并且项目作者对反馈Bug的修正非常之神速，所以该框架的使用在目前也最为 广泛，有人干脆将它称为Cocos2d-iPhone引擎的Android版（业务逻辑和编码风格上也确实很像）。附带一提，国内某个需要注册会员才能下 载的Android游戏框架衍生于此框架，所以大家也不要刻板的认为收费便一定是好的，免费就一定不好。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/rokon/ 3、LGame LGame是一款国人开发的Java游戏引擎，有Android及PC(J2SE)两个开发版本，目前最高版本同为0.2.6(31/07/10)。其底 层绘图器LGrpaphics封装有J2SE以及J2ME提供的全部Graphics API（PC版采用Graphics2D封装，Android版采用Canvas模拟实现），所以能够将J2SE或J2ME开发经验直接套用其中，两版本 间主要代码能够相互移植。Android版内置有Admob接口，可以不必配置XML直接硬编码Admob广告信息。 该引擎除了基本的音效、图形、物理、精灵等常用组件以外，也内置有Ioc、xml、http等常用Java组件的封装，代价是jar体积较为庞大，PC版 已突破1.2MB，Android版有所简化也在500KB左右。此外，该引擎还内置有按照1:1实现的J2ME精灵类及相关组件，可以将绝大多数 J2ME游戏平移到Android或PC版中。唯一遗憾的是，该项目作者是个极其懒惰的家伙，开发文档从去年说到今年依旧没有提供，只有游戏示例可供下 载。 最低运行环境要求为Android 1.1。 项目地址：code.google.com/p/loon-s… 4、AndEngine andengine同样是一款基于OpenGL ES技术的Android游戏引擎，物理引擎同样为Box2D（标配 ）。该框架性能普通，文档缺乏，但示例较为丰富。 最低运行环境要求不详。 项目地址（未直接提供jar下载，源码可通过svn提取）：code.google.com/p/andeng… 5、libgdx libgdx是一款基于OpenGL ES技术开发的Android游戏引擎，支持Android平台下的2D游戏开发，物理引擎采用Box2D实现。单就性能角度来说，堪称是一款非常强大的 Android游戏引擎，但缺陷在于精灵类等相关组件在使用上不够简化，而且文档也较为匮乏。 最低运行环境要求不详。 项目地址：code.google.com/p<img src="file:///C:/Users/wuliuhua/AppData/Local/Temp/%29A%5BY%29I%7E%5D%28ZC9Z%5B3Y%29IDK7LK.gif" alt="">bgdx/ 6、jPCT jPCT是一款基于OpenGL技术开发的3D图形引擎(PC环境为标准OpenGL，Android为OpenGL ES)， 以Java语言为基础的，拥有功能强大的Java 3D解决方案。该引擎与LGame（此为2D游戏引擎）相类似，目前拥有PC(J2SE)以及Android两个开发版本。 jPCT的最大优势之一，就在于它惊人的向下兼容性。在PC环境中，jPCT甚至可以运行在JVM1.1环境之中，因为jPCT内部提供的图形渲染接口完 全符合所有的Java 1.1规范（就连已经消失的Microsoft VM乃至更古老的Netscape 4 VM也不例外）。 最低运行环境要求为Android 1.5。 项目地址：<a href="http://www.jpct.net/jpct-ae/" target="_blank" rel="noopener">http://www.jpct.net/jpct-ae/</a> 7、Alien3d Alien3d是一款体积非常之小的Android 3D游戏引擎，基于OpenGL ES技术开发。为了压缩体积，它根据不同功能采用多jar方式发布（包括alien3d-engine.jar，alien3d- tiled.jar，alien3d-sprites.jar，alien3d-shapes.jar，alien3d- particles2d.jar，），事实上它的核心文件大约只有40KB，所有相关jar的总和也不足150KB。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/alien3d/ 8、Catcake Catcake是一款跨平台的Java 3D图形引擎，目前支持PC(J2SE)及Android环境运行（已有iPhone版规划）。该引擎在易用性和运行性能上皆有出色的表现，支持常见的游戏开发功能，诸如精灵动画，音频处理和视频播放等。 最低运行环境要求为Android 1.6。 项目地址：code.google.com/p/catcake/</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjniaoedp0010h40fg4tu5lgo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/12/22/android-sqlite3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          android SQLite3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">从ActivityGroup的Child Activity返回数据</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

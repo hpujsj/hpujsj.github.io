@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>android SQLite3 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“pars">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android SQLite3">
+<meta property="og:url" content="http://www.daahe.com/2011/12/22/android-sqlite3/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“pars">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android SQLite3">
+<meta name="twitter:description" content="SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“pars">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-sqlite3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-sqlite3/" class="article-date">
+  <time datetime="2011-12-22T08:45:37.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android SQLite3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“parse.y”。 SQLite执行如下的语法： ALTER TABLE ANALYZE ATTACH DATABASE BEGIN TRANSACTION 注释 COMMIT TRANSACTION COPY CREATE INDEX CREATE TABLE CREATE TRIGGER CREATE VIEW DELETE DETACH DATABASE DROP INDEX DROP TABLE DROP TRIGGER DROP VIEW END TRANSACTION EXPLAIN 表达式 INSERT ON CONFLICT子句 PRAGMA REINDEX REPLACE ROLLBACK TRANSACTION SELECT UPDATE VACUUM ALTER TABLE sql-statement ::= ALTER TABLE [ database-name . ] table-name alteration alteration ::= RENAME TO new-table-name alteration ::= ADD [COLUMN ] column-def SQLite版本的的ALTER TABLE命令允许用户重命名或添加新的字段到已有表中，不能从表中删除字段。 RENAME TO语法用于重命名表名[database-name.]table-name 到new-table-name 。这一命令不能用于在附加数据库之间移动表，只能在同一个数据库中对表进行重命名。 若需要重命名的表有触发器或索引，在重命名后它们依然属于该表。但若定义了视图，或触发器执行的语句中有提到 表的名字，则它们不会被自动改为使用新的表名。若要进行这一类的修改，则需手工撤销并使用新的表名重建触发器或视图。 ADD [COLUMN]语法用于在已有表中添加新的字段。新字段总是添加到已有字段列表的末尾。Column-def 可以是CREATE TABLE中允许出现的任何形式，且须符合如下限制： 字段不能有主键或唯一约束。 字段不能有这些缺省值：CURRENT_TIME, CURRENT_DATE或CURRENT_TIMESTAMP 若定义了NOT NULL约束，则字段必须有一个非空的缺省值。 ALTER TABLE语句的执行时间与表中的数据量无关，它在操作一个有一千万行的表时的运行时间与操作仅有一行的表时是一样的。 在对数据库运行ADD COLUMN之后，该数据库将无法由SQLite 3.1.3及更早版本读取，除非运行VACUUM 命令。 ANALYZE sql-statement ::= ANALYZE sql-statement ::= ANALYZE database-name sql-statement ::= ANALYZE [ database-name . ] table-name ANALYZE 命令令集合关于索引的统计信息并将它们储存在数据库的一个特殊表中，查询优化器可以用该表来制作更好的索引选择。若不给出参数，所有附加数据库中的所有索 引被分析。若参数给出数据库名，该数据库中的所有索引被分析。若给出表名 作参数，则只有关联该表的索引被分析。 最初的实现将所有的统计信息储存在一个名叫sqlite_stat1 的表中。未来的加强版本中可能会创建名字类似的其它表，只是把“1”改为其它数字。sqlite_stat1 表不能够被撤销 ，但其中的所有内容可以被删除 ，这是与撤销该表等效的行为。 ATTACH DATABASE ATTACH DATABASE语句将一个已存在的数据库添加到当前数据库连接。若文件名含标点符号，则应用引号引起来。数据库名’main’和’temp’代表主数据库和用于存放临时表的数据库，它们不能被拆分。拆分数据库使用DETACH DATABASE 语句。 你可以读写附加数据库，或改变其结构。这是SQLite 3.0提供的新特性。在SQLite 2.8中，改变附加数据库的结构是不允许的。 在附加数据库中添加一个与已有表同名的表是不允许的。但你可以附加带有与主数据库中的表同名的表的数据库。也可以多次附加同一数据库。 使 用database-name.table-name 来引用附加数据库中的表。若附加数据库中的表与主数据库的表不重名，则不需加数据库名作为前缀。当数据库被附加时，它的所有不重名的表成为该名字指向的缺 省表。之后附加的任意与之同名的表需要加前缀。若“缺省”表被拆分，则最后附加的同名表变为“缺省”表。 若主数据库不是 “:memory:”，多附加数据库的事务是原子的。若主数据库是“:memory:”则事务在每个独立文件中依然是原子的。但若主机在改变两个或更多数 据库的COMMIT语句进行时崩溃，则可能一部分文件被改变而其他的保持原样。附加数据库的原子性的提交 是SQLite 3.0的新特性。在SQLite 2.8中，所有附加数据库的提交类似于主数据库是“:memory:”时的情况。 对附加数据库的数目有编译时的限制，最多10个附加数据库。 BEGIN TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁 ，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务 写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程 能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 END TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被 延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取 RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 注释 comment ::= SQL-comment | C-comment SQL-comment ::= – single-line C-comment ::= /<em> multiple-lines [</em> / ] 注释不是SQL命令，但会出现在SQL查询中。它们被解释器处理为空白部分。它们可以在任何空白可能存在的地方开始 ，即使是在跨越多行的表达式中。 SQL风格的注释仅对当前行有效。 C 风格的注释可以跨越多行。若没有结束符号，注释的范围将一直延伸到输入末尾，且不会引起报错。新的SQL语句可以从多行注释结束的地方开始。C风格注释可 以嵌入任何空白可以出现的地方，包括表达式内，或其他SQL语句中间， 并且C风格的注释不互相嵌套。SQL风格的注释出现在C风格注释中时将被忽略。 COPY sql-statement ::= COPY [ OR conflict-algorithm ] [ database-name . ] table-name FROM filename [ USING DELIMITERS delim ] COPY命令在SQLite 2.8及更早的版本中可用。SQLite 3.0删除了这一命令，因为在混合的UTF-8/16环境中对它进行支持是很复杂的。在3.0版本中，命令行解释器 包含新的.import 命令，用以替代COPY。 COPY 命令是用于将大量数据插入表的一个插件。它模仿PostgreSQL中的相同命令而来。事实上，SQLite的COPY 命令就是为了能够读取PostgreSQL的备份工具pg_dump 的输出从而能够将PostgreSQL的数据轻松转换到SQLite中而设计的。 table-name是将要导入数据的一个已存在的表的名字。filename是一个字符串或标识符，用于说明作为数据来源的文件。filename可以使用STDIN 从标准输入流中获取数据。 输入文件的每一行被转换成一条单独的记录导入表中。字段用制表符分开。若某个字段的数据中出现制表符，则前面被添加反斜线“/”符号。数据中的反斜线则被替换为两条反斜线。可选的USING DELIMITERS子句可给出一个与制表符不同 的分界符。 若字段由“/N”组成，则被赋以空值NULL。 使用这一命令时，利用可选的ON CONFLICT子句可以定义替代的约束冲突判定算法。更多信息，参见 ON CONFLICT 。 当输入数据源是STDIN，输入将终止于一行仅包含一个反斜线和一个点的输入：“/. ”。 CREATE INDEX sql-statement ::= CREATE [UNIQUE ] INDEX [IF NOT EXISTS ] [ database-name . ] index-name ON table-name ( column-name [, column-name ] * ) column-name ::= name [ COLLATE collation-name ] [ ASC | DESC ] CREATE INDEX命令由“CREATE INDEX”关键字后跟新索引的名字，关键字“ON”，待索引表的名字，以及括弧内的用于索引键的字段列表构成。每个字段名可以跟随“ASC”或 “DESC”关键字说明排序法则，但在当前版本中排序法则被忽略。排序总是按照上升序。 每个字段名后跟COLLATE子句定义文本记录的比较顺序。缺省的比较顺序</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjniaoehn009jh40fh19avf5u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          android文字阴影效果
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android下的图形引擎</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>css实现书籍目录效果，点线自适应 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="其实实现起来很简单。要求点线长度自适应。仔细看看，我的点线还是有些问题的，不完整。不知道如何解决，图片么？  代码实现如下： css： {margin:0;padding:0;} body{font:12px Arial;} ul{list-style:none;} .menu{width:600px;margin:10px auto;overflow:hidden;border:1px soli">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css实现书籍目录效果，点线自适应">
+<meta property="og:url" content="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="其实实现起来很简单。要求点线长度自适应。仔细看看，我的点线还是有些问题的，不完整。不知道如何解决，图片么？  代码实现如下： css： {margin:0;padding:0;} body{font:12px Arial;} ul{list-style:none;} .menu{width:600px;margin:10px auto;overflow:hidden;border:1px soli">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2013/05/75290c1a45ceec468718bf58.jpg">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css实现书籍目录效果，点线自适应">
+<meta name="twitter:description" content="其实实现起来很简单。要求点线长度自适应。仔细看看，我的点线还是有些问题的，不完整。不知道如何解决，图片么？  代码实现如下： css： {margin:0;padding:0;} body{font:12px Arial;} ul{list-style:none;} .menu{width:600px;margin:10px auto;overflow:hidden;border:1px soli">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2013/05/75290c1a45ceec468718bf58.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" class="article-date">
+  <time datetime="2013-05-15T19:46:25.000Z" itemprop="datePublished">2013-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      css实现书籍目录效果，点线自适应
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实实现起来很简单。要求点线长度自适应。仔细看看，我的点线还是有些问题的，不完整。不知道如何解决，图片么？ <a href="http://blog.daahe.com/archives/938/75290c1a45ceec468718bf58" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2013/05/75290c1a45ceec468718bf58.jpg" alt="75290c1a45ceec468718bf58"></a> 代码实现如下： css： <em>{margin:0;padding:0;} body{font:12px Arial;} ul{list-style:none;} .menu{width:600px;margin:10px auto;overflow:hidden;border:1px solid green;} .menu li{position:relative;padding-left:4px;height:22px;line-height:22px;/</em>此属性相当重要啊，没了它，下划线就木有了，原理你懂的<em>/white-space:nowrap;font-size:14px;/</em>此后的设置针对ie6,子元素设置为position:relative;时，在Ie6中找不到父元素<em>/width:100%;overflow:hidden;} .menu li .page_index{position:absolute;display:block;padding:0 4px;right:0;top:0;line-height:22px;z-index:1;background:#fff;} .menu li .dashed_line{height:0;overflow:hidden;display:inline-block;width:100%;margin:0 4px;border-bottom:1px dashed #333;/</em>实现下划线居中*/vertical-align:middle;} html结构：</p>
+<ul>
+<li>ajax简介12</li>
+<li>ajax插件介绍13</li>
+<li>ajax项目实例应用18</li>
+<li>ajax应用总结20</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjniaoeeq002oh40fqlel2fnh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/10/23/discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Discuz 采集帖子后，分散作者，时间
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CMake 手册详解目录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

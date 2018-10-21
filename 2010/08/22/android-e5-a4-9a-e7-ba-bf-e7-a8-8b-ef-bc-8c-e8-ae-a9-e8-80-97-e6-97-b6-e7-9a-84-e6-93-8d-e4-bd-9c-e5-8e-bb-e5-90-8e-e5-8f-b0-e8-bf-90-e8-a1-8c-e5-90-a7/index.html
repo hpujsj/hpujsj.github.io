@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android多线程，让耗时的操作去后台运行吧 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在android程序中，会有一些耗时的操作，比如从网上抓取图片，下载文件，批量更新数据库等，这些操作对于手机而言会需要很长的时间，而应用程序界面又不能等到这些操作完成后再显示，所以要让界面各这些耗时的操作并行处理，用多线程可以解决这个问题。当然还有其它解决方案，比如用Service. 我们先作一个例子吧，大概是这样的：有一个列表，每行显示的一个图片，图片是存放在网上的。如果不用多线程，也是可以的，">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android多线程，让耗时的操作去后台运行吧">
+<meta property="og:url" content="http://www.daahe.com/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="在android程序中，会有一些耗时的操作，比如从网上抓取图片，下载文件，批量更新数据库等，这些操作对于手机而言会需要很长的时间，而应用程序界面又不能等到这些操作完成后再显示，所以要让界面各这些耗时的操作并行处理，用多线程可以解决这个问题。当然还有其它解决方案，比如用Service. 我们先作一个例子吧，大概是这样的：有一个列表，每行显示的一个图片，图片是存放在网上的。如果不用多线程，也是可以的，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android多线程，让耗时的操作去后台运行吧">
+<meta name="twitter:description" content="在android程序中，会有一些耗时的操作，比如从网上抓取图片，下载文件，批量更新数据库等，这些操作对于手机而言会需要很长的时间，而应用程序界面又不能等到这些操作完成后再显示，所以要让界面各这些耗时的操作并行处理，用多线程可以解决这个问题。当然还有其它解决方案，比如用Service. 我们先作一个例子吧，大概是这样的：有一个列表，每行显示的一个图片，图片是存放在网上的。如果不用多线程，也是可以的，">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/" class="article-date">
+  <time datetime="2010-08-22T04:07:52.000Z" itemprop="datePublished">2010-08-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android多线程，让耗时的操作去后台运行吧
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">android</a>程序中，会有一些耗时的操作，比如从网上抓取图片，下载文件，批量更新数据库等，这些操作对于<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">手机</a>而言会需要很长的时间，而应用程序界面又不能等到这些操作完成后再显示，所以要让界面各这些耗时的操作并行处理，用<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">多线程</a>可以解决这个问题。当然还有其它解决方案，比如用Service. 我们先作一个例子吧，大概是这样的：有一个列表，每行显示的一个图片，图片是存放在网上的。如果不用多线程，也是可以的，但是要等到所有图片下载完了才能展示出来。这种方式对用户体验很不友好，所以我们采用多线程的方式，对每一个图片开启一个<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">线程</a>，当其下载完数据后，在<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">主线程</a>中显示出来。 主<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">Activity</a> <code>public class TestListActivity extends ListActivity { private ImageListAdapter imageListAdapter = null; /** Called when the activity is first created. */ @Override public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.imagelist); String[] images = {&quot;http://image.baidu.com/image1.jpg&quot;,&quot;http://image.baidu.com/image2.jpg&quot;}; imageListAdapter = new ImageListAdapter(getApplicationContext(), images); setListAdapter(imageListAdapter); } }</code> 适配器 <code>import java.util.ArrayList; import java.util.List; import android.content.Context; import android.graphics.Bitmap; import android.os.Handler; import android.os.Message; import android.view.View; import android.view.ViewGroup; import android.widget.BaseAdapter; import android.widget.ImageView; import android.widget.TextView; public class ImageListAdapter extends BaseAdapter { private Context context; private String[] myImages = null; public ImageListAdapter(Context context, String[] myImages){ this.context = context; this.myImages = myImages; } @Override public int getCount() { if(myImages == null){ return 0; } return myImages.length; } @Override public String getItem(int position) { if(position &lt; 0 || myImages == null || position&gt;myImages.length){ return null; } return myImages[position]; } @Override public long getItemId(int position) { return position; } @Override public View getView(int position, View convertView, ViewGroup parent) { View item = null; if(convertView != null){ item = convertView; } else { item = View.inflate(context, R.layout.image_item, null); } final ImageView imageView = (ImageView)item.findViewById(R.id.image); final String image = getItem(position); if(image == null){ return item; } //对每个图片地址创建一个线程， **new Thread(){ public void run(){ Message msg = new Message(); msg.what = 0; //获得图片的Bitmap对象。getBitmap省略了，就是从网上通过http下载图片然后转化成一个Bitmap Bitmap bitmap = getBitmap(image); List list = new ArrayList();//将bitmap和imageView包装成一个List传到线程外 list.add(bitmap); list.add(imageView); msg.obj = list; handler.sendMessage(msg); } }.start();** return item; } private Handler handler = new Handler() { @Override public void handleMessage(Message msg) { switch (msg.what) { case 0://接到从线程内传来的图片bitmap和imageView. //这里只是将bitmap传到imageView中就行了。只所以不在线程中做是考虑到线程的安全性。 **List list = (List)msg.obj; Bitmap bitmap = (Bitmap)list.get(0); ImageView iv = (ImageView)list.get(1); iv.setImageBitmap(bitmap);** break; default: super.handleMessage(msg); } } }; }</code> 布局xml imagelist.xml image_item.xml 转载请标明出处：<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">3G Study</a> :<a href="http://blog.3gstdy.com/archives/27" target="_blank" rel="noopener">http://blog.3gstdy.com/archives/27</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/" data-id="cjniaoedw001ah40fw178uwul" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/08/23/android-e7-94-a8imageview-e6-98-be-e7-a4-ba-e6-9c-ac-e5-9c-b0-e5-92-8c-e7-bd-91-e4-b8-8a-e7-9a-84-e5-9b-be-e7-89-87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android用ImageView显示本地和网上的图片
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/08/21/android-e6-a8-a1-e6-8b-9f-e5-99-a8-e8-bf-9e-e6-8e-a5-e6-9c-ac-e5-9c-b0-e6-9c-8d-e5-8a-a1-e5-99-a8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android模拟器连接本地服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

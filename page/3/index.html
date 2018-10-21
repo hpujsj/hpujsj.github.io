@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="达合">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="website">
+<meta property="og:title" content="达合">
+<meta property="og:url" content="http://www.daahe.com/page/3/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="达合">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="达合">
+<meta name="twitter:description" content="达合">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-android-sqlite3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-sqlite3/" class="article-date">
+  <time datetime="2011-12-22T08:45:37.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/22/android-sqlite3/">android SQLite3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“parse.y”。 SQLite执行如下的语法： ALTER TABLE ANALYZE ATTACH DATABASE BEGIN TRANSACTION 注释 COMMIT TRANSACTION COPY CREATE INDEX CREATE TABLE CREATE TRIGGER CREATE VIEW DELETE DETACH DATABASE DROP INDEX DROP TABLE DROP TRIGGER DROP VIEW END TRANSACTION EXPLAIN 表达式 INSERT ON CONFLICT子句 PRAGMA REINDEX REPLACE ROLLBACK TRANSACTION SELECT UPDATE VACUUM ALTER TABLE sql-statement ::= ALTER TABLE [ database-name . ] table-name alteration alteration ::= RENAME TO new-table-name alteration ::= ADD [COLUMN ] column-def SQLite版本的的ALTER TABLE命令允许用户重命名或添加新的字段到已有表中，不能从表中删除字段。 RENAME TO语法用于重命名表名[database-name.]table-name 到new-table-name 。这一命令不能用于在附加数据库之间移动表，只能在同一个数据库中对表进行重命名。 若需要重命名的表有触发器或索引，在重命名后它们依然属于该表。但若定义了视图，或触发器执行的语句中有提到 表的名字，则它们不会被自动改为使用新的表名。若要进行这一类的修改，则需手工撤销并使用新的表名重建触发器或视图。 ADD [COLUMN]语法用于在已有表中添加新的字段。新字段总是添加到已有字段列表的末尾。Column-def 可以是CREATE TABLE中允许出现的任何形式，且须符合如下限制： 字段不能有主键或唯一约束。 字段不能有这些缺省值：CURRENT_TIME, CURRENT_DATE或CURRENT_TIMESTAMP 若定义了NOT NULL约束，则字段必须有一个非空的缺省值。 ALTER TABLE语句的执行时间与表中的数据量无关，它在操作一个有一千万行的表时的运行时间与操作仅有一行的表时是一样的。 在对数据库运行ADD COLUMN之后，该数据库将无法由SQLite 3.1.3及更早版本读取，除非运行VACUUM 命令。 ANALYZE sql-statement ::= ANALYZE sql-statement ::= ANALYZE database-name sql-statement ::= ANALYZE [ database-name . ] table-name ANALYZE 命令令集合关于索引的统计信息并将它们储存在数据库的一个特殊表中，查询优化器可以用该表来制作更好的索引选择。若不给出参数，所有附加数据库中的所有索 引被分析。若参数给出数据库名，该数据库中的所有索引被分析。若给出表名 作参数，则只有关联该表的索引被分析。 最初的实现将所有的统计信息储存在一个名叫sqlite_stat1 的表中。未来的加强版本中可能会创建名字类似的其它表，只是把“1”改为其它数字。sqlite_stat1 表不能够被撤销 ，但其中的所有内容可以被删除 ，这是与撤销该表等效的行为。 ATTACH DATABASE ATTACH DATABASE语句将一个已存在的数据库添加到当前数据库连接。若文件名含标点符号，则应用引号引起来。数据库名’main’和’temp’代表主数据库和用于存放临时表的数据库，它们不能被拆分。拆分数据库使用DETACH DATABASE 语句。 你可以读写附加数据库，或改变其结构。这是SQLite 3.0提供的新特性。在SQLite 2.8中，改变附加数据库的结构是不允许的。 在附加数据库中添加一个与已有表同名的表是不允许的。但你可以附加带有与主数据库中的表同名的表的数据库。也可以多次附加同一数据库。 使 用database-name.table-name 来引用附加数据库中的表。若附加数据库中的表与主数据库的表不重名，则不需加数据库名作为前缀。当数据库被附加时，它的所有不重名的表成为该名字指向的缺 省表。之后附加的任意与之同名的表需要加前缀。若“缺省”表被拆分，则最后附加的同名表变为“缺省”表。 若主数据库不是 “:memory:”，多附加数据库的事务是原子的。若主数据库是“:memory:”则事务在每个独立文件中依然是原子的。但若主机在改变两个或更多数 据库的COMMIT语句进行时崩溃，则可能一部分文件被改变而其他的保持原样。附加数据库的原子性的提交 是SQLite 3.0的新特性。在SQLite 2.8中，所有附加数据库的提交类似于主数据库是“:memory:”时的情况。 对附加数据库的数目有编译时的限制，最多10个附加数据库。 BEGIN TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁 ，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务 写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程 能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 END TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被 延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取 RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 注释 comment ::= SQL-comment | C-comment SQL-comment ::= – single-line C-comment ::= /<em> multiple-lines [</em> / ] 注释不是SQL命令，但会出现在SQL查询中。它们被解释器处理为空白部分。它们可以在任何空白可能存在的地方开始 ，即使是在跨越多行的表达式中。 SQL风格的注释仅对当前行有效。 C 风格的注释可以跨越多行。若没有结束符号，注释的范围将一直延伸到输入末尾，且不会引起报错。新的SQL语句可以从多行注释结束的地方开始。C风格注释可 以嵌入任何空白可以出现的地方，包括表达式内，或其他SQL语句中间， 并且C风格的注释不互相嵌套。SQL风格的注释出现在C风格注释中时将被忽略。 COPY sql-statement ::= COPY [ OR conflict-algorithm ] [ database-name . ] table-name FROM filename [ USING DELIMITERS delim ] COPY命令在SQLite 2.8及更早的版本中可用。SQLite 3.0删除了这一命令，因为在混合的UTF-8/16环境中对它进行支持是很复杂的。在3.0版本中，命令行解释器 包含新的.import 命令，用以替代COPY。 COPY 命令是用于将大量数据插入表的一个插件。它模仿PostgreSQL中的相同命令而来。事实上，SQLite的COPY 命令就是为了能够读取PostgreSQL的备份工具pg_dump 的输出从而能够将PostgreSQL的数据轻松转换到SQLite中而设计的。 table-name是将要导入数据的一个已存在的表的名字。filename是一个字符串或标识符，用于说明作为数据来源的文件。filename可以使用STDIN 从标准输入流中获取数据。 输入文件的每一行被转换成一条单独的记录导入表中。字段用制表符分开。若某个字段的数据中出现制表符，则前面被添加反斜线“/”符号。数据中的反斜线则被替换为两条反斜线。可选的USING DELIMITERS子句可给出一个与制表符不同 的分界符。 若字段由“/N”组成，则被赋以空值NULL。 使用这一命令时，利用可选的ON CONFLICT子句可以定义替代的约束冲突判定算法。更多信息，参见 ON CONFLICT 。 当输入数据源是STDIN，输入将终止于一行仅包含一个反斜线和一个点的输入：“/. ”。 CREATE INDEX sql-statement ::= CREATE [UNIQUE ] INDEX [IF NOT EXISTS ] [ database-name . ] index-name ON table-name ( column-name [, column-name ] * ) column-name ::= name [ COLLATE collation-name ] [ ASC | DESC ] CREATE INDEX命令由“CREATE INDEX”关键字后跟新索引的名字，关键字“ON”，待索引表的名字，以及括弧内的用于索引键的字段列表构成。每个字段名可以跟随“ASC”或 “DESC”关键字说明排序法则，但在当前版本中排序法则被忽略。排序总是按照上升序。 每个字段名后跟COLLATE子句定义文本记录的比较顺序。缺省的比较顺序</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjniaoehn009jh40fh19avf5u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" class="article-date">
+  <time datetime="2011-12-22T08:41:55.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/">Android下的图形引擎</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引擎，基于OpenGL ES技术开发，物理引擎为Box2D，因此能够实现一些较为复杂的物理效果，该项目最新版本为 2.0.3 (09/07/10)。总体来说，此引擎最大的优点在于其开发文档相当之完备，并且项目作者对反馈Bug的修正非常之神速，所以该框架的使用在目前也最为 广泛，有人干脆将它称为Cocos2d-iPhone引擎的Android版（业务逻辑和编码风格上也确实很像）。附带一提，国内某个需要注册会员才能下 载的Android游戏框架衍生于此框架，所以大家也不要刻板的认为收费便一定是好的，免费就一定不好。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/rokon/ 3、LGame LGame是一款国人开发的Java游戏引擎，有Android及PC(J2SE)两个开发版本，目前最高版本同为0.2.6(31/07/10)。其底 层绘图器LGrpaphics封装有J2SE以及J2ME提供的全部Graphics API（PC版采用Graphics2D封装，Android版采用Canvas模拟实现），所以能够将J2SE或J2ME开发经验直接套用其中，两版本 间主要代码能够相互移植。Android版内置有Admob接口，可以不必配置XML直接硬编码Admob广告信息。 该引擎除了基本的音效、图形、物理、精灵等常用组件以外，也内置有Ioc、xml、http等常用Java组件的封装，代价是jar体积较为庞大，PC版 已突破1.2MB，Android版有所简化也在500KB左右。此外，该引擎还内置有按照1:1实现的J2ME精灵类及相关组件，可以将绝大多数 J2ME游戏平移到Android或PC版中。唯一遗憾的是，该项目作者是个极其懒惰的家伙，开发文档从去年说到今年依旧没有提供，只有游戏示例可供下 载。 最低运行环境要求为Android 1.1。 项目地址：code.google.com/p/loon-s… 4、AndEngine andengine同样是一款基于OpenGL ES技术的Android游戏引擎，物理引擎同样为Box2D（标配 ）。该框架性能普通，文档缺乏，但示例较为丰富。 最低运行环境要求不详。 项目地址（未直接提供jar下载，源码可通过svn提取）：code.google.com/p/andeng… 5、libgdx libgdx是一款基于OpenGL ES技术开发的Android游戏引擎，支持Android平台下的2D游戏开发，物理引擎采用Box2D实现。单就性能角度来说，堪称是一款非常强大的 Android游戏引擎，但缺陷在于精灵类等相关组件在使用上不够简化，而且文档也较为匮乏。 最低运行环境要求不详。 项目地址：code.google.com/p<img src="file:///C:/Users/wuliuhua/AppData/Local/Temp/%29A%5BY%29I%7E%5D%28ZC9Z%5B3Y%29IDK7LK.gif" alt="">bgdx/ 6、jPCT jPCT是一款基于OpenGL技术开发的3D图形引擎(PC环境为标准OpenGL，Android为OpenGL ES)， 以Java语言为基础的，拥有功能强大的Java 3D解决方案。该引擎与LGame（此为2D游戏引擎）相类似，目前拥有PC(J2SE)以及Android两个开发版本。 jPCT的最大优势之一，就在于它惊人的向下兼容性。在PC环境中，jPCT甚至可以运行在JVM1.1环境之中，因为jPCT内部提供的图形渲染接口完 全符合所有的Java 1.1规范（就连已经消失的Microsoft VM乃至更古老的Netscape 4 VM也不例外）。 最低运行环境要求为Android 1.5。 项目地址：<a href="http://www.jpct.net/jpct-ae/" target="_blank" rel="noopener">http://www.jpct.net/jpct-ae/</a> 7、Alien3d Alien3d是一款体积非常之小的Android 3D游戏引擎，基于OpenGL ES技术开发。为了压缩体积，它根据不同功能采用多jar方式发布（包括alien3d-engine.jar，alien3d- tiled.jar，alien3d-sprites.jar，alien3d-shapes.jar，alien3d- particles2d.jar，），事实上它的核心文件大约只有40KB，所有相关jar的总和也不足150KB。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/alien3d/ 8、Catcake Catcake是一款跨平台的Java 3D图形引擎，目前支持PC(J2SE)及Android环境运行（已有iPhone版规划）。该引擎在易用性和运行性能上皆有出色的表现，支持常见的游戏开发功能，诸如精灵动画，音频处理和视频播放等。 最低运行环境要求为Android 1.6。 项目地址：code.google.com/p/catcake/</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjniaoedp0010h40fg4tu5lgo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" class="article-date">
+  <time datetime="2011-12-15T07:28:22.000Z" itemprop="datePublished">2011-12-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/">从ActivityGroup的Child Activity返回数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>super.getParent().setResult(Activity.RESULT_OK, intent); super.getParent().finish();</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjniaoeey0037h40feu2fxaqe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" class="article-date">
+  <time datetime="2011-12-14T01:28:25.000Z" itemprop="datePublished">2011-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/">Android中如何自定义Menu菜单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们又如何来自定义Menu呢？下面我就主要来讲讲如何在Android上自定义Menu菜单，希望对大家有所帮助。 用过UCWEB-Android版的人都应该对其特殊的menu有印象，把menu做成Tab-Menu(支持分页的Menu)，可以容纳比 Android传统的menu更丰富的内容(Android的menu超过6项则缩略在[更多]里)，本文参考网上的例子(作 者:CoffeeCole,email:<a href="mailto:longkefan@foxmail.com" target="_blank" rel="noopener">longkefan@foxmail.com</a>),对例子进行简化以及封装，使其作为一个复合控件融入自己的 framework。 先来看看本文程序运行的效果： <img src="http://blog.daahe.com/wp-content/uploads/2012/12/842e58e46fe4f38fc4901da8470c02ae.gif" alt=""> TabMenu 本身就是一个PopupWindow，PopupWindow上面放了两个GridView,第一个GridView就是分页标签，位于 PopupWindow的顶部，第二个GridView是菜单，位于PopupWindow的主体。为了实现PopupWindow的弹出/退出的动画效 果，本文使用了以下代码： 在工程的res文件夹里添加anim子目录，再新建文件popup_enter.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>set<code></code>xmlns:android<code>=</code>“<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“<code></code>&gt;`</p>
+<p><code>&lt;`</code>translate<code></code>android:fromYDelta<code>=</code>“100%p”<code></code>android:toYDelta<code>=</code>“0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;`</code>alpha<code></code>android:fromAlpha<code>=</code>“0.0”<code></code>android:toAlpha<code>=</code>“1.0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;/`</code>set<code></code>&gt;`</p>
+<p>新建文件popup_exit.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>set<code></code>xmlns:android<code>=</code>“<a href="http://schemas.android.com/apk/res/android" target="_blank" rel="noopener">http://schemas.android.com/apk/res/android</a>“<code></code>&gt;`</p>
+<p><code>&lt;`</code>translate<code></code>android:fromYDelta<code>=</code>“0”<code></code>android:toYDelta<code>=</code>“100%p”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;`</code>alpha<code></code>android:fromAlpha<code>=</code>“1.0”<code></code>android:toAlpha<code>=</code>“0.0”<code></code>android:duration<code>=</code>“1000”<code></code>/&gt;`</p>
+<p><code>&lt;/`</code>set<code></code>&gt;`</p>
+<p>在工程的values文件夹里新建文件popup_animation.xml：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>resources<code></code>&gt;`</p>
+<p><code>&lt;`</code>style<code></code>name<code>=</code>“PopupAnimation”<code></code>parent<code>=</code>“android:Animation”<code></code>&gt;`</p>
+<p><code>&lt;`</code>item<code></code>name<code>=</code>“android:windowEnterAnimation”<code>&gt;@anim/popup_enter&lt;/</code>item<code></code>&gt;`</p>
+<p><code>&lt;`</code>item<code></code>name<code>=</code>“android:windowExitAnimation”<code>&gt;@anim/popup_exit&lt;/</code>item<code></code>&gt;`</p>
+<p><code>&lt;/`</code>style<code></code>&gt;`</p>
+<p><code>&lt;/`</code>resources<code></code>&gt;`</p>
+<p>main.xml的源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p><code>&lt;?`</code>xml<code></code>version<code>=</code>“1.0”<code></code>encoding<code>=</code>“utf-8”<code></code>?&gt;`</p>
+<p><code>&lt;`</code>LinearLayout<code></code>android:id<code>=</code>“@+id/LinearLayout01”`</p>
+<p><code>android:layout_width`</code>=<code>&quot;fill_parent&quot;` `android:layout_height</code>=<code></code>“fill_parent”`</p>
+<p><code>xmlns:android`</code>=<code>&quot;[http://schemas.android.com/apk/res/android](http://schemas.android.com/apk/res/android)&quot;</code>&gt;`</p>
+<p><code>&lt;`</code>TextView<code></code>android:id<code>=</code>“@+id/TextView01”<code></code>android:layout_height<code>=</code>“wrap_content”`</p>
+<p><code>android:layout_width`</code>=<code>&quot;fill_parent&quot;` `android:text</code>=<code>&quot;扩展Menu----hellogv&quot;</code>&gt;&lt;/<code>TextView</code>&gt;`</p>
+<p><code>&lt;/`</code>LinearLayout<code></code>&gt;`</p>
+<p>TabMenu的封装类TabMenu.java的源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+<p>79</p>
+<p>80</p>
+<p>81</p>
+<p>82</p>
+<p>83</p>
+<p>84</p>
+<p>85</p>
+<p>86</p>
+<p>87</p>
+<p>88</p>
+<p>89</p>
+<p>90</p>
+<p>91</p>
+<p>92</p>
+<p>93</p>
+<p>94</p>
+<p>95</p>
+<p>96</p>
+<p>97</p>
+<p>98</p>
+<p>99</p>
+<p>100</p>
+<p>101</p>
+<p>102</p>
+<p>103</p>
+<p>104</p>
+<p>105</p>
+<p>106</p>
+<p>107</p>
+<p>108</p>
+<p>109</p>
+<p>110</p>
+<p>111</p>
+<p>112</p>
+<p>113</p>
+<p>114</p>
+<p>115</p>
+<p>116</p>
+<p>117</p>
+<p>118</p>
+<p>119</p>
+<p>120</p>
+<p>121</p>
+<p>122</p>
+<p>123</p>
+<p>124</p>
+<p>125</p>
+<p>126</p>
+<p>127</p>
+<p>128</p>
+<p>129</p>
+<p>130</p>
+<p>131</p>
+<p>132</p>
+<p>133</p>
+<p>134</p>
+<p>135</p>
+<p>136</p>
+<p>137</p>
+<p>138</p>
+<p>139</p>
+<p>140</p>
+<p>141</p>
+<p>142</p>
+<p>143</p>
+<p>144</p>
+<p>145</p>
+<p>146</p>
+<p>147</p>
+<p>148</p>
+<p>149</p>
+<p>150</p>
+<p>151</p>
+<p>152</p>
+<p>153</p>
+<p>154</p>
+<p>155</p>
+<p>156</p>
+<p>157</p>
+<p>158</p>
+<p>159</p>
+<p>160</p>
+<p>161</p>
+<p>162</p>
+<p>163</p>
+<p>164</p>
+<p>165</p>
+<p>166</p>
+<p>167</p>
+<p>168</p>
+<p>169</p>
+<p>170</p>
+<p>171</p>
+<p>172</p>
+<p>173</p>
+<p>174</p>
+<p>175</p>
+<p>176</p>
+<p>177</p>
+<p>178</p>
+<p>179</p>
+<p>180</p>
+<p>181</p>
+<p>182</p>
+<p>183</p>
+<p>184</p>
+<p>185</p>
+<p>186</p>
+<p>187</p>
+<p>188</p>
+<p>189</p>
+<p>190</p>
+<p>191</p>
+<p>192</p>
+<p>193</p>
+<p>194</p>
+<p>195</p>
+<p>196</p>
+<p>197</p>
+<p>198</p>
+<p>199</p>
+<p>200</p>
+<p>201</p>
+<p>202</p>
+<p>203</p>
+<p>204</p>
+<p>205</p>
+<p>206</p>
+<p>207</p>
+<p>208</p>
+<p>209</p>
+<p>210</p>
+<p>211</p>
+<p>212</p>
+<p>213</p>
+<p>214</p>
+<p>215</p>
+<p><code>package</code> <code>com.testTabMenu;</code></p>
+<p><code>import</code> <code>android.content.Context;</code></p>
+<p><code>import</code> <code>android.graphics.Color;</code></p>
+<p><code>import</code> <code>android.graphics.drawable.ColorDrawable;</code></p>
+<p><code>import</code> <code>android.view.Gravity;</code></p>
+<p><code>import</code> <code>android.view.View;</code></p>
+<p><code>import</code> <code>android.view.ViewGroup;</code></p>
+<p><code>import</code> <code>android.widget.BaseAdapter;</code></p>
+<p><code>import</code> <code>android.widget.GridView;</code></p>
+<p><code>import</code> <code>android.widget.ImageView;</code></p>
+<p><code>import</code> <code>android.widget.LinearLayout;</code></p>
+<p><code>import</code> <code>android.widget.PopupWindow;</code></p>
+<p><code>import</code> <code>android.widget.TextView;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView.OnItemClickListener;</code></p>
+<p><code>import</code> <code>android.widget.LinearLayout.LayoutParams;</code></p>
+<p><code>public</code> <code>class</code> <code>TabMenu</code> <code>extends</code> <code>PopupWindow{</code></p>
+<p><code>private</code> <code>GridView gvBody, gvTitle;</code></p>
+<p><code>private</code> <code>LinearLayout mLayout;</code></p>
+<p><code>private</code> <code>MenuTitleAdapter titleAdapter;</code></p>
+<p><code>public</code> <code>TabMenu(Context context,OnItemClickListener titleClick,OnItemClickListener bodyClick,</code></p>
+<p><code>MenuTitleAdapter titleAdapter,`</code>int<code></code>colorBgTabMenu,<code></code>int<code></code>aniTabMenu){`</p>
+<p><code>super`</code>(context);`</p>
+<p><code>mLayout =</code> <code>new</code> <code>LinearLayout(context);</code></p>
+<p><code>mLayout.setOrientation(LinearLayout.VERTICAL);</code></p>
+<p><code>//标题选项栏</code></p>
+<p><code>gvTitle =</code> <code>new</code> <code>GridView(context);</code></p>
+<p><code>gvTitle.setLayoutParams(`</code>new<code></code>LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));`</p>
+<p><code>gvTitle.setNumColumns(titleAdapter.getCount());</code></p>
+<p><code>gvTitle.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);</code></p>
+<p><code>gvTitle.setVerticalSpacing(`</code>1<code></code>);`</p>
+<p><code>gvTitle.setHorizontalSpacing(`</code>1<code></code>);`</p>
+<p><code>gvTitle.setGravity(Gravity.CENTER);</code></p>
+<p><code>gvTitle.setOnItemClickListener(titleClick);</code></p>
+<p><code>gvTitle.setAdapter(titleAdapter);</code></p>
+<p><code>gvTitle.setSelector(`</code>new<code></code>ColorDrawable(Color.TRANSPARENT));<code></code>//选中的时候为透明色`</p>
+<p><code>this`</code>.titleAdapter=titleAdapter;`</p>
+<p><code>//子选项栏</code></p>
+<p><code>gvBody =</code> <code>new</code> <code>GridView(context);</code></p>
+<p><code>gvBody.setLayoutParams(`</code>new<code></code>LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));`</p>
+<p><code>gvBody.setSelector(`</code>new<code></code>ColorDrawable(Color.TRANSPARENT));<code></code>//选中的时候为透明色`</p>
+<p><code>gvBody.setNumColumns(`</code>4<code></code>);`</p>
+<p><code>gvBody.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);</code></p>
+<p><code>gvBody.setVerticalSpacing(`</code>10<code></code>);`</p>
+<p><code>gvBody.setHorizontalSpacing(`</code>10<code></code>);`</p>
+<p><code>gvBody.setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>gvBody.setGravity(Gravity.CENTER);</code></p>
+<p><code>gvBody.setOnItemClickListener(bodyClick);</code></p>
+<p><code>mLayout.addView(gvTitle);</code></p>
+<p><code>mLayout.addView(gvBody);</code></p>
+<p><code>//设置默认项</code></p>
+<p><code>this`</code>.setContentView(mLayout);`</p>
+<p><code>this`</code>.setWidth(LayoutParams.FILL_PARENT);`</p>
+<p><code>this`</code>.setHeight(LayoutParams.WRAP_CONTENT);`</p>
+<p><code>this`</code>.setBackgroundDrawable(<code>new` `ColorDrawable(colorBgTabMenu));</code>// 设置TabMenu菜单背景`</p>
+<p><code>this`</code>.setAnimationStyle(aniTabMenu);`</p>
+<p><code>this`</code>.setFocusable(<code>true</code>);<code></code>// menu菜单获得焦点 如果没有获得焦点menu菜单中的控件事件无法响应`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetTitleSelect(`</code>int<code></code>index)`</p>
+<p><code>{</code></p>
+<p><code>gvTitle.setSelection(index);</code></p>
+<p><code>this`</code>.titleAdapter.SetFocus(index);`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetBodySelect(`</code>int<code></code>index,<code></code>int<code></code>colorSelBody)`</p>
+<p><code>{</code></p>
+<p><code>int</code> <code>count=gvBody.getChildCount();</code></p>
+<p><code>for`</code>(<code>int` `i=</code>0<code></code>;i&lt;count;i++)`</p>
+<p><code>{</code></p>
+<p><code>if`</code>(i!=index)`</p>
+<p><code>((LinearLayout)gvBody.getChildAt(i)).setBackgroundColor(Color.TRANSPARENT);</code></p>
+<p><code>}</code></p>
+<p><code>((LinearLayout)gvBody.getChildAt(index)).setBackgroundColor(colorSelBody);</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>void</code> <code>SetBodyAdapter(MenuBodyAdapter bodyAdapter)</code></p>
+<p><code>{</code></p>
+<p><code>gvBody.setAdapter(bodyAdapter);</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 自定义Adapter，TabMenu的每个分页的主体</code></p>
+<p><code>*</code></p>
+<p><code>*/</code></p>
+<p><code>static</code> <code>public</code> <code>class</code> <code>MenuBodyAdapter</code> <code>extends</code> <code>BaseAdapter {</code></p>
+<p><code>private</code> <code>Context mContext;</code></p>
+<p><code>private</code> <code>int</code> <code>fontColor,fontSize;</code></p>
+<p><code>private</code> <code>String[] texts;</code></p>
+<p><code>private</code> <code>int`</code>[] resID;`</p>
+<p><code>/**</code></p>
+<p><code>* 设置TabMenu的分页主体</code></p>
+<p><code>* @param context 调用方的上下文</code></p>
+<p><code>* @param texts 按钮集合的字符串数组</code></p>
+<p><code>* @param resID 按钮集合的图标资源数组</code></p>
+<p><code>* @param fontSize 按钮字体大小</code></p>
+<p><code>* @param color 按钮字体颜色</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>MenuBodyAdapter(Context context, String[] texts,`</code>int<code>[] resID,` `int` `fontSize,</code>int<code></code>fontColor)`</p>
+<p><code>{</code></p>
+<p><code>this`</code>.mContext = context;`</p>
+<p><code>this`</code>.fontColor = fontColor;`</p>
+<p><code>this`</code>.texts = texts;`</p>
+<p><code>this`</code>.fontSize=fontSize;`</p>
+<p><code>this`</code>.resID=resID;`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>int</code> <code>getCount() {</code></p>
+<p><code>return</code> <code>texts.length;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>Object getItem(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>makeMenyBody(position);</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>long</code> <code>getItemId(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>position;</code></p>
+<p><code>}</code></p>
+<p><code>private</code> <code>LinearLayout makeMenyBody(`</code>int<code></code>position)`</p>
+<p><code>{</code></p>
+<p><code>LinearLayout result=`</code>new<code></code>LinearLayout(<code>this</code>.mContext);`</p>
+<p><code>result.setOrientation(LinearLayout.VERTICAL);</code></p>
+<p><code>result.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);</code></p>
+<p><code>result.setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>TextView text =</code> <code>new</code> <code>TextView(`</code>this<code></code>.mContext);`</p>
+<p><code>text.setText(texts[position]);</code></p>
+<p><code>text.setTextSize(fontSize);</code></p>
+<p><code>text.setTextColor(fontColor);</code></p>
+<p><code>text.setGravity(Gravity.CENTER);</code></p>
+<p><code>text.setPadding(`</code>5<code>,` `5</code>,<code></code>5<code>,` `5</code>);`</p>
+<p><code>ImageView img=`</code>new<code></code>ImageView(<code>this</code>.mContext);`</p>
+<p><code>img.setBackgroundResource(resID[position]);</code></p>
+<p><code>result.addView(img,`</code>new<code></code>LinearLayout.LayoutParams(<code></code>new<code></code>LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT)));`</p>
+<p><code>result.addView(text);</code></p>
+<p><code>return</code> <code>result;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>View getView(`</code>int<code></code>position, View convertView, ViewGroup parent) {`</p>
+<p><code>return</code> <code>makeMenyBody(position);</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 自定义Adapter,TabMenu的分页标签部分</code></p>
+<p><code>*</code></p>
+<p><code>*/</code></p>
+<p><code>static</code> <code>public</code> <code>class</code> <code>MenuTitleAdapter</code> <code>extends</code> <code>BaseAdapter {</code></p>
+<p><code>private</code> <code>Context mContext;</code></p>
+<p><code>private</code> <code>int</code> <code>fontColor,unselcolor,selcolor;</code></p>
+<p><code>private</code> <code>TextView[] title;</code></p>
+<p><code>/**</code></p>
+<p><code>* 设置TabMenu的title</code></p>
+<p><code>* @param context 调用方的上下文</code></p>
+<p><code>* @param titles 分页标签的字符串数组</code></p>
+<p><code>* @param fontSize 字体大小</code></p>
+<p><code>* @param fontcolor 字体颜色</code></p>
+<p><code>* @param unselcolor 未选中项的背景色</code></p>
+<p><code>* @param selcolor 选中项的背景色</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>MenuTitleAdapter(Context context, String[] titles,</code> <code>int</code> <code>fontSize,</code></p>
+<p><code>int</code> <code>fontcolor,`</code>int<code></code>unselcolor,<code></code>int<code></code>selcolor) {`</p>
+<p><code>this`</code>.mContext = context;`</p>
+<p><code>this`</code>.fontColor = fontcolor;`</p>
+<p><code>this`</code>.unselcolor = unselcolor;`</p>
+<p><code>this`</code>.selcolor=selcolor;`</p>
+<p><code>this`</code>.title =<code></code>new<code></code>TextView[titles.length];`</p>
+<p><code>for</code> <code>(`</code>int<code></code>i =<code></code>0<code></code>; i &lt; titles.length; i++) {`</p>
+<p><code>title[i] =</code> <code>new</code> <code>TextView(mContext);</code></p>
+<p><code>title[i].setText(titles[i]);</code></p>
+<p><code>title[i].setTextSize(fontSize);</code></p>
+<p><code>title[i].setTextColor(fontColor);</code></p>
+<p><code>title[i].setGravity(Gravity.CENTER);</code></p>
+<p><code>title[i].setPadding(`</code>10<code>,` `10</code>,<code></code>10<code>,` `10</code>);`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>int</code> <code>getCount() {</code></p>
+<p><code>return</code> <code>title.length;</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>Object getItem(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>title[position];</code></p>
+<p><code>}</code></p>
+<p><code>public</code> <code>long</code> <code>getItemId(`</code>int<code></code>position) {`</p>
+<p><code>return</code> <code>title[position].getId();</code></p>
+<p><code>}</code></p>
+<p><code>/**</code></p>
+<p><code>* 设置选中的效果</code></p>
+<p><code>*/</code></p>
+<p><code>private</code> <code>void</code> <code>SetFocus(`</code>int<code></code>index)`</p>
+<p><code>{</code></p>
+<p><code>for`</code>(<code>int` `i=</code>0<code></code>;i&lt;title.length;i++)`</p>
+<p><code>{</code></p>
+<p><code>if`</code>(i!=index)`</p>
+<p><code>{</code></p>
+<p><code>title[i].setBackgroundDrawable(`</code>new<code></code>ColorDrawable(unselcolor));<code></code>//设置没选中的颜色`</p>
+<p><code>title[i].setTextColor(fontColor);`</code>//设置没选中项的字体颜色`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>title[index].setBackgroundColor(`</code>0x00<code>);</code>//设置选中项的颜色`</p>
+<p><code>title[index].setTextColor(selcolor);`</code>//设置选中项的字体颜色`</p>
+<p><code>}</code></p>
+<p><code>public</code> <code>View getView(`</code>int<code></code>position, View convertView, ViewGroup parent) {`</p>
+<p><code>View v;</code></p>
+<p><code>if</code> <code>(convertView ==</code> <code>null`</code>) {`</p>
+<p><code>v = title[position];</code></p>
+<p><code>}</code> <code>else</code> <code>{</code></p>
+<p><code>v = convertView;</code></p>
+<p><code>}</code></p>
+<p><code>return</code> <code>v;</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>testTabMenu介绍了数据的定义以及TabMenu的使用，源码如下：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+<p>79</p>
+<p>80</p>
+<p>81</p>
+<p>82</p>
+<p>83</p>
+<p>84</p>
+<p>85</p>
+<p>86</p>
+<p>87</p>
+<p>88</p>
+<p>89</p>
+<p>90</p>
+<p>91</p>
+<p>92</p>
+<p>93</p>
+<p>94</p>
+<p>95</p>
+<p>96</p>
+<p><code>package</code> <code>com.testTabMenu;</code></p>
+<p><code>import</code> <code>android.app.Activity;</code></p>
+<p><code>import</code> <code>android.graphics.Color;</code></p>
+<p><code>import</code> <code>android.os.Bundle;</code></p>
+<p><code>import</code> <code>android.view.Gravity;</code></p>
+<p><code>import</code> <code>android.view.Menu;</code></p>
+<p><code>import</code> <code>android.view.View;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView;</code></p>
+<p><code>import</code> <code>android.widget.AdapterView.OnItemClickListener;</code></p>
+<p><code>import</code> <code>android.widget.Toast;</code></p>
+<p><code>public</code> <code>class</code> <code>testTabMenu</code> <code>extends</code> <code>Activity {</code></p>
+<p><code>TabMenu.MenuBodyAdapter []bodyAdapter=`</code>new<code></code>TabMenu.MenuBodyAdapter[<code>3</code>];`</p>
+<p><code>TabMenu.MenuTitleAdapter titleAdapter;</code></p>
+<p><code>TabMenu tabMenu;</code></p>
+<p><code>int</code> <code>selTitle=`</code>0<code></code>;`</p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onCreate(Bundle savedInstanceState) {</code></p>
+<p><code>super`</code>.onCreate(savedInstanceState);`</p>
+<p><code>setContentView(R.layout.main);</code></p>
+<p><code>//设置分页栏的标题</code></p>
+<p><code>titleAdapter =</code> <code>new</code> <code>TabMenu.MenuTitleAdapter(`</code>this<code>,` `new` `String[] {` `&quot;常用&quot;</code>,`</p>
+<p><code>&quot;设置&quot;`</code>,<code></code>“工具”<code></code>},<code></code>16<code>,` `0xFF222222</code>,Color.LTGRAY,Color.WHITE);`</p>
+<p><code>//定义每项分页栏的内容</code></p>
+<p><code>bodyAdapter[`</code>0<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;常用1&quot;</code>,<code></code>“常用2”<code></code>, },`</p>
+<p><code>new</code> <code>int`</code>[] { R.drawable.menu_test,`</p>
+<p><code>R.drawable.menu_bookmark},`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>bodyAdapter[`</code>1<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;设置1&quot;</code>,<code></code>“设置2”<code></code>,`</p>
+<p><code>&quot;设置3&quot;`</code>},<code></code>new<code></code>int<code></code>[] { R.drawable.menu_edit,`</p>
+<p><code>R.drawable.menu_delete, R.drawable.menu_fullscreen},`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>bodyAdapter[`</code>2<code>]=</code>new<code></code>TabMenu.MenuBodyAdapter(<code>this</code>,<code>new` `String[] {` `&quot;工具1&quot;</code>,<code></code>“工具2”<code></code>,`</p>
+<p><code>&quot;工具3&quot;`</code>,<code></code>“工具4”<code></code>},<code></code>new<code></code>int<code></code>[] { R.drawable.menu_copy,`</p>
+<p><code>R.drawable.menu_cut, R.drawable.menu_normalmode,</code></p>
+<p><code>R.drawable.menu_quit },`</code>13<code>,` `0xFFFFFFFF</code>);`</p>
+<p><code>tabMenu=`</code>new<code></code>TabMenu(<code>this</code>,`</p>
+<p><code>new</code> <code>TitleClickEvent(),</code></p>
+<p><code>new</code> <code>BodyClickEvent(),</code></p>
+<p><code>titleAdapter,</code></p>
+<p><code>0x55123456`</code>,<code></code>//TabMenu的背景颜色`</p>
+<p><code>R.style.PopupAnimation);`</code>//出现与消失的动画`</p>
+<p><code>tabMenu.update();</code></p>
+<p><code>tabMenu.SetTitleSelect(`</code>0<code></code>);`</p>
+<p><code>tabMenu.SetBodyAdapter(bodyAdapter[`</code>0<code></code>]);`</p>
+<p><code>}</code></p>
+<p><code>class</code> <code>TitleClickEvent</code> <code>implements</code> <code>OnItemClickListener{</code></p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onItemClick(AdapterView&lt;?&gt; arg0, View arg1,</code> <code>int</code> <code>arg2,</code></p>
+<p><code>long</code> <code>arg3) {</code></p>
+<p><code>selTitle=arg2;</code></p>
+<p><code>tabMenu.SetTitleSelect(arg2);</code></p>
+<p><code>tabMenu.SetBodyAdapter(bodyAdapter[arg2]);</code></p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>class</code> <code>BodyClickEvent</code> <code>implements</code> <code>OnItemClickListener{</code></p>
+<p><code>@Override</code></p>
+<p><code>public</code> <code>void</code> <code>onItemClick(AdapterView&lt;?&gt; arg0, View arg1,</code> <code>int</code> <code>arg2,</code></p>
+<p><code>long</code> <code>arg3) {</code></p>
+<p><code>tabMenu.SetBodySelect(arg2,Color.GRAY);</code></p>
+<p><code>String str=`</code>“第”<code>+String.valueOf(selTitle)+</code>“栏/n/r”`</p>
+<p><code>+`</code>“第”<code>+String.valueOf(arg2)+</code>“项”<code></code>;`</p>
+<p><code>Toast.makeText(testTabMenu.`</code>this<code>, str,` `500</code>).show();`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>@Override</code></p>
+<p><code>/**</code></p>
+<p><code>* 创建MENU</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>boolean</code> <code>onCreateOptionsMenu(Menu menu) {</code></p>
+<p><code>menu.add(`</code>“menu”<code>);</code>// 必须创建一项`</p>
+<p><code>return</code> <code>super`</code>.onCreateOptionsMenu(menu);`</p>
+<p><code>}</code></p>
+<p><code>@Override</code></p>
+<p><code>/**</code></p>
+<p><code>* 拦截MENU</code></p>
+<p><code>*/</code></p>
+<p><code>public</code> <code>boolean</code> <code>onMenuOpened(`</code>int<code></code>featureId, Menu menu) {`</p>
+<p><code>if</code> <code>(tabMenu !=</code> <code>null`</code>) {`</p>
+<p><code>if</code> <code>(tabMenu.isShowing())</code></p>
+<p><code>tabMenu.dismiss();</code></p>
+<p><code>else</code> <code>{</code></p>
+<p><code>tabMenu.showAtLocation(findViewById(R.id.LinearLayout01),</code></p>
+<p><code>Gravity.BOTTOM,</code> <code>0`</code>,<code></code>0<code></code>);`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p><code>return</code> <code>false`</code>;<code></code>// 返回为true 则显示系统menu`</p>
+<p><code>}</code></p>
+<p><code>}</code></p>
+<p>这样，我们就基本实现了Android自定义Menu菜单的功能，谢谢阅读！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjniaoehm009hh40fgoni1dqy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" class="article-date">
+  <time datetime="2011-09-14T11:25:34.000Z" itemprop="datePublished">2011-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/">2007年的学习计划</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2007年的学习计划 1、系统学习oracle，熟悉oracle的基本概念，安全性，达到熟练数据库的创建，开启，关闭，备份，恢复，管理日志，创建管理模式对象。 2、学习structs hibernete,spring.达到能创建简单的工程待以后工作中应用再提高。如果时间充裕可以理解这些框架的工作机理。 3、学习工作流，能设计实现简单的工作流。 4、学习xml的相关知识。熟悉xml的基本语法。掌握如何使用java dom读写一个xml文件。// 5、系统学习tomcat的server.xml配置。如：端口，性能优化，集群配置。 6、学习双机配置的相关知识。如果由模拟器的话最好能够创建一个双机。 7、系统学习weblogic的相关知识。 8、学习linux的相关知识。达到熟练应用该操作系统的基本操作的地步。安装系统，安装运行卸载应用程序，启动关闭服务， 9、学习Websphere,能熟练安装该软件，并能掌握基本的操作，如发布web应用，开启，关闭服务，配置数据源等。 10、学习java的反射机制。 11、学习数据库的设计知识。 12、系统学习eclipse的功能，如调试功能，各个视图的功能，如何安装插件，以及插件是如何工作的。以便今后工作中快速开放项目。达到熟练应用的程度。 13、系统学习javascript，css，ajax的知识。 14、学习java mail邮件 15、学习lotus的基本知识。能大概理解lotus的工作方式，以及domino数据库的工作方式，和传统数据库的区别。 16、学习lunce的开放包，熟悉主要的类的功能。 17、学习常用技术文档的基本格式，编写方法。 18、学习jsp中标签的应用方法，基本工作原理。 19、学习java窗口程序的开发方法。能创建基本的窗口程序。 20、学习报表的相关知识。（jreport） 21、学习java编程模式的知识。 22、学习jsp中的7大对象的知识，掌握各个对象的基本用法。和Bean在jsp页面中的应用。 23、学习ant工具的使用方法及其在实际应用中的作用。 24、了解ejb的工作原理。 25、Web Services-跨语言的通讯平台 26、软件工程与项目监控 27、项目进度</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" data-id="cjniaoedl000sh40fu6ksiplw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" class="article-date">
+  <time datetime="2011-09-14T11:22:43.000Z" itemprop="datePublished">2011-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/">两个SQL语句,性能相差如此大</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用Hibernate开发的应用,使用是Oracle10g,使用的方言是org.hibernate.dialect.OracleDialect ﻿数据到达360W的时候，分页查询比较慢，达到10S多，分析了自动生成的SQL，发现SQL格式如下： SELECT <em> FROM (SELECT row_.</em>, ROWNUM rownum_ FROM (SELECT users.id,users.name FROM my.users users0_) row_) WHERE rownum_ &lt;= 100 AND rownum_ &gt; 10 将方言改为org.hibernate.dialect.Oracle10gDi生成的SQL是 SELECT <em> FROM (SELECT row_.</em>, ROWNUM rownum_ FROM (SELECT users.id,users.name FROM my.users users0_) row_ where rownum &lt;= 100 ) WHERE rownum_ &gt; 10。 速度很快。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" data-id="cjniaoees002vh40fx86abt95" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-datacross-1-3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/07/07/datacross-1-3/" class="article-date">
+  <time datetime="2011-07-07T05:25:52.000Z" itemprop="datePublished">2011-07-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DataCross/">DataCross</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/07/07/datacross-1-3/">DataCross V1.3 新特性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DataCross V1.3 新特性 1、支持SQLite数据库； 2、支持用SAX读写XML，之前版本只有用dom解析xml 3、在xml中增加对大文本字段的支持。文本字段中可以有换行. 4、增加了SimpleObjectWriter和SimpleObjectReader.可以对java对象进行读写操作。 下载请到： <a href="http://bbs.daahe.com/td-5443-1-1.html" target="_blank" rel="noopener">http://bbs.daahe.com/td-5443-1-1.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/07/07/datacross-1-3/" data-id="cjniaoeep002lh40fky03o0a8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" class="article-date">
+  <time datetime="2011-06-23T09:25:28.000Z" itemprop="datePublished">2011-06-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/">Android中ListView组件的Item拖动（Item改变顺序）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx" target="_blank" rel="noopener">http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx</a></p>
+<ol>
+<li>/*</li>
+<li><ul>
+<li>Copyright (C) 2008 The Android Open Source Project</li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li>Licensed under the Apache License, Version 2.0 (the “License”);</li>
+</ul>
+</li>
+<li><ul>
+<li>you may not use this file except in compliance with the License.</li>
+</ul>
+</li>
+<li><ul>
+<li>You may obtain a copy of the License at</li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li>Unless required by applicable law or agreed to in writing, software</li>
+</ul>
+</li>
+<li><ul>
+<li>distributed under the License is distributed on an “AS IS” BASIS,</li>
+</ul>
+</li>
+<li><ul>
+<li>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</li>
+</ul>
+</li>
+<li><ul>
+<li>See the License for the specific language governing permissions and</li>
+</ul>
+</li>
+<li><ul>
+<li>limitations under the License.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>package com.flora;</li>
+<li>import android.content.Context;</li>
+<li>import android.content.SharedPreferences;</li>
+<li>import android.content.res.Resources;</li>
+<li>import android.graphics.Bitmap;</li>
+<li>import android.graphics.PixelFormat;</li>
+<li>import android.graphics.Rect;</li>
+<li>import android.graphics.drawable.Drawable;</li>
+<li>import android.util.AttributeSet;</li>
+<li>import android.view.GestureDetector;</li>
+<li>import android.view.Gravity;</li>
+<li>import android.view.MotionEvent;</li>
+<li>import android.view.View;</li>
+<li>import android.view.ViewConfiguration;</li>
+<li>import android.view.ViewGroup;</li>
+<li>import android.view.WindowManager;</li>
+<li>import android.view.GestureDetector.SimpleOnGestureListener;</li>
+<li>import android.widget.AdapterView;</li>
+<li>import android.widget.ImageView;</li>
+<li>import android.widget.ListView;</li>
+<li>public class DragAndDropListView extends ListView {</li>
+<li>private ImageView mDragView;</li>
+<li>private WindowManager mWindowManager;</li>
+<li>private WindowManager.LayoutParams mWindowParams;</li>
+<li>/**</li>
+<li><ul>
+<li>At which position is the item currently being dragged. Note that this</li>
+</ul>
+</li>
+<li><ul>
+<li>takes in to account header items.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int mDragPos;</li>
+<li>/**</li>
+<li><ul>
+<li>At which position was the item being dragged originally</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int mSrcDragPos;</li>
+<li>private int mDragPointX;   // at what x offset inside the item did the user grab it</li>
+<li>private int mDragPointY;   // at what y offset inside the item did the user grab it</li>
+<li>private int mXOffset;  // the difference between screen coordinates and coordinates in this view</li>
+<li>private int mYOffset;  // the difference between screen coordinates and coordinates in this view</li>
+<li>private DragListener mDragListener;</li>
+<li>private DropListener mDropListener;</li>
+<li>private RemoveListener mRemoveListener;</li>
+<li>private int mUpperBound;</li>
+<li>private int mLowerBound;</li>
+<li>private int mHeight;</li>
+<li>private GestureDetector mGestureDetector;</li>
+<li>private static final int FLING = 0;</li>
+<li>private static final int SLIDE = 1;</li>
+<li>private static final int TRASH = 2;</li>
+<li>private int mRemoveMode = -1;</li>
+<li>private Rect mTempRect = new Rect();</li>
+<li>private Bitmap mDragBitmap;</li>
+<li>private final int mTouchSlop;</li>
+<li>private int mItemHeightNormal;</li>
+<li>private int mItemHeightExpanded;</li>
+<li>private int mItemHeightHalf;</li>
+<li>private Drawable mTrashcan;</li>
+<li>public DragAndDropListView(Context context, AttributeSet attrs) {</li>
+<li>super(context, attrs);</li>
+<li>SharedPreferences pref = context.getSharedPreferences(“Music”, 3);</li>
+<li>mRemoveMode = pref.getInt(“deletemode”, -1);</li>
+<li>mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();</li>
+<li>Resources res = getResources();</li>
+<li>mItemHeightNormal = res.getDimensionPixelSize(R.dimen.normal_height);</li>
+<li>mItemHeightHalf = mItemHeightNormal / 2;</li>
+<li>mItemHeightExpanded = res.getDimensionPixelSize(R.dimen.expanded_height);</li>
+<li>}</li>
+<li>@Override</li>
+<li>public boolean onInterceptTouchEvent(MotionEvent ev) {</li>
+<li>if (mRemoveListener != null &amp;&amp; mGestureDetector == null) {</li>
+<li>if (mRemoveMode == FLING) {</li>
+<li>mGestureDetector = new GestureDetector(getContext(), new SimpleOnGestureListener() {</li>
+<li>@Override</li>
+<li>public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,</li>
+<li>float velocityY) {</li>
+<li>if (mDragView != null) {</li>
+<li>if (velocityX &gt; 1000) {</li>
+<li>Rect r = mTempRect;</li>
+<li>mDragView.getDrawingRect(r);</li>
+<li>if ( e2.getX() &gt; r.right * 2 / 3) {</li>
+<li>// fast fling right with release near the right edge of the screen</li>
+<li>stopDragging();</li>
+<li>mRemoveListener.remove(mSrcDragPos);</li>
+<li>unExpandViews(true);</li>
+<li>}</li>
+<li>}</li>
+<li>// flinging while dragging should have no effect</li>
+<li>return true;</li>
+<li>}</li>
+<li>return false;</li>
+<li>}</li>
+<li>});</li>
+<li>}</li>
+<li>}</li>
+<li>if (mDragListener != null || mDropListener != null) {</li>
+<li>switch (ev.getAction()) {</li>
+<li>case MotionEvent.ACTION_DOWN:</li>
+<li>int x = (int) ev.getX();</li>
+<li><p>int y = (int) ev.getY();</p>
+</li>
+<li><p>int itemnum = pointToPosition(x, y);</p>
+</li>
+<li>if (itemnum == AdapterView.INVALID_POSITION) {</li>
+<li>break;</li>
+<li>}</li>
+<li>ViewGroup item = (ViewGroup) getChildAt(itemnum - getFirstVisiblePosition());</li>
+<li>mDragPointX = x - item.getLeft();</li>
+<li>mDragPointY = y - item.getTop();</li>
+<li>mXOffset = ((int)ev.getRawX()) - x;</li>
+<li>mYOffset = ((int)ev.getRawY()) - y;</li>
+<li>// The left side of the item is the grabber for dragging the item</li>
+<li>if (x &lt; 64) {</li>
+<li>item.setDrawingCacheEnabled(true);</li>
+<li>// Create a copy of the drawing cache so that it does not get recycled</li>
+<li>// by the framework when the list tries to clean up memory</li>
+<li>Bitmap bitmap = Bitmap.createBitmap(item.getDrawingCache());</li>
+<li>startDragging(bitmap, x, y);</li>
+<li>mDragPos = itemnum;</li>
+<li>mSrcDragPos = mDragPos;</li>
+<li>mHeight = getHeight();</li>
+<li>int touchSlop = mTouchSlop;</li>
+<li>mUpperBound = Math.min(y - touchSlop, mHeight / 3);</li>
+<li>mLowerBound = Math.max(y + touchSlop, mHeight * 2 /3);</li>
+<li>return false;</li>
+<li>}</li>
+<li>stopDragging();</li>
+<li>break;</li>
+<li>}</li>
+<li>}</li>
+<li>return super.onInterceptTouchEvent(ev);</li>
+<li>}</li>
+<li>/*</li>
+<li><ul>
+<li>pointToPosition() doesn’t consider invisible views, but we</li>
+</ul>
+</li>
+<li><ul>
+<li>need to, so implement a slightly different version.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int myPointToPosition(int x, int y) {</li>
+<li>if (y &lt; 0) {</li>
+<li>// when dragging off the top of the screen, calculate position</li>
+<li>// by going back from a visible item</li>
+<li>int pos = myPointToPosition(x, y + mItemHeightNormal);</li>
+<li>if (pos &gt; 0) {</li>
+<li>return pos - 1;</li>
+<li>}</li>
+<li>}</li>
+<li>Rect frame = mTempRect;</li>
+<li>final int count = getChildCount();</li>
+<li>for (int i = count - 1; i &gt;= 0; i–) {</li>
+<li>final View child = getChildAt(i);</li>
+<li>child.getHitRect(frame);</li>
+<li>if (frame.contains(x, y)) {</li>
+<li>return getFirstVisiblePosition() + i;</li>
+<li>}</li>
+<li>}</li>
+<li>return INVALID_POSITION;</li>
+<li>}</li>
+<li>private int getItemForPosition(int y) {</li>
+<li>int adjustedy = y - mDragPointY - mItemHeightHalf;</li>
+<li>int pos = myPointToPosition(0, adjustedy);</li>
+<li>if (pos &gt;= 0) {</li>
+<li>if (pos &lt;= mSrcDragPos) {</li>
+<li>pos += 1;</li>
+<li>}</li>
+<li>} else if (adjustedy &lt; 0) {</li>
+<li>// this shouldn’t happen anymore now that myPointToPosition deals</li>
+<li>// with this situation</li>
+<li>pos = 0;</li>
+<li>}</li>
+<li>return pos;</li>
+<li>}</li>
+<li>private void adjustScrollBounds(int y) {</li>
+<li>if (y &gt;= mHeight / 3) {</li>
+<li>mUpperBound = mHeight / 3;</li>
+<li>}</li>
+<li>if (y &lt;= mHeight * 2 / 3) {</li>
+<li>mLowerBound = mHeight * 2 / 3;</li>
+<li>}</li>
+<li>}</li>
+<li>/*</li>
+<li><ul>
+<li>Restore size and visibility for all listitems</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private void unExpandViews(boolean deletion) {</li>
+<li>for (int i = 0;; i++) {</li>
+<li>View v = getChildAt(i);</li>
+<li>if (v == null) {</li>
+<li>if (deletion) {</li>
+<li>// HACK force update of mItemCount</li>
+<li>int position = getFirstVisiblePosition();</li>
+<li>int y = getChildAt(0).getTop();</li>
+<li>setAdapter(getAdapter());</li>
+<li>setSelectionFromTop(position, y);</li>
+<li>// end hack</li>
+<li>}</li>
+<li>try {</li>
+<li>layoutChildren(); // force children to be recreated where needed</li>
+<li>v = getChildAt(i);</li>
+<li>} catch (IllegalStateException ex) {</li>
+<li>// layoutChildren throws this sometimes, presumably because we’re</li>
+<li>// in the process of being torn down but are still getting touch</li>
+<li>// events</li>
+<li>}</li>
+<li>if (v == null) {</li>
+<li>return;</li>
+<li>}</li>
+<li>}</li>
+<li>ViewGroup.LayoutParams params = v.getLayoutParams();</li>
+<li>params.height = mItemHeightNormal;</li>
+<li>v.setLayoutParams(params);</li>
+<li>v.setVisibility(View.VISIBLE);</li>
+<li>}</li>
+<li>}</li>
+<li>/* Adjust visibility and size to make it appear as though</li>
+<li><ul>
+<li>an item is being dragged around and other items are making</li>
+</ul>
+</li>
+<li><ul>
+<li>room for it:</li>
+</ul>
+</li>
+<li><ul>
+<li>If dropping the item would result in it still being in the</li>
+</ul>
+</li>
+<li><ul>
+<li>same place, then make the dragged listitem’s size normal,</li>
+</ul>
+</li>
+<li><ul>
+<li>but make the item invisible.</li>
+</ul>
+</li>
+<li><ul>
+<li>Otherwise, if the dragged listitem is still on screen, make</li>
+</ul>
+</li>
+<li><ul>
+<li>it as small as possible and expand the item below the insert</li>
+</ul>
+</li>
+<li><ul>
+<li>point.</li>
+</ul>
+</li>
+<li><ul>
+<li>If the dragged item is not on screen, only expand the item</li>
+</ul>
+</li>
+<li><ul>
+<li>below the current insertpoint.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private void doExpansion() {</li>
+<li>int childnum = mDragPos - getFirstVisiblePosition();</li>
+<li>if (mDragPos &gt; mSrcDragPos) {</li>
+<li>childnum++;</li>
+<li>}</li>
+<li>int numheaders = getHeaderViewsCount();</li>
+<li>View first = getChildAt(mSrcDragPos - getFirstVisiblePosition());</li>
+<li>for (int i = 0;; i++) {</li>
+<li>View vv = getChildAt(i);</li>
+<li>if (vv == null) {</li>
+<li>break;</li>
+<li>}</li>
+<li>int height = mItemHeightNormal;</li>
+<li>int visibility = View.VISIBLE;</li>
+<li>if (mDragPos &lt; numheaders &amp;&amp; i == numheaders) {</li>
+<li>// dragging on top of the header item, so adjust the item below</li>
+<li>// instead</li>
+<li>if (vv.equals(first)) {</li>
+<li>visibility = View.INVISIBLE;</li>
+<li>} else {</li>
+<li>height = mItemHeightExpanded;</li>
+<li>}</li>
+<li>} else if (vv.equals(first)) {</li>
+<li>// processing the item that is being dragged</li>
+<li>if (mDragPos == mSrcDragPos || getPositionForView(vv) == getCount() - 1) {</li>
+<li>// hovering over the original location</li>
+<li>visibility = View.INVISIBLE;</li>
+<li>} else {</li>
+<li>// not hovering over it</li>
+<li>// Ideally the item would be completely gone, but neither</li>
+<li>// setting its size to 0 nor settings visibility to GONE</li>
+<li>// has the desired effect.</li>
+<li>height = 1;</li>
+<li>}</li>
+<li>} else if (i == childnum) {</li>
+<li>if (mDragPos &gt;= numheaders &amp;&amp; mDragPos &lt; getCount() - 1) {</li>
+<li>height = mItemHeightExpanded;</li>
+<li>}</li>
+<li>}</li>
+<li>ViewGroup.LayoutParams params = vv.getLayoutParams();</li>
+<li>params.height = height;</li>
+<li>vv.setLayoutParams(params);</li>
+<li>vv.setVisibility(visibility);</li>
+<li>}</li>
+<li>}</li>
+<li>@Override</li>
+<li>public boolean onTouchEvent(MotionEvent ev) {</li>
+<li>if (mGestureDetector != null) {</li>
+<li>mGestureDetector.onTouchEvent(ev);</li>
+<li>}</li>
+<li>if ((mDragListener != null || mDropListener != null) &amp;&amp; mDragView != null) {</li>
+<li>int action = ev.getAction();</li>
+<li>switch (action) {</li>
+<li>case MotionEvent.ACTION_UP:</li>
+<li>case MotionEvent.ACTION_CANCEL:</li>
+<li>Rect r = mTempRect;</li>
+<li>mDragView.getDrawingRect(r);</li>
+<li>stopDragging();</li>
+<li>if (mRemoveMode == SLIDE &amp;&amp; ev.getX() &gt; r.right * 3 / 4) {</li>
+<li>if (mRemoveListener != null) {</li>
+<li>mRemoveListener.remove(mSrcDragPos);</li>
+<li>}</li>
+<li>unExpandViews(true);</li>
+<li>} else {</li>
+<li>if (mDropListener != null &amp;&amp; mDragPos &gt;= 0 &amp;&amp; mDragPos &lt; getCount()) {</li>
+<li>mDropListener.drop(mSrcDragPos, mDragPos);</li>
+<li>}</li>
+<li>unExpandViews(false);</li>
+<li>}</li>
+<li>break;</li>
+<li>case MotionEvent.ACTION_DOWN:</li>
+<li>case MotionEvent.ACTION_MOVE:</li>
+<li>int x = (int) ev.getX();</li>
+<li>int y = (int) ev.getY();</li>
+<li>dragView(x, y);</li>
+<li>int itemnum = getItemForPosition(y);</li>
+<li>if (itemnum &gt;= 0) {</li>
+<li>if (action == MotionEvent.ACTION_DOWN || itemnum != mDragPos) {</li>
+<li>if (mDragListener != null) {</li>
+<li>mDragListener.drag(mDragPos, itemnum);</li>
+<li>}</li>
+<li>mDragPos = itemnum;</li>
+<li>doExpansion();</li>
+<li>}</li>
+<li>int speed = 0;</li>
+<li>adjustScrollBounds(y);</li>
+<li>if (y &gt; mLowerBound) {</li>
+<li>// scroll the list up a bit</li>
+<li>if (getLastVisiblePosition() &lt; getCount() - 1) {</li>
+<li>speed = y &gt; (mHeight + mLowerBound) / 2 ? 16 : 4;</li>
+<li>} else {</li>
+<li>speed = 1;</li>
+<li>}</li>
+<li>} else if (y &lt; mUpperBound) {</li>
+<li>// scroll the list down a bit</li>
+<li>speed = y &lt; mUpperBound / 2 ? -16 : -4;</li>
+<li>if (getFirstVisiblePosition() == 0</li>
+<li>&amp;&amp; getChildAt(0).getTop() &gt;= getPaddingTop()) {</li>
+<li>// if we’re already at the top, don’t try to scroll, because</li>
+<li>// it causes the framework to do some extra drawing that messes</li>
+<li>// up our animation</li>
+<li>speed = 0;</li>
+<li>}</li>
+<li>}</li>
+<li>if (speed != 0) {</li>
+<li>smoothScrollBy(speed, 30);</li>
+<li>}</li>
+<li>}</li>
+<li>break;</li>
+<li>}</li>
+<li>return true;</li>
+<li>}</li>
+<li>return super.onTouchEvent(ev);</li>
+<li>}</li>
+<li>private void startDragging(Bitmap bm, int x, int y) {</li>
+<li>stopDragging();</li>
+<li>mWindowParams = new WindowManager.LayoutParams();</li>
+<li>mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;</li>
+<li>mWindowParams.x = x - mDragPointX + mXOffset;</li>
+<li>mWindowParams.y = y - mDragPointY + mYOffset;</li>
+<li>mWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;</li>
+<li>mWindowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;</li>
+<li>mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE</li>
+<li>| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE</li>
+<li>| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON</li>
+<li>| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN</li>
+<li>| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;</li>
+<li>mWindowParams.format = PixelFormat.TRANSLUCENT;</li>
+<li>mWindowParams.windowAnimations = 0;</li>
+<li>Context context = getContext();</li>
+<li>ImageView v = new ImageView(context);</li>
+<li>v.setBackgroundResource(R.drawable.drag_and_drop_image);</li>
+<li>v.setPadding(0, 0, 0, 0);</li>
+<li>v.setImageBitmap(bm);</li>
+<li>mDragBitmap = bm;</li>
+<li>mWindowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);</li>
+<li>mWindowManager.addView(v, mWindowParams);</li>
+<li>mDragView = v;</li>
+<li>}</li>
+<li>private void dragView(int x, int y) {</li>
+<li>if (mRemoveMode == SLIDE) {</li>
+<li>float alpha = 1.0f;</li>
+<li>int width = mDragView.getWidth();</li>
+<li>if (x &gt; width / 2) {</li>
+<li>alpha = ((float)(width - x)) / (width / 2);</li>
+<li>}</li>
+<li>mWindowParams.alpha = alpha;</li>
+<li>}</li>
+<li>if (mRemoveMode == FLING || mRemoveMode == TRASH) {</li>
+<li>mWindowParams.x = x - mDragPointX + mXOffset;</li>
+<li>} else {</li>
+<li>mWindowParams.x = 0;</li>
+<li>}</li>
+<li>mWindowParams.y = y - mDragPointY + mYOffset;</li>
+<li>mWindowManager.updateViewLayout(mDragView, mWindowParams);</li>
+<li>if (mTrashcan != null) {</li>
+<li>int width = mDragView.getWidth();</li>
+<li>if (y &gt; getHeight() * 3 / 4) {</li>
+<li>mTrashcan.setLevel(2);</li>
+<li>} else if (width &gt; 0 &amp;&amp; x &gt; width / 4) {</li>
+<li>mTrashcan.setLevel(1);</li>
+<li>} else {</li>
+<li>mTrashcan.setLevel(0);</li>
+<li>}</li>
+<li>}</li>
+<li>}</li>
+<li>private void stopDragging() {</li>
+<li>if (mDragView != null) {</li>
+<li>mDragView.setVisibility(GONE);</li>
+<li>WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);</li>
+<li>wm.removeView(mDragView);</li>
+<li>mDragView.setImageDrawable(null);</li>
+<li>mDragView = null;</li>
+<li>}</li>
+<li>if (mDragBitmap != null) {</li>
+<li>mDragBitmap.recycle();</li>
+<li>mDragBitmap = null;</li>
+<li>}</li>
+<li>if (mTrashcan != null) {</li>
+<li>mTrashcan.setLevel(0);</li>
+<li>}</li>
+<li>}</li>
+<li>public void setTrashcan(Drawable trash) {</li>
+<li>mTrashcan = trash;</li>
+<li>mRemoveMode = TRASH;</li>
+<li>}</li>
+<li>public void setDragListener(DragListener l) {</li>
+<li>mDragListener = l;</li>
+<li>}</li>
+<li>public void setDropListener(DropListener l) {</li>
+<li>mDropListener = l;</li>
+<li>}</li>
+<li>public void setRemoveListener(RemoveListener l) {</li>
+<li>mRemoveListener = l;</li>
+<li>}</li>
+<li>public interface DragListener {</li>
+<li>void drag(int from, int to);</li>
+<li>}</li>
+<li>public interface DropListener {</li>
+<li>void drop(int from, int to);</li>
+<li>}</li>
+<li>public interface RemoveListener {</li>
+<li>void remove(int which);</li>
+<li>}</li>
+<li>}</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" data-id="cjniaoei000a2h40fxsxay8oi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/" class="article-date">
+  <time datetime="2011-06-17T03:35:01.000Z" itemprop="datePublished">2011-06-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/">分辨率相关DPI,SIZE,RESOLUTION,COLOR,DENSITY</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>Screen size (屏幕尺寸):具体的屏幕物理长度,以对角线长度做为标识,平时我们说的3”屏,7”屏就是指这个,是物理尺寸</li>
+<li>Resolution (分辨率):屏幕上总共的物理像素点,虽然经常被以800X600之类的来描述,但是在android中,他并不指代具体的屏幕宽高比例,注意,分辨率和屏幕大小没有任何联系,分辨率只是描述点的而已,所以相同分辨率下,屏幕越小,越清晰</li>
+<li>density(密度) :表示每英寸有多少个显示点，density是以分辨率为基础,即指在固定分辨率上散开的像素点,也即是说屏幕的density越大,单位上分散的像素就越多,可以理解为点距就越小,这样如果某个元素是以px为单位的,那么在低密度的屏幕上就会变大,应用程序可以通过指定high-dpi等三种资源来实现平台的独立性 ASPECT RATIO (宽高比例):也就是平时我们说的4比3之流</li>
+<li>Density-independent pixel(dip):dip是一种虚拟的像素单位,专门用来给程序定义UI用,Android高度推荐使用这个,可以为不同的dip设置不同的资源进行自动切换 pixels = dips <em> (density / 160)即dip相当于屏幕density=160时的一个像素点，density=160时是一个点显示一个像素，而density=240时是3个点显示两个像素，图像看起来大一些，真实像素只有1280\</em>2/3px,800*2/3px。</li>
+<li>Dot per inch(DPI) :就是一英寸上显示的点，而这个点并不是意义上的像素。</li>
+</ol>
+<p>一般来说，显示器是96DPI，也就是说96像素等于1inch，但实际上不应该是这样，因为显示器的分辨率可以调整。 对于你上面所说的显示器设置，96DPI可以理解为用96象素来表示一英寸，而变成120DPI的时候，是用120像素来表示一英寸，而系统的对象（字体，图像）的是用英寸数来表示的，所以120DPI时，图象和字体就变大了。 就是一英寸上显示的点，而这个点并不是意义上的像素。 一般来说，显示器是96DPI，也就是说96像素等于1inch，但实际上不应该是这样，因为显示器的分辨率可以调整。 对于你上面所说的显示器设置，96DPI可以理解为用96象素来表示一英寸，而变成120DPI的时候，是用120像素来表示一英寸，而系统的对象（字体，图像）的是用英寸数来表示的，所以120DPI时，图象和字体就变大了。 色阶 :也就是平时我们说的 65536色,26万色,1600万色并没有数字看起来差别那么大,这实际上只是表示相邻的三个色阶而已,当然,1600万色显示效果是最好的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/" data-id="cjniaoef6003kh40fc158w3jo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/06/15/e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf/" class="article-date">
+  <time datetime="2011-06-15T10:12:40.000Z" itemprop="datePublished">2011-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/06/15/e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf/">什么是分量色差线</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>iPhone有官方推荐的线缆，在官方网站上有2款推荐的线材，分别是复合端子（av）及色差分量线。</p>
+<p>色差分量接口称为分量视频接口，又叫3RCA，即把色度（C）信号里的蓝色差（b）、红色差（r）分开发送，其分辨率可达到720线以上。其接口采用YPbPr和YCbCr两种标识，前者表示逐行扫描色差输出，后者表示隔行扫描色差输出，一般利用3根信号线分别传送亮色和两路色差信号。这3组信号分别是，亮度以Y标注，以及从三原色信号中的两种——蓝色和红色——去掉亮度信号后的色彩差异信号，分别标注为Pb和Pr，或者Cb和Cr，在三条线的接头处分别用绿、蓝、红色进行区别。我们经常在投影机或高档影碟机上看到的，类似YUV、YCbCr、Y/B-Y/B-Y等等的接口标识，虽然标记方法与接头外形各有千秋，但都属于色差分量端口。 对于模拟视频信号来说，衰减是不可避免的现象，所以信号分离度越高的信号清晰度就越高。色差输出就是把色度信号C分解为色差Cr和Cb，这样就避免了两路色差混合译码并再次分离的过程，也保持了色度信道的最大带宽，只需要经过反矩阵译码电路就可以还原为RGB三原色信号而成像，这就最大限度地缩短了视频源到显示器成像之间的视频信号信道，避免了因繁琐的传输过程所带来的影像失真，从而能够轻松实现720线以上高解析度、高清效果。 透过色差分量端子，可以提高输入信号品质，可以输入多种等级讯号，从最基本的480i到倍频扫描的480p，甚至720p、1080p等等，都是要通过色差输入才有办法将信号传送到电视当中。对于只有352×288分辨率的VCD来说，传统的最高能够支持480i清晰度的AV复合接口与S端子足够支持，但对于720P以上高清视频来说，则只有色差分量以上的接口，才能真正实现高清输出。普通MP4之所以视频输出不佳，效果与VCD相差无几，除了本身不能实现高清解码外，很重要的一个原因就是采用的是AV复合输出，而不是色差分量。 由于技术成熟效果出色成本低廉，色差分量接口广泛流行于视频生活的方方面面，输出设备方面，大部分显卡、DVD碟机均支持有色差分量输出，而像索尼PS2、微软XBOX等热门的游戏机，也提供有色差分量接口，让玩家获得更逼真的游戏画面，风靡全球的PSP，更是舍弃了其它输出端子而仅仅保留了色差分量输出，色差分量输出的在高清应用中的分量，可见一斑。输入设备方面，大部分电视机可以没有其它接口，但必然提供了色差分量输入口，配合各种输出设备，用户要享受720P级别的高清享受，可谓轻而易举。 举一个简单例子，用同一台DVD碟机播放，通过AV复合或者S端子输出到电视上的视频效果，与通过色差分量输出到电视上的视频效果，后者的画质清晰度、色彩表现力都出类拔萃，前者只能望其项背。而用XBOX玩游戏，AV复合或者S端子的效果同样难以与色差分量相媲美。 显而易见，色差输出的接口方式是目前模拟的各种视频输出接口中最好的一种之一，也是目前高清MP4最理想输出接口的选择。 一个用色差线做的iPhone同屏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/06/15/e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf/" data-id="cjniaoeev0032h40fztsp51wl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

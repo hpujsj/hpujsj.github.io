@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android中ListView组件的Item拖动（Item改变顺序） | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx  /*  Copyright (C) 2008 The Android Open Source Project   *  Licensed under the Apache License, Version 2.0 (the “License”);    you m">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中ListView组件的Item拖动（Item改变顺序）">
+<meta property="og:url" content="http://www.daahe.com/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx  /*  Copyright (C) 2008 The Android Open Source Project   *  Licensed under the Apache License, Version 2.0 (the “License”);    you m">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中ListView组件的Item拖动（Item改变顺序）">
+<meta name="twitter:description" content="http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx  /*  Copyright (C) 2008 The Android Open Source Project   *  Licensed under the Apache License, Version 2.0 (the “License”);    you m">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" class="article-date">
+  <time datetime="2011-06-23T09:25:28.000Z" itemprop="datePublished">2011-06-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中ListView组件的Item拖动（Item改变顺序）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx" target="_blank" rel="noopener">http://blog.csdn.net/mayingcai1987/archive/2011/04/25/6362325.aspx</a></p>
+<ol>
+<li>/*</li>
+<li><ul>
+<li>Copyright (C) 2008 The Android Open Source Project</li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li>Licensed under the Apache License, Version 2.0 (the “License”);</li>
+</ul>
+</li>
+<li><ul>
+<li>you may not use this file except in compliance with the License.</li>
+</ul>
+</li>
+<li><ul>
+<li>You may obtain a copy of the License at</li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></li>
+</ul>
+</li>
+<li>*</li>
+<li><ul>
+<li>Unless required by applicable law or agreed to in writing, software</li>
+</ul>
+</li>
+<li><ul>
+<li>distributed under the License is distributed on an “AS IS” BASIS,</li>
+</ul>
+</li>
+<li><ul>
+<li>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</li>
+</ul>
+</li>
+<li><ul>
+<li>See the License for the specific language governing permissions and</li>
+</ul>
+</li>
+<li><ul>
+<li>limitations under the License.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>package com.flora;</li>
+<li>import android.content.Context;</li>
+<li>import android.content.SharedPreferences;</li>
+<li>import android.content.res.Resources;</li>
+<li>import android.graphics.Bitmap;</li>
+<li>import android.graphics.PixelFormat;</li>
+<li>import android.graphics.Rect;</li>
+<li>import android.graphics.drawable.Drawable;</li>
+<li>import android.util.AttributeSet;</li>
+<li>import android.view.GestureDetector;</li>
+<li>import android.view.Gravity;</li>
+<li>import android.view.MotionEvent;</li>
+<li>import android.view.View;</li>
+<li>import android.view.ViewConfiguration;</li>
+<li>import android.view.ViewGroup;</li>
+<li>import android.view.WindowManager;</li>
+<li>import android.view.GestureDetector.SimpleOnGestureListener;</li>
+<li>import android.widget.AdapterView;</li>
+<li>import android.widget.ImageView;</li>
+<li>import android.widget.ListView;</li>
+<li>public class DragAndDropListView extends ListView {</li>
+<li>private ImageView mDragView;</li>
+<li>private WindowManager mWindowManager;</li>
+<li>private WindowManager.LayoutParams mWindowParams;</li>
+<li>/**</li>
+<li><ul>
+<li>At which position is the item currently being dragged. Note that this</li>
+</ul>
+</li>
+<li><ul>
+<li>takes in to account header items.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int mDragPos;</li>
+<li>/**</li>
+<li><ul>
+<li>At which position was the item being dragged originally</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int mSrcDragPos;</li>
+<li>private int mDragPointX;   // at what x offset inside the item did the user grab it</li>
+<li>private int mDragPointY;   // at what y offset inside the item did the user grab it</li>
+<li>private int mXOffset;  // the difference between screen coordinates and coordinates in this view</li>
+<li>private int mYOffset;  // the difference between screen coordinates and coordinates in this view</li>
+<li>private DragListener mDragListener;</li>
+<li>private DropListener mDropListener;</li>
+<li>private RemoveListener mRemoveListener;</li>
+<li>private int mUpperBound;</li>
+<li>private int mLowerBound;</li>
+<li>private int mHeight;</li>
+<li>private GestureDetector mGestureDetector;</li>
+<li>private static final int FLING = 0;</li>
+<li>private static final int SLIDE = 1;</li>
+<li>private static final int TRASH = 2;</li>
+<li>private int mRemoveMode = -1;</li>
+<li>private Rect mTempRect = new Rect();</li>
+<li>private Bitmap mDragBitmap;</li>
+<li>private final int mTouchSlop;</li>
+<li>private int mItemHeightNormal;</li>
+<li>private int mItemHeightExpanded;</li>
+<li>private int mItemHeightHalf;</li>
+<li>private Drawable mTrashcan;</li>
+<li>public DragAndDropListView(Context context, AttributeSet attrs) {</li>
+<li>super(context, attrs);</li>
+<li>SharedPreferences pref = context.getSharedPreferences(“Music”, 3);</li>
+<li>mRemoveMode = pref.getInt(“deletemode”, -1);</li>
+<li>mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();</li>
+<li>Resources res = getResources();</li>
+<li>mItemHeightNormal = res.getDimensionPixelSize(R.dimen.normal_height);</li>
+<li>mItemHeightHalf = mItemHeightNormal / 2;</li>
+<li>mItemHeightExpanded = res.getDimensionPixelSize(R.dimen.expanded_height);</li>
+<li>}</li>
+<li>@Override</li>
+<li>public boolean onInterceptTouchEvent(MotionEvent ev) {</li>
+<li>if (mRemoveListener != null &amp;&amp; mGestureDetector == null) {</li>
+<li>if (mRemoveMode == FLING) {</li>
+<li>mGestureDetector = new GestureDetector(getContext(), new SimpleOnGestureListener() {</li>
+<li>@Override</li>
+<li>public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,</li>
+<li>float velocityY) {</li>
+<li>if (mDragView != null) {</li>
+<li>if (velocityX &gt; 1000) {</li>
+<li>Rect r = mTempRect;</li>
+<li>mDragView.getDrawingRect(r);</li>
+<li>if ( e2.getX() &gt; r.right * 2 / 3) {</li>
+<li>// fast fling right with release near the right edge of the screen</li>
+<li>stopDragging();</li>
+<li>mRemoveListener.remove(mSrcDragPos);</li>
+<li>unExpandViews(true);</li>
+<li>}</li>
+<li>}</li>
+<li>// flinging while dragging should have no effect</li>
+<li>return true;</li>
+<li>}</li>
+<li>return false;</li>
+<li>}</li>
+<li>});</li>
+<li>}</li>
+<li>}</li>
+<li>if (mDragListener != null || mDropListener != null) {</li>
+<li>switch (ev.getAction()) {</li>
+<li>case MotionEvent.ACTION_DOWN:</li>
+<li>int x = (int) ev.getX();</li>
+<li><p>int y = (int) ev.getY();</p>
+</li>
+<li><p>int itemnum = pointToPosition(x, y);</p>
+</li>
+<li>if (itemnum == AdapterView.INVALID_POSITION) {</li>
+<li>break;</li>
+<li>}</li>
+<li>ViewGroup item = (ViewGroup) getChildAt(itemnum - getFirstVisiblePosition());</li>
+<li>mDragPointX = x - item.getLeft();</li>
+<li>mDragPointY = y - item.getTop();</li>
+<li>mXOffset = ((int)ev.getRawX()) - x;</li>
+<li>mYOffset = ((int)ev.getRawY()) - y;</li>
+<li>// The left side of the item is the grabber for dragging the item</li>
+<li>if (x &lt; 64) {</li>
+<li>item.setDrawingCacheEnabled(true);</li>
+<li>// Create a copy of the drawing cache so that it does not get recycled</li>
+<li>// by the framework when the list tries to clean up memory</li>
+<li>Bitmap bitmap = Bitmap.createBitmap(item.getDrawingCache());</li>
+<li>startDragging(bitmap, x, y);</li>
+<li>mDragPos = itemnum;</li>
+<li>mSrcDragPos = mDragPos;</li>
+<li>mHeight = getHeight();</li>
+<li>int touchSlop = mTouchSlop;</li>
+<li>mUpperBound = Math.min(y - touchSlop, mHeight / 3);</li>
+<li>mLowerBound = Math.max(y + touchSlop, mHeight * 2 /3);</li>
+<li>return false;</li>
+<li>}</li>
+<li>stopDragging();</li>
+<li>break;</li>
+<li>}</li>
+<li>}</li>
+<li>return super.onInterceptTouchEvent(ev);</li>
+<li>}</li>
+<li>/*</li>
+<li><ul>
+<li>pointToPosition() doesn’t consider invisible views, but we</li>
+</ul>
+</li>
+<li><ul>
+<li>need to, so implement a slightly different version.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private int myPointToPosition(int x, int y) {</li>
+<li>if (y &lt; 0) {</li>
+<li>// when dragging off the top of the screen, calculate position</li>
+<li>// by going back from a visible item</li>
+<li>int pos = myPointToPosition(x, y + mItemHeightNormal);</li>
+<li>if (pos &gt; 0) {</li>
+<li>return pos - 1;</li>
+<li>}</li>
+<li>}</li>
+<li>Rect frame = mTempRect;</li>
+<li>final int count = getChildCount();</li>
+<li>for (int i = count - 1; i &gt;= 0; i–) {</li>
+<li>final View child = getChildAt(i);</li>
+<li>child.getHitRect(frame);</li>
+<li>if (frame.contains(x, y)) {</li>
+<li>return getFirstVisiblePosition() + i;</li>
+<li>}</li>
+<li>}</li>
+<li>return INVALID_POSITION;</li>
+<li>}</li>
+<li>private int getItemForPosition(int y) {</li>
+<li>int adjustedy = y - mDragPointY - mItemHeightHalf;</li>
+<li>int pos = myPointToPosition(0, adjustedy);</li>
+<li>if (pos &gt;= 0) {</li>
+<li>if (pos &lt;= mSrcDragPos) {</li>
+<li>pos += 1;</li>
+<li>}</li>
+<li>} else if (adjustedy &lt; 0) {</li>
+<li>// this shouldn’t happen anymore now that myPointToPosition deals</li>
+<li>// with this situation</li>
+<li>pos = 0;</li>
+<li>}</li>
+<li>return pos;</li>
+<li>}</li>
+<li>private void adjustScrollBounds(int y) {</li>
+<li>if (y &gt;= mHeight / 3) {</li>
+<li>mUpperBound = mHeight / 3;</li>
+<li>}</li>
+<li>if (y &lt;= mHeight * 2 / 3) {</li>
+<li>mLowerBound = mHeight * 2 / 3;</li>
+<li>}</li>
+<li>}</li>
+<li>/*</li>
+<li><ul>
+<li>Restore size and visibility for all listitems</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private void unExpandViews(boolean deletion) {</li>
+<li>for (int i = 0;; i++) {</li>
+<li>View v = getChildAt(i);</li>
+<li>if (v == null) {</li>
+<li>if (deletion) {</li>
+<li>// HACK force update of mItemCount</li>
+<li>int position = getFirstVisiblePosition();</li>
+<li>int y = getChildAt(0).getTop();</li>
+<li>setAdapter(getAdapter());</li>
+<li>setSelectionFromTop(position, y);</li>
+<li>// end hack</li>
+<li>}</li>
+<li>try {</li>
+<li>layoutChildren(); // force children to be recreated where needed</li>
+<li>v = getChildAt(i);</li>
+<li>} catch (IllegalStateException ex) {</li>
+<li>// layoutChildren throws this sometimes, presumably because we’re</li>
+<li>// in the process of being torn down but are still getting touch</li>
+<li>// events</li>
+<li>}</li>
+<li>if (v == null) {</li>
+<li>return;</li>
+<li>}</li>
+<li>}</li>
+<li>ViewGroup.LayoutParams params = v.getLayoutParams();</li>
+<li>params.height = mItemHeightNormal;</li>
+<li>v.setLayoutParams(params);</li>
+<li>v.setVisibility(View.VISIBLE);</li>
+<li>}</li>
+<li>}</li>
+<li>/* Adjust visibility and size to make it appear as though</li>
+<li><ul>
+<li>an item is being dragged around and other items are making</li>
+</ul>
+</li>
+<li><ul>
+<li>room for it:</li>
+</ul>
+</li>
+<li><ul>
+<li>If dropping the item would result in it still being in the</li>
+</ul>
+</li>
+<li><ul>
+<li>same place, then make the dragged listitem’s size normal,</li>
+</ul>
+</li>
+<li><ul>
+<li>but make the item invisible.</li>
+</ul>
+</li>
+<li><ul>
+<li>Otherwise, if the dragged listitem is still on screen, make</li>
+</ul>
+</li>
+<li><ul>
+<li>it as small as possible and expand the item below the insert</li>
+</ul>
+</li>
+<li><ul>
+<li>point.</li>
+</ul>
+</li>
+<li><ul>
+<li>If the dragged item is not on screen, only expand the item</li>
+</ul>
+</li>
+<li><ul>
+<li>below the current insertpoint.</li>
+</ul>
+</li>
+<li>*/</li>
+<li>private void doExpansion() {</li>
+<li>int childnum = mDragPos - getFirstVisiblePosition();</li>
+<li>if (mDragPos &gt; mSrcDragPos) {</li>
+<li>childnum++;</li>
+<li>}</li>
+<li>int numheaders = getHeaderViewsCount();</li>
+<li>View first = getChildAt(mSrcDragPos - getFirstVisiblePosition());</li>
+<li>for (int i = 0;; i++) {</li>
+<li>View vv = getChildAt(i);</li>
+<li>if (vv == null) {</li>
+<li>break;</li>
+<li>}</li>
+<li>int height = mItemHeightNormal;</li>
+<li>int visibility = View.VISIBLE;</li>
+<li>if (mDragPos &lt; numheaders &amp;&amp; i == numheaders) {</li>
+<li>// dragging on top of the header item, so adjust the item below</li>
+<li>// instead</li>
+<li>if (vv.equals(first)) {</li>
+<li>visibility = View.INVISIBLE;</li>
+<li>} else {</li>
+<li>height = mItemHeightExpanded;</li>
+<li>}</li>
+<li>} else if (vv.equals(first)) {</li>
+<li>// processing the item that is being dragged</li>
+<li>if (mDragPos == mSrcDragPos || getPositionForView(vv) == getCount() - 1) {</li>
+<li>// hovering over the original location</li>
+<li>visibility = View.INVISIBLE;</li>
+<li>} else {</li>
+<li>// not hovering over it</li>
+<li>// Ideally the item would be completely gone, but neither</li>
+<li>// setting its size to 0 nor settings visibility to GONE</li>
+<li>// has the desired effect.</li>
+<li>height = 1;</li>
+<li>}</li>
+<li>} else if (i == childnum) {</li>
+<li>if (mDragPos &gt;= numheaders &amp;&amp; mDragPos &lt; getCount() - 1) {</li>
+<li>height = mItemHeightExpanded;</li>
+<li>}</li>
+<li>}</li>
+<li>ViewGroup.LayoutParams params = vv.getLayoutParams();</li>
+<li>params.height = height;</li>
+<li>vv.setLayoutParams(params);</li>
+<li>vv.setVisibility(visibility);</li>
+<li>}</li>
+<li>}</li>
+<li>@Override</li>
+<li>public boolean onTouchEvent(MotionEvent ev) {</li>
+<li>if (mGestureDetector != null) {</li>
+<li>mGestureDetector.onTouchEvent(ev);</li>
+<li>}</li>
+<li>if ((mDragListener != null || mDropListener != null) &amp;&amp; mDragView != null) {</li>
+<li>int action = ev.getAction();</li>
+<li>switch (action) {</li>
+<li>case MotionEvent.ACTION_UP:</li>
+<li>case MotionEvent.ACTION_CANCEL:</li>
+<li>Rect r = mTempRect;</li>
+<li>mDragView.getDrawingRect(r);</li>
+<li>stopDragging();</li>
+<li>if (mRemoveMode == SLIDE &amp;&amp; ev.getX() &gt; r.right * 3 / 4) {</li>
+<li>if (mRemoveListener != null) {</li>
+<li>mRemoveListener.remove(mSrcDragPos);</li>
+<li>}</li>
+<li>unExpandViews(true);</li>
+<li>} else {</li>
+<li>if (mDropListener != null &amp;&amp; mDragPos &gt;= 0 &amp;&amp; mDragPos &lt; getCount()) {</li>
+<li>mDropListener.drop(mSrcDragPos, mDragPos);</li>
+<li>}</li>
+<li>unExpandViews(false);</li>
+<li>}</li>
+<li>break;</li>
+<li>case MotionEvent.ACTION_DOWN:</li>
+<li>case MotionEvent.ACTION_MOVE:</li>
+<li>int x = (int) ev.getX();</li>
+<li>int y = (int) ev.getY();</li>
+<li>dragView(x, y);</li>
+<li>int itemnum = getItemForPosition(y);</li>
+<li>if (itemnum &gt;= 0) {</li>
+<li>if (action == MotionEvent.ACTION_DOWN || itemnum != mDragPos) {</li>
+<li>if (mDragListener != null) {</li>
+<li>mDragListener.drag(mDragPos, itemnum);</li>
+<li>}</li>
+<li>mDragPos = itemnum;</li>
+<li>doExpansion();</li>
+<li>}</li>
+<li>int speed = 0;</li>
+<li>adjustScrollBounds(y);</li>
+<li>if (y &gt; mLowerBound) {</li>
+<li>// scroll the list up a bit</li>
+<li>if (getLastVisiblePosition() &lt; getCount() - 1) {</li>
+<li>speed = y &gt; (mHeight + mLowerBound) / 2 ? 16 : 4;</li>
+<li>} else {</li>
+<li>speed = 1;</li>
+<li>}</li>
+<li>} else if (y &lt; mUpperBound) {</li>
+<li>// scroll the list down a bit</li>
+<li>speed = y &lt; mUpperBound / 2 ? -16 : -4;</li>
+<li>if (getFirstVisiblePosition() == 0</li>
+<li>&amp;&amp; getChildAt(0).getTop() &gt;= getPaddingTop()) {</li>
+<li>// if we’re already at the top, don’t try to scroll, because</li>
+<li>// it causes the framework to do some extra drawing that messes</li>
+<li>// up our animation</li>
+<li>speed = 0;</li>
+<li>}</li>
+<li>}</li>
+<li>if (speed != 0) {</li>
+<li>smoothScrollBy(speed, 30);</li>
+<li>}</li>
+<li>}</li>
+<li>break;</li>
+<li>}</li>
+<li>return true;</li>
+<li>}</li>
+<li>return super.onTouchEvent(ev);</li>
+<li>}</li>
+<li>private void startDragging(Bitmap bm, int x, int y) {</li>
+<li>stopDragging();</li>
+<li>mWindowParams = new WindowManager.LayoutParams();</li>
+<li>mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;</li>
+<li>mWindowParams.x = x - mDragPointX + mXOffset;</li>
+<li>mWindowParams.y = y - mDragPointY + mYOffset;</li>
+<li>mWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;</li>
+<li>mWindowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;</li>
+<li>mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE</li>
+<li>| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE</li>
+<li>| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON</li>
+<li>| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN</li>
+<li>| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;</li>
+<li>mWindowParams.format = PixelFormat.TRANSLUCENT;</li>
+<li>mWindowParams.windowAnimations = 0;</li>
+<li>Context context = getContext();</li>
+<li>ImageView v = new ImageView(context);</li>
+<li>v.setBackgroundResource(R.drawable.drag_and_drop_image);</li>
+<li>v.setPadding(0, 0, 0, 0);</li>
+<li>v.setImageBitmap(bm);</li>
+<li>mDragBitmap = bm;</li>
+<li>mWindowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);</li>
+<li>mWindowManager.addView(v, mWindowParams);</li>
+<li>mDragView = v;</li>
+<li>}</li>
+<li>private void dragView(int x, int y) {</li>
+<li>if (mRemoveMode == SLIDE) {</li>
+<li>float alpha = 1.0f;</li>
+<li>int width = mDragView.getWidth();</li>
+<li>if (x &gt; width / 2) {</li>
+<li>alpha = ((float)(width - x)) / (width / 2);</li>
+<li>}</li>
+<li>mWindowParams.alpha = alpha;</li>
+<li>}</li>
+<li>if (mRemoveMode == FLING || mRemoveMode == TRASH) {</li>
+<li>mWindowParams.x = x - mDragPointX + mXOffset;</li>
+<li>} else {</li>
+<li>mWindowParams.x = 0;</li>
+<li>}</li>
+<li>mWindowParams.y = y - mDragPointY + mYOffset;</li>
+<li>mWindowManager.updateViewLayout(mDragView, mWindowParams);</li>
+<li>if (mTrashcan != null) {</li>
+<li>int width = mDragView.getWidth();</li>
+<li>if (y &gt; getHeight() * 3 / 4) {</li>
+<li>mTrashcan.setLevel(2);</li>
+<li>} else if (width &gt; 0 &amp;&amp; x &gt; width / 4) {</li>
+<li>mTrashcan.setLevel(1);</li>
+<li>} else {</li>
+<li>mTrashcan.setLevel(0);</li>
+<li>}</li>
+<li>}</li>
+<li>}</li>
+<li>private void stopDragging() {</li>
+<li>if (mDragView != null) {</li>
+<li>mDragView.setVisibility(GONE);</li>
+<li>WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);</li>
+<li>wm.removeView(mDragView);</li>
+<li>mDragView.setImageDrawable(null);</li>
+<li>mDragView = null;</li>
+<li>}</li>
+<li>if (mDragBitmap != null) {</li>
+<li>mDragBitmap.recycle();</li>
+<li>mDragBitmap = null;</li>
+<li>}</li>
+<li>if (mTrashcan != null) {</li>
+<li>mTrashcan.setLevel(0);</li>
+<li>}</li>
+<li>}</li>
+<li>public void setTrashcan(Drawable trash) {</li>
+<li>mTrashcan = trash;</li>
+<li>mRemoveMode = TRASH;</li>
+<li>}</li>
+<li>public void setDragListener(DragListener l) {</li>
+<li>mDragListener = l;</li>
+<li>}</li>
+<li>public void setDropListener(DropListener l) {</li>
+<li>mDropListener = l;</li>
+<li>}</li>
+<li>public void setRemoveListener(RemoveListener l) {</li>
+<li>mRemoveListener = l;</li>
+<li>}</li>
+<li>public interface DragListener {</li>
+<li>void drag(int from, int to);</li>
+<li>}</li>
+<li>public interface DropListener {</li>
+<li>void drop(int from, int to);</li>
+<li>}</li>
+<li>public interface RemoveListener {</li>
+<li>void remove(int which);</li>
+<li>}</li>
+<li>}</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" data-id="cjniaoei000a2h40fxsxay8oi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/07/07/datacross-1-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          DataCross V1.3 新特性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">分辨率相关DPI,SIZE,RESOLUTION,COLOR,DENSITY</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

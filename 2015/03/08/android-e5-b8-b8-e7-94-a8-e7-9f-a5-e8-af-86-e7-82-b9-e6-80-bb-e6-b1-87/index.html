@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android常用知识点总汇 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、系统上安装了多种浏览器，能否指定某浏览器访问指定页面？请说明原由。 如果在你的android系统上安装了多种浏览器，能否指定某浏览器访问指定页面？答案当然是：肯定的。 具体方法如下： Intent intent = newIntent(); intent.setAction(“android.intent.action.VIEW”); Uri content_uri_browsers = Ur">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android常用知识点总汇">
+<meta property="og:url" content="http://www.daahe.com/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="一、系统上安装了多种浏览器，能否指定某浏览器访问指定页面？请说明原由。 如果在你的android系统上安装了多种浏览器，能否指定某浏览器访问指定页面？答案当然是：肯定的。 具体方法如下： Intent intent = newIntent(); intent.setAction(“android.intent.action.VIEW”); Uri content_uri_browsers = Ur">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android常用知识点总汇">
+<meta name="twitter:description" content="一、系统上安装了多种浏览器，能否指定某浏览器访问指定页面？请说明原由。 如果在你的android系统上安装了多种浏览器，能否指定某浏览器访问指定页面？答案当然是：肯定的。 具体方法如下： Intent intent = newIntent(); intent.setAction(“android.intent.action.VIEW”); Uri content_uri_browsers = Ur">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" class="article-date">
+  <time datetime="2015-03-08T02:07:43.000Z" itemprop="datePublished">2015-03-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android常用知识点总汇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、系统上安装了多种浏览器，能否指定某浏览器访问指定页面？请说明原由。 如果在你的android系统上安装了多种浏览器，能否指定某浏览器访问指定页面？答案当然是：肯定的。 具体方法如下： Intent intent = newIntent(); intent.setAction(“android.intent.action.VIEW”); Uri content_uri_browsers = Uri.parse(“<a href="http://isomobile.com&quot;)" target="_blank" rel="noopener">http://isomobile.com&quot;)</a>; intent.setData(content_uri_browsers); intent.setClassName(“com.android.browser”, “com.android.browser.BrowserActivity”); startActivity(intent); 问题的关键在于我们设置了class name，也就是我们想要跳转的pakcage的activity。如果你想要跳转到其它的浏览器，只需要修改一下这个函数就OK了。 好，我们现在来让刚刚的思路来指导我们的实践。假如我们现在要直接启动UC浏览器，那么我们该怎么做呢？让我们step by step吧。 1）下载UC apk： <a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fi-uc.net%2Fread.php%3F2" target="_blank" rel="noopener">http://i-uc.net/read.php?2</a> 2）用7zip解压apk文件，得到classes.dex文件 3）下载反编译dex文件工具： <a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fnchc.dl.sourceforge.net%2Fproject%2Fdedexer%2Fdedexer%2F1.5%2Fddx1.5.jar" target="_blank" rel="noopener">http://nchc.dl.sourceforge.net/project/dedexer/dedexer/1.5/ddx1.5.jar</a>（Dedexer 项目主页:<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fdedexer.sourceforge.net%2F" target="_blank" rel="noopener">http://dedexer.sourceforge.net/</a> ） 4）执行命令：java -jar ddx1.5.jar -o -D -d c:     c:classes.dex 5）得到package name是：com.uc.browser,启动的activity是：com.uc.browser.ActivityUpdate（补充：当我在这里选择采用ActivityBrowser的时候发觉权限不够，报permiss denied 异常，而且也不是我们要的那个activity，幸运的是在第二次尝试用ActivityUpdate，刚好能满足要求） 6）修改上面的代码为intent.setClassName(“com.uc.browser”,”com.uc.browser.ActivityUpdate”); 二、请解释下Android程序运行时权限与文件系统权限的区别 要区分apk运行时的拥有的权限与在文件系统上被访问（读写执行）的权限两个概念。apk程序是运行在虚拟机上的,对应的是Android独特的权限机制，只有体现到文件系统上时才使用linux的权限设置。 （一）linux文件系统上的权限 -rwxr-x–x system   system       4156 2010-04-30 16:13 test.apk 代表的是相应的用户/用户组及其他人对此文件的访问权限，与此文件运行起来具有的权限完全不相关。比如上面的例子只能说明system用户拥有对此文件的读写执行权限；system组的用户对此文件拥有读、执行权限；其他人对此文件只具有执行权限。而test.apk运行起来后可以干哪些事情，跟这个就不相关了。千万不要看apk文件系统上属于system/system用户及用户组，或者root/root用户及用户组，就认为apk具有system或root权限 （二）Android的权限规则 （1)Android中的apk必须签名 这种签名不是基于权威证书的，不会决定某个应用允不允许安装，而是一种自签名证书。重要的是，android系统有的权限是基于签名的。比如：system等级的权限有专门对应的签名，签名不对，权限也就获取不到。默认生成的APK文件是debug签名的。获取system权限时用到的签名，见：<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fhi.baidu.com%2Fdonghaozheng%2Fblog%2Fitem%2F30a00d4f9fca873baec3ab69.html" target="_blank" rel="noopener">如何使Android应用程序获取系统权限</a> （2）基于UserID的进程级别的安全机制 大家都知道，进程有独立的地址空间，进程与进程间默认是不能互相访问的，是一种很可靠的保护机制。Android通过为每一个安装在设备上的包（apk）分配唯一的linux userID来实现，名称为”app_”加一个数字，比如app_43不同的UserID，运行在不同的进程，所以apk之间默认便不能相互访问。Android提供了如下的一种机制，可以使两个apk打破前面讲的这种壁垒。在AndroidManifest.xml中利用sharedUserId属性给不同的package分配相同的userID，通过这样做，两个package可以被当做同一个程序，系统会分配给两个程序相同的UserID。当然，基于安全考虑，两个package需要有相同的签名，否则没有验证也就没有意义了。（这里补充一点:并不是说分配了同样的UserID，两程序就运行在同一进程, 下面为PS指令摘取的，显然，system、app_2分别对应的两个进程的PID都不同，不知Android到底是怎样实现它的机制的） User   PID PPID system    953   883   187340 55052 ffffffff afe0cbcc S system_server app_2     1072 883   100264 19564 ffffffff afe0dcc4 S com.android.inputmethod. system    1083 883   111808 23192 ffffffff afe0dcc4 S android.process.omsservi app_2     1088 883   156464 45720 ffffffff afe0dcc4 S android.process.acore （3）默认apk生成的数据对外是不可见的 实现方法是：Android会为程序存储的数据分配该程序的UserID。借助于Linux严格的文件系统访问权限，便实现了apk之间不能相互访问似有数据的机制。 例：我的应用创建的一个文件，默认权限如下，可以看到只有UserID为app_21的程序才能读写该文件。 -rw——- app_21   app_21      87650 2000-01-01 09:48 test.txt 如何对外开放？ 使用MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE 标记。 When creating a new file with getSharedPreferences(String, int), openFileOutput(String, int), or openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory), you can use the MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE flags to allow any other package to read/write the file. When setting these flags, the file is still owned by your application, but its global read and/or write permissions have been set appropriately so any other application can see it. （4）AndroidManifest.xml中的显式权限声明 Android默认应用是没有任何权限去操作其他应用或系统相关特性的，应用在进行某些操作时都需要显式地去申请相应的权限。 一般以下动作时都需要申请相应的权限： A particular permission may be enforced at a number of places during your program’s operation: At the time of a call into the system, to prevent an application from executing certain functions. When starting an activity, to prevent applications from launching activities of other applications. Both sending and receiving broadcasts, to control who can receive your broadcast or who can send a broadcast to you. When accessing and operating on a content provider. Binding or starting a service. 在应用安装的时候，package installer会检测该应用请求的权限，根据该应用的签名或者提示用户来分配相应的权限。在程序运行期间是不检测权限的。如果安装时权限获取失败，那执行就会出错，不会提示用户权限不够。大多数情况下，权限不足导致的失败会引发一个 SecurityException， 会在系统log（system log）中有相关记录。 （5）权限继承/UserID继承 当我们遇到apk权限不足时，我们有时会考虑写一个linux程序，然后由apk调用它去完成某个它没有权限完成的事情，很遗憾，这种方法是行不通的。前面讲过，android权限是经营在进程层面的，也就是说一个apk应用启动的子进程的权限不可能超越其父进程的权限（即apk的权限），即使单独运行某个应用有权限做某事，但如果它是由一个apk调用的，那权限就会被限制。实际上，android是通过给子进程分配父进程的UserID实现这一机制的。 （三）常见权限不足问题分析 首先要知道，普通apk程序是运行在非root、非system层级的，也就是说看要访问的文件的权限时，看的是最后三位。另外，通过system/app安装的apk的权限一般比直接安装或adb install安装的apk的权限要高一些。 言归正传，运行一个android应用程序过程中遇到权限不足，一般分为两种情况: （1）Log中可明显看到权限不足的提示。 此种情况一般是AndroidManifest.xml中缺少相应的权限设置，好好查找一番权限列表，应该就可解决，是最易处理的情况。有时权限都加上了，但还是报权限不足，是什么情况呢？Android系统有一些API及权限是需要apk具有一定的等级才能运行的。比如 SystemClock.setCurrentTimeMillis()修改系统时间，WRITE_SECURE_SETTINGS权限好像都是需要有system级的权限才行。也就是说UserID是system。 （2）Log里没有报权限不足，而是一些其他Exception的提示,这也有可能是权限不足造成的。比如：我们常会想读/写一个配置文件或其他一些不是自己创建的文件，常会报java.io.FileNotFoundException错误。系统认为比较重要的文件一般权限设置的也会比较严格，特别是一些很重要的(配置)文件或目录。如 -r–r—– bluetooth bluetooth      935 2010-07-09 20:21 dbus.conf drwxrwx–x system   system            2010-07-07 02:05 data dbus.conf好像是蓝牙的配置文件，从权限上来看，根本就不可能改动，非bluetooth用户连读的权利都没有。/data目录下存的是所有程序的私有数据，默认情况下android是不允许普通apk访问/data目录下内容的，通过data目录的权限设置可知，其他用户没有读的权限。所以adb普通权限下在data目录下敲ls命令，会得到opendir failed, Permission denied的错误，通过代码file.listfiles()也无法获得data目录下的内容。 上面两种情况，一般都需要提升apk的权限，目前我所知的apk能提升到的权限就是system（具体方法见：<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fhi.baidu.com%2Fdonghaozheng%2Fblog%2Fitem%2F30a00d4f9fca873baec3ab69.html" target="_blank" rel="noopener">如何使Android应用程序获取系统权限</a>）, 至于是否有root级的，如何提升至root级不得而知，知道的朋友劳烦告知，感激不尽。 三、AIDL的全称是什么？如何工作？能处理哪些类型的数据？ 详情请参看：<a href="http://buaadallas.blog.51cto.com/399160/372090" target="_blank" rel="noopener">http://buaadallas.blog.51cto.com/399160/372090</a> 部分概念： 在Android中, 每个应用程序都可以有自己的进程. 在写UI应用的时候, 经常要用到Service. 在不同的进程中, 怎样传递对象呢?  显然, Java中不允许跨进程内存共享。因此传递对象, 只能把对象拆分成操作系统能理解的简单形式, 以达到跨界对象访问的目的。在J2EE中,采用RMI的方式, 可以通过序列化传递对象。在Android中, 则采用AIDL的方式。 理论上AIDL可以传递Bundle,实际上做起来却比较麻烦. AIDL(AndRoid接口描述语言)是一种借口描述语言; 编译器可以通过aidl文件生成一段代码，通过预先定义的接口达到两个进程内部通信进程的目的. 如果需要在一Activity中, 访问另一个Service中的某个对象, 需要先将对象转化成AIDL可识别的参数(可能是多个参数), 然后使用AIDL来传递这些参数, 在消息的接收端, 使用这些参数组装成自己需要的对象。 AIDL的IPC的机制和COM或CORBA类似, 是基于接口的，但它是轻量级的。它使用代理类在客户端和实现层间传递值. 如果要使用AIDL, 需要完成2件事情: 1. 引入AIDL的相关类; 2. 调用aidl产生的class。 AIDL的创建方法: AIDL语法很简单,可以用来声明一个带一个或多个方法的接口，也可以传递参数和返回值。由于远程调用的需要, 这些参数和返回值并不是任何类型.下面是些AIDL支持的数据类型: 1. 不需要import声明的简单Java编程语言类型(int,boolean等) 2. String, CharSequence不需要特殊声明 3. List, Map和Parcelables类型, 这些类型内所包含的数据成员也只能是简单数据类型, String等其他比支持的类型。 四、请解释下在单线程模型中Message、Handler、Message Queue、Looper之间的关系。 1. Android进程 在了解Android线程之前得先了解一下Android的进程。当一个程序第一次启动的时候，Android会启动一个LINUX进程和一个主线程。默认的情况下，所有该程序的组件都将在该进程和线程中运行。同时，Android会为每个应用程序分配一个单独的LINUX用户。Android会尽量保留一个正在运行进程，只在内存资源出现不足时，Android 会尝试停止一些进程从而释放足够的资源给其他新的进程使用，也能保证用户正在访问的当前进程有足够的资源去及时地响应用户的事件。Android会根据进程中运行的组件类别以及组件的状态来判断该进程的重要性，Android会首先停止那些不重要的进程。按照重要性从高到低一共有五个级别： 前台进程 前台进程是用户当前正在使用的进程。只有一些前台进程可以在任何时候都存在。他们是最后一个被结束的，当内存低到根本连他们都不能运行的时候。一般来说，在这种情况下，设备会进行内存调度，中止一些前台进程来保持对用户交互的响应。 可见进程 可见进程不包含前台的组件但是会在屏幕上显示一个可见的进程是的重要程度很高，除非前台进程需要获取它的资源，不然不会被中止。 服务进程 运行着一个通过startService() 方法启动的service，这个service不属于上面提到的2种更高重要性的。service所在的进程虽然对用户不是直接可见的，但是他们执行了用户非常关注的任务（比如播放mp3，从网络下载数据）。只要前台进程和可见进程有足够的内存，系统不会回收他们。 后台进程 运 行着一个对用户不可见的activity（调用过 onStop() 方法).这些进程对用户体验没有直接的影响，可以在服务进程、可见进程、前台进程需要内存的时候回收。通常，系统中会有很多不可见进程在运行，他们被保存在LRU (least recently used) 列表中，以便内存不足的时候被第一时间回收。如果一个activity正确的执行了它的生命周期，关闭这个进程对于用户体验没有太大的影响。 空进程 未运行任何程序组件。运行这些进程的唯一原因是作为一个缓存，缩短下次程序需要重新使用的启动时间。系统经常中止这些进程，这样可以调节程序缓存和系统缓存的平衡。Android 对进程的重要性评级的时候，选取它最高的级别。另外，当被另外的一个进程依赖的时候，某个进程的级别可能会增高。一个为其他进程服务的进程永远不会比被服务的进程重要级低。因为服务进程比后台activity进程重要级高，因此一个要进行耗时工作的activity最好启动一个service来做这个工作，而不是开启一个子进程――特别是这个操作需要的时间比activity存在的时间还要长的时候。例如，在后台播放音乐，向网上上传摄像头拍到的图片，使用service可以使进程最少获取到“服务进程”级别的重要级，而不用考虑activity目前是什么状态。broadcast receivers做费时的工作的时候，也应该启用一个服务而不是开一个线程。 2. 单线程模型 当一个程序第一次启动时，Android会同时启动一个对应的主线程（Main Thread），主线程主要负责处理与UI相关的事件，如用户的按键事件，用户接触屏幕的事件以及屏幕绘图事件，并把相关的事件分发到对应的组件进行处理。所以主线程通常又被叫做UI线程。在开发Android应用时必须遵守单线程模型的原则： Android UI操作并不是线程安全的并且这些操作必须在UI线程中执行。 2.1 子线程更新UI Android的UI是单线程(Single-threaded)的。为了避免拖住GUI，一些较费时的对象应该交给独立的线程去执行。如果幕后的线程来执行UI对象，Android就会发出错误讯息 CalledFromWrongThreadException。以后遇到这样的异常抛出时就要知道怎么回事了！ 2.2 Message Queue 在单线程模型下，为了解决类似的问题，Android设计了一个Message Queue(消息队列)， 线程间可以通过该Message Queue并结合Handler和Looper组件进行信息交换。下面将对它们进行分别介绍： 1. Message Message消息，理解为线程间交流的信息，处理数据后台线程需要更新UI，则发送Message内含一些数据给UI线程。 2. Handler Handler处理者，是Message的主要处理者，负责Message的发送，Message内容的执行处理。后台线程就是通过传进来的 Handler对象引用来sendMessage(Message)。而使用Handler，需要implement该类的 handleMessage(Message)方法，它是处理这些Message的操作内容，例如Update UI。通常需要子类化Handler来实现handleMessage方法。 3. Message Queue Message Queue消息队列，用来存放通过Handler发布的消息，按照先进先出执行。 每个message queue都会有一个对应的Handler。Handler会向message queue通过两种方法发送消息：sendMessage或post。这两种消息都会插在message queue队尾并按先进先出执行。但通过这两种方法发送的消息执行的方式略有不同：通过sendMessage发送的是一个message对象,会被 Handler的handleMessage()函数处理；而通过post方法发送的是一个runnable对象，则会自己执行。 4. Looper Looper是每条线程里的Message Queue的管家。Android没有Global的Message Queue，而Android会自动替主线程(UI线程)建立Message Queue，但在子线程里并没有建立Message Queue。所以调用Looper.getMainLooper()得到的主线程的Looper不为NULL，但调用Looper.myLooper() 得到当前线程的Looper就有可能为NULL。 对于子线程使用Looper，API Doc提供了正确的使用方法： 这个Message机制的大概流程： 1）在Looper.loop()方法运行开始后，循环地按照接收顺序取出Message Queue里面的非NULL的Message。 2）一开始Message Queue里面的Message都是NULL的。当Handler.sendMessage(Message)到Message Queue，该函数里面设置了那个Message对象的target属性是当前的Handler对象。随后Looper取出了那个Message，则调用该Message的target指向的Hander的dispatchMessage函数对Message进行处理。 在dispatchMessage方法里，如何处理Message则由用户指定，三个判断，优先级从高到低： 1) Message里面的Callback，一个实现了Runnable接口的对象，其中run函数做处理工作； 2) Handler里面的mCallback指向的一个实现了Callback接口的对象，由其handleMessage进行处理； 3) 处理消息Handler对象对应的类继承并实现了其中handleMessage函数，通过这个实现的handleMessage函数处理消息。 由此可见，我们实现的handleMessage方法是优先级最低的！ 3. Handler处理完该Message (update UI) 后，Looper则设置该Message为NULL，以便回收！ 在网上有很多文章讲述主线程和其他子线程如何交互，传送信息，最终谁来执行处理信息之类的，个人理解是最简单的方法——判断Handler对象里面的Looper对象是属于哪条线程的，则由该线程来执行！ 1）当Handler对象的构造函数的参数为空，则为当前所在线程的Looper； 2） Looper.getMainLooper()得到的是主线程的Looper对象，Looper.myLooper()得到的是当前线程的Looper对象。 五、注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。 Android 的广播机制 在 Android 里面有各种各样的广播，比如电池的使用状态，电话的接收和短信的接收都会产生一个广播，应用程序开发者也可以监听这些广播并做出程序逻辑的处理。下面我画一张粗略的图来帮助大家理解广播的运行机制。 Android 中有各式各样的广播，各种广播在Android 系统中运行，当系统/应用程序运行时便会向 Android 注册各种广播，Android 接收到广播会便会判断哪种广播需要哪种事件，然后向不同需要事件的应用程序注册事件，不同的广播可能处理不同的事件也可能处理相同的广播事件，这时就需要 Android 系统为我们做筛选。 案例分析： 一个经典的电话黑名单，首先通过将黑名单号码保存在数据库里面，当来电时，我们接收到来电广播并将黑名单号码与数据库中的某个数据做匹配，如果匹配的话则做出相应的处理，比如挂掉电话、比如静音等等… Demo 分析： 下面通过一个小DEMO 来讲解一下广播在Android 中如何编写，在Demo中我们设置了一个按钮为按钮设置点击监听通过点击发送广播，在后台中接收到广播并打印LOG信息。代码如下： //BroadCastActivity 页面代码 publicclassBroadCastActivity extendsActivity { publicstaticfinalString ACTION_INTENT_TEST = “com.terry.broadcast.test”; @Override publicvoidonCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.main); Button btn = (Button) findViewById(R.id.Button01); btn.setOnClickListener(newOnClickListener() { @Override publicvoidonClick(View v) { //TODO Auto-generated method stub Intent intent = newIntent(ACTION_INTENT_TEST); sendBroadcast(intent); } }); } } //接收器代码如下： publicclassmyBroadCast extendsBroadcastReceiver { publicmyBroadCast() { Log.v(“BROADCAST_TAG”, “myBroadCast”); } @Override publicvoidonReceive(Context context, Intent intent) { //TODO Auto-generated method stub Log.v(“BROADCAST_TAG”, “onReceive”); } } Android 广播的生命周期 在上面的接收器中，继承了BroadcastReceiver 并重写了它的onReceive 并构造了一个函数，下面通过图片来一步一步认识 Android 广播的生命周期。当我点击一下按钮，它向Android 发送了一个广播，如下图： 这时我们再点击一下按钮，它还是会再向 Android 系统发送广播，此时日志信息如下： 下面本人画一张图像，描述了Android 中广播的生命周期，其次它并不像Activity 一样复杂，运行原理很简单如下图： 下面来看一下SDK给出的解释： 大意为：如果一个广播处理完onReceive 那么系统将认定此对象将不再是一个活动的对象，也就会finished掉它。 至此，大家应该能明白 Android 的广播生命周期的原理，代码也不用多介绍，很简单的一个发送广播并处理广播的Demo。 Android 如何判断并筛选广播? 前 面说过 Android 的广播有各式各样，那么Android 系统是如何帮我们处理我们需要哪种广播并为我们提供相应的广播服务呢？这里有一点需要大家注意，每实现一个广播接收类必须在我们应用程序中的 manifest 中显式的注明哪一个类需要广播，并为其设置过滤器，如下图： Tip:action 代表一个要执行的动作，在Andriod 中有很action 比如 ACTION_VIEW,ACTION_EDIT 那么有些人会问了，如果我在一个广播接收器中要处理多个动作呢？那要如何去处理？ 在Android 的接收器中onReceive 以经为我们想到的，同样的你必须在Intent-filter 里面注册该动作，可以是系统的广播动作也可以是自己需要的广播，之后你之需要在onReceive 方法中，通过intent.getAction()判断传进来的动作即可做出不同的处理，不同的动作。具体大家可以去尝试测试一下。 小结： 在Android 中如果要发送一个广播必须使用sendBroadCast 向系统发送对其感兴趣的广播接收器中。 使用广播必须要有一个intent 对象必设置其action动作对象 使用广播必须在配置文件中显式的指明该广播对象 每次接收广播都会重新生成一个接收广播的对象 在BroadCast 中尽量不要处理太多逻辑问题，建议复杂的逻辑交给Activity 或者 Service 去处理 Android广播机制（两种注册方法） 在android下，要想接受广播信息，那么这个广播接收器就得我们自己来实现了，我们可以继承BroadcastReceiver，就可以有一个广播接受器了。有个接受器还不够，我们还得重写BroadcastReceiver里面的onReceiver方法，当来广播的时候我们要干什么，这就要我们自己来实现，不过我们可以搞一个信息防火墙。具体的代码： publicclassSmsBroadCastReceiver extendsBroadcastReceiver { @Override publicvoidonReceive(Context context, Intent intent) { Bundle bundle = intent.getExtras(); Object[] object = (Object[])bundle.get(“pdus”); SmsMessage sms[]=newSmsMessage[object.length]; for(inti=0;i&lt;object.length;i++) { sms[0] = SmsMessage.createFromPdu((byte[])object[i]); Toast.makeText(context, “来自”+sms[i].getDisplayOriginatingAddress()+” 的消息是：”+sms[i].getDisplayMessageBody(), Toast.LENGTH_SHORT).show(); } //终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。 abortBroadcast(); } } 当实现了广播接收器，还要设置广播接收器接收广播信息的类型，这里是信息：android.provider.Telephony.SMS_RECEIVED。我们就可以把广播接收器注册到系统里面，可以让系统知道我们有个广播接收器。这里有两种，一种是代码动态注册： //生成广播处理 smsBroadCastReceiver = new SmsBroadCastReceiver(); //实例化过滤器并设置要过滤的广播 IntentFilter intentFilter = newIntentFilter(“android.provider.Telephony.SMS_RECEIVED”); //注册广播 BroadCastReceiverActivity.this.registerReceiver(smsBroadCastReceiver, intentFilter); 一种是在AndroidManifest.xml中配置广播   package=”spl.broadCastReceiver” android:versionCode=”1” android:versionName=”1.0”&gt;   android:label=”@string/app_name”&gt;               两种注册类型的区别是： 1)第一种不是常驻型广播，也就是说广播跟随程序的生命周期。 2)第二种是常驻型，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行。 BroadcastReceiver用于监听被广播的事件 必须被注册，有两种方法： 1、在应用程序的代码中注册 注册BroadcastReceiver： registerReceiver（receiver，filter）； 取消注册BroadcastReceiver： unregisterReceiver（receiver）； 当BroadcastReceiver更新UI，通常会使用这样的方法注册。启动Activity时候注册BroadcastReceiver，Activity不可见时候，取消注册。 2、在androidmanifest.xml当中注册     使用这样的方法注册弊端：它会始终处于活动状态，毕竟是手机开发，cpu和电源资源比较少，一直处于活动耗费大，不利。 六. Android Service和Binder、AIDL? 作为Android重要的后台服务，这些每个Android开发者都应该掌握，这也算是和Java SE最大的不同了，具体的实例大家可以查看Android音乐播放器的源代码Music.git中的，这里不再赘述。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" data-id="cjniaoei400a8h40f9gscvkga" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CSS字体大小: em与px、pt、百分比之间的对比
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">以安装成服务的tomcat环境设置远程调试功能</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

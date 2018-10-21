@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CSS字体大小: em与px、pt、百分比之间的对比 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CSS样式最混乱的一个方面是应用程序中文本扩展的font-size属性。在CSS中,你可以用四个不同的单位度量来显示在web浏览器中的文本大小。这四个单位哪一种最适合Web? 这个问题引起了广泛的争论。找到一个确定的答案是困难的, 因为这个问题,本身就是如此难以回答。 　　接触这些单位 “Ems”(em):“em”是一个可伸缩的单位, 用于web文档媒体展示。一个em等于当前的字体大小,例如,如果">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS字体大小: em与px、pt、百分比之间的对比">
+<meta property="og:url" content="http://www.daahe.com/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="CSS样式最混乱的一个方面是应用程序中文本扩展的font-size属性。在CSS中,你可以用四个不同的单位度量来显示在web浏览器中的文本大小。这四个单位哪一种最适合Web? 这个问题引起了广泛的争论。找到一个确定的答案是困难的, 因为这个问题,本身就是如此难以回答。 　　接触这些单位 “Ems”(em):“em”是一个可伸缩的单位, 用于web文档媒体展示。一个em等于当前的字体大小,例如,如果">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2015/04">
+<meta property="og:image" content="http://www.admin10000.com/UploadFiles/Document/201407/20/20140720145648095575.GIF">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS字体大小: em与px、pt、百分比之间的对比">
+<meta name="twitter:description" content="CSS样式最混乱的一个方面是应用程序中文本扩展的font-size属性。在CSS中,你可以用四个不同的单位度量来显示在web浏览器中的文本大小。这四个单位哪一种最适合Web? 这个问题引起了广泛的争论。找到一个确定的答案是困难的, 因为这个问题,本身就是如此难以回答。 　　接触这些单位 “Ems”(em):“em”是一个可伸缩的单位, 用于web文档媒体展示。一个em等于当前的字体大小,例如,如果">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2015/04">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/" class="article-date">
+  <time datetime="2015-04-02T20:46:52.000Z" itemprop="datePublished">2015-04-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS字体大小: em与px、pt、百分比之间的对比
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CSS样式最混乱的一个方面是应用程序中文本扩展的font-size属性。在CSS中,你可以用四个不同的单位度量来显示在web浏览器中的文本大小。这四个单位哪一种最适合Web? 这个问题引起了广泛的争论。找到一个确定的答案是困难的, 因为这个问题,本身就是如此难以回答。</p>
+<h3 id="接触这些单位"><a href="#接触这些单位" class="headerlink" title="　　接触这些单位"></a>　　接触这些单位</h3><ol>
+<li>“Ems”(em):“em”是一个可伸缩的单位, 用于web文档媒体展示。一个em等于当前的字体大小,例如,如果文档的字体大小是12 pt,1 em等于12 pt。Ems在本质上是可伸缩的,所以2 em相当于24 pt，.5 em相当于6 pt等。ems由于其可伸缩性和适应移动设备的特性在web文档中正变得越来越受欢迎。 2.  像素(px):像素是固定大小的单元,用于屏幕媒体(即在电脑屏幕上读取)。一个像素等于电脑屏幕上的一个点 (是你屏幕分辨率的最小分割)。许多<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%CD%F8%D2%B3%C9%E8%BC%C6%CA%A6&amp;k0=%CD%F8%D2%B3%C9%E8%BC%C6%CA%A6&amp;kdi0=0&amp;luki=4&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">网页设计师</a>在web文档使用像素单位以生产浏览器渲染的像素完美呈现的网站。像素单元的一个问题是,它没有为视障读者的扩展,以适应移动设备。 3.  点(pt):点通常用于印刷媒体(任何打印在纸上的媒体,等等)。一个点等于一英寸的1/72。点更像像素,他们是固定大小的单位,不能伸缩。 4. 百分比(%):百分比单位更像“em”单位,除了一些根本性的差异。首先,当前的字体大小等于100%(比如12 pt = 100%)。当使用百分比单位,你的文字在移动设备上仍然保持完全的可伸缩性和可访问性。</li>
+</ol>
+<h3 id="那么，区别是什么呢"><a href="#那么，区别是什么呢" class="headerlink" title="　　那么，区别是什么呢?"></a>　　那么，区别是什么呢?</h3><p>当你动态地观察他们就很容易理解字体大小单位之间的区别。一般来说,<strong>1 em = 12 pt = 16 px = 100%</strong>。当使用这些font-size, 增加基础本字体大小(使用CSS选择器)从100%到120%，让我们看看会发生什么。 <img src="http://blog.daahe.com/wp-content/uploads/2015/04" alt=""> 正如你所看到的, 随着基本字体大小增加em和百分比单位变大,但px 和 pt 没有变化。为你的文本设置一个绝对的大小很容易,但它是更容易在你的访客使用可伸缩的文本,可以显示任何设备或机器上。出于这个原因,em和百分比单位是web文档文本的首选。</p>
+<h3 id="Em和percent的对比"><a href="#Em和percent的对比" class="headerlink" title="　　Em和percent的对比"></a>　　Em和percent的对比</h3><p>我们定义点和像素单位不一定是最适合web文档,留下来是的em和百分比单位。在理论上,em和百分比单位是相同的,但在应用程序中,他们实际上有一些细微的差别需要着重考虑。 在上面的示例中,我们使用百分比单位作为我们的基础字体大小(body上标记)。如果你把你的字体大小从百分比变为ems(即body{font-size:1 em;}),你可能不会注意到有什么差别。让我们看看当“1 em”是我们的body字体大小,当客户端改变浏览器的“文字大小”设置(这在一些浏览器中可用,如Internet Explorer)会发生什么。 <img src="http://www.admin10000.com/UploadFiles/Document/201407/20/20140720145648095575.GIF" alt=""> 当客户端的浏览器文本大小设置为“medium”, ems和百分比之间没有区别。然而,当设置改变,差别是相当大的。“Smallest”设置,ems比百分比小得多,而当设置为“Largest”,这时恰恰相反,ems比百分比显示地更大。有些可能会说,当真正去扩展时em单位在扩展,在实际的应用程序中,em文本尺度变化太大, 在一些客户端机器上最小的文本变得不是很清晰。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="　　结论"></a>　　结论</h3><p>理论上,em单位是网上新的和即将到来的字体大小标准,但在实践中,百分比单位似乎给用户提供一个更加一致的和可访问的显示。当客户端设置改变,百分比文本以合理的比例扩展,允许<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%C9%E8%BC%C6%CA%A6&amp;k0=%C9%E8%BC%C6%CA%A6&amp;kdi0=0&amp;luki=2&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">设计师</a>保持可读性,可访问性和<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%CA%D3%BE%F5%C9%E8%BC%C6&amp;k0=%CA%D3%BE%F5%C9%E8%BC%C6&amp;kdi0=0&amp;luki=3&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">视觉设计</a>。</p>
+<h3 id="赢家-百分比-。"><a href="#赢家-百分比-。" class="headerlink" title="　　赢家:百分比(%)。"></a>　　赢家:百分比(%)。</h3><h3 id="附录-2011年1月"><a href="#附录-2011年1月" class="headerlink" title="　　附录(2011年1月)"></a>　　附录(2011年1月)</h3><p>从我写这篇文章已经有几年了,我想总结那段时间所发生的讨论。一般来说,当我开始一个新的<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%C9%E8%BC%C6&amp;k0=%C9%E8%BC%C6&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">设计</a>,我将在body元素上使用百分比(body { font-size: 62.5%; })，然后使用em单位大小来比较。只要body使用百分比单位设置,您可以选择使用百分比或ems或其他任何CSS规则和选择器并且在你的基础字体大小上保持使用百分比的好处。在过去的几年中,这确实成为设计的标准。 像素现在被认为是可接受的字体大小单位(用户可以使用浏览器的“缩放”功能读小文本),虽然由于移动设备非常高的密度屏幕(一些Android和iPhone设备每英寸超过200到 300个像素,让你11 - 12-pixel字体很难看到!)他们也开始引起一些问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/" data-id="cjniaoeen002jh40frevl0f7c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/12/e4-ba-94-e7-ac-94-e5-ad-97-e6-a0-b9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          五笔字根
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android常用知识点总汇</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

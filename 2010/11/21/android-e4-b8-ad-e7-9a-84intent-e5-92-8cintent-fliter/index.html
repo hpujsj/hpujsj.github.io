@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android中的Intent和Intent-fliter | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARC">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的Intent和Intent-fliter">
+<meta property="og:url" content="http://www.daahe.com/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARC">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中的Intent和Intent-fliter">
+<meta name="twitter:description" content="应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARC">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" class="article-date">
+  <time datetime="2010-11-20T22:15:54.000Z" itemprop="datePublished">2010-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中的Intent和Intent-fliter
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARCH_ACTION，以及与之相关的请求数据是网页地址URI格式。如何为组件声明自己的Intent Filter? 常见的方法是在AndroidManifest.xml文件中用属性<intent-filter>描述组件的Intent Filter。 前面我们提到，隐式Intent（<strong>Explicit Intents</strong>）和Intent Filter（<strong>Implicit Intents</strong>）进行比较时的三要素是Intent的动作、数据以及类别。实际上，一个隐式Intent请求要能够传递给目标组件，必要通过这三个方面的检查。如果任何一方面不匹配，Android都不会将该隐式Intent传递给目标组件。接下来我们讲解这三方面检查的具体规则。</intent-filter></p>
+<h3 id="1．动作测试"><a href="#1．动作测试" class="headerlink" title="1．动作测试"></a>1．动作测试</h3><p><intent-filter>元素中可以包括子元素<action>，比如： <intent-filter> <action android:name="”com.example.project.SHOW\_CURRENT”"> <action android:name="”com.example.project.SHOW\_RECENT”"> <action android:name="”com.example.project.SHOW_PENDING”"> </action></action></action></intent-filter> 一条<intent-filter>元素至少应该包含一个<action>，否则任何Intent请求都不能和 该<intent-filter>匹配。如果Intent请求的Action和<intent-filter>中个某一 条<action>匹配，那么该Intent就通过了这条<intent-filter>的动作测试。如果Intent请求 或<intent-filter>中没有说明具体的Action类型，那么会出现下面两种情况。 (1) 如果<intent-filter>中没有包含任何Action类型，那么无论什么Intent请求都无法和这条<intent-filter>匹配； (2) 反之，如果Intent请求中没有设定Action类型，那么只要<intent-filter>中包含有Action类型，这个Intent请求就将顺利地通过<intent-filter>的行为测试。</intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></action></intent-filter></intent-filter></action></intent-filter></action></intent-filter></p>
+<h3 id="2．类别测试"><a href="#2．类别测试" class="headerlink" title="2．类别测试"></a>2．类别测试</h3><p><intent-filter>元素可以包含<category>子元素，比如： <intent-filter .=""> <category android:name="”android.Intent.Category.DEFAULT”"> <category android:name="”android.Intent.Category.BROWSABLE”"> </category></category></intent-filter> 只有当Intent请求中所有的Category与组件中某一个IntentFilter的<category>完全匹配时，才会让该 Intent请求通过测试，IntentFilter中多余的<category>声明并不会导致匹配失败。一个没有指定任何类别测试的 IntentFilter仅仅只会匹配没有设置类别的Intent请求。</category></category></category></intent-filter></p>
+<h3 id="3．数据测试"><a href="#3．数据测试" class="headerlink" title="3．数据测试"></a>3．数据测试</h3><p>数据在<intent-filter>中的描述如下： <intent-filter .=""> &lt;data android:type=”video/mpeg” android:scheme=”http” . . . /&gt; &lt;data android:type=”audio/mpeg” android:scheme=”http” . . . /&gt; </intent-filter> <data>元素指定了希望接受的Intent请求的数据URI和数据类型，URI被分成三部分来进行匹配：scheme、 authority和path。其中，用setData()设定的Inteat请求的URI数据类型和scheme必须与IntentFilter中所指 定的一致。若IntentFilter中还指定了authority或path，它们也需要相匹配才会通过测试。</data></intent-filter></p>
+<h3 id="4-简单例子说明"><a href="#4-简单例子说明" class="headerlink" title="4.简单例子说明"></a>4.简单例子说明</h3><p>讲解完Intent基本概念之后，接下来我们就使用Intent激活Android自带的电话拨号程序，通过这个实例你会发现，使用Intent并不像其概念描述得那样难。最终创建Intent的代码如下所示。 <strong>Intent i = new Intent(Intent.ACTION_DIAL,Uri.parse(“tel://13800138000″));</strong> 创建好Intent之后，你就可以通过它告诉Android希望启动新的Activity了。 <strong>startActivity(i);</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" data-id="cjniaoeds0014h40fq5aybv79" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/11/26/android-e5-bc-80-e5-8f-91-e8-80-85-e5-ba-94-e8-af-a5-e5-a6-82-e4-bd-95-e6-8e-a8-e5-b9-bf-e8-90-a5-e9-94-80-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-94-e7-94-a8-e7-a8-8b-e5-ba-8f/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android开发者应该如何推广营销自己的应用程序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">40 位改变了互联网的人（上）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

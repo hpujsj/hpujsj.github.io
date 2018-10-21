@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>以安装成服务的tomcat环境设置远程调试功能 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="此种情况就是针对将tomcat安装成本地服务了，但是又想进行远程调试的情况，别说改catalina.bat，就是应为改不了才尝试其他办法的。 你可以通过如下方式来编辑Tomcat的服务启动参数来调试安装成Tomcat服务后的web应用程序。   打开命令提示符 设置CATALINA_HOME环境变量，把其指向tomcat主目录 例如：set CATALINA_HOME=d:tomcat6 运行如下">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以安装成服务的tomcat环境设置远程调试功能">
+<meta property="og:url" content="http://www.daahe.com/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="此种情况就是针对将tomcat安装成本地服务了，但是又想进行远程调试的情况，别说改catalina.bat，就是应为改不了才尝试其他办法的。 你可以通过如下方式来编辑Tomcat的服务启动参数来调试安装成Tomcat服务后的web应用程序。   打开命令提示符 设置CATALINA_HOME环境变量，把其指向tomcat主目录 例如：set CATALINA_HOME=d:tomcat6 运行如下">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以安装成服务的tomcat环境设置远程调试功能">
+<meta name="twitter:description" content="此种情况就是针对将tomcat安装成本地服务了，但是又想进行远程调试的情况，别说改catalina.bat，就是应为改不了才尝试其他办法的。 你可以通过如下方式来编辑Tomcat的服务启动参数来调试安装成Tomcat服务后的web应用程序。   打开命令提示符 设置CATALINA_HOME环境变量，把其指向tomcat主目录 例如：set CATALINA_HOME=d:tomcat6 运行如下">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/" class="article-date">
+  <time datetime="2014-02-11T22:10:20.000Z" itemprop="datePublished">2014-02-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      以安装成服务的tomcat环境设置远程调试功能
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此种情况就是针对将tomcat安装成本地服务了，但是又想进行远程调试的情况，别说改catalina.bat，就是应为改不了才尝试其他办法的。 你可以通过如下方式来编辑Tomcat的服务启动参数来调试安装成Tomcat服务后的web应用程序。   打开命令提示符 设置CATALINA_HOME环境变量，把其指向tomcat主目录 例如：set CATALINA_HOME=d:tomcat6 运行如下命令：%CATALINA_HOME%bintomcat6w.exe //ES//&lt;这里填写你的Tomcat的服务名&gt; 当然了，我的服务名是自定制过的，不是tomcat6 弹出了一个服务编辑框神马的，然后再在“属性”框上选择 Java 标签，打开后有很多配置的选项，神马都是浮云，不用理会 直接找到Java Options文本输入区域，然后在里头添加如下两行： -Xdebug -Xrunjdwp:transport=dt_socket,address=9999,server=y,suspend=n 如果你只想在本机进行tomcat的调试，那么将address=9999的9999替换成127.0.0.1:9999，这样你就只能在本机调试了，上述的方法是保证你在任何能访问到的机器上都能调试你的tomcat的配置哦，小心点为妙。 点击”Apply”，然后点击”OK”关闭对话框 重启你的Tomcat服务器，然后检查一下，是不是发现9999端口监听了呢？通过netstat -an命令何以查看哦。 使用IDE通过9999端口连接到Tomcat，开始你的远程调试之旅吧 如果你已经使用了Eclipse,你可以在Remote Debugging with Eclipse获得更多信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/" data-id="cjniaoef0003ch40flncfer3r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android常用知识点总汇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/23/discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Discuz 采集帖子后，分散作者，时间</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

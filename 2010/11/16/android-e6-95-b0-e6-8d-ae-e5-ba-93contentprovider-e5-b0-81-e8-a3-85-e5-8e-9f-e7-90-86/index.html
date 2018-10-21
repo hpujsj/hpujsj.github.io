@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android数据库ContentProvider封装原理 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends Cont">
+<meta name="keywords" content="达合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android数据库ContentProvider封装原理">
+<meta property="og:url" content="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends Cont">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android数据库ContentProvider封装原理">
+<meta name="twitter:description" content="大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends Cont">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" class="article-date">
+  <time datetime="2010-11-16T14:44:57.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android数据库ContentProvider封装原理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends ContentProvider { private static final String TAG = “NotePadProvider”; private static final String DATABASE_NAME = “note_pad.db”; //数据库存储文件名，包含了.db后缀 private static final int DATABASE_VERSION = 2; //数据库版本号，这个是自己定义的，未来扩展数据库时自己可以方便的定义升级规则 private static final String NOTES_TABLE_NAME = “notes”; //表名 private static HashMap sNotesProjectionMap; //常规的Notes private static HashMap sLiveFolderProjectionMap; //LiveFoder内容 private static final int NOTES = 1; private static final int NOTE_ID = 2; private static final int LIVE_FOLDER_NOTES = 3; private static final UriMatcher sUriMatcher; //通常我们操作数据库的Uri比如content://android/cwj/1103这样的Uri均通过 UriMatcher注册并识别的。 private static class DatabaseHelper extends SQLiteOpenHelper { //数据库辅助子类 DatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); } @Override public void onCreate(SQLiteDatabase db) { //首次生成数据库，执行sql命令创建一个表 db.execSQL(“CREATE TABLE “ + NOTES_TABLE_NAME + “ (“ + Notes._ID + “ INTEGER PRIMARY KEY,” + Notes.TITLE + “ TEXT,” + Notes.NOTE + “ TEXT,” + Notes.CREATED_DATE + “ INTEGER,” + Notes.MODIFIED_DATE + “ INTEGER” + “);”); } @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { //刚来数据的版本，就是为了定义我们如果未来数据库需要扩展，帮助用户识别并根据规则自动升级数据库文件 Log.w(TAG, “Upgrading database from version “ + oldVersion + “ to “ + newVersion + “, which will destroy all old data”); db.execSQL(“DROP TABLE IF EXISTS notes”); //由于这里没有做细节处理，如果有新版本，删除老的表，我们未来不能这样处理，这仅仅是Google的例子而已所以删除老版本数据 onCreate(db); } } private DatabaseHelper mOpenHelper; @Override public boolean onCreate() { //这里重写ContentProvider的onCreate方法做一些初始化操作 mOpenHelper = new DatabaseHelper(getContext()); return true; } //有关数据库的查询操作，Android的SQLite提供了一个SQLiteQueryBuilder方法再次将SQL命令封装了下，单独分离出表名，排序方法等 @Override public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) { SQLiteQueryBuilder qb = new SQLiteQueryBuilder(); qb.setTables(NOTES_TABLE_NAME); switch (sUriMatcher.match(uri)) { case NOTES: qb.setProjectionMap(sNotesProjectionMap); break; case NOTE_ID: qb.setProjectionMap(sNotesProjectionMap); qb.appendWhere(Notes._ID + “=” + uri.getPathSegments().get(1)); break; case LIVE_FOLDER_NOTES: qb.setProjectionMap(sLiveFolderProjectionMap); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } String orderBy; if (TextUtils.isEmpty(sortOrder)) { orderBy = NotePad.Notes.DEFAULT_SORT_ORDER; } else { orderBy = sortOrder; } SQLiteDatabase db = mOpenHelper.getReadableDatabase(); Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy); c.setNotificationUri(getContext().getContentResolver(), uri); return c; } @Override public String getType(Uri uri) { switch (sUriMatcher.match(uri)) { case NOTES: case LIVE_FOLDER_NOTES: return Notes.CONTENT_TYPE; case NOTE_ID: return Notes.CONTENT_ITEM_TYPE; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } } 有关数据的插入操作，重写ContentProvider的insert方法即可 @Override public Uri insert(Uri uri, ContentValues initialValues) { if (sUriMatcher.match(uri) != NOTES) { throw new IllegalArgumentException(“Unknown URI “ + uri); } ContentValues values; if (initialValues != null) { values = new ContentValues(initialValues); } else { values = new ContentValues(); } Long now = Long.valueOf(System.currentTimeMillis()); if (values.containsKey(NotePad.Notes.CREATED_DATE) == false) { values.put(NotePad.Notes.CREATED_DATE, now); } if (values.containsKey(NotePad.Notes.MODIFIED_DATE) == false) { values.put(NotePad.Notes.MODIFIED_DATE, now); } if (values.containsKey(NotePad.Notes.TITLE) == false) { Resources r = Resources.getSystem(); values.put(NotePad.Notes.TITLE, r.getString(android.R.string.untitled)); } if (values.containsKey(NotePad.Notes.NOTE) == false) { values.put(NotePad.Notes.NOTE, “”); } SQLiteDatabase db = mOpenHelper.getWritableDatabase(); long rowId = db.insert(NOTES_TABLE_NAME, Notes.NOTE, values); if (rowId &gt; 0) { Uri noteUri = ContentUris.withAppendedId(NotePad.Notes.CONTENT_URI, rowId); getContext().getContentResolver().notifyChange(noteUri, null); //通知数据库内容有改变 return noteUri; } throw new SQLException(“Failed to insert row into “ + uri); } @Override public int delete(Uri uri, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.delete(NOTES_TABLE_NAME, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.delete(NOTES_TABLE_NAME, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } @Override public int update(Uri uri, ContentValues values, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.update(NOTES_TABLE_NAME, values, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.update(NOTES_TABLE_NAME, values, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } 最后我们需要在构造奔雷时就监听Uri，如果处理的Uri需要其他程序获知，需要在Androidmanifest.xml文件中显式的导出provider的Uri定义 static { sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH); sUriMatcher.addURI(NotePad.AUTHORITY, “notes”, NOTES); sUriMatcher.addURI(NotePad.AUTHORITY, “notes/#”, NOTE_ID); sUriMatcher.addURI(NotePad.AUTHORITY, “live_folders/notes”, LIVE_FOLDER_NOTES); sNotesProjectionMap = new HashMap(); sNotesProjectionMap.put(Notes._ID, Notes._ID); sNotesProjectionMap.put(Notes.TITLE, Notes.TITLE); sNotesProjectionMap.put(Notes.NOTE, Notes.NOTE); sNotesProjectionMap.put(Notes.CREATED_DATE, Notes.CREATED_DATE); sNotesProjectionMap.put(Notes.MODIFIED_DATE, Notes.MODIFIED_DATE); // Support for Live Folders. sLiveFolderProjectionMap = new HashMap(); sLiveFolderProjectionMap.put(LiveFolders._ID, Notes._ID + “ AS “ + LiveFolders._ID); sLiveFolderProjectionMap.put(LiveFolders.NAME, Notes.TITLE + “ AS “ + LiveFolders.NAME); // Add more columns here for more robust Live Folders. } } 最后帮助初学者简单的概括下Android的ContentProvider类的作用，就是尽可能的减少SQL语句的编写在外部操作，封装成方法，而有关SQL语言的执行在DatabaseHelper中也被简化和分离出了，而SQL语句主要是体现在选择表的字段，where这样的条件限定语句大大减少了我们日常的开发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjniaoee4001gh40f4yn5gpty" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          40 位改变了互联网的人（下）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android:Activity中onCreate方法的参数及用途</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

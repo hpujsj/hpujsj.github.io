@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android应用界面设计原则 | 达合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android的官方开发者博客发了一份幻灯片，介绍了一些Android UI设计的小贴士，Roger在这里以看图说话的形式发出来，有兴趣的读者就继续往下翻吧。整个PPT共分5个部分，Part I 翻译的是前两个部分。    作为开发者，为啥我们要关心UI，前面的一堆通通可以忽略掉，直接跳到最后一条。因为好的UI设计可以帮助我们卖出更多拷贝，赚到更多钱^_^  这个PPT 包含5个部分： 1&amp;gt;">
+<meta name="keywords" content="Android,UI设计,原则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android应用界面设计原则">
+<meta property="og:url" content="http://www.daahe.com/2010/12/10/android-e5-ba-94-e7-94-a8-e7-95-8c-e9-9d-a2-e8-ae-be-e8-ae-a1-e5-8e-9f-e5-88-99/index.html">
+<meta property="og:site_name" content="达合">
+<meta property="og:description" content="Android的官方开发者博客发了一份幻灯片，介绍了一些Android UI设计的小贴士，Roger在这里以看图说话的形式发出来，有兴趣的读者就继续往下翻吧。整个PPT共分5个部分，Part I 翻译的是前两个部分。    作为开发者，为啥我们要关心UI，前面的一堆通通可以忽略掉，直接跳到最后一条。因为好的UI设计可以帮助我们卖出更多拷贝，赚到更多钱^_^  这个PPT 包含5个部分： 1&amp;gt;">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/359c1d9a6b0711c6b945271c6677392a.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/ce0dc64b0b024a3d395aa344df4929ee.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/aa650763e3c822e7e47136eea763efd9.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/669d67c744d6a52d89b6af996833304f.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/b91c3a8de0dd1e33239ed9231c8fc515.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/4f692fd1ba7100a44b3a6023ae59c397.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/bf6fb8fd7562ca04bb9a069f1d06fb0b.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/b5fe43341e77d428bc9042f7bf56f528.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/d7b6b79ffb1018a0185aa3ce4a9bc3d6.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/1ff40e9adb87309cbde45c4c0b5e2e62.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/24ee13466cb6adc4484b7b3ed00b1620.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/fc1b353f85dad009577775e0b58df836.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/4806d661187baec20ec1dde0a1daf289.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/b2adb732a458801ddba3209cb59c6bfa.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/802d11423f067c07ee22811c0b2fdd3a.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/46e021907cc8ead5820dfdcf5bea446b.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/be3997ce9fc1f6518432f9b086752d1d.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/b8d5e15946fbd80ec6b51c05fc292c99.jpg">
+<meta property="og:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/841fd79e6dc901fe3610f571c6f1e83f.jpg">
+<meta property="og:updated_time" content="2018-10-21T02:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android应用界面设计原则">
+<meta name="twitter:description" content="Android的官方开发者博客发了一份幻灯片，介绍了一些Android UI设计的小贴士，Roger在这里以看图说话的形式发出来，有兴趣的读者就继续往下翻吧。整个PPT共分5个部分，Part I 翻译的是前两个部分。    作为开发者，为啥我们要关心UI，前面的一堆通通可以忽略掉，直接跳到最后一条。因为好的UI设计可以帮助我们卖出更多拷贝，赚到更多钱^_^  这个PPT 包含5个部分： 1&amp;gt;">
+<meta name="twitter:image" content="http://blog.daahe.com/wp-content/uploads/2012/12/359c1d9a6b0711c6b945271c6677392a.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!-- link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" -->
+    <link href="https://fonts.googleapis.cnpmjs.org/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">达合</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天地达 人自合</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.daahe.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android-e5-ba-94-e7-94-a8-e7-95-8c-e9-9d-a2-e8-ae-be-e8-ae-a1-e5-8e-9f-e5-88-99" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/12/10/android-e5-ba-94-e7-94-a8-e7-95-8c-e9-9d-a2-e8-ae-be-e8-ae-a1-e5-8e-9f-e5-88-99/" class="article-date">
+  <time datetime="2010-12-10T09:25:43.000Z" itemprop="datePublished">2010-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android应用界面设计原则
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android的官方开发者博客发了一份幻灯片，介绍了一些Android UI设计的小贴士，Roger在这里以看图说话的形式发出来，有兴趣的读者就继续往下翻吧。整个PPT共分5个部分，Part I 翻译的是前两个部分。 <a href="http://hpujsj.gotoip4.com/blog/wp-content/uploads/2010/12/1.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/359c1d9a6b0711c6b945271c6677392a.jpg" alt="" title="1"></a>  <a href="http://blog.daahe.com/wp-content/uploads/2012/12/ce0dc64b0b024a3d395aa344df4929ee.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/ce0dc64b0b024a3d395aa344df4929ee.jpg" alt="" title="2"></a> 作为开发者，为啥我们要关心UI，前面的一堆通通可以忽略掉，直接跳到最后一条。因为好的UI设计可以帮助我们卖出更多拷贝，赚到更多钱^_^ <a href="http://blog.daahe.com/wp-content/uploads/2012/12/aa650763e3c822e7e47136eea763efd9.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/aa650763e3c822e7e47136eea763efd9.jpg" alt="" title="3"></a> <strong>这个PPT 包含5个部分：</strong> 1&gt;该做什么，不该做什么 2&gt;设计哲学和考量 3&gt;你必须了解的 UI 框架特性 4&gt;新的UI 设计模式 5&gt;图标和准则 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/669d67c744d6a52d89b6af996833304f.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/669d67c744d6a52d89b6af996833304f.jpg" alt="" title="4"></a> <a href="http://blog.daahe.com/wp-content/uploads/2012/12/b91c3a8de0dd1e33239ed9231c8fc515.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/b91c3a8de0dd1e33239ed9231c8fc515.jpg" alt="" title="5"></a> <strong>Don’t:</strong> 1&gt;不要照搬你在其它平台的UI设计，应该让用户感觉是在真正使用一个 Android 软件，在你的商标显示和平台整体观感之间做好平衡 2&gt;不要过度使用模态对话框 3&gt;不要使用固定的绝对定位的布局 4&gt;不要使用px单位，使用dp或者为文本使用sp 5&gt; 不要使用太小的字体 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/4f692fd1ba7100a44b3a6023ae59c397.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/4f692fd1ba7100a44b3a6023ae59c397.jpg" alt="" title="6"></a> <a href="http://blog.daahe.com/wp-content/uploads/2012/12/bf6fb8fd7562ca04bb9a069f1d06fb0b.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/bf6fb8fd7562ca04bb9a069f1d06fb0b.jpg" alt="" title="7"></a> <strong>Do:</strong> 1&gt; 为高分辨率的屏幕创建资源（缩小总比放大好） 2&gt; 需要点击的元素要够大 3&gt; 图标设计遵循 Android 的准则 4&gt; 使用适当的间距（margins, padding） 5&gt; 支持D-pad和trackball导航 6&gt; 正确管理活动（activity）堆栈 7&gt; 正确处理屏幕方向变化 8&gt; 使用主题/样式，尺寸和颜色资源来减少多余的值 9&gt;和视觉交互设计师合作!!! <a href="http://blog.daahe.com/wp-content/uploads/2012/12/b5fe43341e77d428bc9042f7bf56f528.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/b5fe43341e77d428bc9042f7bf56f528.jpg" alt="" title="8"></a> <a href="http://blog.daahe.com/wp-content/uploads/2012/12/d7b6b79ffb1018a0185aa3ce4a9bc3d6.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/d7b6b79ffb1018a0185aa3ce4a9bc3d6.jpg" alt="" title="9"></a> <strong>设计哲学:</strong> 1&gt; 干净而不过于简单 2&gt; 关注内容而非修饰 3&gt; 保存一致，让用户容易投入其中，可附加少许变化 4&gt; 使用云端服务（存储和同步用户资料）来加强用户体验 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/1ff40e9adb87309cbde45c4c0b5e2e62.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/1ff40e9adb87309cbde45c4c0b5e2e62.jpg" alt="" title="10"></a> <strong>优秀界面的设计准则:</strong> 1&gt; 关注用户 2&gt; 显示正确的内容 3&gt; 给予用户适当的回馈 4&gt; 有章可循的行为模式 5&gt; 容忍错误 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/24ee13466cb6adc4484b7b3ed00b1620.jpg" alt="Android应用界面设计官方指导文档"> <strong>关注用户：</strong> 1&gt; 了解你的用户（年龄，技能，文化，对你的应用的需求，使用的设备，何时何地如何使用设备） 2&gt; ‘用户优先’的设计心态 （用户通常是任务导向的行为模式） 3&gt; 更早，更频繁的由真实用户来测试 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/fc1b353f85dad009577775e0b58df836.jpg" alt="Android应用界面设计官方指导文档"> <strong>显示正确的内容：</strong> 1&gt; 最常用的操作需要最快被用户看到并且可用 2&gt; 不太常用的功能可以放到菜单里面 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/4806d661187baec20ec1dde0a1daf289.jpg" alt="Android应用界面设计官方指导文档"> <strong>给予用户适当的回馈：</strong> 1&gt; 交互式的UI元素最少需要反映出4种不同的状态 （default，disabled，focused，pressed） 2&gt; 保证操作的结果是清晰可见的 3&gt; 多给予用户进度提示，但是不要干扰他们当前的操作 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b2adb732a458801ddba3209cb59c6bfa.jpg" alt="Android应用界面设计官方指导文档"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/802d11423f067c07ee22811c0b2fdd3a.jpg" alt="Android应用界面设计官方指导文档"> <strong>有章可循的行为模式：</strong> 1&gt; 行为模式遵循用户的期望（正确的操作活动堆栈，显示用户期望看到的信息和动作） 2&gt; 使用合适的方式来加强功能可见性（可点击的元素就应该看起来是可以点击的） 3&gt; 如果用户完成一项任务需要复杂的操作，重新思考你的设计!!!</p>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2012/12/46e021907cc8ead5820dfdcf5bea446b.jpg" alt="Android应用界面设计官方指导文档"> <strong>容忍错误：</strong> 1&gt; 只允许有意义的操作（适当禁用一些按钮） 2&gt; 尽量减少不可回退的操作 3&gt; 允许回退（undo）比使用确定对话框更好（实际上，应该尽量少用确定对话框，它对用户是一种干扰） <img src="http://blog.daahe.com/wp-content/uploads/2012/12/be3997ce9fc1f6518432f9b086752d1d.jpg" alt="Android应用界面设计官方指导文档"> 如果错误是可能发生的，那它就一定会发生。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b8d5e15946fbd80ec6b51c05fc292c99.jpg" alt="Android应用界面设计官方指导文档"> <strong>设计考量：</strong> 1&gt;屏幕的物理尺寸 2&gt;屏幕密度 3&gt; 屏幕的方向（竖向和横向） 4&gt;主要的UI交互方式（触屏还是使用D-pad/trackball） 5&gt;软键盘还是物理键盘 6&gt;了解不同设备之间的相异之处是非常重要的! 7&gt;阅读CDD，学习设备可能差异的地方 8&gt;了解屏幕尺寸和密度分类 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/841fd79e6dc901fe3610f571c6f1e83f.jpg" alt="Android应用界面设计官方指导文档"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/12/10/android-e5-ba-94-e7-94-a8-e7-95-8c-e9-9d-a2-e8-ae-be-e8-ae-a1-e5-8e-9f-e5-88-99/" data-id="cjniaoee2001eh40fy7yclnhg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原则/">原则</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/01/20/android-2-4-e5-b0-86-e4-b8-8eiphone-5-e4-bb-8a-e5-a4-8f-e5-90-8c-e5-8f-b0-e7-ab-9e-e6-8a-80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android 2.4将与iPhone 5今夏同台竞技
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/11/26/android-e5-bc-80-e5-8f-91-e8-80-85-e5-ba-94-e8-af-a5-e5-a6-82-e4-bd-95-e6-8e-a8-e5-b9-bf-e8-90-a5-e9-94-80-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-94-e7-94-a8-e7-a8-8b-e5-ba-8f/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android开发者应该如何推广营销自己的应用程序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/">j2ee</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/j2ee/Linux/">Linux</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/DataCross/">DataCross</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/未分类/">未分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/私人日志/">私人日志</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/道听途说/">道听途说</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI设计/">UI设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原则/">原则</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/UI设计/" style="font-size: 10px;">UI设计</a> <a href="/tags/原则/" style="font-size: 10px;">原则</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/09/e5-90-af-e5-8a-a8sql-server-profiler-ef-bc-8c-e5-88-9b-e5-bb-batrace-e8-b7-9f-e8-b8-aa/">启动SQL Server Profiler，创建Trace(跟踪)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/21/1098/">编译nginx 模块</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/12/1071/">有关设计的网站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 daahe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script -->
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
