@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/10/23/discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4/" class="article-date">
+  <time datetime="2013-10-23T06:04:18.000Z" itemprop="datePublished">2013-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/10/23/discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4/">Discuz 采集帖子后，分散作者，时间</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有些Discuz站长为了丰富站点内容，会从其它站点抓取帖子。比如使用火车头程序等。这样做会有两个问题，发布的时间十分接近，发布作者一样。导致浏览站点的人一看便知，数据是从别处抓取的。为了分散时间与作者，在采集完数据后，可在数据库中执行下列SQL,可将数据分散。 <code>//将指定人的帖子时间分散,authorid=2是 uid=2的用户 update `yhw_forum_thread` set dateline=(1284744665+ROUND(RAND() *1000000000)%97701546) WHERE authorid=2; update `yhw_forum_thread` set lastpost=dateline WHERE authorid=2; //将指定人的帖子的作者分散,authorid=2是 uid=2的用户 update yhw_forum_thread set `authorid` = ROUND(RAND() *10000)%(select max(uid) from yhw_common_member) where authorid=2; //下面这句是将不在用户表中的authorid,重新生成。要反复执行多次，直到反更新的条目为0， update yhw_forum_thread set `authorid` = ROUND(RAND() *10000)%(select max(uid) from yhw_common_member) WHERE `authorid` not in (select uid from yhw_common_member); //根据authorid重新生成author和lastposter update `yhw_forum_thread` set author=(select username from yhw_common_member where uid=authorid), lastposter=(select username from yhw_common_member where uid=authorid); //更新forum_post，使author、authorid、dateline与forum_thread一致 update `yhw_forum_post` p set author=(select author from `yhw_forum_thread` t where t.tid=p.tid), authorid=(select authorid from `yhw_forum_thread` t where t.tid=p.tid), dateline=(select dateline from `yhw_forum_thread` t where t.tid=p.tid);</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/10/23/discuz-e9-87-87-e9-9b-86-e5-b8-96-e5-ad-90-e5-90-8e-ef-bc-8c-e5-88-86-e6-95-a3-e4-bd-9c-e8-80-85-ef-bc-8c-e6-97-b6-e9-97-b4/" data-id="cjo7bhie00036xf0fsj1w7osq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" data-id="cjo7at8oo0067k70f09u9602p" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" data-id="cjo7bhifu0067xf0fe0omqewr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -150,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjo7at8mk0030k70fxihn5mg4" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjo7bhidu002zxf0fn6ksmmv0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" data-id="cjo7at8p2007ak70fbn1juie4" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" data-id="cjo7bhig9007dxf0fnsfg7sq5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -235,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjo7at8qb00a0k70f424onu60" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjo7bhihk00a3xf0ffdimzsg2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -276,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" data-id="cjo7at8m9002ok70fdlttgjj7" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" data-id="cjo7bhidn002qxf0fwyplexc7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -317,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo7at8np0045k70fbqq6b0cp" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo7bhiey0045xf0f78b2xm9o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -359,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo7at8m7002mk70fsitx72xq" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo7bhidk002mxf0f7nb9i15r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -404,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo7at8k2000ok70flvsmzmup" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo7bhibd000mxf0frzo63rc8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -449,51 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo7at8pt0095k70fmpt987zh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" class="article-date">
-  <time datetime="2012-12-28T06:09:55.000Z" itemprop="datePublished">2012-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/">图片类应用路在何方？</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当 Instagram被天价收购时，人们似乎以为读图时代已经结束，再也不会有超越 Instagram 成就的机会出现。但随着 Flickr 对移动端的重视、Google 收购 Snapseed 并将其免费、Twitter 移动应用增加滤镜功能，以及一个又一个新兴图片类工具或社区的崛起，读图时代也许才刚刚开始。毕竟，Instagram 只是验证了图片分享是一种强烈需求，但如何在此基础上创造出可以持续发展的商业模式却依然没有答案。 我们可以把目前市面上的图片类产品的模式分为涉及图片美化修改的工具和交流分享的社区两部分。大部分产品要么是两者兼有，要么只偏向其一。我们可以想到的盈利模式也无非“免费+广告”、应用内收费或者订阅式服务。软件产品本身的零边际成本的特点，加上移动应用商店又降低了产品的营销支出，不需过多的运营成本使低价竞争成为可能。况且大批优秀的程序员和研发团队的出现加快了技术和创意的交流，使得美化图片的技术优势并不突出，用户也不可能轻易感知美化效果的好坏。在现在激烈的竞争环境下，图片类应用该如何寻得出路？ <a href="http://blog.daahe.com/archives/869/a1" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/a1.jpg" alt="a1"></a></p>
-<h3 id="做商品，卖工具"><a href="#做商品，卖工具" class="headerlink" title="做商品，卖工具"></a>做商品，卖工具</h3><p>如果对自己的技术优势足够自信，对应用一次性收费是最直接有效的。Camera + 无疑就是这样一款优秀的产品，已经确立了自己的品牌优势。新的同类型图片美化工具即使有更出色的技术，也很能撼动其已经积累的口碑。况且像 Adobe 这样有资金和技术优势的大公司，也会通过推出 Photoshop Express 移动版这样的免费品来强化已有的品牌地位。同时，还有一些像美图秀秀、Camera360 以及 POCO 相机，甚至功能更加强大的如 Pixlr Express、Snapseed 这类免费品。别忘了，iOS 和 Android 自带应用也具备基本的图片美化功能。 从这一点我们也可以看出，在图片修改类付费应用已经饱和的情况下，还有大量优秀的免费品竞争，一次性收费并不利于新的图片修改工具的发展。事实上，根据 AppsFire 公布了 2012 年 App Store 信息图，2012 年发布的所有 App 中，只有 66% 是免费应用。 免费是一种能使自己的产品在前辈的声誉中快速脱颖而出的有效促销手段。免费的产品降低了用户接触成本，使用户更乐意尝试新事物。但免费不可能成为一种盈利模式，因为它根本就无法保证产品能盈利。免费的商业逻辑在于降低用户的接触成本，从而快速捕获大批用户群，从中寻找可能的付费对象。所以由此延伸出内置广告和应用内付费两种流行模式。但作为一款简单的工具类应用，内置广告无疑会降低用户体验。而应用内付费，无论是特殊滤镜收费还是购买什么美化包，都一样会面临残酷的竞争。如果不针对未被开发的新需求，这种卖工具的方式已经不再适合新兴的产品，图片类应用需要寻找新的商业模式。 <a href="http://blog.daahe.com/archives/869/a2" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/a2.jpg" alt="a2"></a>  </p>
-<h3 id="做服务，盈利手段多样化"><a href="#做服务，盈利手段多样化" class="headerlink" title="做服务，盈利手段多样化"></a>做服务，盈利手段多样化</h3><p>Snapseed 被 Google 收购后立即变成了免费品，除了 Google 有着雄厚的资金优势外，Snapseed 启动画面出现的 Google + 的标识也表明了这款免费品是为 Google 的社交平台服务。将移动端的图片修改工具以免费的形式作为吸引用户的促销手段，在此基础上打造平台服务，也是许多产品正在探索的思路。 社区是图片摄影的常规发展思路。社区的优势在于，用户长期沉侵其中造成巨大的迁移成本，使其很难使用其他同类产品。Flickr 由于在移动领域的缓慢，使 Instagram 顷刻间成为图片分享社区的新品牌。但 Flickr 毕竟作为老牌摄影爱好者的聚集地，手握大批忠实的摄影师，也不是没有反击能力。新上任的梅姐已使 Yahoo 重新重视 Flickr 移动版，其新 iPhone 版的改进也有望加大对 Instagram 的打击。Flickr 是典型的订阅付费，其盈利能力已获市场的认可。 国内的 POCO.cn 也是一个汇集摄影图片的社区。POCO 将“摄影”跟“生活”结合起来，宠物、美食、旅游、摄影服务，甚至电子杂志等等诸多门类构成了整个社区。POCO 是有着浓厚生活信息的分享社区。POCO 便依次建立了各种盈利方式。比如美食类餐饮广告，摄影服务收费等。与 Flickr 一样，POCO 移动端的各种相机应用也是吸引用户加入 POCO 社区的入口。 以上两个图片社区都是移动端提供免费图片美化工具，以巩固其网络社区的地位，从而提供各种不同的服务。图片存储服务的订阅收费是一种免费增值模式，它既具备免费品吸引用户的优势，也为付费用户提供其所需的服务。对服务收费和对商品收费的区别在服务是可以被长期感知的，更容易使消费者形成物有所值的感觉，且大量存储的数据也增加了迁移成本。Camare360 的云相册也透露其打算通过订阅存储空间收费的盈利意图。另外，Camera360 刚推出的SDK服务，也有 Aviary 的成功在先。而 POCO 以摄影图片为基础，向各种生活相关类别堆出各种服务也是一种商业模式的创新。它利用了社区的另一个特点，用户黏性强。一旦人们沉侵其中，很难愿意离开。社区的力量，连 Adobe 都不敢小视。后者最近收购设计社区 Behance 实现工具和社区的整合。 <a href="http://blog.daahe.com/archives/869/a3" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/a3.jpg" alt="a3"></a></p>
-<h3 id="玩花样，寻找别样需求"><a href="#玩花样，寻找别样需求" class="headerlink" title="玩花样，寻找别样需求"></a>玩花样，寻找别样需求</h3><p>我们已经分析做一款收费的图片修改工具很难具备优势，但通过免费图片工具，走“拍照——美化——分享”的传统思路，即使最终建立了自己的平台，竞争也不会轻松。产品需要探索新的产品模式，识别未被感知的新需求。 像 Snapchat 这样规定图片显示时间的分享模式，或者啪啪这样加入声音来传播也是产品模式创新的案例。但毕竟这类比较“浅薄”的产品很难在今后找到合适的盈利模式。Instagram 在盈利上的困境也暴露了它“浅薄”的特性。Instagram 作为一个图片社区其实是不够的。它仅仅只是利用优秀的滤镜，通过标签、喜欢、评论构建了一个利于图片像 Twitter 的文字一样可以快速传播的模式。你甚至都无法在这款应用中找到作为一个社区应该有的热门标签、流行话题、热门用户的排行榜。你上传的图片必须被裁减，你也无法对自己的图片分类利于今后查看。所以说 Instagram 只是一款用图片交流的社交网络，而不是 Flickr 那样的摄影社区。“浅薄”品不仅可以被轻易模仿，而且还很难留住用户，因为它最多只算做一个特性（Feature）。对于微信或者 Path，图片的美化分享就是其主功能的一个特性。当 Instagram 的新隐私政策激怒了用户，用户可以轻易地离开。Twitter 和 Flickr 正在追赶 Instagram，Facebook 也推出自己的类 Snapchat 应用 Poke。配合他们已有的社交平台，“浅薄”品的先发优势也很快会被逆转。 同样是拍照滤镜加分享社区，EyeEm 加入“拍照任务”的模式成为盈利模式的新尝试。“拍照任务”会要求用户去拍摄一些特定主题的图片。目前 EyeEm 已经跟红牛和德国汉莎航空公司等数个品牌建立合作。“拍照任务”可以被视为一种新的营销活动，成为一些品牌和其忠实粉丝互动的新形式。利用图片进行营销活动是一种很直接的想法，但即使是 Pinterest 做得也不够好。 同样也是滤镜，来自西安的 Blux Camera 则可以分析环境、光线，识别拍摄主体，推荐最佳拍摄模式和滤镜效果。这是一款目前面向海外市场的收费应用。其优势在于解决了用户不知选着何种滤镜的困惑，进一步降低了拍照门槛，所以其付费是针对未被挖掘的的新需求。 <a href="http://blog.daahe.com/archives/869/a4" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/a4.jpg" alt="a4"></a> 图片类应用如果单纯做工具，去发觉新的拍照需求，或者像 Line Camera 那样玩贴图，也可以为自己找到一席之地。而拓展到社区平台，除了免费增值外，数据挖掘也是一个可以探索的领域。Instagram 对其新隐私政策不满的回应，也透露其打算分析用户数据，识别出可以广告推广的图片的意图。图片类应用的盈利是一个持续探索的过程，但目前还不存在足以傲视天下的盈利模式。我们可以确信的是在群雄逐鹿中，各种探索和挖掘将会更有利于用户满足自身的需求。 原文地址：<a href="http://www.geekpark.net/read/view/168674" target="_blank" rel="noopener">http://www.geekpark.net/read/view/168674</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo7at8no0042k70fvqw59kwh" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo7bhih20096xf0f4j2zoeq7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -560,6 +557,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/07/message-queue2/">message-queue2</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
@@ -573,10 +574,6 @@
         
           <li>
             <a href="/2018/11/07/message-queue/">消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

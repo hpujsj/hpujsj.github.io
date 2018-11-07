@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/" class="article-date">
+  <time datetime="2011-07-22T03:30:42.000Z" itemprop="datePublished">2011-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/">SSH项目查找问题的一般方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">SSH</a>开发项目是目前十分流行的一个趋势。对于从事JavaEE项目开发多年的朋友来说，开发时使用SSH确实能带来不少的便利。SSH帮你做了一个规划，让你将不同的程序代码放到不同的地方。使整个工程看起来，更加工整，大家都采用这种模式开发程序，相互更容易沟通。新的成员也更容易融入到项目中。但对于刚入行的朋友来说，有点力不从心。有些朋友会说我只是实现一个很小的功能，为什么要写那么多的代码，建立那么多的类，还有一大堆的配置文件。出现一些问题还要花上半天去找原因，真是麻烦。所以在这里我想结合自己的体会、经历，对于初涉及到SSH项目的朋友，说说如何快速定位问题。 1、直接根据错误日志找到出错位置。(这种方法比较容易，大家常用的，不多说) 对一些不明错误（所谓不明错误是指编译没有问题，运行过程也不报错，但就是得不到预期的结果）用第一种方法是找不到原因的。要查找此类问题要根据SSH框架的结构，我们都知道： SSH框架是由三个框架有机组合而成的，它们分工明确，流水作业。从前台到后台，从Http请求到数据库,依次为<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Stucts</a>-&gt;<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Spring</a>-&gt;<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Hibernate</a>。所以当出现错误时，我们可采用两种方法： 2、顺藤摸瓜： 从Stucts开始，看看是否能接收到正确的请求数据。如果正确，接着往下看看Spring中的业务操作是否正确，如果没有问题就接着往下找，到Hibernate层看看，操作数据库是否有问题。对于一般的问题通过这三个步骤都能找出问题的原因。但这种找原因方法破费太大了一些。对于那些隐蔽较好的错误。或者，开发者，过于疲劳没有思路时才如此全面检查。另外：这种方法对初涉及SSH项目的朋友比较有好处，多如此查找几次你就明白了<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">SSH</a>框架的运行机制。 3、大胆猜测，定点检查： 如果你从事SSH项目有一年半载了，对SSH比较熟悉了，并且对所做项目比较了解。遇到不明错误就可根据经验猜测什么地方出现了问题，就在那打上一个断点，或者多猜测几个位置，用一组测试数据测试，当运行到断点时，看看数据是否有异常。 转载请标明出处：<a href="../">3G Study</a> :<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">http://blog.3gstdy.com/archives/594</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/" data-id="cjo7bhihc009rxf0fzq22sqho" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-iphone" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2011/07/19/iphone/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/07/19/iphone/" data-id="cjo7at8p4007fk70fqh4o3uom" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/07/19/iphone/" data-id="cjo7bhiga007gxf0fvf98yb0y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/07/13/e6-8f-90-e9-ab-98android-e5-ba-94-e7-94-a8-e7-a8-8b-e5-ba-8f-e7-9a-84-e9-80-9f-e5-ba-a6-e5-9b-9b-e5-a4-a7-e5-8e-9f-e5-88-99/" data-id="cjo7at8o2004wk70f0ksr7b97" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/07/13/e6-8f-90-e9-ab-98android-e5-ba-94-e7-94-a8-e7-a8-8b-e5-ba-8f-e7-9a-84-e9-80-9f-e5-ba-a6-e5-9b-9b-e5-a4-a7-e5-8e-9f-e5-88-99/" data-id="cjo7bhifa004wxf0fj0cw2qc8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/07/13/e7-94-a8android-e7-a8-8b-e5-ba-8f-e6-89-93-e5-bc-80-e5-92-8c-e5-85-b3-e9-97-ad-e8-be-93-e5-85-a5-e6-b3-95/" data-id="cjo7at8oc005dk70fejlyrool" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/07/13/e7-94-a8android-e7-a8-8b-e5-ba-8f-e6-89-93-e5-bc-80-e5-92-8c-e5-85-b3-e9-97-ad-e8-be-93-e5-85-a5-e6-b3-95/" data-id="cjo7bhifh0059xf0f68ulrwgh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -243,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/07/07/datacross-1-3/" data-id="cjo7at8mm0032k70f0nb6fs04" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/07/07/datacross-1-3/" data-id="cjo7bhidw0032xf0f8ukdnhle" class="article-share-link">Share</a>
       
       
     </footer>
@@ -804,7 +845,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" data-id="cjo7at8kq001ak70fg3hgl908" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/06/23/android-e4-b8-adlistview-e7-bb-84-e4-bb-b6-e7-9a-84item-e6-8b-96-e5-8a-a8-ef-bc-88item-e6-94-b9-e5-8f-98-e9-a1-ba-e5-ba-8f-ef-bc-89/" data-id="cjo7bhic4001cxf0fgpisfxat" class="article-share-link">Share</a>
       
       
     </footer>
@@ -852,7 +893,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/" data-id="cjo7at8na003uk70fpsmx2sme" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/06/17/e5-88-86-e8-be-a8-e7-8e-87-e7-9b-b8-e5-85-b3dpisizeresolutioncolordensity/" data-id="cjo7bhieo003uxf0f40zbrr49" class="article-share-link">Share</a>
       
       
     </footer>
@@ -893,7 +934,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/06/15/e8-8b-b9-e6-9e-9c-e5-8f-91-e5-b8-83iphone-e3-80-81ipad-hdmi-e5-ae-98-e6-96-b9-e8-bd-ac-e6-8e-a5-e5-a4-b4/" data-id="cjo7at8oj005vk70f0p9txfqk" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/06/15/e8-8b-b9-e6-9e-9c-e5-8f-91-e5-b8-83iphone-e3-80-81ipad-hdmi-e5-ae-98-e6-96-b9-e8-bd-ac-e6-8e-a5-e5-a4-b4/" data-id="cjo7bhifr005xxf0fd28rio04" class="article-share-link">Share</a>
       
       
     </footer>
@@ -935,7 +976,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/06/15/e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf/" data-id="cjo7at8mx003fk70fd097p78l" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/06/15/e4-bb-80-e4-b9-88-e6-98-af-e5-88-86-e9-87-8f-e8-89-b2-e5-b7-ae-e7-ba-bf/" data-id="cjo7bhie7003exf0fz1ktmy4o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -976,52 +1017,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/05/10/e5-8e-bb-e9-99-a4activex-e6-8f-90-e7-a4-ba-e5-9c-a8-e6-ad-a4-e9-a1-b5-e4-b8-8a-e7-9a-84activex-e6-8e-a7-e4-bb-b6-e5-92-8c-e6-9c-ac-e9-a1-b5-e4-b8-8a-e7-9a-84-e5-85-b6-e5-ae-83-e9-83-a8-e5-88-86/" data-id="cjo7at8nk003yk70frs04shwy" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/05/10/e5-8e-bb-e9-99-a4activex-e6-8f-90-e7-a4-ba-e5-9c-a8-e6-ad-a4-e9-a1-b5-e4-b8-8a-e7-9a-84activex-e6-8e-a7-e4-bb-b6-e5-92-8c-e6-9c-ac-e9-a1-b5-e4-b8-8a-e7-9a-84-e5-85-b6-e5-ae-83-e9-83-a8-e5-88-86/" data-id="cjo7bhieu003yxf0fty1thrw7" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xp-e5-90-af-e5-8a-a8-e4-b8-8d-e8-be-93-e5-85-a5-e5-af-86-e7-a0-81" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/05/06/xp-e5-90-af-e5-8a-a8-e4-b8-8d-e8-be-93-e5-85-a5-e5-af-86-e7-a0-81/" class="article-date">
-  <time datetime="2011-05-06T04:40:19.000Z" itemprop="datePublished">2011-05-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/05/06/xp-e5-90-af-e5-8a-a8-e4-b8-8d-e8-be-93-e5-85-a5-e5-af-86-e7-a0-81/">xp 启动不输入密码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开始-&gt;运行 输入 control userpasswords2 [caption id=”attachment_460” align=”aligncenter” width=”404” caption=”启动不需要输入密码的用户”]<a href="http://blog.daahe.com/wp-content/uploads/2012/12/2ffab2eb9f4daec546ffe7be1e5b08b0.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/2ffab2eb9f4daec546ffe7be1e5b08b0.jpg" alt="启动不需要输入密码的用户" title="启动不需要输入密码的用户"></a>[/caption] 将“要使用本机，用户必须输入用户名和密码”之前的复选框的对勾去掉。 然后点应用。会出现确认窗口，如下：<a href="http://blog.daahe.com/wp-content/uploads/2012/12/dbcfa9b033137f37d4a5ec4cc1b8d3ff.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/dbcfa9b033137f37d4a5ec4cc1b8d3ff.png" alt="" title="ds"></a> 输入管理员密码后就可以了。以后在启动Windows系统时就不用输入密码，直接进入系统了。 点击“是”。再启动时，就不用输入密码了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/05/06/xp-e5-90-af-e5-8a-a8-e4-b8-8d-e8-be-93-e5-85-a5-e5-af-86-e7-a0-81/" data-id="cjo7at8qe00a8k70f7td2x2ok" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xp-启动不输入密码/">xp 启动不输入密码</a></li></ul>
-
     </footer>
   </div>
   
@@ -1086,6 +1084,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/07/message-queue2/">message-queue2</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
@@ -1099,10 +1101,6 @@
         
           <li>
             <a href="/2018/11/07/message-queue/">消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>
