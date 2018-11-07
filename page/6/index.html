@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" class="article-date">
+  <time datetime="2013-10-19T01:45:14.000Z" itemprop="datePublished">2013-10-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/">除去Discuz域名中的目录路径</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一般在空间安装discuz会将其安装在根目录中，使用域名映射到根目录上。这时没有什么问题。但如果为了在一个空间中多放几个网站，一般会为每个网站创建一个目录，将各个网站的域名映射到对应的目录上。使用该方法可以在一个空间中安装多个discuz。但此时访问discuz时，一般会在域名后面多出来一个该discuz所在的目录，如将在个discuz安装在bbscenter目录中，对应的域名为bbs.daahe.com,此时访问该discuz时，将会出来诸如<a href="http://bbs.daahe.com/bbscenter/forum.php的路径。" target="_blank" rel="noopener">http://bbs.daahe.com/bbscenter/forum.php的路径。</a> 为了解决该问题，可采用如下方法: 1、找到source/class/discuz/discuz_application.php文件。 2、打开该文件，找到private function _init_env() 方法。 3、找到如下代码处： <code>define(&#39;MAGIC_QUOTES_GPC&#39;, function_exists(&#39;get_magic_quotes_gpc&#39;) &amp;&amp; get_magic_quotes_gpc()); define(&#39;ICONV_ENABLE&#39;, function_exists(&#39;iconv&#39;)); define(&#39;MB_ENABLE&#39;, function_exists(&#39;mb_convert_encoding&#39;)); define(&#39;EXT_OBGZIP&#39;, function_exists(&#39;ob_gzhandler&#39;)); define(&#39;TIMESTAMP&#39;, time());</code> 4、在此代码后加: define(‘SUB_DIR’, ‘/bbscenter/‘); //bbscenter是该应用所有目录</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" data-id="cjo7dzxb600692w0f0rqtxrkf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" class="article-date">
@@ -109,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjo7dy73i002xyv0f8nayy4ed" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjo7dzx92002x2w0f946bkm3s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -153,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" data-id="cjo7dy75w007dyv0f1h8twsdz" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" data-id="cjo7dzxbl007c2w0fro0yvtsv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjo7dy77900a3yv0fodnkgy0c" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjo7dzxcu00a42w0f0qf2b8b4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -235,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" data-id="cjo7dy73b002oyv0f4eahlh5o" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" data-id="cjo7dzx8x002q2w0f002f7cs5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -276,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo7dy74h0049yv0ff4mnoydc" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo7dzxa500442w0ff6i2vgpg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -318,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo7dy738002kyv0f5drus7hv" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo7dzx8u002m2w0ftexfxyoo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -363,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo7dy714000gyv0fi2hlr2a0" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo7dzx6t000n2w0fu2t2hhxj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo7dy76n0096yv0flq4pspfu" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo7dzxcd00972w0fezxlw0fw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -452,51 +493,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo7dy74f0042yv0fiq3n7o1j" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" class="article-date">
-  <time datetime="2012-12-27T06:39:54.000Z" itemprop="datePublished">2012-12-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/">快播大屏幕——多屏互动新体验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>快播大屏幕，是一款基于多屏互动的智能播放设备，通过无线网络连接的方式，可将智能手机、平板电脑等移动终端的媒体内容（图片、音乐、视频、游戏等）传输到电视、投影仪等大屏幕上进行播放，实现各种屏幕之间自由切换和分享，简而言之，就像一条看不见的 HDMI 高清线。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/1.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/1.png" alt="" title="1"></a></p>
-<h3 id="类-Apple-TV-的产品本质"><a href="#类-Apple-TV-的产品本质" class="headerlink" title="类 Apple TV 的产品本质"></a><strong>类 Apple TV 的产品本质</strong></h3><p>Apple TV 是由苹果公司推出的一款高清电视机顶盒产品，用户可以通过 Apple TV 在线收看电视节目，也可以通过 Airplay 功能，将 iPad、iPhone、iPod 和 PC 中的照片、视频和音乐通过传输到电视上进行播放。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/2f.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/2f.png" alt="" title="2f"></a> 而快播大屏幕虽然在产品定位上不同于 Apple TV ，但功能在一定程度上也承担着同样的需求：定位于智能手机配件，可实现智能手持终端内容到电视、电脑等大屏幕的展示和互动，兼容了苹果“AirPlay”、微软“DLNA”等其它多屏互动协议，相比较苹果产品，其适用性更广泛。除去机顶盒内容层面来说，这是一个非苹果用户的主要选择，苹果用户可以在苹果自家的产品上通过苹果自带的协议实现操控，但在其他设备上来说还是需要解决的问题，由于不同设备所支持的协议不一样，不同设备的系统也不同，所以几乎很难实现互通，借助快播大屏幕可以在一定程度上解决这个问题。</p>
-<h3 id="内容层面的风险回避"><a href="#内容层面的风险回避" class="headerlink" title="内容层面的风险回避"></a>内容层面的风险回避</h3><p>前一段时间闹得沸沸扬扬的小米盒子风波，其主要问题就是来源于内容层面的政策障碍，根据广电总局颁发的《持有互联网电视牌照机构运营管理要求》(业内称“181号文”)文件，要想做机顶盒只能选择连接广电总局批准的互联网电视内容服务机构设立的合法内容服务平台。目前通过广电总局验收的平台只有7家(即7大牌照方)，分别是CNTV、百视通、南方传媒、华数、中国国际广播电台的 CIBN、湖南广电以及中央人民广播电台的CNBN(央广广播电视网络台)，而什么都不具备的小米盒子显然是踩了红线。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/43.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/43.png" alt="" title="43"></a> 而在这一点上快播大屏幕采取了一个比较讨巧的方式：定位为工具而非内容平台，但通过技术手段解决内容需求。 快播大屏幕产品定位于多屏互动，并没有涉及到内容层面。但通过快播大屏幕研发的“ Qvod Smartplay ”协议，同时兼容苹果“Airplay” 、微软 “DLNA” 协议，这意味着快播大屏幕将全面支持包括腾讯视频、搜狐视频、奇艺影视、 PPTV 等目前市面上大部分主流的基于多屏互动的互联网视频应用。相比于小米盒子把这些互联网视频整合在盒子中的风险来说，快播大屏幕是几乎没有风险的，它所做的只是将你手持智能终端的内容投影到电视上，在一定程度上来说手持智能终端的内容是不比小米盒子少的，但却没有政策风险。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/5c.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/5c.png" alt="" title="5c"></a></p>
-<h3 id="多屏时代的新需求"><a href="#多屏时代的新需求" class="headerlink" title="多屏时代的新需求"></a>多屏时代的新需求</h3><p>随着智能终端的兴起，我们的生活里已经不只是过去的一块屏那么简单，从过去唯一的电视屏到现在的手机屏、PAD屏、电脑屏、电视屏甚至投影屏等各种各样的屏幕。每个屏有自己的应用场景以及交互特性，也会带来不同的体验。 手机由于便携性和通讯属性，主要满足用户沟通的需求，在智能手机时代在满足沟通这个基本前提之下还能满足一些工作及娱乐需求。平板电脑更适合文字和图片阅读，在游戏互动上也有比智能手机更好的体验，主要满足娱乐的需求。电脑属于更高交互性的东西，满足工作和娱乐的多种需求。电视屏幕更多的是追求高质感的画面视觉效果，更多的是娱乐的拓展。 屏多了，问题也随之而来，多屏的属性在很多情况下定位并没有特别明显的差异，很多时候不同屏幕之间的内容在多屏之间是需要显示和互动的。苹果自有的系统很好的解决了这个问题，在苹果产品之间可以实现平滑的无缝显示和操控，但对于 Android 用户来说，这个产品或许能在一定程度上满足他们的需求。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/6e.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/6e.png" alt="" title="6e"></a> 举一个比较简单的使用场景：手机游戏功能的拓展。 通过快播大屏幕将手机中的画面同步传输到电视屏幕上，手机端就成为了万能的游戏手柄，同理可以将平板上的画面同步传输到电视屏幕上，平板也会变成游戏手柄，只要这些游戏支持 QVOD SmartPlay，都可以在不同屏幕间传输及互动，对于过去需要额外游戏设备来完成的游戏，现在通过手机这样的交互就可以完成，对用户来说是一件好事。 定位为配件的快播大屏幕，绕开了政策风险，给了用户更多的选择，只是能否被用户认可，还需要市场的检验。 原文地址：<a href="http://www.geekpark.net/read/view/168910" target="_blank" rel="noopener">http://www.geekpark.net/read/view/168910</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" data-id="cjo7dy74r004syv0f6gxqkvfk" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo7dzx9z00412w0f6ow3sl13" class="article-share-link">Share</a>
       
       
     </footer>
@@ -563,6 +560,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/07/java-JNDI/">JNDI java名与目录接口</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
@@ -576,10 +577,6 @@
         
           <li>
             <a href="/2018/11/07/cache/">缓存技术</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/j2ee-container2/">J2EE 容器</a>
           </li>
         
       </ul>

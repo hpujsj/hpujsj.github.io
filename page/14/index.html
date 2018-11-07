@@ -72,6 +72,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" class="article-date">
+  <time datetime="2010-11-20T22:15:54.000Z" itemprop="datePublished">2010-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/">Android中的Intent和Intent-fliter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARCH_ACTION，以及与之相关的请求数据是网页地址URI格式。如何为组件声明自己的Intent Filter? 常见的方法是在AndroidManifest.xml文件中用属性<intent-filter>描述组件的Intent Filter。 前面我们提到，隐式Intent（<strong>Explicit Intents</strong>）和Intent Filter（<strong>Implicit Intents</strong>）进行比较时的三要素是Intent的动作、数据以及类别。实际上，一个隐式Intent请求要能够传递给目标组件，必要通过这三个方面的检查。如果任何一方面不匹配，Android都不会将该隐式Intent传递给目标组件。接下来我们讲解这三方面检查的具体规则。</intent-filter></p>
+<h3 id="1．动作测试"><a href="#1．动作测试" class="headerlink" title="1．动作测试"></a>1．动作测试</h3><p><intent-filter>元素中可以包括子元素<action>，比如： <intent-filter> <action android:name="”com.example.project.SHOW\_CURRENT”"> <action android:name="”com.example.project.SHOW\_RECENT”"> <action android:name="”com.example.project.SHOW_PENDING”"> </action></action></action></intent-filter> 一条<intent-filter>元素至少应该包含一个<action>，否则任何Intent请求都不能和 该<intent-filter>匹配。如果Intent请求的Action和<intent-filter>中个某一 条<action>匹配，那么该Intent就通过了这条<intent-filter>的动作测试。如果Intent请求 或<intent-filter>中没有说明具体的Action类型，那么会出现下面两种情况。 (1) 如果<intent-filter>中没有包含任何Action类型，那么无论什么Intent请求都无法和这条<intent-filter>匹配； (2) 反之，如果Intent请求中没有设定Action类型，那么只要<intent-filter>中包含有Action类型，这个Intent请求就将顺利地通过<intent-filter>的行为测试。</intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></action></intent-filter></intent-filter></action></intent-filter></action></intent-filter></p>
+<h3 id="2．类别测试"><a href="#2．类别测试" class="headerlink" title="2．类别测试"></a>2．类别测试</h3><p><intent-filter>元素可以包含<category>子元素，比如： <intent-filter .=""> <category android:name="”android.Intent.Category.DEFAULT”"> <category android:name="”android.Intent.Category.BROWSABLE”"> </category></category></intent-filter> 只有当Intent请求中所有的Category与组件中某一个IntentFilter的<category>完全匹配时，才会让该 Intent请求通过测试，IntentFilter中多余的<category>声明并不会导致匹配失败。一个没有指定任何类别测试的 IntentFilter仅仅只会匹配没有设置类别的Intent请求。</category></category></category></intent-filter></p>
+<h3 id="3．数据测试"><a href="#3．数据测试" class="headerlink" title="3．数据测试"></a>3．数据测试</h3><p>数据在<intent-filter>中的描述如下： <intent-filter .=""> &lt;data android:type=”video/mpeg” android:scheme=”http” . . . /&gt; &lt;data android:type=”audio/mpeg” android:scheme=”http” . . . /&gt; </intent-filter> <data>元素指定了希望接受的Intent请求的数据URI和数据类型，URI被分成三部分来进行匹配：scheme、 authority和path。其中，用setData()设定的Inteat请求的URI数据类型和scheme必须与IntentFilter中所指 定的一致。若IntentFilter中还指定了authority或path，它们也需要相匹配才会通过测试。</data></intent-filter></p>
+<h3 id="4-简单例子说明"><a href="#4-简单例子说明" class="headerlink" title="4.简单例子说明"></a>4.简单例子说明</h3><p>讲解完Intent基本概念之后，接下来我们就使用Intent激活Android自带的电话拨号程序，通过这个实例你会发现，使用Intent并不像其概念描述得那样难。最终创建Intent的代码如下所示。 <strong>Intent i = new Intent(Intent.ACTION_DIAL,Uri.parse(“tel://13800138000″));</strong> 创建好Intent之后，你就可以通过它告诉Android希望启动新的Activity了。 <strong>startActivity(i);</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" data-id="cjo7dzx7e00182w0fbgjpvean" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" class="article-date">
@@ -103,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" data-id="cjo7dy74l004iyv0fi9iq9vts" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" data-id="cjo7dzxab004f2w0f1e2wj98r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" data-id="cjo7dy7500057yv0fp3nddq6r" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" data-id="cjo7dzxaq00562w0fa3j9khzy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo7dy71d000oyv0f5anrr7ao" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo7dzx72000w2w0fsfel4ga0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -263,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo7dy71b000myv0f4uc0d7n4" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo7dzx70000v2w0fwx610yg1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -304,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjo7dy72l001pyv0fqz3n7jt7" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjo7dzx7z001r2w0f65vrlnfn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -347,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo7dy75r0070yv0fvdifkoza" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo7dzxbg006z2w0ftsaep07n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ui/">ui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
@@ -390,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo7dy734002gyv0fv55gnjtc" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo7dzx8q002e2w0fpgq5rmi9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -431,7 +476,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo7dy75b005tyv0f6vrg45zp" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo7dzxb0005s2w0fbbkny5bp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/datacross/">datacross</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/格式转换/">格式转换</a></li></ul>
@@ -474,52 +519,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo7dy75q006yyv0fl63xsukb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" class="article-date">
-  <time datetime="2010-11-07T00:13:59.000Z" itemprop="datePublished">2010-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/">360 VS QQ：一场精心策划的西安事变（上）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文来自CSDN特约评论员：徐三清 我一向将公司比喻成国家，公司之间的竞争也很类似战争，国外网站曾经有一幅描述微软帝国的作战形势图就是例证。这次360和QQ之争，在中国软件互联网史上，是一场不折不扣的超级大战。我对这场战争的分析是：一场精心策划的西安事变。 <strong>一）作战双方进行分析</strong></p>
-<hr>
-<p><strong>进攻方</strong>：<strong>360系（安全卫士系列）</strong> <strong>主帅</strong>：周鸿祎 <strong>版图</strong>: 按照3.5亿网民算，2.4亿安全卫士装机量，覆盖互联网人口70% <strong>军队</strong>：数百名 精锐部队是Windows系统核心高手，主帅曾说360旗下已网络全国近一半高手 <strong>装备</strong>：360安全卫士，360浏览器，360杀毒 <strong>经济力</strong>：收入3亿，利润1亿，估值数十亿元 <strong>敌对方</strong>： 安全系（金山，瑞星，江民，可牛，卡巴斯基） 浏览器（搜狗，傲游） 恩怨（百度系，阿里系） <strong>同盟方</strong>： 迅雷和其他周鸿祎投资的软件公司 <strong>历史战役</strong> > 2002 以3721击败CNNIC。 &gt; 2005  以一搜（3721）和qihoo社区搜索进攻搜索，败于百度。 &gt; 2006  推出360安全卫士，清除专门用于扫描被安装在用户电脑上的一切“恶评”软件，包含前身是3721上网助手的雅虎助手。此举深受用户欢迎，360安全卫士 也因此在短短2年之内成为市场占有率第一的个人网络安全软件，但因此也和Yahoo杨致远，阿里巴巴马云结下了仇。 &gt; 2007  与卡巴斯基结盟，借其杀毒技术扩展市场，360同卡巴斯基绑定推广。但随着2008年360推出免费杀毒产品后，双方开始刀剑相向，结为仇敌。 &gt; 2008  挑战瑞星。瑞星炮轰360欺骗用户。随后两家公司激烈谩骂，最终不了了之。 &gt; 2010  5月出兵金山，封杀“金山网盾”。周鸿祎连发几十篇微博，“揭露”金山造假， 导致金山股价大幅下跌。 <strong>优势：</strong> 主帅周鸿祎：作战能力超一流，口才在中国IT界超一流； 技术团队实力超群，特别是windows客户端核心系统技术在中国超一流； 产品运营能力彪悍，从3721到360卫士其客户端装机发展速度在中国是No.1。 <strong>劣势：</strong> 树敌无数，和历史的合作方，以及中国最主要的互联网公司都结下了巨大的恩怨。 <strong>作战特色：</strong> 以“免费”和“安全”为大旗，通过360安全卫士占领用户的桌面，成为仅次于QQ装机量的软件客户端。以安全卫士为大本营，推荐安装360系列家族软件，最具杀伤性的武器是提示竞争对手的软件可能存在缺陷，并以此为利器，迅速夺取了浏览器20%的市场份额。 <strong>防守方</strong>：<strong>腾讯系</strong> <strong>主帅</strong>：马化腾 <strong>版图</strong>：10亿注册用户，覆盖互联网人口95%以上 <strong>经济力</strong>：年收入124亿，年利润52亿，估值3500亿元 现金60亿元 <strong>装备</strong>：QQ，QQ管理专家（QQ医生），TT浏览器，QQ旋风下载，QQ影音，QQ Mail,QZone，QQ.com,QQ游戏等 <strong>军队</strong>：近万名 旗下大将如云，精锐部队来自微软Windows 和MSN团队 <strong>敌对方</strong>： 游戏系（盛大，联众） 门户（新浪，搜狐，网易） 搜索（搜狗，百度） 电子商务（阿里巴巴） 社区（人人，开心网，51） 软件系（迅雷，快车，暴风影音） 浏览器（搜狗，傲游） <strong>同盟方</strong> 金山、可牛等 <strong>历史战役</strong> > 2002  以OICQ(QQ)击败UC。 &gt; 2004  <a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a> 挑战新浪、搜狐、网易，成为中国最大的门户网站之一。 &gt; 2006  推出超级旋风，挑战迅雷。 &gt; 2006  推出拍拍，挑战阿里系的淘宝。 推出搜搜，挑战百度 推出QQ医生，进入杀毒软件市场 &gt; 2007  以QQ拼音输入法挑战搜狐。 &gt; 2009 QQ Mail挑战网易163成为最大的免费邮件提供商。 &gt; 2010  年初小游戏平台3366.com上线公测，进攻4399小游戏平台。 &gt; 2010  QQ团购网上线，进军团购市场。 &gt; 2010  推出SNS社区“朋友社区”，剑指人人、开心。 <strong>优势：</strong> “挟天子（用户数）以令诸侯”。腾讯拥有中国本土用户量最大的即时通讯软件，账户数近10亿；也是中国最赚钱的互联网公司，公司现金储备达到15亿美元；再加上实力雄厚的研发和营销团队，强大的地方政府支持，足以使其傲视天下。 <strong>劣势:</strong> 通过QQ庞大用户群，采取后发模仿的方式扩展自己的领域版图，其“一站式在线生活”战略，在软件和互联网界树敌无数。 <strong>主要战术：</strong> 通过QQ庞大用户群，采取后发模仿的方式扩展自己的领域版图。最强的核武器是QQ弹窗和升级捆绑。腾讯的战略手法是模仿和后发制人，先看着其他人争夺地盘，看清楚了，地盘够大的地方，再派QQ系进驻。 <strong>二）战争起因</strong></p>
-<hr>
-<p>周鸿祎是互联网界的枭雄，作风彪悍，出言无忌，他对互联网产品和运营有极高洞察力，口才极具魅力，论主帅单挑能力，排名第一。他最遗憾和郁闷的是败给百度的帅哥李彦宏，“我是真小人，他是伪君子”。某次做公开的性格测试时，他表示最痛恨的人就是李彦宏。 他的目标是成为中国互联网领域的老大，当然要完成这一目标，必须建立自己的地盘。小马哥通过QQ一统IM，搜索已被李帅哥牢牢控制，电子商务被马怪侠掌握，门户则有新浪老大的地位不可动摇。 周鸿祎经历了搜索之战后，意外发现了安全软件这一块大好领土，但要想称霸互联网，光执掌安全市场之牛耳还不够，必须成为中国最多用户群体的的入口。周最推崇有两本书《柔道战略(小公司战胜大公司的秘密) 》和《免费:商业的未来 》。 所谓柔道战略就是避其锋芒、放弃硬碰硬的竞争思维模式，成功的挑战者不是去硬碰硬，而是利用对手们的块头和力量将他们打倒。这就是柔道战略的核心思想。 于是周相继推出软件管理、浏览器，挟安全卫士的庞大用户基础击败各个对手，“免费+安全”是他的杀手锏 ，类似于“打土豪，分田地”这些对用户极具诱惑力的口号，效果颇佳，成功地打败了一个又一个靠软件收费的地主老财。 直到碰上腾讯，周鸿祎迎来了真正的对手。腾讯不仅有着跟周鸿祎一样的王霸志向，更为重要的是，它已经具备了称霸互联网的实力和基础：用户群、资金、 技术、人才、政策……同样，一山不容二虎，腾讯也视周鸿祎为肉中刺，2010年5月31日，随着腾讯的QQ医生3.3升级版——ＱＱ电脑管家悄然上线。人 们很快发现，这款原本只是用来查杀QQ盗号木马的防护软件，已经包含了云查杀木马、系统漏洞修补、实时防护、清理插件等多项安全防护功能，甚至还搭载了免 费半年的诺顿杀毒。 无疑，这是一把利剑，直捣周鸿祎的黄龙。让人想起了３０年代，蒋介石命张学良率军直击喘息未定的中共心脏——延安。但周鸿祎却非腾讯原来的对手可比，仔细观察周鸿祎公司近期的举措不难发现，他们正在精心谋划一场互联网“西安事变”。 <strong>前期战争</strong> 2010年年初，腾讯突然选择在二三线及以下城市，强行推广QQ医生安全软件，并迅速占据国内一亿台左右电脑，市场份额近40%。敏感的360很快 意识到威胁，迅速召回正在休假的员工，快速反应。由于QQ医生本身匆忙上阵，很多用户陆续卸载QQ医生，其市场份额也快速降至10%以下。360初战告 捷。 ３个月之后，腾讯发布更加强大的QQ医生升级版QQ电脑管家，正式与360安全卫士展开直接竞争。360此时正在与金山激战，一时措手不及。 如果说2010年年初腾讯启动安全领域的闪电战，周鸿祎在感受到腾讯的威胁，以及恐怖的爆发力时，也许还心存侥幸，认为腾讯并没有把他当作主要对 手，毕竟在整个互联网产业链四处扩张，一向是腾讯的惯性。但QQ医生５月的突袭，显然会使得周鸿祎放弃所有幻想——ＱＱ预置３６０于死地早已酝酿许久。 QQ与３６０之间必有一场生死之战。 那段时间，周鸿祎在接受一次媒体专访时，建议腾讯应该加大投入解决QQ内部安全问题。联系到４个月后针对ＱＱ安全性的“隐私战”，可以推测，此时周 已经在设计针对ＱＱ的“西安事变”了。而QQ今年中秋时期的又一次针对360的突袭，直接形成本次事变的导火线——腾讯宣布“QQ软件管理”和“QQ医 生”自动升级为“QQ电脑管家”，涵盖了安全防护，系统维护和软件管理等功能，而这也是目前360安全卫士的主流功能。而凭借着QQ庞大的用户基础，QQ 电脑管家将直接威胁360在安全领域的生存地位。 周鸿祎必须要出招了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo7dy716000iyv0fxp80x0ja" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo7dzxbf006x2w0f5v496m62" class="article-share-link">Share</a>
       
       
     </footer>
@@ -586,6 +586,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/07/java-JNDI/">JNDI java名与目录接口</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
@@ -599,10 +603,6 @@
         
           <li>
             <a href="/2018/11/07/cache/">缓存技术</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/j2ee-container2/">J2EE 容器</a>
           </li>
         
       </ul>
