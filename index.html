@@ -98,7 +98,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-JNDI/" data-id="cjo7blssg007i770f3pr5j940" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-JNDI/" data-id="cjo7c6ckz007t8s0f7qkih052" class="article-share-link">Share</a>
       
       
     </footer>
@@ -134,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-multi-thread/" data-id="cjo7blsso007z770foqvcoej7" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-multi-thread/" data-id="cjo7c6cl9008f8s0fkn7vjqwu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-io/" data-id="cjo7blssl007s770f48b7cv9w" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-io/" data-id="cjo7c6cl0007y8s0f0mcze8q5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,11 +241,41 @@
 <p>⒑ 可以很容易得调用内嵌JMS provider，进行测试</p>
 <h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是流行的开源消息队列系统，用erlang语言开发。RabbitMQ是AMQP（高级消息队列协议）的标准实现。支持多种客户端，如：Python、Ruby、.NET、Java、JMS、C、PHP、ActionScript、XMPP、STOMP等，支持AJAX，持久化。用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。</p>
 <p>结构图如下：<br><img src="/2018/11/07/message-queue2/rabbitmq.png" title="RabbitMQ架构图"></p>
+<h3 id="几个重要概念："><a href="#几个重要概念：" class="headerlink" title="几个重要概念："></a>几个重要概念：</h3><p>Broker：简单来说就是消息队列服务器实体。</p>
+<p>Exchange：消息交换机，它指定消息按什么规则，路由到哪个队列。</p>
+<p>Queue：消息队列载体，每个消息都会被投入到一个或多个队列。</p>
+<p>Binding：绑定，它的作用就是把exchange和queue按照路由规则绑定起来。</p>
+<p>Routing Key：路由关键字，exchange根据这个关键字进行消息投递。</p>
+<p>vhost：虚拟主机，一个broker里可以开设多个vhost，用作不同用户的权限分离。</p>
+<p>producer：消息生产者，就是投递消息的程序。</p>
+<p>consumer：消息消费者，就是接受消息的程序。</p>
+<p>channel：消息通道，在客户端的每个连接里，可建立多个channel，每个channel代表一个会话任务。</p>
+<h3 id="消息队列的使用过程，如下："><a href="#消息队列的使用过程，如下：" class="headerlink" title="消息队列的使用过程，如下："></a>消息队列的使用过程，如下：</h3><p>（1）客户端连接到消息队列服务器，打开一个channel。</p>
+<p>（2）客户端声明一个exchange，并设置相关属性。</p>
+<p>（3）客户端声明一个queue，并设置相关属性。</p>
+<p>（4）客户端使用routing key，在exchange和queue之间建立好绑定关系。</p>
+<p>（5）客户端投递消息到exchange。</p>
+<p>exchange接收到消息后，就根据消息的key和已经设置的binding，进行消息路由，将消息投递到一个或多个队列里。</p>
+<h2 id="ZeroMQ"><a href="#ZeroMQ" class="headerlink" title="ZeroMQ"></a>ZeroMQ</h2><p>号称史上最快的消息队列，它实际类似于Socket的一系列接口，他跟Socket的区别是：普通的socket是端到端的（1:1的关系），而ZMQ却是可以N：M 的关系，人们对BSD套接字的了解较多的是点对点的连接，点对点连接需要显式地建立连接、销毁连接、选择协议（TCP/UDP）和处理错误等，而ZMQ屏蔽了这些细节，让你的网络编程更为简单。ZMQ用于node与node间的通信，node可以是主机或者是进程。</p>
+<p>引用官方的说法： “ZMQ(以下ZeroMQ简称ZMQ)是一个简单好用的传输层，像框架一样的一个socket library，他使得Socket编程更加简单、简洁和性能更高。是一个消息处理队列库，可在多个线程、内核和主机盒之间弹性伸缩。ZMQ的明确目标是“成为标准网络协议栈的一部分，之后进入Linux内核”。现在还未看到它们的成功。但是，它无疑是极具前景的、并且是人们更加需要的“传统”BSD套接字之上的一 层封装。ZMQ让编写高性能网络应用程序极为简单和有趣。”</p>
+<h3 id="特点是："><a href="#特点是：" class="headerlink" title="特点是："></a>特点是：</h3><p>高性能，非持久化；<br>跨平台：支持Linux、Windows、OS X等。<br>多语言支持； C、C++、Java、.NET、Python等30多种开发语言。<br>可单独部署或集成到应用中使用；<br>可作为Socket通信库使用。<br>与RabbitMQ相比，ZMQ并不像是一个传统意义上的消息队列服务器，事实上，它也根本不是一个服务器，更像一个底层的网络通讯库，在Socket API之上做了一层封装，将网络通讯、进程通讯和线程通讯抽象为统一的API接口。支持“Request-Reply “，”Publisher-Subscriber“，”Parallel Pipeline”三种基本模型和扩展模型。</p>
+<h3 id="ZeroMQ高性能设计要点："><a href="#ZeroMQ高性能设计要点：" class="headerlink" title="ZeroMQ高性能设计要点："></a>ZeroMQ高性能设计要点：</h3><h4 id="1、无锁的队列模型"><a href="#1、无锁的队列模型" class="headerlink" title="1、无锁的队列模型"></a>1、无锁的队列模型</h4><p>对于跨线程间的交互（用户端和session）之间的数据交换通道pipe，采用无锁的队列算法CAS；在pipe两端注册有异步事件，在读或者写消息到pipe的时，会自动触发读写事件。</p>
+<h4 id="2、批量处理的算法"><a href="#2、批量处理的算法" class="headerlink" title="2、批量处理的算法"></a>2、批量处理的算法</h4><p>对于传统的消息处理，每个消息在发送和接收的时候，都需要系统的调用，这样对于大量的消息，系统的开销比较大，zeroMQ对于批量的消息，进行了适应性的优化，可以批量的接收和发送消息。</p>
+<h4 id="3、多核下的线程绑定，无须CPU切换"><a href="#3、多核下的线程绑定，无须CPU切换" class="headerlink" title="3、多核下的线程绑定，无须CPU切换"></a>3、多核下的线程绑定，无须CPU切换</h4><p>区别于传统的多线程并发模式，信号量或者临界区， zeroMQ充分利用多核的优势，每个核绑定运行一个工作者线程，避免多线程之间的CPU切换开销。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。 这种动作（网页浏览，搜索和其他用户的行动）是在现代网络上的许多社会功能的一个关键因素。 这些数据通常是由于吞吐量的要求而通过处理日志和日志聚合来解决。 对于像Hadoop的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka的目的是通过Hadoop的并行加载机制来统一线上和离线的消息处理，也是为了通过集群机来提供实时的消费。</p>
+<h3 id="Kafka是一种高吞吐量的分布式发布订阅消息系统，有如下特性："><a href="#Kafka是一种高吞吐量的分布式发布订阅消息系统，有如下特性：" class="headerlink" title="Kafka是一种高吞吐量的分布式发布订阅消息系统，有如下特性："></a>Kafka是一种高吞吐量的分布式发布订阅消息系统，有如下特性：</h3><p>通过O(1)的磁盘数据结构提供消息的持久化，这种结构对于即使数以TB的消息存储也能够保持长时间的稳定性能。（文件追加的方式写入数据，过期的数据定期删除）<br>高吞吐量：即使是非常普通的硬件Kafka也可以支持每秒数百万的消息。<br>支持通过Kafka服务器和消费机集群来分区消息。<br>支持Hadoop并行数据加载。</p>
+<h3 id="Kafka相关概念"><a href="#Kafka相关概念" class="headerlink" title="Kafka相关概念"></a>Kafka相关概念</h3><h4 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h4><p>Kafka集群包含一个或多个服务器，这种服务器被称为broker[5]</p>
+<h4 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h4><p>每条发布到Kafka集群的消息都有一个类别，这个类别被称为Topic。（物理上不同Topic的消息分开存储，逻辑上一个Topic的消息虽然保存于一个或多个broker上但用户只需指定消息的Topic即可生产或消费数据而不必关心数据存于何处）</p>
+<h4 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h4><p>Parition是物理上的概念，每个Topic包含一个或多个Partition.</p>
+<h4 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h4><p>负责发布消息到Kafka broker</p>
+<h4 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h4><p>消息消费者，向Kafka broker读取消息的客户端。</p>
+<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）。</p>
+<p>一般应用在大数据日志处理或对实时性（少量延迟），可靠性（少量丢数据）要求稍低的场景使用。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo7blst2008o770fjvq2mzuh" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo7c6clb008j8s0ftedn89la" class="article-share-link">Share</a>
       
       
     </footer>
@@ -281,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/cache/" data-id="cjo7blspq002q770f9ij3estp" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/cache/" data-id="cjo7c6cid002n8s0fhso99m6a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -320,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/j2ee-container2/" data-id="cjo7blssm007v770fwrq1n0nk" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/j2ee-container2/" data-id="cjo7c6ckx007o8s0f4bqjc42h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -359,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/apache-start/" data-id="cjo7blspl002k770fgb3uzmzb" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/apache-start/" data-id="cjo7c6ci8002f8s0f89nkqhio" class="article-share-link">Share</a>
       
       
     </footer>
@@ -416,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/feature2/" data-id="cjo7blss5006o770f01g0pyhm" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/feature2/" data-id="cjo7c6ckl006o8s0fjuzh0klk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -457,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/world-without-language/" data-id="cjo7blstt00a9770f0g8nelp0" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/world-without-language/" data-id="cjo7c6cm100a58s0fm2e6n05n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -533,7 +563,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/the-summary-day/" data-id="cjo7blstq00a1770fw145ywle" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/the-summary-day/" data-id="cjo7c6clv009r8s0fj25ts6jg" class="article-share-link">Share</a>
       
       
     </footer>
