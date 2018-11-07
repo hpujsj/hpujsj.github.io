@@ -7,19 +7,19 @@
   
   <title>消息队列 | 达合</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。 1 消息模型1 P2P模式P2P">
+  <meta name="description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。">
 <meta name="keywords" content="达合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列">
 <meta property="og:url" content="http://www.daahe.com/2018/11/07/message-queue2/index.html">
 <meta property="og:site_name" content="达合">
-<meta property="og:description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。 1 消息模型1 P2P模式P2P">
+<meta property="og:description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.daahe.com/2018/11/07/message-queue2/rabbitmq.png">
-<meta property="og:updated_time" content="2018-11-07T15:55:15.000Z">
+<meta property="og:updated_time" content="2018-11-07T15:59:16.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列">
-<meta name="twitter:description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。 1 消息模型1 P2P模式P2P">
+<meta name="twitter:description" content="JMS消息服务JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。 在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。">
 <meta name="twitter:image" content="http://www.daahe.com/2018/11/07/message-queue2/rabbitmq.png">
   
     <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
@@ -96,7 +96,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="JMS消息服务"><a href="#JMS消息服务" class="headerlink" title="JMS消息服务"></a>JMS消息服务</h1><p>JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准/规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。</p>
-<p>在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。</p>
+<p>在EJB架构中，有消息bean可以无缝的与JM消息服务集成。在J2EE架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。<br><a id="more"></a></p>
 <h2 id="1-消息模型"><a href="#1-消息模型" class="headerlink" title="1 消息模型"></a>1 消息模型</h2><h3 id="1-P2P模式"><a href="#1-P2P模式" class="headerlink" title="1 P2P模式"></a>1 P2P模式</h3><p>P2P模式包含三个角色：消息队列（Queue），发送者(Sender)，接收者(Receiver)。每个消息都被发送到一个特定的队列，接收者从队列中获取消息。队列保留着消息，直到他们被消费或超时。</p>
 <h4 id="P2P的特点"><a href="#P2P的特点" class="headerlink" title="P2P的特点"></a>P2P的特点</h4><p>每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在消息队列中)<br>发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列<br>接收者在成功接收消息之后需向队列应答成功。如果希望发送的每个消息都会被成功处理的话，那么需要P2P模式。</p>
 <h3 id="2-Pub-Sub模式"><a href="#2-Pub-Sub模式" class="headerlink" title="2 Pub/Sub模式"></a>2 Pub/Sub模式</h3><p>包含三个角色主题（Topic），发布者（Publisher），订阅者（Subscriber） 。多个发布者将消息发送到Topic,系统将这些消息传递给多个订阅者。</p>
@@ -182,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo7chd4a008hvf0fhly3e18v" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo7cnrn2008l7m0ffjkki0n3" class="article-share-link">Share</a>
       
       
     </footer>
