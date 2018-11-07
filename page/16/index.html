@@ -72,47 +72,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/" class="article-date">
-  <time datetime="2010-08-22T04:07:52.000Z" itemprop="datePublished">2010-08-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/">Android多线程，让耗时的操作去后台运行吧</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">android</a>程序中，会有一些耗时的操作，比如从网上抓取图片，下载文件，批量更新数据库等，这些操作对于<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">手机</a>而言会需要很长的时间，而应用程序界面又不能等到这些操作完成后再显示，所以要让界面各这些耗时的操作并行处理，用<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">多线程</a>可以解决这个问题。当然还有其它解决方案，比如用Service. 我们先作一个例子吧，大概是这样的：有一个列表，每行显示的一个图片，图片是存放在网上的。如果不用多线程，也是可以的，但是要等到所有图片下载完了才能展示出来。这种方式对用户体验很不友好，所以我们采用多线程的方式，对每一个图片开启一个<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">线程</a>，当其下载完数据后，在<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">主线程</a>中显示出来。 主<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">Activity</a> <code>public class TestListActivity extends ListActivity { private ImageListAdapter imageListAdapter = null; /** Called when the activity is first created. */ @Override public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.imagelist); String[] images = {&quot;http://image.baidu.com/image1.jpg&quot;,&quot;http://image.baidu.com/image2.jpg&quot;}; imageListAdapter = new ImageListAdapter(getApplicationContext(), images); setListAdapter(imageListAdapter); } }</code> 适配器 <code>import java.util.ArrayList; import java.util.List; import android.content.Context; import android.graphics.Bitmap; import android.os.Handler; import android.os.Message; import android.view.View; import android.view.ViewGroup; import android.widget.BaseAdapter; import android.widget.ImageView; import android.widget.TextView; public class ImageListAdapter extends BaseAdapter { private Context context; private String[] myImages = null; public ImageListAdapter(Context context, String[] myImages){ this.context = context; this.myImages = myImages; } @Override public int getCount() { if(myImages == null){ return 0; } return myImages.length; } @Override public String getItem(int position) { if(position &lt; 0 || myImages == null || position&gt;myImages.length){ return null; } return myImages[position]; } @Override public long getItemId(int position) { return position; } @Override public View getView(int position, View convertView, ViewGroup parent) { View item = null; if(convertView != null){ item = convertView; } else { item = View.inflate(context, R.layout.image_item, null); } final ImageView imageView = (ImageView)item.findViewById(R.id.image); final String image = getItem(position); if(image == null){ return item; } //对每个图片地址创建一个线程， **new Thread(){ public void run(){ Message msg = new Message(); msg.what = 0; //获得图片的Bitmap对象。getBitmap省略了，就是从网上通过http下载图片然后转化成一个Bitmap Bitmap bitmap = getBitmap(image); List list = new ArrayList();//将bitmap和imageView包装成一个List传到线程外 list.add(bitmap); list.add(imageView); msg.obj = list; handler.sendMessage(msg); } }.start();** return item; } private Handler handler = new Handler() { @Override public void handleMessage(Message msg) { switch (msg.what) { case 0://接到从线程内传来的图片bitmap和imageView. //这里只是将bitmap传到imageView中就行了。只所以不在线程中做是考虑到线程的安全性。 **List list = (List)msg.obj; Bitmap bitmap = (Bitmap)list.get(0); ImageView iv = (ImageView)list.get(1); iv.setImageBitmap(bitmap);** break; default: super.handleMessage(msg); } } }; }</code> 布局xml imagelist.xml image_item.xml 转载请标明出处：<a href="http://blog.3gstdy.com/" target="_blank" rel="noopener">3G Study</a> :<a href="http://blog.3gstdy.com/archives/27" target="_blank" rel="noopener">http://blog.3gstdy.com/archives/27</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/08/22/android-e5-a4-9a-e7-ba-bf-e7-a8-8b-ef-bc-8c-e8-ae-a9-e8-80-97-e6-97-b6-e7-9a-84-e6-93-8d-e4-bd-9c-e5-8e-bb-e5-90-8e-e5-8f-b0-e8-bf-90-e8-a1-8c-e5-90-a7/" data-id="cjo7bhic6001exf0fwi37u872" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-android-e6-a8-a1-e6-8b-9f-e5-99-a8-e8-bf-9e-e6-8e-a5-e6-9c-ac-e5-9c-b0-e6-9c-8d-e5-8a-a1-e5-99-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2010/08/21/android-e6-a8-a1-e6-8b-9f-e5-99-a8-e8-bf-9e-e6-8e-a5-e6-9c-ac-e5-9c-b0-e6-9c-8d-e5-8a-a1-e5-99-a8/" class="article-date">
@@ -144,7 +103,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/08/21/android-e6-a8-a1-e6-8b-9f-e5-99-a8-e8-bf-9e-e6-8e-a5-e6-9c-ac-e5-9c-b0-e6-9c-8d-e5-8a-a1-e5-99-a8/" data-id="cjo7bhicn001txf0fro03ijv7" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/08/21/android-e6-a8-a1-e6-8b-9f-e5-99-a8-e8-bf-9e-e6-8e-a5-e6-9c-ac-e5-9c-b0-e6-9c-8d-e5-8a-a1-e5-99-a8/" data-id="cjo7blsoy001t770fx1d4obl9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/08/20/e7-bb-99button-e5-8a-a0-e4-b8-aa-e7-9b-91-e5-90-ac/" data-id="cjo7bhifm005nxf0f1hrzgg2p" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/08/20/e7-bb-99button-e5-8a-a0-e4-b8-aa-e7-9b-91-e5-90-ac/" data-id="cjo7blsro005i770f8il0fp1b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2007/12/26/action-e4-b8-8d-e8-83-bd-e5-be-80jsp-e4-b8-ad-e4-bc-a0-e9-80-92-e6-95-b0-e6-8d-ae-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjo7bhibq000xxf0flf5vs05r" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2007/12/26/action-e4-b8-8d-e8-83-bd-e5-be-80jsp-e4-b8-ad-e4-bc-a0-e9-80-92-e6-95-b0-e6-8d-ae-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjo7blsnz000u770fa7cm0vrq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2007/10/13/linux-e7-b3-bb-e7-bb-9f-e4-b9-8b-e9-97-b4-e7-9a-84-e7-bd-91-e7-bb-9c-e6-96-87-e4-bb-b6-e5-85-b1-e4-ba-ab/" data-id="cjo7bhigq008gxf0fitt0en8c" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2007/10/13/linux-e7-b3-bb-e7-bb-9f-e4-b9-8b-e9-97-b4-e7-9a-84-e7-bd-91-e7-bb-9c-e6-96-87-e4-bb-b6-e5-85-b1-e4-ba-ab/" data-id="cjo7blsst008b770fv4b9gbti" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2007/09/27/e5-88-b7-e6-96-b0-e5-a4-ab-e7-aa-97-e5-8f-a3-e6-80-8e-e6-a0-b7-e6-89-8d-e8-83-bd-e4-b8-8d-e5-bc-b9-e5-87-ba-e9-87-8d-e8-af-95-e5-8f-96-e6-b6-88-e5-af-b9-e8-af-9d/" data-id="cjo7bhiet003wxf0fwvx6p85m" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2007/09/27/e5-88-b7-e6-96-b0-e5-a4-ab-e7-aa-97-e5-8f-a3-e6-80-8e-e6-a0-b7-e6-89-8d-e8-83-bd-e4-b8-8d-e5-bc-b9-e5-87-ba-e9-87-8d-e8-af-95-e5-8f-96-e6-b6-88-e5-af-b9-e8-af-9d/" data-id="cjo7blsqp003v770fj1uqyesc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -349,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2007/09/26/sql-server-e6-97-a0-e6-b3-95-e8-bf-9e-e6-8e-a5-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjo7bhiha009nxf0f0l5vhc6n" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2007/09/26/sql-server-e6-97-a0-e6-b3-95-e8-bf-9e-e6-8e-a5-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjo7blsth009l770fybrih358" class="article-share-link">Share</a>
       
       
     </footer>
@@ -390,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2007/09/13/sql-server-e4-b8-8d-e8-83-bd-e7-bb-91-e5-ae-9a-e7-ab-af-e5-8f-a3/" data-id="cjo7bhih7009gxf0f5ij8c2ud" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2007/09/13/sql-server-e4-b8-8d-e8-83-bd-e7-bb-91-e5-ae-9a-e7-ab-af-e5-8f-a3/" data-id="cjo7blste009f770f1ul7wusl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -457,10 +416,6 @@
       <ul>
         
           <li>
-            <a href="/2018/11/07/message-queue2/">message-queue2</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
@@ -473,7 +428,11 @@
           </li>
         
           <li>
-            <a href="/2018/11/07/message-queue/">消息队列</a>
+            <a href="/2018/11/07/message-queue2/">消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>
