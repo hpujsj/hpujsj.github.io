@@ -72,6 +72,211 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" class="article-date">
+  <time datetime="2012-02-08T03:16:36.000Z" itemprop="datePublished">2012-02-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/">如何使32位与64位的eclipse同时运行</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先，要安装两个java虚拟机32位的和64位的，分别供两个eclipse使用; 其次，分别在两个eclipse的配置文件eclipse.ini中指定各自使用的虚拟机，具体是在配置文件中增加如下：（注意：参数名称-vm与虚拟机路径在两行） -vm C:Program Files (x86)Javajre6bin 这样，两个eclipse能同时使用了。 另外说明一下eclipse寻找jre的优先顺序是： 1、eclipse.ini中的-vm参数所指定的虚拟机; 2、eclipse同目录下的jre; 3、系统环境变量中指定的jre;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" data-id="cjo7aghra004asv0f2yl5o7uf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" class="article-date">
+  <time datetime="2012-01-12T16:48:47.000Z" itemprop="datePublished">2012-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/">android: 不需要焦点的 TextView跑马灯 MarqueeTextView</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>public class MarqueeTextView extends TextView { public MarqueeTextView(Context appCon) { super(appCon); } public MarqueeTextView(Context context, AttributeSet attrs) { super(context, attrs); } public MarqueeTextView(Context context, AttributeSet attrs, int defStyle) { super(context, attrs, defStyle); } @Override public boolean isFocused() { return true; } @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) { } }</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" data-id="cjo7aghob0012sv0ft0f4q4fb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" class="article-date">
+  <time datetime="2012-01-12T16:34:33.000Z" itemprop="datePublished">2012-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/">android文字阴影效果</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近用到文字的阴影效果，特将研究结果写 篇文章。 关于android文字阴影，共有四个属性可以 设置： android:shadowColor ：阴影颜色 android:shadowDx ：阴影x方向位移 android:shadowDy ：阴影y方向位移 android:shadowRadius ：阴影的半径 注意：阴影的半径必须设，为0时没有效 果。 下面为改变x位移： android:shadowColor=”#ff000000” 两位为透明度） android:shadowDx=”2” android:shadowDy=”0” android:shadowRadius=”1” 效果（向右为正） 下面为改变y位移： android:textColor=”#979790” android:shadowColor=”#ff000000” android:shadowDx=”0” android:shadowDy=”2” android:shadowRadius=”1” 效果（向下为正） 下面改变半径： android:shadowDx=”1” android:shadowDy=”1” android:shadowRadius=”1” 阅</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" data-id="cjo7aghp7001rsv0fj9s2k7ow" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-sqlite3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-sqlite3/" class="article-date">
+  <time datetime="2011-12-22T08:45:37.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/22/android-sqlite3/">android SQLite3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLite库可以解析大部分标准SQL语言。但它也省去了一些特性 并且加入了一些自己的新特性。这篇文档就是试图描述那些SQLite支持/不支持的SQL语法的。查看关键字列表 。 如下语法表格中，纯文本用蓝色粗体显示。非终极符号为斜体红色。作为语法一部分的运算符用黑色Roman字体表示。 这篇文档只是对SQLite实现的SQL语法的综述，有所忽略。想要得到更详细的信息，参考源代码和语法文件“parse.y”。 SQLite执行如下的语法： ALTER TABLE ANALYZE ATTACH DATABASE BEGIN TRANSACTION 注释 COMMIT TRANSACTION COPY CREATE INDEX CREATE TABLE CREATE TRIGGER CREATE VIEW DELETE DETACH DATABASE DROP INDEX DROP TABLE DROP TRIGGER DROP VIEW END TRANSACTION EXPLAIN 表达式 INSERT ON CONFLICT子句 PRAGMA REINDEX REPLACE ROLLBACK TRANSACTION SELECT UPDATE VACUUM ALTER TABLE sql-statement ::= ALTER TABLE [ database-name . ] table-name alteration alteration ::= RENAME TO new-table-name alteration ::= ADD [COLUMN ] column-def SQLite版本的的ALTER TABLE命令允许用户重命名或添加新的字段到已有表中，不能从表中删除字段。 RENAME TO语法用于重命名表名[database-name.]table-name 到new-table-name 。这一命令不能用于在附加数据库之间移动表，只能在同一个数据库中对表进行重命名。 若需要重命名的表有触发器或索引，在重命名后它们依然属于该表。但若定义了视图，或触发器执行的语句中有提到 表的名字，则它们不会被自动改为使用新的表名。若要进行这一类的修改，则需手工撤销并使用新的表名重建触发器或视图。 ADD [COLUMN]语法用于在已有表中添加新的字段。新字段总是添加到已有字段列表的末尾。Column-def 可以是CREATE TABLE中允许出现的任何形式，且须符合如下限制： 字段不能有主键或唯一约束。 字段不能有这些缺省值：CURRENT_TIME, CURRENT_DATE或CURRENT_TIMESTAMP 若定义了NOT NULL约束，则字段必须有一个非空的缺省值。 ALTER TABLE语句的执行时间与表中的数据量无关，它在操作一个有一千万行的表时的运行时间与操作仅有一行的表时是一样的。 在对数据库运行ADD COLUMN之后，该数据库将无法由SQLite 3.1.3及更早版本读取，除非运行VACUUM 命令。 ANALYZE sql-statement ::= ANALYZE sql-statement ::= ANALYZE database-name sql-statement ::= ANALYZE [ database-name . ] table-name ANALYZE 命令令集合关于索引的统计信息并将它们储存在数据库的一个特殊表中，查询优化器可以用该表来制作更好的索引选择。若不给出参数，所有附加数据库中的所有索 引被分析。若参数给出数据库名，该数据库中的所有索引被分析。若给出表名 作参数，则只有关联该表的索引被分析。 最初的实现将所有的统计信息储存在一个名叫sqlite_stat1 的表中。未来的加强版本中可能会创建名字类似的其它表，只是把“1”改为其它数字。sqlite_stat1 表不能够被撤销 ，但其中的所有内容可以被删除 ，这是与撤销该表等效的行为。 ATTACH DATABASE ATTACH DATABASE语句将一个已存在的数据库添加到当前数据库连接。若文件名含标点符号，则应用引号引起来。数据库名’main’和’temp’代表主数据库和用于存放临时表的数据库，它们不能被拆分。拆分数据库使用DETACH DATABASE 语句。 你可以读写附加数据库，或改变其结构。这是SQLite 3.0提供的新特性。在SQLite 2.8中，改变附加数据库的结构是不允许的。 在附加数据库中添加一个与已有表同名的表是不允许的。但你可以附加带有与主数据库中的表同名的表的数据库。也可以多次附加同一数据库。 使 用database-name.table-name 来引用附加数据库中的表。若附加数据库中的表与主数据库的表不重名，则不需加数据库名作为前缀。当数据库被附加时，它的所有不重名的表成为该名字指向的缺 省表。之后附加的任意与之同名的表需要加前缀。若“缺省”表被拆分，则最后附加的同名表变为“缺省”表。 若主数据库不是 “:memory:”，多附加数据库的事务是原子的。若主数据库是“:memory:”则事务在每个独立文件中依然是原子的。但若主机在改变两个或更多数 据库的COMMIT语句进行时崩溃，则可能一部分文件被改变而其他的保持原样。附加数据库的原子性的提交 是SQLite 3.0的新特性。在SQLite 2.8中，所有附加数据库的提交类似于主数据库是“:memory:”时的情况。 对附加数据库的数目有编译时的限制，最多10个附加数据库。 BEGIN TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁 ，初次写入创建一个RESERVED锁。由于锁的获取被延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务 写入数据库。若事务是即时的，则执行BEGIN命令后立即获取RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程 能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 END TRANSACTION sql-statement ::= BEGIN [ DEFERRED | IMMEDIATE | EXCLUSIVE ] [TRANSACTION [ name ] ] sql-statement ::= END [TRANSACTION [ name ] ] sql-statement ::= COMMIT [TRANSACTION [ name ] ] sql-statement ::= ROLLBACK [TRANSACTION [ name ] ] 从2.0版开始，SQLite支持带有回退和原子性的提交的事务处理。 可选的事务名称会被忽略。SQLite目前不允许嵌套事务。 在事务之外，不能对数据库进行更改。如果当前没有有效的事务，任何修改数据库的命令（基本上除了SELECT以外的所有SQL命令）会自动启动一个事务。命令结束时，自动启动的事务会被提交。 可 以使用BEGIN命令手动启动事务。这样启动的事务会在下一条COMMIT或ROLLBACK命令之前一直有效。但若数据库关闭或出现错误且选用 ROLLBACK冲突判定算法时，数据库也会ROLLBACK。查看ON CONFLICT 子句获取更多关于ROLLBACK冲突判定算法的信息。 在SQLite 3.0.8或更高版本中，事务可以是延迟的，即时的或者独占的。“延迟的”即是说在数据库第一次被访问之前不获得锁。这样就会延迟事务，BEGIN语句本 身不做任何事情。直到初次读取或访问数据库时才获取锁。对数据库的初次读取创建一个SHARED锁，初次写入创建一个RESERVED锁。由于锁的获取被 延迟到第一次需要时，别的线程或进程可以在当前线程执行BEGIN语句之后创建另外的事务写入数据库。若事务是即时的，则执行BEGIN命令后立即获取 RESERVED锁，而不等数据库被使用。在执行BEGIN IMMEDIATE之后，你可以确保其它的线程或进程不能写入数据库或执行BEGIN IMMEDIATE或BEGIN EXCLUSIVE，但其它进程可以读取数据库。独占事务在所有的数据库获取EXCLUSIVE锁，在执行BEGIN EXCLUSIVE之后，你可以确保在当前事务结束前没有任何其它线程或进程能够读写数据库。 有关SHARED、RESERVED和EXCLUSIVE锁可以参见这里 。 SQLite 3.0.8的默认行为是创建延迟事务。SQLite 3.0.0到3.0.7中延迟事务是唯一可用的事务类型。SQLite 2.8或更早版本中，所有的事务都是独占的。 COMMIT命令在所有SQL命令完成之前并不作实际的提交工作。这样若两个或更多个SELECT语句在进程中间而执行COMMIT时，只有全部SELECT语句结束才进行提交。 执行COMMIT可能会返回SQLITE_BUSY错误代码。这就是说有另外一个线程或进程获取了数据库的读取锁，并阻止数据库被改变。当COMMIT获得该错误代码时，事务依然是活动的，并且在COMMIT可以在当前读取的线程读取结束后再次试图读取数据库。 注释 comment ::= SQL-comment | C-comment SQL-comment ::= – single-line C-comment ::= /<em> multiple-lines [</em> / ] 注释不是SQL命令，但会出现在SQL查询中。它们被解释器处理为空白部分。它们可以在任何空白可能存在的地方开始 ，即使是在跨越多行的表达式中。 SQL风格的注释仅对当前行有效。 C 风格的注释可以跨越多行。若没有结束符号，注释的范围将一直延伸到输入末尾，且不会引起报错。新的SQL语句可以从多行注释结束的地方开始。C风格注释可 以嵌入任何空白可以出现的地方，包括表达式内，或其他SQL语句中间， 并且C风格的注释不互相嵌套。SQL风格的注释出现在C风格注释中时将被忽略。 COPY sql-statement ::= COPY [ OR conflict-algorithm ] [ database-name . ] table-name FROM filename [ USING DELIMITERS delim ] COPY命令在SQLite 2.8及更早的版本中可用。SQLite 3.0删除了这一命令，因为在混合的UTF-8/16环境中对它进行支持是很复杂的。在3.0版本中，命令行解释器 包含新的.import 命令，用以替代COPY。 COPY 命令是用于将大量数据插入表的一个插件。它模仿PostgreSQL中的相同命令而来。事实上，SQLite的COPY 命令就是为了能够读取PostgreSQL的备份工具pg_dump 的输出从而能够将PostgreSQL的数据轻松转换到SQLite中而设计的。 table-name是将要导入数据的一个已存在的表的名字。filename是一个字符串或标识符，用于说明作为数据来源的文件。filename可以使用STDIN 从标准输入流中获取数据。 输入文件的每一行被转换成一条单独的记录导入表中。字段用制表符分开。若某个字段的数据中出现制表符，则前面被添加反斜线“/”符号。数据中的反斜线则被替换为两条反斜线。可选的USING DELIMITERS子句可给出一个与制表符不同 的分界符。 若字段由“/N”组成，则被赋以空值NULL。 使用这一命令时，利用可选的ON CONFLICT子句可以定义替代的约束冲突判定算法。更多信息，参见 ON CONFLICT 。 当输入数据源是STDIN，输入将终止于一行仅包含一个反斜线和一个点的输入：“/. ”。 CREATE INDEX sql-statement ::= CREATE [UNIQUE ] INDEX [IF NOT EXISTS ] [ database-name . ] index-name ON table-name ( column-name [, column-name ] * ) column-name ::= name [ COLLATE collation-name ] [ ASC | DESC ] CREATE INDEX命令由“CREATE INDEX”关键字后跟新索引的名字，关键字“ON”，待索引表的名字，以及括弧内的用于索引键的字段列表构成。每个字段名可以跟随“ASC”或 “DESC”关键字说明排序法则，但在当前版本中排序法则被忽略。排序总是按照上升序。 每个字段名后跟COLLATE子句定义文本记录的比较顺序。缺省的比较顺序</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjo7aghpz002csv0fgbrywpan" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" class="article-date">
+  <time datetime="2011-12-22T08:41:55.000Z" itemprop="datePublished">2011-12-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/">Android下的图形引擎</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、AngleAngle是一款专为Android平台设计的，敏捷且适合快速开发的2D游戏引擎，基于OpenGL ES技术开发。该引擎全部用Java代码编写，并且可以根据自己的需要替换里面的实现，缺陷在于文档不足，而且下载的代码中仅仅包含有少量的示例教程。 最低运行环境要求不详。 项目地址：code.google.com/p/angle/  2、Rokon rokon是一款Android 2D游戏引擎，基于OpenGL ES技术开发，物理引擎为Box2D，因此能够实现一些较为复杂的物理效果，该项目最新版本为 2.0.3 (09/07/10)。总体来说，此引擎最大的优点在于其开发文档相当之完备，并且项目作者对反馈Bug的修正非常之神速，所以该框架的使用在目前也最为 广泛，有人干脆将它称为Cocos2d-iPhone引擎的Android版（业务逻辑和编码风格上也确实很像）。附带一提，国内某个需要注册会员才能下 载的Android游戏框架衍生于此框架，所以大家也不要刻板的认为收费便一定是好的，免费就一定不好。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/rokon/ 3、LGame LGame是一款国人开发的Java游戏引擎，有Android及PC(J2SE)两个开发版本，目前最高版本同为0.2.6(31/07/10)。其底 层绘图器LGrpaphics封装有J2SE以及J2ME提供的全部Graphics API（PC版采用Graphics2D封装，Android版采用Canvas模拟实现），所以能够将J2SE或J2ME开发经验直接套用其中，两版本 间主要代码能够相互移植。Android版内置有Admob接口，可以不必配置XML直接硬编码Admob广告信息。 该引擎除了基本的音效、图形、物理、精灵等常用组件以外，也内置有Ioc、xml、http等常用Java组件的封装，代价是jar体积较为庞大，PC版 已突破1.2MB，Android版有所简化也在500KB左右。此外，该引擎还内置有按照1:1实现的J2ME精灵类及相关组件，可以将绝大多数 J2ME游戏平移到Android或PC版中。唯一遗憾的是，该项目作者是个极其懒惰的家伙，开发文档从去年说到今年依旧没有提供，只有游戏示例可供下 载。 最低运行环境要求为Android 1.1。 项目地址：code.google.com/p/loon-s… 4、AndEngine andengine同样是一款基于OpenGL ES技术的Android游戏引擎，物理引擎同样为Box2D（标配 ）。该框架性能普通，文档缺乏，但示例较为丰富。 最低运行环境要求不详。 项目地址（未直接提供jar下载，源码可通过svn提取）：code.google.com/p/andeng… 5、libgdx libgdx是一款基于OpenGL ES技术开发的Android游戏引擎，支持Android平台下的2D游戏开发，物理引擎采用Box2D实现。单就性能角度来说，堪称是一款非常强大的 Android游戏引擎，但缺陷在于精灵类等相关组件在使用上不够简化，而且文档也较为匮乏。 最低运行环境要求不详。 项目地址：code.google.com/p<img src="file:///C:/Users/wuliuhua/AppData/Local/Temp/%29A%5BY%29I%7E%5D%28ZC9Z%5B3Y%29IDK7LK.gif" alt="">bgdx/ 6、jPCT jPCT是一款基于OpenGL技术开发的3D图形引擎(PC环境为标准OpenGL，Android为OpenGL ES)， 以Java语言为基础的，拥有功能强大的Java 3D解决方案。该引擎与LGame（此为2D游戏引擎）相类似，目前拥有PC(J2SE)以及Android两个开发版本。 jPCT的最大优势之一，就在于它惊人的向下兼容性。在PC环境中，jPCT甚至可以运行在JVM1.1环境之中，因为jPCT内部提供的图形渲染接口完 全符合所有的Java 1.1规范（就连已经消失的Microsoft VM乃至更古老的Netscape 4 VM也不例外）。 最低运行环境要求为Android 1.5。 项目地址：<a href="http://www.jpct.net/jpct-ae/" target="_blank" rel="noopener">http://www.jpct.net/jpct-ae/</a> 7、Alien3d Alien3d是一款体积非常之小的Android 3D游戏引擎，基于OpenGL ES技术开发。为了压缩体积，它根据不同功能采用多jar方式发布（包括alien3d-engine.jar，alien3d- tiled.jar，alien3d-sprites.jar，alien3d-shapes.jar，alien3d- particles2d.jar，），事实上它的核心文件大约只有40KB，所有相关jar的总和也不足150KB。 最低运行环境要求为Android 1.5。 项目地址：code.google.com/p/alien3d/ 8、Catcake Catcake是一款跨平台的Java 3D图形引擎，目前支持PC(J2SE)及Android环境运行（已有iPhone版规划）。该引擎在易用性和运行性能上皆有出色的表现，支持常见的游戏开发功能，诸如精灵动画，音频处理和视频播放等。 最低运行环境要求为Android 1.6。 项目地址：code.google.com/p/catcake/</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjo7agho8000zsv0f2kien4tk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" class="article-date">
@@ -103,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjo79jtxh003h450fdcjob03n" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjo7aghqx003hsv0fsws3y0qv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" data-id="cjo79jtym005v450f18kncv0c" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" data-id="cjo7aghs5005wsv0fs668vdj8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -837,7 +1042,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjo79jtv10014450flf4ldef6" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjo7aghod0014sv0f5m61isrv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -878,7 +1083,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/11/26/e9-ab-98-e7-89-88-e6-9c-acapk-e8-bf-90-e8-a1-8c-e5-9c-a8android-1-5-e4-b8-8a-e5-87-ba-e7-8e-b0-e7-9a-84-e9-97-ae-e9-a2-98-e5-8f-8a-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjo79jtyt006h450fhhb2pyan" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/11/26/e9-ab-98-e7-89-88-e6-9c-acapk-e8-bf-90-e8-a1-8c-e5-9c-a8android-1-5-e4-b8-8a-e5-87-ba-e7-8e-b0-e7-9a-84-e9-97-ae-e9-a2-98-e5-8f-8a-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjo7aghsd006isv0fji9ok4eg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -920,212 +1125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" data-id="cjo79jtyo0060450f05hmopoa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e9-bb-84-e8-8b-b9-e6-9e-9c" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/" class="article-date">
-  <time datetime="2011-09-17T08:17:50.000Z" itemprop="datePublished">2011-09-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活/">生活</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/">苹果树</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/wp-content/uploads/2012/12/2ed10432cbda52693e3105f6c0d77d16.jpg" alt="" title="1"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/97d8fdd30422638cac1d4748e773e484.jpg" alt="" title="2"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/8144db4e0061e787b5c9763beb8b5f7e.jpg" alt="" title="3"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/a69fafa167438cc643e2545b3b635cd3.jpg" alt="" title="4"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c912a7a16e416a5a11c1bd0041205337.jpg" alt="" title="5"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ae232157e7228afde0a96f1b41b4a2ac.jpg" alt="" title="6"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6de6fc3a07726afa3b9e8fcb7e6f7f98.jpg" alt="" title="7"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/12568fced2c624a013a56a63429742e5.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/712510766b23a5d8e7cab592e61db793.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2ef04acf7eec1604c46a956d17c9a7cc.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6438168af4f25df3e44710a21fd0cb31.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f7c0d82de26e558013006e8be7fe6f28.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/abb7c4e190cf4f081baafe9662ca5f7b.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/8d46d52936f37c733a7f9bcf16eb6c32.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/902d01987fd64292743a7250a773d525.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/43183818a5b49b042758cc72061b8616.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/3899fdd9b0ca8fd5b19672807906bb18.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2e0fd241653bfba8c3d17ba368c622d5.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f6df29e2cf4afc32e7b1f5dcfb7c204c.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/763fa6248b063cfd2170110e956be113.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/1596e89a458e44c0265f0ca3278e67c5.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/553f74b1299e5b3badc6cc92343c8e20.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/0188a322f33b8029fe6422d7f4cddbe7.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/3b48197f5ea6347540bfacf9b61f7a0b.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/86962af627c740439e33675a9444ce7d.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/65fe5862e7b828af68d89e94015cd023.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/1509f27200eef7f01d2d8f1f6cffef29.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/14c08495b9830eb4df2359916565fd00.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/4b6348a1a0d0884a7c8b6fa174720a10.jpg" alt="" title="29"> <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b13a1145b4487b75be7665ca8e22a41c.jpg" alt="" title="29"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/" data-id="cjo79jtyv006n450fysqotqsz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" class="article-date">
-  <time datetime="2011-09-14T11:25:34.000Z" itemprop="datePublished">2011-09-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/">2007年的学习计划</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2007年的学习计划 1、系统学习oracle，熟悉oracle的基本概念，安全性，达到熟练数据库的创建，开启，关闭，备份，恢复，管理日志，创建管理模式对象。 2、学习structs hibernete,spring.达到能创建简单的工程待以后工作中应用再提高。如果时间充裕可以理解这些框架的工作机理。 3、学习工作流，能设计实现简单的工作流。 4、学习xml的相关知识。熟悉xml的基本语法。掌握如何使用java dom读写一个xml文件。// 5、系统学习tomcat的server.xml配置。如：端口，性能优化，集群配置。 6、学习双机配置的相关知识。如果由模拟器的话最好能够创建一个双机。 7、系统学习weblogic的相关知识。 8、学习linux的相关知识。达到熟练应用该操作系统的基本操作的地步。安装系统，安装运行卸载应用程序，启动关闭服务， 9、学习Websphere,能熟练安装该软件，并能掌握基本的操作，如发布web应用，开启，关闭服务，配置数据源等。 10、学习java的反射机制。 11、学习数据库的设计知识。 12、系统学习eclipse的功能，如调试功能，各个视图的功能，如何安装插件，以及插件是如何工作的。以便今后工作中快速开放项目。达到熟练应用的程度。 13、系统学习javascript，css，ajax的知识。 14、学习java mail邮件 15、学习lotus的基本知识。能大概理解lotus的工作方式，以及domino数据库的工作方式，和传统数据库的区别。 16、学习lunce的开放包，熟悉主要的类的功能。 17、学习常用技术文档的基本格式，编写方法。 18、学习jsp中标签的应用方法，基本工作原理。 19、学习java窗口程序的开发方法。能创建基本的窗口程序。 20、学习报表的相关知识。（jreport） 21、学习java编程模式的知识。 22、学习jsp中的7大对象的知识，掌握各个对象的基本用法。和Bean在jsp页面中的应用。 23、学习ant工具的使用方法及其在实际应用中的作用。 24、了解ejb的工作原理。 25、Web Services-跨语言的通讯平台 26、软件工程与项目监控 27、项目进度</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" data-id="cjo79jtul000o450fc2s6ywwt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" class="article-date">
-  <time datetime="2011-09-14T11:22:43.000Z" itemprop="datePublished">2011-09-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/">两个SQL语句,性能相差如此大</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用Hibernate开发的应用,使用是Oracle10g,使用的方言是org.hibernate.dialect.OracleDialect ﻿数据到达360W的时候，分页查询比较慢，达到10S多，分析了自动生成的SQL，发现SQL格式如下： SELECT <em> FROM (SELECT row_.</em>, ROWNUM rownum_ FROM (SELECT users.id,users.name FROM my.users users0_) row_) WHERE rownum_ &lt;= 100 AND rownum_ &gt; 10 将方言改为org.hibernate.dialect.Oracle10gDi生成的SQL是 SELECT <em> FROM (SELECT row_.</em>, ROWNUM rownum_ FROM (SELECT users.id,users.name FROM my.users users0_) row_ where rownum &lt;= 100 ) WHERE rownum_ &gt; 10。 速度很快。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" data-id="cjo79jtxc0036450fs7xyb1fq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/09/14/e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83/" class="article-date">
-  <time datetime="2011-09-14T11:17:36.000Z" itemprop="datePublished">2011-09-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/09/14/e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83/">页面设计中的几个规范</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、高级查询与简单查询：如是列表中存在高级查询和简单查询时，简单查询一般只用一个文本框,以突出其简单快速的特性；高级查询应该采用链接的形式，以表明要转到另外一个页面,如baidu中的“高级”链接,google中的” 高级搜索”链接。 2、按钮的使用：系统中一般如果存在与数据库交互的应该使用按钮，如增加，修改，删除等。对于页面的跳转一般采用链接的形式。如转到增加页面。转修改页面等； 3、系统分析设计中尽量少用或不用“信息”，“管理”等字样，这些词一般概括性较强，但不具体，不适合用于这些场合 4、用例的名称一般采用动词+名词的形式命名</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83/" data-id="cjo79jtyr006a450f7b55hzyy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/09/13/tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8/" class="article-date">
-  <time datetime="2011-09-13T12:29:34.000Z" itemprop="datePublished">2011-09-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/09/13/tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8/">tomcat启动时报No Default web.xml异常</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>启动tomcat时一切貌似正常，但是就是不能访问应用。仔细查看catalina.out 发现No Default web.xml。在conf下查看，果然没有web.xml。复制一个web.xml再启动就好了，还不清楚为什么web.xml没有了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/13/tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8/" data-id="cjo79ju06009p450fbesa2d4a" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" data-id="cjo7aghs80064sv0f2kmkmmuz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1192,23 +1192,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+            <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+            <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+            <a href="/2018/11/07/java-io/">java-io</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+            <a href="/2018/11/07/message-queue/">消息队列</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

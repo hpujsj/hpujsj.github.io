@@ -72,6 +72,252 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" class="article-date">
+  <time datetime="2010-11-20T22:15:54.000Z" itemprop="datePublished">2010-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/">Android中的Intent和Intent-fliter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用程序的组件为了告诉Android自己能响应、处理哪些隐式Intent请求，可以声明一个甚至多个Intent Filter。每个Intent Filter描述该组件所能响应Intent请求的能力——组件希望接收什么类型的请求行为，什么类型的请求数据。比如之前请求网页浏览器这个例子中，网 页浏览器程序的Intent Filter就应该声明它所希望接收的Intent Action是WEB_SEARCH_ACTION，以及与之相关的请求数据是网页地址URI格式。如何为组件声明自己的Intent Filter? 常见的方法是在AndroidManifest.xml文件中用属性<intent-filter>描述组件的Intent Filter。 前面我们提到，隐式Intent（<strong>Explicit Intents</strong>）和Intent Filter（<strong>Implicit Intents</strong>）进行比较时的三要素是Intent的动作、数据以及类别。实际上，一个隐式Intent请求要能够传递给目标组件，必要通过这三个方面的检查。如果任何一方面不匹配，Android都不会将该隐式Intent传递给目标组件。接下来我们讲解这三方面检查的具体规则。</intent-filter></p>
+<h3 id="1．动作测试"><a href="#1．动作测试" class="headerlink" title="1．动作测试"></a>1．动作测试</h3><p><intent-filter>元素中可以包括子元素<action>，比如： <intent-filter> <action android:name="”com.example.project.SHOW\_CURRENT”"> <action android:name="”com.example.project.SHOW\_RECENT”"> <action android:name="”com.example.project.SHOW_PENDING”"> </action></action></action></intent-filter> 一条<intent-filter>元素至少应该包含一个<action>，否则任何Intent请求都不能和 该<intent-filter>匹配。如果Intent请求的Action和<intent-filter>中个某一 条<action>匹配，那么该Intent就通过了这条<intent-filter>的动作测试。如果Intent请求 或<intent-filter>中没有说明具体的Action类型，那么会出现下面两种情况。 (1) 如果<intent-filter>中没有包含任何Action类型，那么无论什么Intent请求都无法和这条<intent-filter>匹配； (2) 反之，如果Intent请求中没有设定Action类型，那么只要<intent-filter>中包含有Action类型，这个Intent请求就将顺利地通过<intent-filter>的行为测试。</intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></intent-filter></action></intent-filter></intent-filter></action></intent-filter></action></intent-filter></p>
+<h3 id="2．类别测试"><a href="#2．类别测试" class="headerlink" title="2．类别测试"></a>2．类别测试</h3><p><intent-filter>元素可以包含<category>子元素，比如： <intent-filter .=""> <category android:name="”android.Intent.Category.DEFAULT”"> <category android:name="”android.Intent.Category.BROWSABLE”"> </category></category></intent-filter> 只有当Intent请求中所有的Category与组件中某一个IntentFilter的<category>完全匹配时，才会让该 Intent请求通过测试，IntentFilter中多余的<category>声明并不会导致匹配失败。一个没有指定任何类别测试的 IntentFilter仅仅只会匹配没有设置类别的Intent请求。</category></category></category></intent-filter></p>
+<h3 id="3．数据测试"><a href="#3．数据测试" class="headerlink" title="3．数据测试"></a>3．数据测试</h3><p>数据在<intent-filter>中的描述如下： <intent-filter .=""> &lt;data android:type=”video/mpeg” android:scheme=”http” . . . /&gt; &lt;data android:type=”audio/mpeg” android:scheme=”http” . . . /&gt; </intent-filter> <data>元素指定了希望接受的Intent请求的数据URI和数据类型，URI被分成三部分来进行匹配：scheme、 authority和path。其中，用setData()设定的Inteat请求的URI数据类型和scheme必须与IntentFilter中所指 定的一致。若IntentFilter中还指定了authority或path，它们也需要相匹配才会通过测试。</data></intent-filter></p>
+<h3 id="4-简单例子说明"><a href="#4-简单例子说明" class="headerlink" title="4.简单例子说明"></a>4.简单例子说明</h3><p>讲解完Intent基本概念之后，接下来我们就使用Intent激活Android自带的电话拨号程序，通过这个实例你会发现，使用Intent并不像其概念描述得那样难。最终创建Intent的代码如下所示。 <strong>Intent i = new Intent(Intent.ACTION_DIAL,Uri.parse(“tel://13800138000″));</strong> 创建好Intent之后，你就可以通过它告诉Android希望启动新的Activity了。 <strong>startActivity(i);</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/21/android-e4-b8-ad-e7-9a-84intent-e5-92-8cintent-fliter/" data-id="cjo7aghoe0016sv0fe746pn9z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" class="article-date">
+  <time datetime="2010-11-19T17:13:23.000Z" itemprop="datePublished">2010-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/">常用的Intent的URI及示例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是常用到的Intent的URI及其示例，包含了大部分应用中用到的共用Intent。 一、打开一个网页，类别是Intent.ACTION_VIEW Uri uri = Uri.parse(“<a href="http://blog.3gstdy.com/&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com/&quot;)</a>; Intent intent = new Intent(Intent.ACTION_VIEW, uri); 二、打开地图并定位到一个点 Uri uri = Uri.parse(“geo:52.76,-79.0342”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); 三、打开拨号界面 ,类型是Intent.ACTION_DIAL Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_DIAL, uri); 四、直接拨打电话,与三不同的是，这个直接拨打电话，而不是打开拨号界面 Uri uri = Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_CALL, uri); 五、卸载一个应用，Intent的类别是Intent.ACTION_DELETE Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_DELETE, uri); 六、安装应用程序,Intent的类别是Intent.ACTION_PACKAGE_ADDED Uri uri = Uri.fromParts(“package”, “xxx”, null); Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED, uri); 七、播放音频文件 Uri uri = Uri.parse(“file:///sdcard/download/everything.mp3”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.setType(“audio/mp3”); 八、打开发邮件界面 Uri uri= Uri.parse(“mailto:<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); 九、发邮件,与八不同这里是将邮件发送出去， Intent intent = new Intent(Intent.ACTION_SEND); String[] tos = { “<a href="mailto:admin@3gstdy.com" target="_blank" rel="noopener">admin@3gstdy.com</a>“ }; String[] ccs = { “<a href="mailto:webmaster@3gstdy.com" target="_blank" rel="noopener">webmaster@3gstdy.com</a>“ }; intent.putExtra(Intent.EXTRA_EMAIL, tos); intent.putExtra(Intent.EXTRA_CC, ccs); intent.putExtra(Intent.EXTRA_TEXT, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_SUBJECT, “<a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“message/rfc882”); Intent.createChooser(intent, “Choose Email Client”); //发送带附件的邮件 Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(Intent.EXTRA_SUBJECT, “The email subject text”); intent.putExtra(Intent.EXTRA_STREAM, “file:///sdcard/mysong.mp3”); intent.setType(“audio/mp3”); startActivity(Intent.createChooser(intent, “Choose Email Client”)); 十、发短信 Uri uri= Uri.parse(“tel:10086”); Intent intent = new Intent(Intent.ACTION_VIEW, uri); intent.putExtra(“sms_body”, “I come from <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.setType(“vnd.android-dir/mms-sms”); 十一、直接发邮件 Uri uri= Uri.parse(“smsto://100861”); Intent intent = new Intent(Intent.ACTION_SENDTO, uri); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; 十二、发彩信 Uri uri= Uri.parse(“content://media/external/images/media/23”); Intent intent = new Intent(Intent.ACTION_SEND); intent.putExtra(“sms_body”, “3g android <a href="http://blog.3gstdy.com&quot;)" target="_blank" rel="noopener">http://blog.3gstdy.com&quot;)</a>; intent.putExtra(Intent.EXTRA_STREAM, uri); intent.setType(“image/png”); 十三、# Market 相关 1 //寻找某个应用 Uri uri = Uri.parse(“market://search?q=pname:pkg_name”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where pkg_name is the full package path for an application 2 //显示某个应用的相关信息 Uri uri = Uri.parse(“market://details?id=app_id”); Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where app_id is the application ID, find the ID //by clicking on your application on Market home //page, and notice the ID from the address bar 十四、路径规划 Uri uri = Uri.parse(“<a href="http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)" target="_blank" rel="noopener">http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;)</a>; Intent it = new Intent(Intent.ACTION_VIEW, uri); startActivity(it); //where startLat, startLng, endLat, endLng are a long with 6 decimals like: 50.123456</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/20/e5-b8-b8-e7-94-a8-e7-9a-84intent-e7-9a-84uri/" data-id="cjo7aghre004esv0ftcvfbbei" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" class="article-date">
+  <time datetime="2010-11-18T23:33:21.000Z" itemprop="datePublished">2010-11-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/生活/">生活</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/">火灾自救逃生15法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大火来了别忙跑 护身法宝不可少 毛巾捂鼻法：浓烟和热浪是火灾中危害最严重的因素，火灾中多数人是因为烟熏或烟气中毒而死。因此疏散中应用湿毛巾捂住口鼻，以起到降温和过滤的作用。 棉被护身法：受到火灾威胁无法很快逃生时，应当机立断用浸湿的棉被、毛毯、棉大衣盖在身上，确定逃生路线后用最快的速度通过火场到达安全区域，但千万不可将塑料雨衣用作保护物。 逃生有道不慌乱 逆风匍匐好经验 逆风疏散法：逃生过程中要注意根据风向来确定疏散方向，为躲避火焰和烟气，应当朝着火场上风处逃生。这样也可获得更多的逃生时间。 匍匐前进法：由于火灾发生时烟气大多聚集在上部空间，因此在逃生过程中，应尽量将身体贴近地面匍匐或弯腰前进。 救命绳索家常备 成功自救不拖累 绳索自救法：当房间外面已被大火封住，无法从大门逃出去时，家中有绳索的，可直接将其一端拴在门、窗框或重物上顺绳爬下。在此过程中要注意手脚并用，脚成绞状夹紧绳子，双手交替一上一下往下爬，并尽量用手套、毛巾将手保护好，防止顺势滑下时脱手或将手磨伤。 被单拧结法：家里没有备用绳索时，可把床单、被罩和窗帘等撕成条并拧成麻花状，如果长度不够可将数条床单、被罩等连接在一起，按绳索逃生的方法沿外墙爬下。但要确定将床单、被罩等扎紧扎实，避免其断裂或结头脱落。 艺高胆大蜘蛛侠 顺竿滑下甭害怕 管线下滑法：当建筑物外墙或阳台上有漏水管、电线杆、避雷针引线等竖直管线时，可借助其下滑至地面。同时应注意一次下滑的人数不宜过多，以防止逃生途中因管线损坏而致人坠落。 竹竿插地法：被火困在房间时，可将结实的竹竿、晾衣竿直接从阳台或窗台斜插到室外地面或下一层平台，固定好后顺竿滑下。 想方设法快转移 奔向安全新阵地 搭桥过渡法：高层居民可在阳台、窗户、屋顶平台处用木板、竹竿等较坚固的物体搭架到相邻单元或相邻建筑上，以此作为跳板过渡到相对安全的区域。　 楼梯转移法：当火势自下而上迅速蔓延而将楼梯封死时，住在上部楼层的居民可通过老虎窗、天窗等迅速爬到屋顶，转移到另一人家或另一单元的楼梯进行疏散。 隔火绝热防烟侵 放水降温泡浴盆 毛毯隔火法：室外起火时，如发现门已发烫，千万不要开门，以防止火势窜入房间。可将毛毯等织物钉或夹在门上，并不断往上浇水冷却，防止外部火焰及烟气侵入，从而达到抑制火势蔓延速度、延长逃生时间的目的。 卫生间避难法：如果所有的逃生路线都被封闭，可利用卫生间进行避难，用毛巾紧塞门缝，把水泼在地下降温，也可躺在放满水的浴缸里躲避。但千万不可钻到床底、阁楼、衣橱等处避难，因为这些地方可燃物多，且容易聚集烟气。 攀爬避火靠毅力 谨慎跳楼真勇气 攀爬避火法：室内着火无法从大门逃生时，可以攀爬到阳台、窗台的脚手架、雨篷等突出物上以躲避火势。 跳楼求生法：火场上切勿轻易跳楼！在万不得已的情况下，住在低楼层的居民可采取跳楼的方法进行逃生。但首先要根据周围地形选择高度差较小的地面作为落地点，然后将席梦思床垫、沙发垫、厚棉被等抛下做缓冲物，并使身体重心尽量放低，做好准备以后再跳。 成功求救躲劫难 痛定思痛胜涅磐 火场求救法：如果所有的逃生路线都被大火封锁，要立即退回室内等待救援。这时，应在窗口、阳台或屋顶处向外大声呼叫、敲击金属物品或投掷软物品，白天应挥动鲜艳布条发出求救信号，晚上可挥动手电筒或白布引起救援人员的注意。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/19/e7-81-ab-e7-81-be-e8-87-aa-e6-95-91-e9-80-83-e7-94-9f15-e6-b3-95/" data-id="cjo7aghrs0053sv0fl303ycxr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" class="article-date">
+  <time datetime="2010-11-16T16:20:23.000Z" itemprop="datePublished">2010-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/">40 位改变了互联网的人（上）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>互联网让世界紧密连接在一起，Web 改变了我们的阅读，沟通，娱乐，购物，社交，以及经商的习惯，社会网络甚至让我们找回了儿时的玩伴。互联网的历史伴随着各种伟大的想法以及对这些想法的实现，而它们的背后，是一些曾经、正在或将要改变互联网的人。这是本文的第一部分。</p>
+<h2 id="Vint-Cerf-与-Bob-Kahn-互联网之父"><a href="#Vint-Cerf-与-Bob-Kahn-互联网之父" class="headerlink" title="Vint Cerf 与 Bob Kahn - 互联网之父"></a>Vint Cerf 与 Bob Kahn - 互联网之父</h2><p>互联网之父 <a href="http://en.wikipedia.org/wiki/Vint_Cerf" target="_blank" rel="noopener">Vint Cerf</a> （1943年6月23日生于美国，犹太人）与 <a href="http://en.wikipedia.org/wiki/Bob_Kahn" target="_blank" rel="noopener">Bob Kahn</a> （1938年12月23日生于美国，犹太人）创建了 TCP/IP 通信协议，有了它，全球的计算机可以相互交流。Vint Cerf 曾经说过，互联网是人类的写照，垃圾邮件时这个免费服务的副产品之一。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c4ef9bc42b67e2a71a6ad78124f9a331.jpg" alt=""> TCP/IP设计者，左为Bob Kahn，右为Vint Cert</p>
+<h2 id="Tim-Berners-Lee-Web-之父"><a href="#Tim-Berners-Lee-Web-之父" class="headerlink" title="Tim Berners-Lee - Web 之父"></a>Tim Berners-Lee - Web 之父</h2><p><a href="http://en.wikipedia.org/wiki/Tim_Berners-Lee" target="_blank" rel="noopener">Tim Berners-Lee</a> （1955年6月8日生于英国）发明了 Web，他编写了第一个 Web 浏览器和服务器，并设计了一种在网络信息的不同部分之间创建链接即超文本的方法，他目前作为 W3C 的负责人在维护 Web 标准，并继续改进他的伟大发明。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/674e2f1523373db494c118cbf5b324b4.jpg" alt=""></p>
+<h2 id="Ray-Tomlinson-Email-之父"><a href="#Ray-Tomlinson-Email-之父" class="headerlink" title="Ray Tomlinson - Email 之父"></a>Ray Tomlinson - Email 之父</h2><p>电子邮件之父 <a href="http://en.wikipedia.org/wiki/Ray_Tomlinson" target="_blank" rel="noopener">Ray Tomlinson</a> （1941年生于美国纽约州）是一位程序员，他的努力使全球不同地方的人可以相互通信，他无意中选用了 @ 作为电子邮件地址的标志，如今，全球每天有超过 10 亿人在键盘上敲这个字符。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/7a776a4c5174e7948b45e46c6653936d.jpg" alt=""></p>
+<h2 id="Michael-Hart-电子书之父"><a href="#Michael-Hart-电子书之父" class="headerlink" title="Michael Hart - 电子书之父"></a>Michael Hart - 电子书之父</h2><p><a href="http://en.wikipedia.org/wiki/Michael_S._Hart" target="_blank" rel="noopener">Michael Hart</a> （1943年3月8日生于美国）推动了电子书的诞生，打破了知识的障碍，他创办了一个叫做 Gutenberg 的项目，这个世界上最早的电子图书馆改变了我们的阅读习惯，藏书包括公有版权图书以及有明确授权许可的图书。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/48ba7bd6b8c925267a78dd574d9ca4e3.jpg" alt=""></p>
+<h2 id="Gary-Thuerk-垃圾邮件之父"><a href="#Gary-Thuerk-垃圾邮件之父" class="headerlink" title="Gary Thuerk - 垃圾邮件之父"></a>Gary Thuerk - 垃圾邮件之父</h2><p>垃圾邮件是一种颇有些年头的营销技术，1978年，<a href="http://en.wikipedia.org/wiki/Gary_Thuerk" target="_blank" rel="noopener">Gary Thuerk</a> 曾通过 ARPANET 向他的客户群发了一封推销 DEC 公司最新 T系列 VAX 系统的邮件，他不曾料到的是，这是世界上第一封垃圾邮件。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/282ed89dc586a77738350e95e546593b.jpg" alt=""></p>
+<h2 id="Scott-Fahlman-笑脸符之父"><a href="#Scott-Fahlman-笑脸符之父" class="headerlink" title="Scott Fahlman - 笑脸符之父"></a>Scott Fahlman - 笑脸符之父</h2><p><a href="http://en.wikipedia.org/wiki/Scott_Fahlman" target="_blank" rel="noopener">Scott Fahlman</a>（1948年3月21日生于美国）首次使用 :-) ASCII 符号表示笑脸，希望借此在消息中活跃气氛，如今，所有人都在即时消息，聊天以及电子邮件中使用这个符号。参阅：<a href="http://www.comsharp.com/GetKnowledge/zh-CN/TeamBlogTimothyPage_K532.aspx" target="_blank" rel="noopener">当 Web 表情走入现实</a>。此外，他也是一位富有成就的计算机科学家，在语义网络、神经网络、Lisp语言等方面作出了贡献。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/7d2cb583a5c069b99228bbdaf0ea8bf0.jpg" alt=""></p>
+<h2 id="Marc-Andreessen-Netscape-浏览器之父"><a href="#Marc-Andreessen-Netscape-浏览器之父" class="headerlink" title="Marc Andreessen - Netscape 浏览器之父"></a>Marc Andreessen - Netscape 浏览器之父</h2><p><a href="http://en.wikipedia.org/wiki/Marc_Andreessen" target="_blank" rel="noopener">Marc Andreessen</a> （1971 年7月10日生于美国）带来了互联网浏览革命，他设计了第一款被广泛使用的浏览器——Mosaic。Mosaic 后来商业化运营成为 Netscape Navigator，1999年被AOL以42亿美元收购。此后他与人创办了Opsware公司，主要开发服务器和网络设备的管理软件，2007年被HP 以16亿美元收购。Marc Andreessen 还是社会化网络平台 Ning 的联合创始人，并投资了一系列知名的互联网创业项目，包括 Digg，Plazes 以及 Twitter。他是硅谷最有影响力的人物，是HP、eBay、Facebook等多家公司的董事。最近他与Ben Horowitz共同创办的投资公司颇受瞩目，第一个投资项目是社会化浏览器<a href="http://cloud.csdn.net/a/20101108/281535.html" target="_blank" rel="noopener">RockMelt</a>。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/a1ef2cc31ec7383713839e0f13355cc7.jpg" alt=""></p>
+<h2 id="Jarkko-Oikarinen-IRC-聊天之父"><a href="#Jarkko-Oikarinen-IRC-聊天之父" class="headerlink" title="Jarkko Oikarinen - IRC 聊天之父"></a>Jarkko Oikarinen - IRC 聊天之父</h2><p><a href="http://en.wikipedia.org/wiki/Jarkko_Oikarinen" target="_blank" rel="noopener">Jarkko Oikarinen</a> （1967 年8月16日生于芬兰）1988年开发了第一个在线聊天工具，IRC。IRC 在 1991 年伊拉克入侵科威特时声名远扬，当时，电视和广播信号都被切断，是 IRC 使最新的消息得以传播。Oikarinen在硕士和博士阶段主要从事计算机图形学和医疗成像方面的研究。后先后担任了几家移动开发公司的研发负责人。目前 在诺基亚工作。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/cea3bc1d8e7ea828f4599092022d4acb.gif" alt=""></p>
+<h2 id="Robert-Tappan-Morris-蠕虫病毒之父"><a href="#Robert-Tappan-Morris-蠕虫病毒之父" class="headerlink" title="Robert Tappan Morris - 蠕虫病毒之父"></a>Robert Tappan Morris - 蠕虫病毒之父</h2><p>蠕虫病毒和黑客不同，后者是亲自入侵，而蠕虫病毒则借助一段代码完成入侵任务。1988年，<a href="http://en.wikipedia.org/wiki/Robert_Tappan_Morris" target="_blank" rel="noopener">Robert Tappan Morris</a>（1965 年11月8日生于美国）在康奈尔大学读研究生时无意中编写了 Morris 蠕虫病毒，通过互联网迅速扩散，并带来了巨大损失（现在看其实也不大，有个统计数字，高限时53万美元）。而他的原意只是写一个测量互联网大小的程序，可 是很多网络管理员不配合，数字老是不准，于是他就把程序设计成可以自我复制……他自己也付出了代价，成为第一个以违反《美国计算机欺诈和滥用法》被起诉的 人。1990年被判有罪，缓刑三年，从事社区服务工作400个小时，并处罚金。 1995年他与著名程序员Paul Graham一起用Lisp编写了第一个互联网商店软件Viaweb，后以4800万美元卖给Yahoo。1999年他获得哈佛大学博士，现在是MIT教 授。他与Paul Graham还合办了知名的创业投资公司Y Combinator，并开发了Lisp方言Arc。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2e7af8587b7a8c225a4b90193484663b.jpg" alt=""></p>
+<h2 id="David-Bohnett-Geocities-创始人"><a href="#David-Bohnett-Geocities-创始人" class="headerlink" title="David Bohnett - Geocities 创始人"></a>David Bohnett - <strong>Geocities 创始人</strong></h2><p><a href="http://en.wikipedia.org/wiki/David_Bohnett" target="_blank" rel="noopener">David Bohnett</a>（1956年4月2日生于美国） 1994 年和 John Rezner 一起创办了 GeoCities，成为当时互联网上最大的社区，是最早为网民提供免费网页空间的服务商。2009年10月27日，SeoCities 倒闭。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/469428318d49cf999d70cfe639ab099e.jpg" alt=""></p>
+<h2 id="Ward-Cunningham-维基之父"><a href="#Ward-Cunningham-维基之父" class="headerlink" title="Ward Cunningham - 维基之父"></a>Ward Cunningham - 维基之父</h2><p>美国程序员 <a href="http://en.wikipedia.org/wiki/Ward_Cunningham" target="_blank" rel="noopener">Ward Cunningham</a> （1949年5月26日生于美国）开发了第一个维基系统，供人们协同创建和编辑在线内容。Wiki 的名字出自夏威夷语“快速”。他也是设计模式、重构、极限编程、CRC等编程实践与方法的先驱。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/0f0c7a6600aed8cab5993f8c24343afa.jpg" alt=""></p>
+<h2 id="Sabeer-Bhatia-Hotmail-之父"><a href="#Sabeer-Bhatia-Hotmail-之父" class="headerlink" title="Sabeer Bhatia - Hotmail 之父"></a>Sabeer Bhatia - Hotmail 之父</h2><p><a href="http://en.wikipedia.org/wiki/Sabeer_Bhatia" target="_blank" rel="noopener">Sabeer Bhatia</a>（1968年12月30日生于印度）与苹果公司的同事 <a href="http://en.wikipedia.org/wiki/Jack_Smith_%28Hotmail%29" target="_blank" rel="noopener">Jack Smith</a> 创 办了Firepower公司，原本打算开发一个基于Web的数据库，结果发现基于Web的邮件更靠谱（想法来自Smith），于是Hotmail诞生了 （名字中包含HTML四个字母）。1997年Hotmail以 4 亿美金的价格卖给了微软。他于 1998 年被 Draper Fisher Jurvetson 基金评为年度创业家，曾于 2002 年被时代周刊列为值得关注的人之一。他于 2009 年收购了 Jaxtyr，一个旨在取代 Skype 的免费语音电话系统。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/fa4af2ed4155adcf7da5e2bed4f3ed16.jpg" alt=""></p>
+<h2 id="Matt-Drudge-Drudge-Report-的创办人"><a href="#Matt-Drudge-Drudge-Report-的创办人" class="headerlink" title="Matt Drudge - Drudge Report 的创办人"></a>Matt Drudge - <strong>Drudge Report 的创办人</strong></h2><p><a href="http://en.wikipedia.org/wiki/Matt_Drudge" target="_blank" rel="noopener">Matt Drudge</a>（1966年10月27日生于美国）创办了新闻聚合网站，Drudge Report。该网站以最先报告克林顿拉链门而闻名于世。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2284b2cdbb310dd5c7204208b127600b.jpg" alt=""></p>
+<h2 id="Larry-Page-和-Sergey-Brin-Google-创始人"><a href="#Larry-Page-和-Sergey-Brin-Google-创始人" class="headerlink" title="Larry Page 和 Sergey Brin - Google 创始人"></a>Larry Page 和 Sergey Brin - Google 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Larry_Page" target="_blank" rel="noopener">Larry Page</a>（1973年3月26日生于美国）与 <a href="http://en.wikipedia.org/wiki/Sergey_Brin" target="_blank" rel="noopener">Sergey Brin</a>（1973年8月21日生于前苏联莫斯科）改变了我们搜索和使用互联网的方式，他们创办了搜索巨人，Google，并迅速成长。他们靠自有资金起家，后来接受了来自斯坦福的私人投资。他们是一家注重技术超过生意的公司。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/84e8e412596d3f400a33b75d53f4b395.jpg" alt=""></p>
+<h2 id="Bill-Gates-微软创始人"><a href="#Bill-Gates-微软创始人" class="headerlink" title="Bill Gates - 微软创始人"></a>Bill Gates - 微软创始人</h2><p><a href="http://en.wikipedia.org/wiki/Bill_gates" target="_blank" rel="noopener">Bill Gates</a>（1955年10月28日生于美国）创办了微软，后来，他开发了全新的图形用户界面的 DOS 系统，并称之为 Windows。他的终身目标是将计算机放到每一个家庭的每一张桌子。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/e2991794c455c283604c7b55f6d808d7.jpg" alt=""></p>
+<h2 id="Steve-Jobs-苹果创始人"><a href="#Steve-Jobs-苹果创始人" class="headerlink" title="Steve Jobs - 苹果创始人"></a>Steve Jobs - 苹果创始人</h2><p><a href="http://en.wikipedia.org/wiki/Steve_Jobs" target="_blank" rel="noopener">Steve Jobs</a>（1955年2月24日生于美国）的个人电脑思想引领他在计算机软件和硬件领域完成了一列革命，改变了我们日常工作，娱乐与交流的方式，他创造了简洁，干净的 Web 设计风格。苹果与 Jobs 的故事，是一个有关意志，创造，天才，以及创新热情的故事。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f5ece755405dfa66f9a720efd13749b1.jpg" alt=""></p>
+<h2 id="David-Filo-和-Jerry-Yang-Yahoo-创始人"><a href="#David-Filo-和-Jerry-Yang-Yahoo-创始人" class="headerlink" title="David Filo 和 Jerry Yang - Yahoo 创始人"></a>David Filo 和 Jerry Yang - Yahoo 创始人</h2><p><a href="http://en.wikipedia.org/wiki/David_Filo" target="_blank" rel="noopener">David Filo</a>（1966年4月20日生于美国）和<a href="http://en.wikipedia.org/wiki/Jerry_Yang_%28entrepreneur%29" target="_blank" rel="noopener">杨致远</a>（1968年11月6日生于中国台北）创办 Yahoo! 并使这个公司成为全球品牌。Yahoo! 改变了人们相互沟通，查找信息的方式。关于 Yahoo! 的命名，他们认为是出于对这个词汇的含义的喜欢，粗鲁，不世故，怪异。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/2062423b63ae7491273fef0ff0c7e6fd.jpg" alt=""></p>
+<h2 id="Brad-Fitzpatrick-Live-Journal-创始人"><a href="#Brad-Fitzpatrick-Live-Journal-创始人" class="headerlink" title="Brad Fitzpatrick - Live Journal 创始人"></a>Brad Fitzpatrick - Live Journal 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Brad_Fitzpatrick" target="_blank" rel="noopener">Brad Fitzpatrick</a>（1980 年2月5日生于美国艾奥瓦）创办了 LiveJournal，最早的博客系统之一。他还是一系列免费软件的作者，如被 LiveJournal, Facebook 以及 YouTube 所使用的 memcached。LiveJournal 现在依然是一个活跃的社区，人们在这里发表博客日志并在线交流。Fitzpatrick还是OpenID的创造者。目前效力于Google。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b9e00bff6e870bb52896308b0f3140a2.jpg" alt=""></p>
+<h2 id="Shawn-Fanning-Napster-创始人"><a href="#Shawn-Fanning-Napster-创始人" class="headerlink" title="Shawn Fanning - Napster 创始人"></a>Shawn Fanning - Napster 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Shawn_Fanning" target="_blank" rel="noopener">Shawn Fanning</a>（1980 年11月20日生于美国） 开发了 Napster，一个 P2P 文件分享软件，用户将他们希望分享的文件放到一个指定的目录供别的用户下载。Napster 在 2001 年巅峰时刻，拥有 2500 万用户，它后来因一系列官司而关闭。Napster 引发了后来被苹果主宰的数字音乐革命。Napster 后来被 Roxio 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/825affa6d0bc59faca0224d1fcc67616.jpg" alt=""></p>
+<h2 id="Peter-Thiel-Paypal-创始人"><a href="#Peter-Thiel-Paypal-创始人" class="headerlink" title="Peter Thiel - Paypal 创始人"></a>Peter Thiel - Paypal 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Peter_Thiel" target="_blank" rel="noopener">Peter Thiel</a>（1967年生于原西德，长于美国加州）是 Paypal 的合伙创始人之一，Paypal 开创了在线支付的先河，它拥有一个非常复杂的交易框架，并允许一小部分开发团体使用他们的代码。Paypal 后来以 15 亿美金的价格卖给了 eBay。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/8248b233b81f95c222ba374337fd7c33.jpg" alt=""></p>
+<h2 id="40-位改变了互联网的人（下）"><a href="#40-位改变了互联网的人（下）" class="headerlink" title="40 位改变了互联网的人（下）"></a><a href="http://blog.3gstdy.com/archives/146" target="_blank" rel="noopener">40 位改变了互联网的人（下）</a></h2><p>英文原文出自：<a href="http://www.hongkiat.com/" target="_blank" rel="noopener">hongkiat.com</a> <a href="http://www.hongkiat.com/blog/40-people-who-changed-the-internet/" target="_blank" rel="noopener">40 People Who Changed the Internet</a> （原文作者：Aurora Gatbonton）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo7agho2000vsv0f73gyk4m8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" class="article-date">
+  <time datetime="2010-11-16T16:19:48.000Z" itemprop="datePublished">2010-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/">40 位改变了互联网的人（下）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>互联网让世界紧密连接在一起，Web 改变了我们的阅读，沟通，娱乐，购物，社交，以及经商的习惯，社会网络甚至让我们找回了儿时的玩伴。互联网的历史伴随着各种伟大的想法以及对这些想法的实 现，而它们的背后，是一些曾经，正在或将要改变互联网的人。这是本文的第二部分，</p>
+<h2 id="Pierre-Morad-Omidyar-Ebay-创始人"><a href="#Pierre-Morad-Omidyar-Ebay-创始人" class="headerlink" title="Pierre Morad Omidyar - Ebay 创始人"></a>Pierre Morad Omidyar - Ebay 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Pierre_Omidyar" target="_blank" rel="noopener">Pierre Omidyar</a> 创立了一个在线交易平台，人们可以在这里买卖任何东西。他们为用户设立了信誉级别，借助人性的力量维护这一切。Omidyar 的伟大在于对人的天性的洞察，他知道人们乐于购买任何东西，你认为是垃圾的东西，别人会当作宝贝。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c2f8389a689906813a3fd04d4e54dbdf.jpg" alt=""></p>
+<h2 id="Jimmy-Wales-Wikipedia-创始人"><a href="#Jimmy-Wales-Wikipedia-创始人" class="headerlink" title="Jimmy Wales - Wikipedia 创始人"></a>Jimmy Wales - Wikipedia 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jimmy_Wales" target="_blank" rel="noopener">Jimmy Wales</a> 创立了世界上最大的百科全书，这个百科全书的词条，任何人都可以参与编辑，该站点创立于2001年，现在成了互联网上最受欢迎的参考资料来源。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/9108fcf62aab0ee306f858fc667f37de.jpg" alt=""></p>
+<h2 id="Stewart-Butterfield-与-Caterina-Fake-Flickr-创始人"><a href="#Stewart-Butterfield-与-Caterina-Fake-Flickr-创始人" class="headerlink" title="Stewart Butterfield 与 Caterina Fake - Flickr 创始人"></a>Stewart Butterfield 与 Caterina Fake - Flickr 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Stewart_Butterfield" target="_blank" rel="noopener">Stewart Butterfield</a> 和他的妻子 <a href="http://en.wikipedia.org/wiki/Caterina_Fake" target="_blank" rel="noopener">Caterina Fake</a> 创立了 Flcikr，一个在线照片分享站点，他们的设想是，人们需要的不再是影集，而是照片流。Flickr 于 2005 年被 Yahoo 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/1a74a562bc1ae6c24144fb15f3c9fc6c.jpg" alt=""></p>
+<h2 id="Jonathan-Abrams-Friendster-创始人"><a href="#Jonathan-Abrams-Friendster-创始人" class="headerlink" title="Jonathan Abrams - Friendster 创始人"></a>Jonathan Abrams - Friendster 创始人</h2><p>Jonathan Abrams 同 Cris Emmanuel 一道创立了 Friendster，帮助人们交友，他们从 Match.com 获得灵感。这个第一个走向主流的社会网络站点。用户在上面创建自己的资料页，写上自己喜欢的电影与书籍，同朋友以及朋友的朋友链接。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/f8749be0cfc0656bc9001505075a1a14.jpg" alt=""></p>
+<h2 id="Niklas-Zennstrom-Skype-创始人"><a href="#Niklas-Zennstrom-Skype-创始人" class="headerlink" title="Niklas Zennstrom - Skype 创始人"></a>Niklas Zennstrom - Skype 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Niklas_Zennstrom" target="_blank" rel="noopener">Niklas Zennstrom</a> 同别人一起创立了有史以来成长最快的沟通平台 Skype，为全球用户提供高质量的语音通话功能，他们的系统可以在 Winodws，Linux，苹果以及移动设备上使用。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/bf0e97d58ce951ebcce7fb7ddb3b3c86.jpg" alt=""></p>
+<h2 id="Bram-Cohen-BT-之父"><a href="#Bram-Cohen-BT-之父" class="headerlink" title="Bram Cohen - BT 之父"></a>Bram Cohen - BT 之父</h2><p>如果说，Napster 是第一代文件交换服务，<a href="http://en.wikipedia.org/wiki/Bram_Cohen" target="_blank" rel="noopener">Bram Cohen</a> 改变了文件交换的概念并立即引来大量用户的追随。BT 使用了这样一个黄金定律，上传得越多，下载得越快。BT 将文件分割成若干小块，任何拥有某个文件一小块的用户都可以参与分享，这样，参与的人越多，下载越快。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6987bbbfb9c858591587fb2b7190f889.jpg" alt=""></p>
+<h2 id="Reid-Hoffman-LinkedIn-创始人"><a href="#Reid-Hoffman-LinkedIn-创始人" class="headerlink" title="Reid Hoffman - LinkedIn 创始人"></a>Reid Hoffman - LinkedIn 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Reid_Hoffman" target="_blank" rel="noopener">Reid Hoffman</a> 曾是 Paypal 的执行副总裁，他创立了社会网络站点 LinkedIn，注册用户可以维护一个自己的生意上的好友库，他们可以求职，买卖简历，或招聘。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/5ac5954d649d518d7191ab1e605e153e.jpg" alt=""></p>
+<h2 id="Matt-Mullenweg-Wordpress-创始人"><a href="#Matt-Mullenweg-Wordpress-创始人" class="headerlink" title="Matt Mullenweg - Wordpress 创始人"></a>Matt Mullenweg - Wordpress 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Matt_Mullenweg" target="_blank" rel="noopener">Matt Mullenweg</a> 创立了世界上最受欢迎的开源博客系统，WordPress，使用 WordPress 系统的著名站点包括 Techcrunch, Huffingtonpost, Mashable 等等。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/6993eea6f6efe541ce77e2d8cdf70f40.jpg" alt=""></p>
+<h2 id="Chad-Hurley-Steve-Chen-与-Jawed-Karim-Youtube-创始人"><a href="#Chad-Hurley-Steve-Chen-与-Jawed-Karim-Youtube-创始人" class="headerlink" title="Chad Hurley, Steve Chen, 与 Jawed Karim - Youtube 创始人"></a>Chad Hurley, Steve Chen, 与 Jawed Karim - Youtube 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Chad_Hurley" target="_blank" rel="noopener">Chad Hurley</a> , <a href="http://en.wikipedia.org/wiki/Steve_Chen_%28YouTube%29" target="_blank" rel="noopener">Steve Chen</a> , 以及 <a href="http://en.wikipedia.org/wiki/Jawed_Karim" target="_blank" rel="noopener">Jawed Karim</a> 曾一起在 Paypal 工作过，他们后来创建了 Youtube 视频分享网站，如今这个网站每天播放的短片超过1亿。最初，他们的工作按各自的技能分工，Chad Hurley 负责界面和 Logo 设计，Steve Chen 和 Jawed Karim 则负责开发，后来他们按各自的兴趣分工管理工作，Chad Hurley 是 CEO，Steve Chen 是 CTO。一年半以后，Google 以16亿美元收购 YouTube。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/a80417edba2fdd561ea92a4aff2c26f3.jpg" alt=""></p>
+<h2 id="Craig-Newmark-Craigslist-创始人"><a href="#Craig-Newmark-Craigslist-创始人" class="headerlink" title="Craig Newmark - Craigslist 创始人"></a>Craig Newmark - Craigslist 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Craig_Newmark" target="_blank" rel="noopener">Craig Newmark</a> 的 Craigslist 彻底改变了传统分类广告，让传统报业为之胆战。Craigslist 最早是 Newmark 和朋友们分享的一份邮件列表，后来发展壮大成无所不包的在线分类广告。请参阅：<a href="http://www.comsharp.com/GetKnowledge/zh-CN/TeamBlogTimothyPage_K212.aspx" target="_blank" rel="noopener">Craigslist 创始人 Craig Newmark 访谈录</a> 。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ca18b102714e35b7b87863603bd2874f.jpg" alt=""></p>
+<h2 id="Julian-Assange-Wikileaks-创始人"><a href="#Julian-Assange-Wikileaks-创始人" class="headerlink" title="Julian Assange - Wikileaks 创始人"></a>Julian Assange - Wikileaks 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Julian_Assange" target="_blank" rel="noopener">Julian Assange</a> 创办了一个网站，专门发表从全球各地泄露出来的机密文件，他设计了一个软件，可以将泄密者的身份彻底抹掉，这样，谁也不知道这份文件是什么时候被什么人泄 露出去的。Wikileaks 将自己视为一个不经审查的泄密文件百科全书。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/33a5c654a2fbc747d079daa4097be819.jpg" alt=""></p>
+<h2 id="Dick-Costolo-FeedBurner-创始人"><a href="#Dick-Costolo-FeedBurner-创始人" class="headerlink" title="Dick Costolo - FeedBurner 创始人"></a>Dick Costolo - FeedBurner 创始人</h2><p>Dick Costolo 设计了一个系统，FeedBurner，通过 RSS 从各家网站获取最新内容，聚合到一起，FeedBurner 于 2007 年被 Google 收购，Dick Costolo 现任 Twitter CEO。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/35cf5ce1415244424f4ce3df23d721c2.jpg" alt=""></p>
+<h2 id="Mark-Zuckerberg-Facebook-创始人"><a href="#Mark-Zuckerberg-Facebook-创始人" class="headerlink" title="Mark Zuckerberg - Facebook 创始人"></a>Mark Zuckerberg - Facebook 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Mark_Zuckerberg" target="_blank" rel="noopener">Mark Zuckerberg</a> 创办了 Facebook 以帮助大学生和自己的朋友们保持联系，他们通过过更新自己的在线状态，告诉朋友们自己正在做什么，他们还晒照片，上传视频，聊天，交友，加入圈子等等。该 站目前据信有5亿用户，并遍布除了俄罗斯，中国，日本，韩国之外的所有国家，Zuckerberg 表示，Facebook 的规模是 MySpace 的两倍。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ddd276b1f402aed9e22f06c066e9845c.jpg" alt=""></p>
+<h2 id="Jack-Dorsey-Twitter-创始人"><a href="#Jack-Dorsey-Twitter-创始人" class="headerlink" title="Jack Dorsey - Twitter 创始人"></a>Jack Dorsey - Twitter 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jack_Dorsey" target="_blank" rel="noopener">Jack Dorsey</a> 创办了 Twitter，一个朋友或家人随时分享自己目前状态的站点，这是一个世界上发展最快的交流媒体，用户通过发送一段不超过 140 字符的文字，向他们的追随者播报各种消息。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/019e96f1ff1ff12b59e0c45b914552c5.jpg" alt=""></p>
+<h2 id="Joshua-Schachter-Delicious-创始人"><a href="#Joshua-Schachter-Delicious-创始人" class="headerlink" title="Joshua Schachter - Delicious 创始人"></a>Joshua Schachter - Delicious 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Joshua_Schachter" target="_blank" rel="noopener">Joshua Schachter</a> 创办了 del.icio.us 网站，让人们存储或分享书签，这是一个自我维护的系统，人们为他们的书签设置关键词标签，并投票。Del.icio.us 现被 Yahoo 收购。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/b539afa8cda295b71fcd61401abb9699.jpg" alt=""></p>
+<h2 id="Jeff-Bezos-Amazon-创始人"><a href="#Jeff-Bezos-Amazon-创始人" class="headerlink" title="Jeff Bezos - Amazon 创始人"></a>Jeff Bezos - Amazon 创始人</h2><p><a href="http://en.wikipedia.org/wiki/Jeff_Bezos" target="_blank" rel="noopener">Jeff Bezos</a> 创办了世界上最大的在线商店，Amazon，使购物比去当地的商店更快捷。他们目前推出了 Kindle 电子阅读器，让用户下载他们在线书店中的书籍。 <img src="http://blog.daahe.com/wp-content/uploads/2012/12/ba519c3eba7a33d2c7ca0adf3ba05b97.jpg" alt=""> 本文国际来源：<a href="http://www.hongkiat.com/" target="_blank" rel="noopener">hongkiat.com</a> <a href="http://www.hongkiat.com/blog/40-people-who-changed-the-internet/" target="_blank" rel="noopener">40 People Who Changed the Internet</a> （原文作者：Aurora Gatbonton）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/17/40-e4-bd-8d-e6-94-b9-e5-8f-98-e4-ba-86-e4-ba-92-e8-81-94-e7-bd-91-e7-9a-84-e4-ba-ba-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo7aghnz000qsv0fq66ygj2n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" class="article-date">
@@ -103,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjo79jtvk001o450fb2iuo3dw" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjo7aghp5001psv0fki19nytk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo79jtyz006z450fpt5bo01r" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo7aghsk006ysv0f1f0dc8sa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ui/">ui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
@@ -189,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo79jtwl002g450ftg6boqc3" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo7aghq3002isv0ff0gnatox" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,7 +476,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo79jtyk005r450fh6p0p5h9" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo7aghs4005tsv0ftnpeso5b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/datacross/">datacross</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/格式转换/">格式转换</a></li></ul>
@@ -273,218 +519,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo79jtyx006t450fvypqiw4n" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" class="article-date">
-  <time datetime="2010-11-07T00:13:59.000Z" itemprop="datePublished">2010-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/">360 VS QQ：一场精心策划的西安事变（上）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文来自CSDN特约评论员：徐三清 我一向将公司比喻成国家，公司之间的竞争也很类似战争，国外网站曾经有一幅描述微软帝国的作战形势图就是例证。这次360和QQ之争，在中国软件互联网史上，是一场不折不扣的超级大战。我对这场战争的分析是：一场精心策划的西安事变。 <strong>一）作战双方进行分析</strong></p>
-<hr>
-<p><strong>进攻方</strong>：<strong>360系（安全卫士系列）</strong> <strong>主帅</strong>：周鸿祎 <strong>版图</strong>: 按照3.5亿网民算，2.4亿安全卫士装机量，覆盖互联网人口70% <strong>军队</strong>：数百名 精锐部队是Windows系统核心高手，主帅曾说360旗下已网络全国近一半高手 <strong>装备</strong>：360安全卫士，360浏览器，360杀毒 <strong>经济力</strong>：收入3亿，利润1亿，估值数十亿元 <strong>敌对方</strong>： 安全系（金山，瑞星，江民，可牛，卡巴斯基） 浏览器（搜狗，傲游） 恩怨（百度系，阿里系） <strong>同盟方</strong>： 迅雷和其他周鸿祎投资的软件公司 <strong>历史战役</strong> > 2002 以3721击败CNNIC。 &gt; 2005  以一搜（3721）和qihoo社区搜索进攻搜索，败于百度。 &gt; 2006  推出360安全卫士，清除专门用于扫描被安装在用户电脑上的一切“恶评”软件，包含前身是3721上网助手的雅虎助手。此举深受用户欢迎，360安全卫士 也因此在短短2年之内成为市场占有率第一的个人网络安全软件，但因此也和Yahoo杨致远，阿里巴巴马云结下了仇。 &gt; 2007  与卡巴斯基结盟，借其杀毒技术扩展市场，360同卡巴斯基绑定推广。但随着2008年360推出免费杀毒产品后，双方开始刀剑相向，结为仇敌。 &gt; 2008  挑战瑞星。瑞星炮轰360欺骗用户。随后两家公司激烈谩骂，最终不了了之。 &gt; 2010  5月出兵金山，封杀“金山网盾”。周鸿祎连发几十篇微博，“揭露”金山造假， 导致金山股价大幅下跌。 <strong>优势：</strong> 主帅周鸿祎：作战能力超一流，口才在中国IT界超一流； 技术团队实力超群，特别是windows客户端核心系统技术在中国超一流； 产品运营能力彪悍，从3721到360卫士其客户端装机发展速度在中国是No.1。 <strong>劣势：</strong> 树敌无数，和历史的合作方，以及中国最主要的互联网公司都结下了巨大的恩怨。 <strong>作战特色：</strong> 以“免费”和“安全”为大旗，通过360安全卫士占领用户的桌面，成为仅次于QQ装机量的软件客户端。以安全卫士为大本营，推荐安装360系列家族软件，最具杀伤性的武器是提示竞争对手的软件可能存在缺陷，并以此为利器，迅速夺取了浏览器20%的市场份额。 <strong>防守方</strong>：<strong>腾讯系</strong> <strong>主帅</strong>：马化腾 <strong>版图</strong>：10亿注册用户，覆盖互联网人口95%以上 <strong>经济力</strong>：年收入124亿，年利润52亿，估值3500亿元 现金60亿元 <strong>装备</strong>：QQ，QQ管理专家（QQ医生），TT浏览器，QQ旋风下载，QQ影音，QQ Mail,QZone，QQ.com,QQ游戏等 <strong>军队</strong>：近万名 旗下大将如云，精锐部队来自微软Windows 和MSN团队 <strong>敌对方</strong>： 游戏系（盛大，联众） 门户（新浪，搜狐，网易） 搜索（搜狗，百度） 电子商务（阿里巴巴） 社区（人人，开心网，51） 软件系（迅雷，快车，暴风影音） 浏览器（搜狗，傲游） <strong>同盟方</strong> 金山、可牛等 <strong>历史战役</strong> > 2002  以OICQ(QQ)击败UC。 &gt; 2004  <a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a> 挑战新浪、搜狐、网易，成为中国最大的门户网站之一。 &gt; 2006  推出超级旋风，挑战迅雷。 &gt; 2006  推出拍拍，挑战阿里系的淘宝。 推出搜搜，挑战百度 推出QQ医生，进入杀毒软件市场 &gt; 2007  以QQ拼音输入法挑战搜狐。 &gt; 2009 QQ Mail挑战网易163成为最大的免费邮件提供商。 &gt; 2010  年初小游戏平台3366.com上线公测，进攻4399小游戏平台。 &gt; 2010  QQ团购网上线，进军团购市场。 &gt; 2010  推出SNS社区“朋友社区”，剑指人人、开心。 <strong>优势：</strong> “挟天子（用户数）以令诸侯”。腾讯拥有中国本土用户量最大的即时通讯软件，账户数近10亿；也是中国最赚钱的互联网公司，公司现金储备达到15亿美元；再加上实力雄厚的研发和营销团队，强大的地方政府支持，足以使其傲视天下。 <strong>劣势:</strong> 通过QQ庞大用户群，采取后发模仿的方式扩展自己的领域版图，其“一站式在线生活”战略，在软件和互联网界树敌无数。 <strong>主要战术：</strong> 通过QQ庞大用户群，采取后发模仿的方式扩展自己的领域版图。最强的核武器是QQ弹窗和升级捆绑。腾讯的战略手法是模仿和后发制人，先看着其他人争夺地盘，看清楚了，地盘够大的地方，再派QQ系进驻。 <strong>二）战争起因</strong></p>
-<hr>
-<p>周鸿祎是互联网界的枭雄，作风彪悍，出言无忌，他对互联网产品和运营有极高洞察力，口才极具魅力，论主帅单挑能力，排名第一。他最遗憾和郁闷的是败给百度的帅哥李彦宏，“我是真小人，他是伪君子”。某次做公开的性格测试时，他表示最痛恨的人就是李彦宏。 他的目标是成为中国互联网领域的老大，当然要完成这一目标，必须建立自己的地盘。小马哥通过QQ一统IM，搜索已被李帅哥牢牢控制，电子商务被马怪侠掌握，门户则有新浪老大的地位不可动摇。 周鸿祎经历了搜索之战后，意外发现了安全软件这一块大好领土，但要想称霸互联网，光执掌安全市场之牛耳还不够，必须成为中国最多用户群体的的入口。周最推崇有两本书《柔道战略(小公司战胜大公司的秘密) 》和《免费:商业的未来 》。 所谓柔道战略就是避其锋芒、放弃硬碰硬的竞争思维模式，成功的挑战者不是去硬碰硬，而是利用对手们的块头和力量将他们打倒。这就是柔道战略的核心思想。 于是周相继推出软件管理、浏览器，挟安全卫士的庞大用户基础击败各个对手，“免费+安全”是他的杀手锏 ，类似于“打土豪，分田地”这些对用户极具诱惑力的口号，效果颇佳，成功地打败了一个又一个靠软件收费的地主老财。 直到碰上腾讯，周鸿祎迎来了真正的对手。腾讯不仅有着跟周鸿祎一样的王霸志向，更为重要的是，它已经具备了称霸互联网的实力和基础：用户群、资金、 技术、人才、政策……同样，一山不容二虎，腾讯也视周鸿祎为肉中刺，2010年5月31日，随着腾讯的QQ医生3.3升级版——ＱＱ电脑管家悄然上线。人 们很快发现，这款原本只是用来查杀QQ盗号木马的防护软件，已经包含了云查杀木马、系统漏洞修补、实时防护、清理插件等多项安全防护功能，甚至还搭载了免 费半年的诺顿杀毒。 无疑，这是一把利剑，直捣周鸿祎的黄龙。让人想起了３０年代，蒋介石命张学良率军直击喘息未定的中共心脏——延安。但周鸿祎却非腾讯原来的对手可比，仔细观察周鸿祎公司近期的举措不难发现，他们正在精心谋划一场互联网“西安事变”。 <strong>前期战争</strong> 2010年年初，腾讯突然选择在二三线及以下城市，强行推广QQ医生安全软件，并迅速占据国内一亿台左右电脑，市场份额近40%。敏感的360很快 意识到威胁，迅速召回正在休假的员工，快速反应。由于QQ医生本身匆忙上阵，很多用户陆续卸载QQ医生，其市场份额也快速降至10%以下。360初战告 捷。 ３个月之后，腾讯发布更加强大的QQ医生升级版QQ电脑管家，正式与360安全卫士展开直接竞争。360此时正在与金山激战，一时措手不及。 如果说2010年年初腾讯启动安全领域的闪电战，周鸿祎在感受到腾讯的威胁，以及恐怖的爆发力时，也许还心存侥幸，认为腾讯并没有把他当作主要对 手，毕竟在整个互联网产业链四处扩张，一向是腾讯的惯性。但QQ医生５月的突袭，显然会使得周鸿祎放弃所有幻想——ＱＱ预置３６０于死地早已酝酿许久。 QQ与３６０之间必有一场生死之战。 那段时间，周鸿祎在接受一次媒体专访时，建议腾讯应该加大投入解决QQ内部安全问题。联系到４个月后针对ＱＱ安全性的“隐私战”，可以推测，此时周 已经在设计针对ＱＱ的“西安事变”了。而QQ今年中秋时期的又一次针对360的突袭，直接形成本次事变的导火线——腾讯宣布“QQ软件管理”和“QQ医 生”自动升级为“QQ电脑管家”，涵盖了安全防护，系统维护和软件管理等功能，而这也是目前360安全卫士的主流功能。而凭借着QQ庞大的用户基础，QQ 电脑管家将直接威胁360在安全领域的生存地位。 周鸿祎必须要出招了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo79jtun000q450fwmdaip5l" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" class="article-date">
-  <time datetime="2010-11-07T00:12:09.000Z" itemprop="datePublished">2010-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/道听途说/">道听途说</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/">360 VS QQ：一场精心策划的西安事变（下）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>第一阶段：预设伏兵——隐私战</strong> 9月27日，360发布直接针对QQ的“隐私保护器”工具，宣称其能实时监测曝光QQ的行为，并提示用“某聊天软件”在未经用户许可的情况下偷窥用户个人隐私文件和数据。这引起了网民对于QQ客户端的担忧和恐慌。360成功地打胜了一场用户心理战，而这一切，还都是序曲。 <strong>第二阶段：挑衅羞辱——扣扣保镖导弹轰炸</strong> 10月29日，360宣布推出一款名为“扣扣保镖”的安全工具。360称该工具全面保护QQ用户的安全，包括阻止QQ查看用户隐私文件、防止木马盗取QQ帐号以及给QQ加速等功能。 从扣扣保镖的功能看，显然是蓄谋以久，不是一朝一夕能开发出来的，而且“精确制导”，可禁止启动QQ秀、QQ会员等数项其社区增值服务的最核心来源，近乎直接卡死了腾讯的生存法门。同时选择马化腾生日这一天开战，无疑也表达了对对手的“蔑视”。 这看上去是一招真正的杀手锏，不仅可重击对手、扩大市场空间，甚至还可以借“安全”为名，名正言顺获得ＱＱ的用户资源，以更加全面、深入地瓦解ＱＱ帝国的用户基础。 但根据目前战情的变化来看，“扣扣保镖”的导弹轰炸，还只是“虚晃一枪”，并不是周鸿祎的真正后手，他并没有把宝压在这颗导弹上。他主要是想用这种道德上“痛打落水狗”、市场上“直挑对方老巢”、近乎羞辱般的方式，激怒腾讯。 果然，11日４日上午的腾讯新闻发布会上，公关经理刘畅以泪洗面，哭诉腾讯上下全体员工正在经历１０多年来最惨烈的一次遭遇……周鸿祎的战略目标达到了，因为一个人在倍感羞辱、泪眼交加的时候，往往会做出丧失理智的反应——腾讯真的祭出了它的核武器。 <strong>第三阶段：引蛇出洞——腾讯核武器反击</strong> 以泪洗面的腾讯宣布了“一个艰难的决定”，在装有360软件的电脑上停止运行QQ软件，这是360与腾讯一系列争斗中，腾讯方面迄今为止最激烈的行 动——腾讯自己的定义是“惨烈行动”。此举立刻引起震动了整个业界，腾讯也由此陷入了网友口水的汪洋大海中，因为腾讯这一核反击，客观上是以牺牲用户利益 为代价的，腾讯一下子失去了“道德制高点”，同时腾讯此举表现出的潜在垄断竞争能力，也令业界人心惶惶。令人瞠目结舌的是，周鸿祎几乎第一时间通过微博表 态称自己早有预案：“对于腾讯这样丧心病狂的行为，360有预案。我们推出了WEB QQ客户端，该款软件可以保证用户既能顺畅的聊天，同时也能避免被QQ软件偷偷扫描硬盘。”11月4日，在腾讯解释其“惨烈行动”的同时，周鸿祎高调宣布 召回扣扣保镖，然后中午时分又以一副谦谦君子般的姿态，通过公开信表示决定搁置争执，向受影响用户致歉。也许此时，才能看出周的真正目的，他其实打的是一 场道德之战、争夺“人心”之战，并置腾讯于亿万网友的对立面。 <strong>第四阶段：后续战火——</strong> 11月4日，工信部电信研究院相关负责人向记者透露，针对此次360和腾讯纠纷的工信部官方调查程序正式启动。11月5日上午工信部电信研究院会 召开专家会议，对此事进行讨论。几乎同一时间，金山、搜狗、傲游、可牛、百度联手举行发布会，表示五家厂商的客户端软件将不兼容360系列软件。但蹊跷的 是，会议临近结束时候，搜狐张朝阳突然在其微博上说“据我所知，搜狗没有与360不兼容的计划”。 综合整个战役，也许无论腾讯还是奇虎，都没有料到这场发生在两个厂商间的互联网争夺战，会闹出如此大的局面，产生如此大的影响。 <strong>四）战略分析</strong></p>
-<hr>
-<p><strong>1. 腾讯的核武器反击是否得当</strong> 腾讯目前采取的反击策略：让用户进行二选一，涉嫌利用垄断强制推广，涉嫌单方面违约，结果也是骂声一片，为什么腾讯会采取这样一看就不好的策略？导致杀敌一千，自伤八百？ 反过来替腾讯考虑还有什么手段？扣扣保镖直接掐住了腾讯的收入线，腾讯必须短期反击挡住这一攻击。策略大致有四种，一是诉诸法律，但对于软件外挂的 界定目前还缺乏标准，法律的制裁周期也较长，而且还难以保证实施；二是技术反击，一种策略是开发防守工具，不允许扣扣保镖修改。另一种策略是开发反攻工 具，清除扣扣保镖。但这两种策略都会和360在用户的电脑上形成攻防拉锯战，因为360同样拥有一批技术高手，在技术战争中还从没失败过。三是提醒用户， 并让用户选择。四是强制用户选择。 短期最有效，而且最有杀伤力的就是第四种，这也是腾讯最后的选择。 这个选择虽然非常有效，但带来的震动太大，这次用过，以后碰到类似危机再次使用这种核武器的几率非常小，也就丧失了打击对手最强大的威慑力。 <strong>2. 预测结果</strong> 预测结果：在政府的强行介入下，行业协会将组织建立行业联盟，对于隐私权和软件外挂将制定相应的规则，使得同类手法的战争不会出现。360和QQ将退回9月底的状况，暂时保持在用户电脑上的和平共处。 但争夺用户桌面入口的暗斗、在用户电脑上的软件战争将不会停止。 这场战役到目前为止的战况结果分析是：对360来说，长期来看会获益于得到为用户服务的好名声，提升360的品牌和影响力。但短期内360系软件市场份额直线下降，其他竞争对手包括搜狗浏览器，金山瑞星杀毒软件得到发展机会。 对腾讯来说，短期来看腾讯灭掉扣扣保镖，避免了一场强大对手攻击的危机，并成功削减了360的地盘。但长期来看动用捆绑用户的核武器，失去民意，如 果360联合其他对手卷土重来，推出360系聊天工具，可以导出QQ的好友和群关系（技术专家云风已经给出解决方案），腾讯将面临下一次的重大挑战。 由此也可以看出，虽然这场政变蓄谋已久，但发动时机还是欠妥，360手上并没有马上推出IM的工具，也没有联合可能的盟友（飞信，天翼，MSN,新浪UC）,也许笔者猜测失误，360聊士近期很快推出，口号还是免费+安全，那真是要佩服老周的谋略了. 不管怎么说，360vsQQ的大战极大地提高了360和周鸿祎的知名度，原来在IT界他是响当当的人物，但对于全社会非IT人士和政府人士来说还所知有限，但这次作战正像当年的西安事变一样，一战威名扬天下。 <strong>最新动向</strong> 11月5日晚，向来在媒体上低调不露面的的马化腾公开接受了<a href="http://news.csdn.net/a/20101105/281497.html?1288970707" target="_blank" rel="noopener">《经济观察报》的采访</a>，360 攻势太猛，”从上周五上午360公司11点多发布到周一，就已经有2000多万用户感染扣扣保镖，并且以每天过1000万的速度增长。按照以前隐私保护器 的速度计算，如果三天之内开始放量就会感染8000万QQ用户”,另外马也公布了”QQ的用户中大约有60%装了360，所以至少一个亿以上的用户” ,“不采取措施QQ三天就可能全军覆没”，并爆出不少周鸿祎和腾讯之间的内幕。“刚开始要我们投资他，就像微软投资Facebook一样，高价买个小股， 后来还曾说要联合我们打百度，说把搜索流量卖给我们，他会出一个拦截百度的东西，先打他的医疗广告，打掉他30%的收入” 很快，周鸿祎在5日当晚连续接受搜狐和新浪专访，表态“<a href="imhttp://news.csdn.net/a/20101105/281498.html" target="_blank" rel="noopener">马化腾臆断很多 绝对不会做IM</a>”,但其实话里还有话，自己不做不等于不联合别人做。凌晨又亲自发表一封名为“<a href="http://news.csdn.net/a/20101106/281501.html" target="_blank" rel="noopener">不得不说的话</a>”的公开信，追溯了腾讯和360之间的恩怨。信中周鸿祎表示腾讯此前抄袭360安全卫士并强制推广的行为，是欲置360于死地。这种“明目张胆地欺负人”，使得360选择“必须得反抗”。 周鸿祎的市场策略明显技高一筹，在新浪和搜狐接受专访，可以拉拢门户网站对他的亲和度，门户本来就是腾讯的死敌，显然马化腾不可能接受他们的专访，虽然腾讯在新浪微博开设了<a href="http://t.sina.com.cn/tencent" target="_blank" rel="noopener">帐号</a>。 周鸿祎这封信非常犀利，既检讨了过去，又显示了豪情， “我赚的钱，虽然不如别人那么多，但这一辈子即使啥事也不干，也够花了。但是，我心里就会问我自己：看着别人上当受骗，那样做有意思吗？2006 年，流氓软件满大街都是，杀毒软件厂商有技术能力，但谁都不去管，怕得罪人，又不赚钱。360做了，得罪了不少人，但用户很欢迎。” “做360，我就一定要做一个让用户觉得有用的东西，有价值的东西，一定要做别人不敢做的事。马化腾说扣扣保镖是超级病毒，能感染，但360敢做这种得罪用户的事吗？用户骂360的产品，我都不敢睡觉，非得了解透了，找了负责人解决一下才睡得着。” 再次想起国共重庆谈判时候，毛主席发表沁园春一词，全国知识分子为之倾倒，而蒋介石请其文胆写的回应词却四平八稳。 <strong>盘点目前战况结果</strong>： 从大众来看，360大大提升品牌影响力，虽然市场份额受影响（周表示360下降20%） QQ形象严重受损，大部分的公开信都呼吁腾讯停止目前垄断地位的行为。 从业界来看，大部分公司都是两家公司的对手，短期内是会从中得到双方失去的市场份额,看看百度指数里面其他浏览器的指数成倍上升。长期来看，360 的“免费+安全”的胡罗卜大棒手法，腾讯的“模仿+捆绑”的策略是所有业界公司创新的噩梦，如果能通过这次战争，约束行业竞争的手法，规范软件竞争的行 为，甚至促进关于软件互联网领域反垄断的管理条例，那就是行业进步的大好事。 双方后续较量还将继续，扣扣保镖是否病毒和外挂是关键问题，这个双方要动用自己的各种力量了。CSDN特约评论员将关注战事的进一步发展，做出相应的点评。 这一战会对业界的发展产生什么样的影响， 腾讯会因此而最后走向衰落吗？360能笑到最后成为新霸主吗？还是涌现出新帝国,无人能知，但只有能真正极大满足用户需要，成为用户入口平台的企业才能成就未来的新帝国。 未来10年将是IT技术巨大变革的黄金十年，通信业、互联网业、软件业、IT硬件行业、媒体内容产业之间的既有格局和藩篱被打破了，且让我们静观历史的演变吧。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo79jtuq000v450fs4bojizh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" class="article-date">
-  <time datetime="2010-11-06T23:45:20.000Z" itemprop="datePublished">2010-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DataCross/">DataCross</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/">客户端与服务器同步数据</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>需求: 1、服务器端程序是J2EE架构，运行在J2EE服务器上。数据库是Oracle. 2、客户端是Java应用程序，数据库使用的是SQLite; 3、客户端从服务器同步数据。 4、客户端与服务器上数据库中表结构基本相同。 5、客户端发出同步请求时，同步。 总体设计 流程: 1、客户发出同步请求，包含同步哪些数据的条件； 2、服务器响应请求:根据客户端发出的条件准备SQL语句； 3、 创建SimpleOracleJDBCReader实例,该实例可以根据一条SQL查询语句从数据库中获得对应的数据，以中间类型的数据结构存在;创建 SimpleXMLWriter实例，该实例可将中间类型数据写出到XML文档中。创建一个搬运器,将数据从Oracle数据库搬运到XML文件中。 4、服务器返回给客户端一个数据流.该数据流从第3步中生成的xml文件中取数据，发送到客户端 5、客户端接收从服务器发来的xml数据流，生成xml文件，保存在本地 6、在客户端创建SimpleXMLReader从下载的xml读出数据,以中间类型的形式存在；创建SimpleSQLiteJDBCWriter，将中间类型的数据写入到SQLite中；创建一个搬运器,将数据从XML搬运到SQLite数据库文件中。 服务器端程序 <code>private IBaseDAO copyDAO; private String cachePath = &quot;d:/test/&quot;; /** * 组装更新数据 * * @date 2010-11-2 * @param os * @return */ public String getUpdateData(String xmlName, OutputStream os){ if(xmlName != null){ try { getXML(xmlName , os); } catch (Exception e) { e.printStackTrace(); } return null; } else { List&lt;String&gt; sqlList = getSql(); if(sqlList.size()==0){ return null; } String result = null; try { result = createXMLS(sqlList); os.write(result.getBytes()); } catch (IOException e) { e.printStackTrace(); } catch (Exception e) { e.printStackTrace(); } finally{ if(os != null){ try { os.close(); } catch (IOException e) { e.printStackTrace(); } } } return result; } } /** * 生成多个xml * * @date 2010-11-2 * @param sqlList * @return * @throws Exception */ private String createXMLS(List&lt;String&gt; sqlList) throws Exception{ StringBuffer sb = new StringBuffer(); String temp = null; for(String sql : sqlList){ temp = createXML(sql); if(temp != null){ sb.append(temp).append(&quot;,&quot;); } } return sb.toString(); } /** * 生成xml * * @date 2010-11-2 * @param sql * @return * @throws Exception */ private String createXML(String sql) throws Exception{ Reader reader = new SimpleJdbcReader(sql, copyDAO.getConnection()); String objectName = reader.getHeader().getObjectName(); String name = &quot;data_&quot;+objectName+&quot;_&quot;+System.currentTimeMillis()+&quot;.xml&quot;; File xmlfile = new File(cachePath + name); if(!xmlfile.exists()){ xmlfile.createNewFile(); } Writer xmlWriter = new SimpleXmlWriter(reader.getHeader(), xmlfile); new SimpleTractor(reader, xmlWriter).start(); return objectName+&quot;:&quot;+name; } /** * 下载一个xml文档 * * @date 2010-11-2 * @param xmlName * @param os * @return * @throws Exception */ public InputStream getXML(String xmlName, OutputStream os) throws Exception{ File file = new File(cachePath + xmlName); FileInputStream is = null; try { if(file.exists()){ is = new FileInputStream(file); byte[] buffer = new byte[8096]; int length = -1; while((length = is.read(buffer)) != -1){ os.write(buffer, 0, length); } } else { return null; } } catch (RuntimeException e) { e.printStackTrace(); } finally{ if(is != null){ try { is.close(); } catch (RuntimeException e) { e.printStackTrace(); } } if(os != null){ try { os.close(); } catch (RuntimeException e) { e.printStackTrace(); } } file.delete(); } return null; } /** * 组装sql * * @date 2010-11-2 * @return */ private List&lt;String&gt; getSql(){ List&lt;String&gt; sqlList = new ArrayList&lt;String&gt;(); sqlList.add(&quot;select * from users&quot;); return sqlList; }</code> 客户端程序 <code>/** * 更新数据 * * @date 2010-11-2 * @param types * @param verison */ private void updateData(String[] types, String verison){ try { // 请求服务器准备xml格式的更新数据,每个表一个xml文档,返回xmlName格式是 // tableName1:xml文件名1,tableName2:xml文件名2,.... String[] xmlNames = getXMLNames(types, verison); if (xmlNames != null &amp;&amp; xmlNames.length &gt; 0) { String urlString = serverUrl + &quot;?copyBean.xmlName=&quot;; File xmlFile = null; for (String xml : xmlNames) { if (xml == null) { continue; } // xml格式是 tableName1:xml文件名1 String[] temp = xml.split(&quot;:&quot;); if (temp == null || temp.length &lt; 2) { continue; } // 下载xml文件 xmlFile = getFileResponse(urlString + temp[1]); // 插入新数据 Reader reader = new SimpleXmlReader(xmlFile); Writer writer = new SimpleSQLiteJdbcWriter(copyDAO.getConnection(), reader.getHeader()); new SimpleTractor(reader, writer).start(); // 删除临时文件 xmlFile.delete(); } //更新版本号 updateVersion(verison); } } catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (DocumentException e) { e.printStackTrace(); } catch (SQLException e) { e.printStackTrace(); } catch (Exception e) { e.printStackTrace(); } } /** * 请求服务器准备xml格式的更新数据,每个表一个xml文档,返回xmlName格式是 * * @date 2010-11-2 * @throws IOException */ private String[] getXMLNames(String[] types, String version) throws IOException { String typeStr = &quot;&quot;; for (String t : types) { typeStr += &quot;&amp;copyBean.allInfoTypes=&quot; + t; } String orgId = SysContext.getCurrentUserFromSession().getGroup() .getId(); String urlString = serverUrl + &quot;?copyBean.fromGroupId=&quot; + orgId + typeStr; if (version != null) { urlString += &quot;&amp;copyBean.verison=&quot; + version; } String result = getStringResponse(urlString); if (result != null) { String[] fileNames = result.split(&quot;,&quot;); return fileNames; } else { return null; } } /** * 获得字符串请求 * * @date 2010-11-2 * @param urlString * @return * @throws IOException */ private String getStringResponse(String urlString) throws IOException { InputStream is = sendHttpRequest(urlString); StringBuffer sb = new StringBuffer(); try { byte[] buffer = new byte[8096]; int length = -1; while ((length = is.read(buffer)) != -1) { sb.append(new String(buffer, 0, length)); } } catch (RuntimeException e) { e.printStackTrace(); } finally { try { is.close(); } catch (RuntimeException e) { } } return sb.toString(); } /** * 获取文件 * * @date 2010-11-2 * @param urlString * @return * @throws IOException */ private File getFileResponse(String urlString) throws IOException { InputStream is = sendHttpRequest(urlString); File xmlfile = new File(&quot;data_client_&quot; + System.currentTimeMillis() + &quot;.xml&quot;); OutputStream os = null; if (!xmlfile.exists()) { xmlfile.createNewFile(); } os = new FileOutputStream(xmlfile); try { byte[] buffer = new byte[8096]; int length = -1; while ((length = is.read(buffer)) != -1) { os.write(buffer, 0, length); } } catch (RuntimeException e) { e.printStackTrace(); } finally { try { os.close(); } catch (RuntimeException e) { } try { is.close(); } catch (RuntimeException e) { } } return xmlfile; } /** * 发送请求 * * @date 2010-11-2 * @param urlString * @return * @throws IOException */ private InputStream sendHttpRequest(String urlString) throws IOException { HttpURLConnection httpConnection = null; URL url; int code = -1; for (int i = RETRY; i &gt; 0; i--) { try { url = new URL(urlString.toString()); httpConnection = (HttpURLConnection) url.openConnection(); httpConnection.setRequestMethod(&quot;GET&quot;); httpConnection.setDoOutput(true); httpConnection.setDoInput(true); httpConnection.setConnectTimeout(TIMEOUT); httpConnection.setReadTimeout(TIMEOUT); code = httpConnection.getResponseCode(); if (code != HttpURLConnection.HTTP_OK) { continue; } break; } catch (SocketTimeoutException e) { if (i == 1) { throw new RuntimeException(e); } else { continue; } } catch (UnknownHostException e) { if (i == 1) { throw new RuntimeException(e.getMessage()); } else { continue; } } catch (Exception e) { throw new RuntimeException(e); } } if (code == HttpURLConnection.HTTP_OK) { return httpConnection.getInputStream(); } else { return null; } }</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" data-id="cjo79jtxu004a450fc7tzyu7k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" class="article-date">
-  <time datetime="2010-11-04T00:05:24.000Z" itemprop="datePublished">2010-11-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DataCross/">DataCross</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/">DataCross:SimpleSelectFieldCacheWriter及用途</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SimpleSelectFieldCacheWriter是DataCross中的一个写入器，主要是将选择指定的定段内容写入到指定的缓存中。 在使用DataCross进行数据格式转换的过程中，往往需要收集数据中的某些字段的信息，以便另做处理。如：从数据为中导出一个表的数据，其中有一个字 段是图片路径。如果要将数据从一个系统中导出到另一个系统时，就要收集这些图片的路径信息，以便将图片数据一起导到另一个系统中。 SimpleSelectFieldCacheWriter的构造方法如下： public SimpleSelectFieldCacheWriter(Header header, List<string> collectFiled, List<string> result)；其中header是头信息，就是要写入对象的数据结构，collectField是指要收集header中的哪些字段信息，result 是指收集的内容存放在哪里。 使用方法如下: Reader reader = new SimpleExcelReader(src); List<string> selectField = new ArrayList<string>(); List<string> result = new ArrayList<string>(); Writer writer = new SimpleSelectFieldCacheWriter(reader.getHeader(), selectField, result); new SimpleTractor(reader, writer).start(); 详细见:<a href="http://datacross.daahe.com/" target="_blank" rel="noopener">http://datacross.daahe.com/</a></string></string></string></string></string></string></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" data-id="cjo79jtx40031450ftguez6c6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" class="article-date">
-  <time datetime="2010-09-01T04:21:49.000Z" itemprop="datePublished">2010-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活/">生活</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/">给生命一个期限</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>给生命一个期限，倒计时，想想我们最应该做的是什么？抓紧时间好好实现。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" data-id="cjo79jtyh005j450fm6n3jsts" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo7aghsj006wsv0fx37h5k02" class="article-share-link">Share</a>
       
       
     </footer>
@@ -551,23 +586,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+            <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+            <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+            <a href="/2018/11/07/java-io/">java-io</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+            <a href="/2018/11/07/message-queue/">消息队列</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

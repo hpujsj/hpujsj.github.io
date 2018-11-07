@@ -72,6 +72,1644 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" class="article-date">
+  <time datetime="2015-10-08T18:15:05.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/">并发事务成败皆归于锁——锁定</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在多用户都用事务同时访问同一个数据资源的情况下，就会造成以下几种数据错误。</p>
+<ul>
+<li>更新丢失：多个用户同时对一个数据资源进行更新，必定会产生被覆盖的数据，造成数据读写异常。</li>
+<li>不可重复读：如果一个用户在一个事务中多次读取一条数据，而另外一个用户则同时更新啦这条数据，造成第一个用户多次读取数据不一致。</li>
+<li>脏读：第一个事务读取第二个事务正在更新的数据表，如果第二个事务还没有更新完成，那么第一个事务读取的数据将是一半为更新过的，一半还没更新过的数据，这样的数据毫无意义。</li>
+<li>幻读：第一个事务读取一个结果集后，第二个事务，对这个结果集经行增删操作，然而第一个事务中再次对这个结果集进行查询时，数据发现丢失或新增。</li>
+</ul>
+<p>然而锁定，就是为解决这些问题所生的，他的存在使得一个事务对他自己的数据块进行操作的时候，而另外一个事务则不能插足这些数据块。这就是所谓的锁定。 锁定从数据库系统的角度大致可以分为6种：</p>
+<ul>
+<li>共享锁（S）：还可以叫他读锁。可以并发读取数据，但不能修改数据。也就是说当数据资源上存在共享锁的时候，所有的事务都不能对这个资源进行修改，直到数据读取完成，共享锁释放。</li>
+<li>排它锁（X）：还可以叫他独占锁、写锁。就是如果你对数据资源进行增删改操作时，不允许其它任何事务操作这块资源，直到排它锁被释放，防止同时对同一资源进行多重操作。</li>
+<li>更新锁（U）：防止出现死锁的锁模式，两个事务对一个数据资源进行先读取在修改的情况下，使用共享锁和排它锁有时会出现死锁现象，而使用更新锁则可以避免死锁的出现。资源的更新锁一次只能分配给一个事务，如果需要对资源进行修改，更新锁会变成排他锁，否则变为共享锁。</li>
+<li>意向锁：SQL Server需要在层次结构中的底层资源上（如行，列）获取共享锁，排它锁，更新锁。例如表级放置了意向共享锁，就表示事务要对表的页或行上使用共享锁。在表的某一行上上放置意向锁，可以防止其它事务获取其它不兼容的的锁。意向锁可以提高性能，因为数据引擎不需要检测资源的每一列每一行，就能判断是否可以获取到该资源的兼容锁。意向锁包括三种类型：意向共享锁（IS），意向排他锁（IX），意向排他共享锁（SIX）。</li>
+<li>架构锁：防止修改表结构时，并发访问的锁。</li>
+<li>大容量更新锁：允许多个线程将大容量数据并发的插入到同一个表中，在加载的同时，不允许其它进程访问该表。</li>
+</ul>
+<p>这些锁之间的相互兼容性，也就是，是否可以同时存在。</p>
+<p>现有的授权模式</p>
+<p>请求的模式</p>
+<p>IS</p>
+<p>S</p>
+<p>U</p>
+<p>IX</p>
+<p>SIX</p>
+<p>X</p>
+<p>意向共享 (IS)</p>
+<p>是</p>
+<p>是</p>
+<p>是</p>
+<p>是</p>
+<p>是</p>
+<p>否</p>
+<p>共享 (S)</p>
+<p>是</p>
+<p>是</p>
+<p>是</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>更新 (U)</p>
+<p>是</p>
+<p>是</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>意向排他 (IX)</p>
+<p>是</p>
+<p>否</p>
+<p>否</p>
+<p>是</p>
+<p>否</p>
+<p>否</p>
+<p>意向排他共享 (SIX)</p>
+<p>是</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>排他 (X)</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>否</p>
+<p>锁兼容性具体参见：<a href="http://msdn.microsoft.com/zh-cn/library/ms186396.aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/zh-cn/library/ms186396.aspx</a> 锁粒度和层次结构参见：<a href="http://msdn.microsoft.com/zh-cn/library/ms189849(v=sql.105).aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/zh-cn/library/ms189849(v=sql.105).aspx</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/10/09/e5-b9-b6-e5-8f-91-e4-ba-8b-e5-8a-a1-e6-88-90-e8-b4-a5-e7-9a-86-e5-bd-92-e4-ba-8e-e9-94-81-e9-94-81-e5-ae-9a/" data-id="cjo7aghri004ksv0fkd65lh7j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" class="article-date">
+  <time datetime="2015-08-03T20:41:39.000Z" itemprop="datePublished">2015-08-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hibernate/">Hibernate</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/">Hibernate的基本配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>第1**</strong>章 准备源代码阅读环境与<strong><strong>Hibernate</strong></strong>的基本配置**</p>
+<p><strong>1.1</strong> <strong>概述</strong></p>
+<p>本书将通过深度解读Hibernate源代码来分析Hibernate的架构设计与实现原理，所以在开始之前，我们应该拥有一份Hibernate的源代码，并对源代码有一个大概的了解。这样，我们就可以很方便地结合Hibernate源代码阅读后面的章节。本章主要讲解如何搭建源代码阅读环境，以及介绍Hibernate项目的基本配置和详细的实体映射配置等内容，详细的Hibernate项目配置将在第2章讲解。  </p>
+<p><strong>1.**</strong>2<strong> </strong>建立源代码阅读环境**</p>
+<p><strong>1.2.1**</strong>安装<strong>**JDK</strong></p>
+<p>JDK是Java程序开发包，是我们开发运行Java程序的基础。接下来我们安装的Eclipse也是运行在Java虚拟机之上的。Java虚拟机也有多个实现，我们选用原Sun公司的虚拟机，随着Oracle收购Sun的成功，现在已经成为Oracle的产品了。我们准备安装6.x版本的JDK。下载地址如下：<a href="http://java.sun.com/javase/downloads/widget/jdk6.jsp。我们选择下载Windows版本的JDK。" target="_blank" rel="noopener">http://java.sun.com/javase/downloads/widget/jdk6.jsp。我们选择下载Windows版本的JDK。</a></p>
+<p>运行刚才下载的JDK安装文件。进入安装初始化界面。这时您要等待一会，具体时间视机器的速度而定。在此期间，安装向导程序会收集机器的一些配置信息，为以后的安装提供依据。</p>
+<p>图1-1是JDK功能安装选项。你可以安装开发工具、演示程序及样例、源代码、公共JRE、JavaDB等。其中，开发工具、演示程序及样例是必须安装的，其他几项是可以选择安装的，如果你不需要，可以点击其前的下拉图标选择“现在不安装此功能”即可。开发工具中包含我们必须用到的编译环境和运行Java程序需要的虚拟机。演示程序及样例中有一些小应用程序的源码，可以帮助我们学习Java的相关技术。源代码中包含Java公共API（Application Programming Interface，应用程序编程接口）的类，安装这项后，如果我们想了解Java中的某个类的内部实现方式，就可以在此找到其源代码。公共JRE是一个独立的虚拟机运行环境。Java DB是一个附带的数据库，这里可以不用安装。<br><img src="http://blog.daahe.com/wp-content/uploads/media/hibernate1/image1.jpeg" alt="JDK功能安装选项"><br>图1-1 JDK功能安装选项</p>
+<p>在安装JRE时，你可以更改安装路径，安装到其他位置。在此，我们保持默认的安装路径。如果点击“取消”，将不会安装独立的JRE。</p>
+<p><strong>1.2.2</strong> <strong>安装**</strong>Eclipse<strong>**及相关插件</strong></p>
+<p>Eclipse是一个Java集成开发环境，由IBM在1998年11月开始开发，在2001年11月开源。此后IBM和其他8个组织一起建立了Eclipse协会和eclipse.org网站，共同推动Eclipse的发展。目前Eclipse作为一个开源的集成开发环境被全球IT开发人员广泛使用。其下载地址是：<a href="http://www.eclipse.org/downloads/。因为以后我们讲解Hibernate的时候会与J2EE项目相结合。所以我们下载时选择Eclipse" target="_blank" rel="noopener">http://www.eclipse.org/downloads/。因为以后我们讲解Hibernate的时候会与J2EE项目相结合。所以我们下载时选择Eclipse</a> IDE for Java EE Developers版本的Eclipse，并且是Windows版本。下载完成解压后，即可运行使用。</p>
+<p>Eclipse主窗口称为工作台，包含菜单栏、工具栏、编辑器和视图等内容。工具栏下方放置编辑器和其他视图的区域，称为工作台页面。此页面包含界面的大部分可见部分：编辑器和视图。</p>
+<p>在今后我们阅读分析Hibernate源代码的过程中，Eclipse将会为我们提供十分便捷的帮助。其中，Hierarchy视图可以方便地帮助我们查看类或接口继承关系。我们可以在视图或编辑器中点击右键，选择要查看的类或接口，选择Open Type Hierarchy或者按快捷键F4，就可以打开该类或接口的继承关系视图了，如图1-2。<br><img src="/wp-content/uploads/media/hibernate1/image2.jpeg" alt=""><br>图1-2 Eclipse的Hierarchy视图</p>
+<p>另外用快捷键Ctrl+T可以快速地弹出一个类或接口的继承关系列表窗口。同样地，Call Hierarchy视图可以帮助我们查看一个方法被其他方法调用的情况。我们在一个方法上点击右键，选择要查看的方法，选择Open Call Hierarchy或用快捷键Ctrl+Alt+H，就可以打开该方法的调用关系视图，如图1-3所示。<br><img src="/wp-content/uploads/media/hibernate1/image3.jpeg" alt=""><br>图1-3 Eclipse的Call Hierarchy视图</p>
+<p><strong>1.2.3</strong> <strong>安装**</strong>SVN<strong>**插件</strong></p>
+<p>2010年11月9日，Hibernate开发团队宣布使用Gif控制Hibernate的源代码。在迁移到Git中时，放弃一些较老的版本。考虑到目前国内使用SVN的读者居多，有必要讲解一下SVN的使用方法。如果有读者想了解Gif的使用方法可到本书的附录中查阅。</p>
+<p>SVN（subversion）是近年来崛起的版本管理工具，目前，绝大多数开源软件都使用SVN作为代码版本管理软件，其最新版本的下载地址是：<a href="http://subclipse.tigris.org/update_1.6.x。适用于3.2以上版本的Eclipse。在Eclipse中，通过自带的插件安装工具，可以十分方便地下载安装这个插件。具体操作步骤是：菜单Help→Software" target="_blank" rel="noopener">http://subclipse.tigris.org/update_1.6.x。适用于3.2以上版本的Eclipse。在Eclipse中，通过自带的插件安装工具，可以十分方便地下载安装这个插件。具体操作步骤是：菜单Help→Software</a> Updates→Find and Install…→Search for new features to install。如图1-4。<br><img src="/wp-content/uploads/media/hibernate1/image4.jpeg" alt=""><br>图1-4创建SVN插件下载站点</p>
+<p>新增一个更新站点后保存。点击完成后进入选择更新界面，如图1-5。<br><img src="/wp-content/uploads/media/hibernate1/image5.jpeg" alt=""><br>图1-5 选择SVN插件安装项目</p>
+<p>在此我们更新所有的Subclipse包，之后重新启动Eclipse即可。那么怎么知道我们的SVN是否安装成功呢？我们可以在Eclipse菜单Windows→Show View→Other中看到SVN的视图。如图1-6所示。<br><img src="/wp-content/uploads/media/hibernate1/image6.jpeg" alt=""><br>图1-6 视图列表中的SVN视图</p>
+<p><strong>1.2.4</strong> <strong>安装**</strong>Hibernate<strong>**插件</strong></p>
+<p>这里介绍两款Hibernate的Eclipse插件：Synchronizer和Hibernate Tools。</p>
+<p>Synchronizer是一款开源Hibernate的Eclipse插件，能帮助我们自动生成一些与Hibernate框架相关的Java代码和配置文件。并且当Hibernate映射文件发生变化后，Synchronizer能自动更新Java代码。它能生成以下对象：数据类、代理接口、复合主键、枚举类、复合对象、子类、DAO。</p>
+<p>目前，Synchronizer安装地址如下：</p>
+<p><a href="http://hibernatesynch.sourceforge.net/" target="_blank" rel="noopener">http://hibernatesynch.sourceforge.net/</a></p>
+<p>通过Eclipse的插件更新工具，输入上面的一个地址即可安装，步骤与安装SVN插件基本相同，在此不再详细说明。读者可试着自己安装该插件。</p>
+<p>Hibernter Tools是另一款优秀的Eclipse下的Hibernate插件，它是Hibernate 3的一个完整的工具集，其中包含一个Hibernate自带的插件。Hibernate Tools是JBoss Tools的一个核心组件，因此也是JBoss Developer Studio的一部分，如图1-7 。</p>
+<p>可以使用Eclipse的安装程序安装这一插件。地址是：<a href="http://download.jboss.org/jbosstools/updates/stable" target="_blank" rel="noopener">http://download.jboss.org/jbosstools/updates/stable</a><br><img src="/wp-content/uploads/media/hibernate1/image7.jpeg" alt=""><br>图1-7 JBoss Tools中的Hibernate Tools</p>
+<p>选择其中的Hibernate Tools安装即可。安装后重新启动Eclipse，在视图列表中会有Hibernate项目，如图1-8所示。<br><img src="/wp-content/uploads/media/hibernate1/image8.jpeg" alt=""><br>图1-8 视图列表中的Hibernate视图</p>
+<p><strong>1.2.5</strong> <strong>安装**</strong>MySQL<strong>**数据库</strong></p>
+<p>在MySQL官方网站可以下载MySQL的安装程序。下载地址为：<a href="http://dev.mysql.com/downloads/。下载符合你的计算机配置的版本（要注意操作系统和处理器位数）。下载后运行安装程序如图1-9。" target="_blank" rel="noopener">http://dev.mysql.com/downloads/。下载符合你的计算机配置的版本（要注意操作系统和处理器位数）。下载后运行安装程序如图1-9。</a><br><img src="/wp-content/uploads/media/hibernate1/image9.jpeg" alt=""><br>图1-9 MySQL的安装界面<br><img src="/wp-content/uploads/media/hibernate1/image10.jpeg" alt=""><br>图1-10 选择MySQL Server安装类型</p>
+<p>如图1-10所示，MySQL Server安装类型有三种：典型、完全、自定义。如果你想指定安装路径或选择安装组件，可以采用自定义的安装方式。我们选择典型安装方式。点击Next就进入安装进度界面，如图1-11。<br><img src="/wp-content/uploads/media/hibernate1/image11.jpeg" alt=""><br>图1-11 安装进度</p>
+<p>安装完成后会有一个配置向导。根据向导的提示可以一步一步地完成MySQL的配置。</p>
+<p><strong>1.3**</strong>获取<strong><strong>Hibernate</strong></strong>源代码**</p>
+<p>Hibernate于2010年10月4日发布了3.6.0最终版本。在这个版本中有以下改进：</p>
+<p>不再支持JDK1.4；</p>
+<p>将Hibernate-annotations和Hibernate-jmx整合到Hibernate核心代码中来；</p>
+<p>改进了类型支持；</p>
+<p>修改了DTD的URL；</p>
+<p>改进了文档，增加了新手指南；</p>
+<p>强化了注释对discriminators,字段级别的读/写表达式和时间戳版本的支持；</p>
+<p>改进了对Envers的支持；</p>
+<p>我们有三种方式获取Hibernate源代码：</p>
+<p>1）第一种方式：到SourceForge官方网站上获取。网址为：<a href="http://sourceforge.net/projects/hibernate/files/hibernate3/。" target="_blank" rel="noopener">http://sourceforge.net/projects/hibernate/files/hibernate3/。</a></p>
+<p>2）第二种方式：到Jobss官方网站上获取，网址为：<a href="http://repository.jboss.org/maven2/org/hibernate/。" target="_blank" rel="noopener">http://repository.jboss.org/maven2/org/hibernate/。</a></p>
+<p>3）第三种方式：通过Gif客户端下载。下载路径：<a href="https://github.com/hibernate" target="_blank" rel="noopener">https://github.com/hibernate</a></p>
+<p>下载Hibernate源码后，解压加入到一个新的工程中，其目录结构如图1-14所示</p>
+<p><img src="/wp-content/uploads/media/hibernate1/image12.jpeg" alt=""><br>图1-14 Hibernate3.5.0-Final的目录结构图</p>
+<p>注意当把以上包加入到工程中后，Eclipse就会自动编译，之后会出现一些错误提示，如：下载后的Hibernate源码文件中org.hibernate.hql.antlr是空的，编译时会提示源文件丢失。细心的读者会发现，该包中只有一个HTML文件，打开后有以下提示：</p>
+<p>A special package for ANTLR-generated parser classes.</p>
+<p>NOTE: The classes in this package are generated from the ANTLR grammar files, do not register them into version control.</p>
+<p>即，这个包是一个特殊的包，该包中的类是由ANTLR解析器根据脚本文件生成的。生成步骤如下：</p>
+<p>1、将antlr.jar配置到环境变量CLASSPATH中，或拷到jdk的lib下面。</p>
+<p>2、打开命令行，进入源码的grammar文件夹(coresrcmainantlr)。可以看到以下文件：hql.g、hql-sql.g、order-by.g、order-by-render.g、sql-gen.g。</p>
+<p>3、依次运行上述脚本java antlr.Tool hql.g；java antlr.Tool hql-sql.g；java antlr.Tool sql-gen.g。生成源代码。</p>
+<p>4、把生成的java源文件考到org.hibernate.hql.antlr包中。</p>
+<p><strong>1.4 Hibernate**</strong>源代码的组织结构**</p>
+<p>下载完Hibernate源代码后，在Eclipse中Package explorer的结构如图1-15所示。下面我们对Hibernate源代码包结构做一下简单的说明。以便大家对Hibernate有一个大致的了解。</p>
+<p>Hibernate源代码主要包括：核心包core、注解包annotations、缓存包cache-ehcache, cache-infinispan, cache-jbosscache, cache-oscache,cache-swarmcache、连接池包connection-c3p0, connection-proxool、ejb实体管理包entitymanager、持久化类审查包envers、Java管理方案的扩展包jmx，还有一些存放测试用例的包和Hibernate自带的实例包等。Hibernate3.5.0-final版将bernate-annotations, hibernate-entitymanager and hibernate-envers整合到核心包中来。<br><img src="/wp-content/uploads/media/hibernate1/image13.jpeg" alt=""><br>图1-15 Hibernate核心包结构</p>
+<p>接下来我们看看每一类别中所包含有哪些包和主要的类以及它们的用途等。Hibernate核心包结构包含以下几个大类。</p>
+<p><strong>1.4.1</strong> <strong>核心**</strong>API**</p>
+<p>org.hibernate包存放的是Hibernate核心接口，如SessionFactory、Session、Transaction、Query、Criteria等。还有一些常用的异常类：HibernateException、SessionException、QueryException等。</p>
+<p>org.hibernate.cfg包存入的是配置hibernate的相关API和类，如：Configuration、SettingsFactory、Settings、Mappings。</p>
+<p>org.hibernate.criterion包提供了一组查询API的实现。我们可以使用它们组装出复杂的查询，以及一些常用的统计查询。</p>
+<p>org.hibernate.mapping包定义了Hibernate配置时的元模型。包含了与实体配置文档相关的类，如：Table、Property、ManyToOne等。</p>
+<p>org.hibernate.metadata包定义了一组API，用于访问Hibernate运行时的数据元模型。</p>
+<p>org.hibernate.classic包向后兼容了Hibernate2.1的一些API，而这些API在Hibernate3.5中已过时。</p>
+<p>org.hibernte.stat包暴露了有关Hibernate运行时的一些统计数据。</p>
+<p><strong>1.4.2</strong> <strong>扩展的**</strong>SPI**</p>
+<p>org.hibernate.cache定义了Hibernate二级缓存的一些API/SPI，以及对其的实现。</p>
+<p>org.hibernate.connection实现了获得JDBC连接的机制。</p>
+<p>org.hibernate.collection为集合类封装类定义了框架。</p>
+<p>org.hibernate.dialect实现了底层数据库的SQL方言。</p>
+<p>org.hibernate.event为Hibernate定义了一个事件框架。</p>
+<p>org.hibernate.id为Hibernate提供了不同的实体Id生成机制。</p>
+<p>org.hibernate.jdbc实现了分发SQL语句到数据库的机制，并实现了与JDBC的互动。</p>
+<p>org.hibernate.loader实现了处理JDBC结果集的功能。</p>
+<p>org.hibernate.persister包实现持久对象和表之间的映射，是Hibernate的核心包。它还有两个子包，collection实现了集合的持久化机制，负责持久化集合的对象。Entity实现了实体的持久化机制，并定义了Hibernate运行负责单个实体的持久化。</p>
+<p>org.hibernate.proxy定义了延迟加载代理实体的框架。</p>
+<p>org.hibernate.transaction实现了底层事务机制(JTA，JDBC)，并提供了获得应用服务器事务管理器的策略。</p>
+<p>org.hibernate.tuple为实体在对象级别上定义了一个运行时的元模型，并实现了各式各样实体类型的差异化。</p>
+<p>org.hibernate.usertype用户自己定义类型的接口。</p>
+<p>org.hibernate.type处理Java属性类型与JDBC字段类型的应射。</p>
+<p><strong>1.4.3</strong> <strong>Bytecode</strong> <strong>包</strong></p>
+<p>org.hibernate.bytecode包含一些bytecode库的插件，便于在Hibernate中使用。。Hibernate使用bytecode有三种情形：1、为了优化反射机制：提高访问POJO实体和组件的构造方法或属性的速度。2、为了生成代理：在运行过程中创建用于延迟加载的代理；3、属性级别的拦截：在延迟加载和脏数据跟踪时，为拦截属性级别访问构建实体类的说明。</p>
+<p>org.hibernate.intercept这个包实现了基于CGLIB字节码的延迟加载属性的拦截机制。</p>
+<p><strong>1.4.4 Infinispan包</strong></p>
+<p>Infinispan是JBoss Cache的后续项目，是一个数据网格平台，是一个分布式的缓存系统。Hibernate为了整合Infinispan提供了相应的接口，它们存放在包org.hibernate.cache.infinispan，这样在Hibernte中就使用Infinispan作为缓存系统了。</p>
+<p><strong>1.4.5 JBossCache包</strong></p>
+<p>JBoss Cache是Hibernate推荐使用的缓存。在Hibernate中整合JBoss Cache的程序存放在包org.hibernate.cache.jbc中。</p>
+<p><strong>1.4.6 其他的包</strong></p>
+<p>org.hibernate.impl包存放的是hibernate的核心接口的实现类，如SessionFactoryImpl、SessionImpl、QueryImpl等。这些类是Hibernate具体实现，包含了ORM的一些具体算法，也体现出许多Hibernate的设计思想。也是我们今后分析Hibernate运行的主要对象。</p>
+<p>org.hibernate.engine包中的类比较分散，多是由其他包“共享”而来的，并且实现了一些关键的算法。</p>
+<p>其他的包就不一一介绍了，如果想了解可去查看API文档资料。</p>
+<p><strong>1.5</strong> <strong>创建一个简单的**</strong>Hibernate<strong>**项目</strong></p>
+<p>通过前几个小节，我们配置好了开发环境，接下来我们建立一个Web工程。初步认识一下Hibernate。</p>
+<p>在建立项目之前，我们先明确一下这个项目的内容。该项目是一个简单的学生信息管理系统。其中有学生实体、班级实体、课程实体。一个班级包含零个或多个学生，一个学生可以修多门课程。一门课程可以被多个学生选择。这个项目名称为students，包含一个一对多的关系：班级与学生；也包含一个多对多的关系：学生与课程。这个项目使用MySQL数据库存储数据。</p>
+<p><strong>1.5.1**</strong>在<strong><strong>MySQL</strong></strong>中创建表**</p>
+<p>根据前面的分析，我们需要创建4张表：班级表、学生表、课程表、学生课程映射表。表结构图如下：</p>
+<p>表1-1 班级表clazz</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>班级名称</p>
+<p>name</p>
+<p>varchar</p>
+<p>100</p>
+<p>表1-2学生表student</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>学号</p>
+<p>number</p>
+<p>varchar</p>
+<p>50</p>
+<p>姓名</p>
+<p>name</p>
+<p>varchar</p>
+<p>20</p>
+<p>年龄</p>
+<p>age</p>
+<p>int</p>
+<p>班级ID</p>
+<p>clazz_id</p>
+<p>int</p>
+<p>表1-3课程表course</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>课程名称</p>
+<p>name</p>
+<p>varchar</p>
+<p>100</p>
+<p>表1-4学生课程表std_cor</p>
+<p><strong>名称</strong></p>
+<p><strong>字段名</strong></p>
+<p><strong>类型</strong></p>
+<p><strong>长度</strong></p>
+<p><strong>备注</strong></p>
+<p>ID</p>
+<p>id</p>
+<p>int</p>
+<p>自动增长</p>
+<p>课程ID</p>
+<p>course_id</p>
+<p>int</p>
+<p>学生ID</p>
+<p>std_id</p>
+<p>int</p>
+<p><strong>1.5.2**</strong>创建一个<strong>**Web Project</strong></p>
+<p>使用Eclipse的创建工程向导建立一个Web工程。在工程名称中输入students，作为我们的工程名。其余选项采用默认设置。如图1-16 。<br><img src="/wp-content/uploads/media/hibernate1/image15.jpeg" alt=""><br>图1-16 创建Java工程向导</p>
+<p>把以下包加入到WebContent/WEB-INFO/lib下，并加入到ClASSPATH中：antlr-2.7.6.jar,c3p0-0.9.1.jar、cglib-2.2.jar、commons-collections-3.1.jar、commons-logging-1.1.jar、dom4j-1.6.1.jar、ehcache-1.5.0.jar、hibernate-jpa-2.0-api-1.0.0.Final.jar、hibernate-testing.jar、hibernate3.jar、infinispan-core-4.0.0.FINAL.jar、javaee.jar、javassist-3.9.0.GA.jar、jbosscache-core-3.2.1.GA.jar、jta-1.1.jar、log4j-1.2.14.jar、mysql-connector-java-5.0.8-bin.jar、oscache-2.1.jar、proxool-0.8.3.jar、slf4j-api-1.5.8.jar、slf4j-log4j12-1.4.2.jar、swarmcache-1.0RC2.jar。</p>
+<p>创建存放pojo的包org.st.pojo，存放dao的包org.st.dao。</p>
+<p><strong>1.5.3</strong> <strong>配置**</strong>Hibernate**</p>
+<p>首先用向导创建一个Hibernate Configuration File（cfg.xml），如图1-17。<br><img src="/wp-content/uploads/media/hibernate1/image16.jpeg" alt=""><br>图1-17 创建Hibernate配置文档</p>
+<p>选择Hibernate配置文件的存放路径。我们将其存放在students工程的源代码目录中，即在src目录中。点击Next进入下一步：<br><img src="/wp-content/uploads/media/hibernate1/image17.jpeg" alt=""><br>图1-18 选择Hibernate配置文件的存放路径<br><img src="/wp-content/uploads/media/hibernate1/image18.jpeg" alt=""><br>图1-19 设置Hibernate配置文件<br><img src="/wp-content/uploads/media/hibernate1/image19.jpeg" alt=""><br>图1-20创建并配置Hibernate Console<br><img src="/wp-content/uploads/media/hibernate1/image20.jpeg" alt=""><br>图1-21 配置Hibernate Console的classpath</p>
+<p>创建并设置好Hibernate的配置文件后。将Eclipse切换到Hibernate视图。在Hibernate Configurations窗口中可以看到刚才配置的students，以及数据库中的表信息，如图1-22。说明刚才的配置是正确的。如果不能看到数据库中的表，请检查您的配置文件，看看什么地方设置错了。如果没有看到Hibernate Configurations窗口，可以选择Windows－Show View－Other打开该窗口。<br><img src="/wp-content/uploads/media/hibernate1/image21.jpeg" alt=""><br>图1-22 Hibernate Configurations窗口</p>
+<p><strong>1.5.4</strong> <strong>反向工程</strong></p>
+<p>接下来将我们介绍如何使用Hibernate Code Generation产生Hibernate映射文件和Java类文件。首先将Eclipse切换到Hibernate视图，在工具栏中可以看到如图1-23的下拉按钮，点击后会有Hibernate Code Generation Configurations项目。<br><img src="/wp-content/uploads/media/hibernate1/image22.jpeg" alt=""><br>图1-23 反向工程按在工具栏上的位置</p>
+<p>选择该项。弹出如图1-24的窗口。点击左侧窗口的添加按钮，增加一个Hibernate反向工程配置文档。在Main选项卡中设置好名称、工程名称、生成的Hibernate文档及Java文件存放路径，包名等。<br><img src="/wp-content/uploads/media/hibernate1/image23.jpeg" alt=""><br>图1-24配置反向工程</p>
+<p>点击Setup按钮设置reveng.xml项目，选择好存放路径。如果Database schema中为空，可以点击其下面的Refresh按钮刷新。然后选中其中的表，点击Include按钮将其导入到Table filters中。如果点击Exclude，在反向工程时会将其排除在外，不对其反向。点击“Finish”完成设置。如图1-25。<br><img src="/wp-content/uploads/media/hibernate1/image24.jpeg" alt=""><br>图1-25 反向工程过滤设置</p>
+<p>切换到Exporters选项卡。如图1-26 所示。<br><img src="/wp-content/uploads/media/hibernate1/image25.jpeg" alt=""><br>图1-26 设置导出对象</p>
+<p>选择导出项目，这里我们选择Domain Code、Hibernate XML Mappings和DAO code，这样一来我们在运行反向工程时，只会生成与表相对应的pojo Java类文件、Hibernate映射文件和DAO类文件。</p>
+<p>点击Apply保存以上设置。点击Run运行反向工程。运行成功后，工程的源代码目录中会生成如图1-27 所示的文件：<br><img src="/wp-content/uploads/media/hibernate1/image26.jpeg" alt=""><br>图1-27 反向工程后生成的文件</p>
+<p>其中Student.java等文件是POJO对象，StudentHome.java等是DAO，Student.hbm.xml等是实体映射文件，hibernate.cfg.xml是Hibernate的配置文件，里面包含数据库连接等参数。其中POJO、DAO、映射文件等名称的生成规则可以通过指定命名策略来改变。为了便于查看代码，另外建立一个包org.st.dao专门存放DAO。将反向工程生成的StudentHome.java放入到这个包中来。在反向工程时，学生与课程的多对多的关系被分成了两个一对多的关系。我们可以手工修改一下Student.hbm.xml和Course.hbm.xml文件。修改成多对多的关系。如代码清单1-1和代码清单1-2。</p>
+<p>代码清单1-1 实体Student的映射文件</p>
+<p>`  </p>
+<p><hibernate-mapping>  </hibernate-mapping></p>
+<p><class name="org.st.pojo.Student" table="student" catalog="hibernate">  </class></p>
+<p><id name="id" type="java.lang.Integer">  </id></p>
+<p><column name="id">  </column></p>
+<p><generator class="identity"><br>  </generator></p>
+<p><many-to-one name="clazz" class="org.st.pojo.Clazz" fetch="select" lazy="false">  </many-to-one></p>
+<p><column name="clazz_id"><br>  </column></p>
+<p><property name="number" type="string">  </property></p>
+<p><column name="number" length="50"><br>  </column></p>
+<p><property name="name" type="string">  </property></p>
+<p><column name="name" length="20"><br>  </column></p>
+<p><property name="age" type="java.lang.Integer">  </property></p>
+<p><column name="age"><br>  </column></p>
+<p><set name="courses" inverse="true" lazy="false" table="std_cor" fetch="select">  </set></p>
+<p><key>  </key></p>
+<p><column name="std_id"><br>  </column></p>
+<p><many-to-many column="course_id" class="org.st.pojo.Course"><br><br><br>`</many-to-many></p>
+<p>代码清单1-2 实体Course的映射文件  </p>
+<p>`<class name="org.st.pojo.Course" table="course" catalog="hibernate">  </class></p>
+<p><id name="id" type="java.lang.Integer">  </id></p>
+<p><column name="id">  </column></p>
+<p><generator class="identity"><br>  </generator></p>
+<p><property name="name" type="string">  </property></p>
+<p><column name="name" length="100"><br>  </column></p>
+<p><set name="students" inverse="true" lazy="true" table="std_cor" fetch="select">  </set></p>
+<p><key>  </key></p>
+<p><column name="course_id"><br>  </column></p>
+<p><many-to-many column="std_id" class="org.st.pojo.Student"><br><br><br>`<br>代码清单1-2 实体Course的映射文件</many-to-many></p>
+<p>下面我们创建一个SessionFactory。用来初始化Hibernate，并给DAO提供Session。如代码清单1-3所示。</p>
+<p>代码清单1-3 SessionFactory</p>
+<p><code>public class HibernateSessionFactory {</code></p>
+<p>`</p>
+<p>private static String resource = “/hibernate.cfg.xml”;</p>
+<p>private static SessionFactory sessionFactory;</p>
+<p>static {</p>
+<p>try {</p>
+<p>sessionFactory = new Configuration().configure(resource).buildSessionFactory();</p>
+<p>} catch (Exception e) {</p>
+<p>System.err.println(“%%%% Error Creating sessionFactory %%%%”);</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>private HibernateSessionFactory() {</p>
+<p>}</p>
+<p>public static SessionFactory getSessionFactory() {</p>
+<p>return sessionFactory;</p>
+<p>}</p>
+<p>`</p>
+<p><code>}</code><br>在用Hibernate插件反向工程生成的DAO中，我们可以看到其获得SessionFactory的代码如代码清单1-4所示。SessionFactory是从容器的上下文中获得的。所以，当程序运行时，我们要向容器的上下文中放入一个SessionFactory。</p>
+<p>代码清单1-4 DAO是获得SessionFactory的方法<br><code>protected SessionFactory getSessionFactory() {</code></p>
+<p>`</p>
+<p>try {</p>
+<p>return (SessionFactory) new InitialContext()</p>
+<p>.lookup(“SessionFactory”);</p>
+<p>} catch (Exception e) {</p>
+<p>log.error(“Could not locate SessionFactory in JNDI”, e);</p>
+<p>throw new IllegalStateException(“Could not locate SessionFactory in JNDI”);</p>
+<p>}</p>
+<p>`</p>
+<p><code>}</code></p>
+<p>为了向容器的上下文中放入一个SessionFactory。我们可以在Web应用中注册一个监听器。在应用启动时由监听器向容器中放入一个SessionFactory。监听器配置见代码清单1-5。监听器代码如代码清单1-6 所示。</p>
+<p>代码清单1-5 配置加载Hibernate的监听器</p>
+<p>org.st.HibernateContextLoaderListener</p>
+<p>代码清单1-6 Hibernate监听器</p>
+<p><code>public class HibernateContextLoaderListener implements ServletContextListener{</code></p>
+<p>`</p>
+<p>private InitialContext initialContext;</p>
+<p>/**</p>
+<ul>
+<li><p>Default constructor.</p>
+</li>
+<li><p>@throws NamingException</p>
+</li>
+</ul>
+<p>*/</p>
+<p>public HibernateContextLoaderListener() throws NamingException {</p>
+<p>initialContext = new InitialContext();</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void contextDestroyed(ServletContextEvent arg0) {</p>
+<p>try {</p>
+<p>initialContext.destroySubcontext(“SessionFactory”);</p>
+<p>} catch (NamingException e) {</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>@Override</p>
+<p>public void contextInitialized(ServletContextEvent arg0) {</p>
+<p>try {</p>
+<p>initialContext.bind(“SessionFactory”, HibernateSessionFactory.getSessionFactory());</p>
+<p>} catch (NamingException e) {</p>
+<p>e.printStackTrace();</p>
+<p>}</p>
+<p>}</p>
+<p>`</p>
+<p><code>}</code></p>
+<p>接下来我们创建几个jsp页面。使用刚才生成的DAO，保存我的实体类。具体代码请查看随书光盘Students项目。</p>
+<p>项目中包含一个一对多的关系——班级对学生和一个多对多的关系——学生对课程。从liststudents.jsp中保存实体的代码如代码清单1-7所示。一个学生属于一个班级，所以对一个学生要创建一个班级实体对象clazz，此处是根据班级的id从数据库中查找出来的。一个学生可以选择多门课程，所以要为一个学生创建一个课程集合courses，然后根据课程的id从数据库中查找出课程放入到courses集合中。最后是调用studentHome保存学生实体。</p>
+<p>代码清单1-7 保存Student的代码</p>
+<p><code>//创建学生实体</code></p>
+<p>`</p>
+<p>Student s = new Student();</p>
+<p>s.setNumber(number);</p>
+<p>s.setName(name);</p>
+<p>s.setAge(Integer.parseInt(age));</p>
+<p>//创建班级实体。班级实体与学生实体是一对多的关系。</p>
+<p>Clazz clazz = null;</p>
+<p>if(clazzid != null &amp;&amp; !””.equals(clazzid)){</p>
+<p>clazz = clazzHome.findById(Integer.parseInt(clazzid));</p>
+<p>s.setClazz(clazz);</p>
+<p>}</p>
+<p>//创建多个课程实体,课程实体与学生实体是多对多的关系</p>
+<p>if(courseids != null){</p>
+<p>Set courses = s.getCourses();</p>
+<p>for(String courseid : courseids){</p>
+<p>courses.add(courseHome.findById(Integer.parseInt(courseid)));</p>
+<p>}</p>
+<p>}</p>
+<p>//保存学生实体</p>
+<p>`</p>
+<p><code>studentHome.persist(s);</code></p>
+<p><strong>1.6</strong> <strong>创建一个简单的SSH**</strong>项目**</p>
+<p>SSH项目是Struts+Spring+Hibernate的有机整合。利用三框架将J2EE项目分成表现层、业务层、持久层等。为了便于结合着Struts2.0和Spring讲解Hibernate。我们需将第1.5节的students例子改造一下，加入Struts和Spring框架，使之成为一个SSH项目。</p>
+<p>首先向项目中加入Struts包和Spring包。并将其加入到CLASSPATH中。</p>
+<p><strong>1.6.1</strong> <strong>配置**</strong>Struts**</p>
+<p>在web.xml中增加Struts过滤器FilterDispatcher，如代码清单1-8。</p>
+<p>代码清单1-8 配置Struts过滤器</p>
+<p>`<filter>  </filter></p>
+<p><filter-name>struts</filter-name>  </p>
+<p><filter-class> org.apache.struts2.dispatcher.FilterDispatcher<br></filter-class><br>  </p>
+<p><filter-mapping>  </filter-mapping></p>
+<p><filter-name>struts</filter-name>  </p>
+<p><url-pattern>*.action</url-pattern><br>`<br>增加完过滤器后，在src源代码目录中创建一个struts的配置文件，代码清单1-9。内容如下：</p>
+<p>其中struts.objectFactory的值设置为spring，这样一来Struts配置文件中的action可交于Spring来管理，也就是说Struts可以引用Spring管理的Bean。</p>
+<p>代码清单1-9 Struts的配置文件</p>
+<p>`&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>&lt;!DOCTYPE struts PUBLIC<br>“-//Apache Software Foundation//DTD Struts Configuration 2.0//EN”<br>“<a href="http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;" target="_blank" rel="noopener">http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</a>  </p>
+<p><struts>  </struts></p>
+<p><constant name="struts.objectFactory" value="spring">  </constant></p>
+<p><constant name="struts.devMode" value="true">  </constant></p>
+<p><constant name="struts.locale" value="zh_CN">  </constant></p>
+<p><constant name="struts.i18n.encoding" value="UTF-8">  </constant></p>
+<p><constant name="struts.action.extension" value="action">  </constant></p>
+<p><constant name="struts.custom.i18n.resources" value="ApplicationResources,errors">  </constant></p>
+<p><constant name="struts.multipart.maxSize" value="2097152">  </constant></p>
+<p><constant name="struts.multipart.saveDir" value="/resources">  </constant></p>
+<p><constant name="struts.ui.theme" value="simple">  </constant></p>
+<p><constant name="struts.enable.SlashesInActionNames" value="true">  </constant></p>
+<p><constant name="struts.multipart.saveDir" value="/tmp"><br><br>`</constant></p>
+<p><strong>1.6.2</strong> <strong>配置**</strong>Spring**</p>
+<p>配置Spring主要是配置一个监听器，当应用启动后，初始化Spring的上下文。其中需要一个上下文参数contextConfigLocation，用以指明Spring配置文档所在位置。这里采用classpath的方式。我们将applicationContext.xml放在src目录下。如代码清单1-10。</p>
+<p>代码清单1-10 加载Spring的监听器</p>
+<p>`  </p>
+<p><context-param>  </context-param></p>
+<p><param-name>contextConfigLocation</param-name>  </p>
+<p><param-value><br>classpath:/applicationContext*.xml<br></param-value><br>  </p>
+<p><listener>  </listener></p>
+<p><listener-class> org.springframework.web.context.ContextLoaderListener<br></listener-class><br>  </p>
+<p><listener>  </listener></p>
+<p><listener-class> org.springframework.web.context.request.RequestContextListener<br></listener-class><br>`</p>
+<p><strong>1.6.3**</strong>配置<strong>**Hibernate</strong></p>
+<p>有了Spring框架，我们可以将Hibernate的SessionFactory放入到Spring配置文件中进行管理。Spring为了集成Hibernate，提供了一些现成的SessionFactory。如：LocalSessionFactoryBean，AnnotationSessionFactoryBean等。现在我们采用AnnotationSessionFactoryBean配置Hibernate的SessionFactory，代码如清单1-11所示。使用AnnotationSessionFactoryBean必须有一个数据库连接池，我们在此使用开源的数据源数据库连接池，配置数据源如代码清单，代码如清单1-12所示。</p>
+<p>代码清单1-11 在Spring配置SessionFactory</p>
+<p>`  </p>
+<p><bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">  </bean></p>
+<p><property name="dataSource">  </property></p>
+<p><ref bean="dataSource"><br>  </ref></p>
+<p><property name="mappingDirectoryLocations"><br>&lt;!—指定映射文件存放路径 –&gt;  </property></p>
+<p><list> <value>classpath:/org/st/pojo</value><br></list><br>  </p>
+<p><property name="annotatedClasses">  </property></p>
+<p><list><br><!--<value> </value> --><br></list><br>  </p>
+<p><property name="hibernateProperties">  </property></p>
+<p><props><br>&lt;!—使用的数据库方言 –&gt;  </props></p>
+<p><prop key="hibernate.dialect"><br>org.hibernate.dialect.MySQL5Dialect<br></prop><br>&lt;!—是否使用二级缓存 –&gt;  </p>
+<p><prop key="hibernate.cache.use_second_level_cache">false</prop><br><br><br>`</p>
+<p>代码清单1-12 在Spring中配置数据源  </p>
+<p>`<class name="org.st.pojo.Course" table="course" catalog="hibernate">  </class></p>
+<p><id name="id" type="java.lang.Integer">  </id></p>
+<p><column name="id">  </column></p>
+<p><generator class="identity"><br>  </generator></p>
+<p><property name="name" type="string">  </property></p>
+<p><column name="name" length="100"><br>  </column></p>
+<p><set name="students" inverse="true" lazy="true" table="std_cor" fetch="select">  </set></p>
+<p><key>  </key></p>
+<p><column name="course_id"><br>  </column></p>
+<p><many-to-many column="std_id" class="org.st.pojo.Student"><br><br><br><br>`</many-to-many></p>
+<p>至此，Struts+Spring+Hibernate框架整合完毕。接下来就可以将原来的代码拆分到各个不同的功能层次中去，使代码显得层次分明、结构条理、易于维护。具体的修改过程在此就不一一介绍了。需要的读者可查看本书附带的源码。</p>
+<p><strong>1.7</strong> <strong>小结</strong></p>
+<p>本章主要讲述了如何搭建一个学习和开发Hibernate的环境，并讲述了Hibernate的结构。然后在此基础上创建一个Hibernate工程students。在此工程中展示了如何使用Hibernate。最后又对students工程进行完善，整合Struts框架和Spring框架。至此，students成为一个完整的SSH项目。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/08/04/hibernate-e7-9a-84-e5-9f-ba-e6-9c-ac-e9-85-8d-e7-bd-ae/" data-id="cjo7aghso0078sv0fn6ruq9kt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" class="article-date">
+  <time datetime="2015-07-22T01:52:43.000Z" itemprop="datePublished">2015-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/">新企业初始化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>declare @blue varchar(40); declare @uid decimal(10,0); declare @eid int; declare cur_blue cursor for select EID,DeviceType+’$’+Bluetooth from [EnterpriseBluetooth]; open cur_blue fetch next from cur_blue into @eid,@blue; WHILE @@FETCH_STATUS = 0 BEGIN declare cur_user cursor for select U_ID from [UserEx] where BluetoothAddr like ‘%‘+@blue+’%’; open cur_user fetch next from cur_user into @uid; WHILE @@FETCH_STATUS = 0 BEGIN update [User] set Enterprise_ID=@eid where ID=@uid and (Enterprise_ID is null or Enterprise_ID =0); fetch next from cur_user into @uid; END close cur_user deallocate cur_user fetch next from cur_blue into @eid,@blue; END close cur_blue deallocate cur_blue</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/07/22/e6-96-b0-e4-bc-81-e4-b8-9a-e5-88-9d-e5-a7-8b-e5-8c-96/" data-id="cjo7aghrp004wsv0fh534p7ys" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" class="article-date">
+  <time datetime="2015-05-21T05:18:16.000Z" itemprop="datePublished">2015-05-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/">Java中常用的加密方法(JDK)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>加密，是以某种特殊的算法改变原有的信息数据，使得未授权的用户即使获得了已加密的信息，但因不知解密的方法，仍然无法了解信息的内容。大体上分为<strong>双向加密</strong>和<strong>单向加密</strong>，而双向加密又分为<strong>对称加密</strong>和<strong>非对称加密</strong>(有些资料将加密直接分为对称加密和非对称加密)。 双向加密大体意思就是明文加密后形成密文，可以通过算法还原成明文。而单向加密只是对信息进行了摘要计算，不能通过算法生成明文，单向加密从严格意思上说不能算是加密的一种，应该算是摘要算法吧。具体区分可以参考： (本人解释不清呢 …… ) <a href="http://security.group.iteye.com/group/wiki/1710-one-way-encryption-algorithm" target="_blank" rel="noopener">http://security.group.iteye.com/group/wiki/1710-one-way-encryption-algorithm</a> <strong>一、双向加密</strong> <strong>(一)、对称加密</strong> 采用单钥密码系统的加密方法，同一个密钥可以同时用作信息的加密和解密，这种加密方法称为对称加密，也称为单密钥加密。 需要对加密和解密使用相同密钥的加密算法。由于其速度，对称性加密通常在消息发送方需要加密大量数据时使用。对称性加密也称为密钥加密。 所谓对称，就是采用这种加密方法的双方使用方式用同样的密钥进行加密和解密。密钥是控制加密及解密过程的指令。 算法是一组规则，规定如何进行加密和解密。因此对称式加密本身不是安全的。 常用的对称加密有：DES、IDEA、RC2、RC4、SKIPJACK、RC5、AES算法等 对称加密一般java类中中定义成员</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>//KeyGenerator 提供对称密钥生成器的功能，支持各种算法</li>
+<li>private KeyGenerator keygen;</li>
+<li>//SecretKey 负责保存对称密钥</li>
+<li>private SecretKey deskey;</li>
+<li>//Cipher负责完成加密或解密工作</li>
+<li>private Cipher c;</li>
+<li>//该字节数组负责保存加密的结果</li>
+<li>private byte[] cipherByte;</li>
+</ol>
+<p>在构造函数中初始化</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>Security.addProvider(new com.sun.crypto.provider.SunJCE());</li>
+<li>//实例化支持DES算法的密钥生成器(算法名称命名需按规定，否则抛出异常)</li>
+<li>keygen = KeyGenerator.getInstance(“DES”);//</li>
+<li>//生成密钥</li>
+<li>deskey = keygen.generateKey();</li>
+<li>//生成Cipher对象,指定其支持的DES算法</li>
+<li>c = Cipher.getInstance(“DES”);</li>
+</ol>
+<p><strong>1. DES</strong>算法为密码体制中的对称密码体制，又被成为美国数据加密标准，是1972年美国IBM公司研制的对称密码体制加密算法。 明文按64位进行分组, 密钥长64位，密钥事实上是56位参与DES运算（第8、16、24、32、40、48、56、64位是校验位， 使得每个密钥都有奇数个1）分组后的明文组和56位的密钥按位替代或交换的方法形成密文组的加密方法。</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.InvalidKeyException;</li>
+<li>import java.security.NoSuchAlgorithmException;</li>
+<li><p>import java.security.Security;</p>
+</li>
+<li><p>import javax.crypto.BadPaddingException;</p>
+</li>
+<li>import javax.crypto.Cipher;</li>
+<li>import javax.crypto.IllegalBlockSizeException;</li>
+<li>import javax.crypto.KeyGenerator;</li>
+<li>import javax.crypto.NoSuchPaddingException;</li>
+<li><p>import javax.crypto.SecretKey;</p>
+</li>
+<li><p>public class EncrypDES {</p>
+</li>
+<li><p>//KeyGenerator 提供对称密钥生成器的功能，支持各种算法</p>
+</li>
+<li>private KeyGenerator keygen;</li>
+<li>//SecretKey 负责保存对称密钥</li>
+<li>private SecretKey deskey;</li>
+<li>//Cipher负责完成加密或解密工作</li>
+<li>private Cipher c;</li>
+<li>//该字节数组负责保存加密的结果</li>
+<li><p>private byte[] cipherByte;</p>
+</li>
+<li><p>public EncrypDES() throws NoSuchAlgorithmException, NoSuchPaddingException{</p>
+</li>
+<li>Security.addProvider(new com.sun.crypto.provider.SunJCE());</li>
+<li>//实例化支持DES算法的密钥生成器(算法名称命名需按规定，否则抛出异常)</li>
+<li>keygen = KeyGenerator.getInstance(“DES”);</li>
+<li>//生成密钥</li>
+<li>deskey = keygen.generateKey();</li>
+<li>//生成Cipher对象,指定其支持的DES算法</li>
+<li>c = Cipher.getInstance(“DES”);</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串加密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param str</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Encrytor(String str) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，ENCRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.ENCRYPT_MODE, deskey);</li>
+<li>byte[] src = str.getBytes();</li>
+<li>// 加密，结果保存进cipherByte</li>
+<li>cipherByte = c.doFinal(src);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串解密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param buff</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Decryptor(byte[] buff) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，DECRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.DECRYPT_MODE, deskey);</li>
+<li>cipherByte = c.doFinal(buff);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>@param args</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException </li>
+</ul>
+</li>
+<li>*/</li>
+<li>public static void main(String[] args) throws Exception {</li>
+<li>EncrypDES de1 = new EncrypDES();</li>
+<li>String msg =”郭XX-搞笑相声全集”;</li>
+<li>byte[] encontent = de1.Encrytor(msg);</li>
+<li>byte[] decontent = de1.Decryptor(encontent);</li>
+<li>System.out.println(“明文是:” + msg);</li>
+<li>System.out.println(“加密后:” + new String(encontent));</li>
+<li>System.out.println(“解密后:” + new String(decontent));</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p><strong>2. 3DES</strong>又称Triple DES，是DES加密算法的一种模式，它使用3条56位的密钥对3DES 数据进行三次加密。数据加密标准（DES）是美国的一种由来已久的加密标准，它使用对称密钥加密法，并于1981年被ANSI组织规范为ANSI X.3.92。DES使用56位密钥和密码块的方法，而在密码块的方法中，文本被分成64位大小的文本块然后再进行加密。比起最初的DES，3DES更为安全。 3DES（即Triple DES）是DES向AES过渡的加密算法（1999年，NIST将3-DES指定为过渡的加密标准），是DES的一个更安全的变形。它以DES为基本模块，通过组合分组方法设计出分组加密算法，其具体实现如下： 设Ek()和Dk()代表DES算法的加密和解密过程，K代表DES算法使用的密钥，P代表明文，C代表密文， 这样， 3DES加密过程为：C=Ek3(Dk2(Ek1(P))) 3DES解密过程为：P=Dk1((EK2(Dk3(C)))</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.InvalidKeyException;</li>
+<li>import java.security.NoSuchAlgorithmException;</li>
+<li><p>import java.security.Security;</p>
+</li>
+<li><p>import javax.crypto.BadPaddingException;</p>
+</li>
+<li>import javax.crypto.Cipher;</li>
+<li>import javax.crypto.IllegalBlockSizeException;</li>
+<li>import javax.crypto.KeyGenerator;</li>
+<li>import javax.crypto.NoSuchPaddingException;</li>
+<li><p>import javax.crypto.SecretKey;</p>
+</li>
+<li><p>public class EncrypDES3 {</p>
+</li>
+<li><p>// KeyGenerator 提供对称密钥生成器的功能，支持各种算法</p>
+</li>
+<li>private KeyGenerator keygen;</li>
+<li>// SecretKey 负责保存对称密钥</li>
+<li>private SecretKey deskey;</li>
+<li>// Cipher负责完成加密或解密工作</li>
+<li>private Cipher c;</li>
+<li>// 该字节数组负责保存加密的结果</li>
+<li><p>private byte[] cipherByte;</p>
+</li>
+<li><p>public EncrypDES3() throws NoSuchAlgorithmException, NoSuchPaddingException {</p>
+</li>
+<li>Security.addProvider(new com.sun.crypto.provider.SunJCE());</li>
+<li>// 实例化支持DES算法的密钥生成器(算法名称命名需按规定，否则抛出异常)</li>
+<li>keygen = KeyGenerator.getInstance(“DESede”);</li>
+<li>// 生成密钥</li>
+<li>deskey = keygen.generateKey();</li>
+<li>// 生成Cipher对象,指定其支持的DES算法</li>
+<li>c = Cipher.getInstance(“DESede”);</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串加密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param str</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Encrytor(String str) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，ENCRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.ENCRYPT_MODE, deskey);</li>
+<li>byte[] src = str.getBytes();</li>
+<li>// 加密，结果保存进cipherByte</li>
+<li>cipherByte = c.doFinal(src);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串解密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param buff</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Decryptor(byte[] buff) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，DECRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.DECRYPT_MODE, deskey);</li>
+<li>cipherByte = c.doFinal(buff);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>@param args</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException </li>
+</ul>
+</li>
+<li>*/</li>
+<li>public static void main(String[] args) throws Exception {</li>
+<li>EncrypDES3 des = new EncrypDES3();</li>
+<li>String msg =”郭XX-搞笑相声全集”;</li>
+<li>byte[] encontent = des.Encrytor(msg);</li>
+<li>byte[] decontent = des.Decryptor(encontent);</li>
+<li>System.out.println(“明文是:” + msg);</li>
+<li>System.out.println(“加密后:” + new String(encontent));</li>
+<li><p>System.out.println(“解密后:” + new String(decontent));</p>
+</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p><strong>3. AES</strong>密码学中的高级加密标准（Advanced Encryption Standard，AES），又称  高级加密标准 Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。 　　该算法为比利时密码学家Joan Daemen和Vincent Rijmen所设计，结合两位作者的名字，以Rijndael之命名之，投稿高级加密标准的甄选流程。（Rijdael的发音近于 “Rhinedoll”。）</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.InvalidKeyException;</li>
+<li>import java.security.NoSuchAlgorithmException;</li>
+<li><p>import java.security.Security;</p>
+</li>
+<li><p>import javax.crypto.BadPaddingException;</p>
+</li>
+<li>import javax.crypto.Cipher;</li>
+<li>import javax.crypto.IllegalBlockSizeException;</li>
+<li>import javax.crypto.KeyGenerator;</li>
+<li>import javax.crypto.NoSuchPaddingException;</li>
+<li><p>import javax.crypto.SecretKey;</p>
+</li>
+<li><p>public class EncrypAES {</p>
+</li>
+<li><p>//KeyGenerator 提供对称密钥生成器的功能，支持各种算法</p>
+</li>
+<li>private KeyGenerator keygen;</li>
+<li>//SecretKey 负责保存对称密钥</li>
+<li>private SecretKey deskey;</li>
+<li>//Cipher负责完成加密或解密工作</li>
+<li>private Cipher c;</li>
+<li>//该字节数组负责保存加密的结果</li>
+<li><p>private byte[] cipherByte;</p>
+</li>
+<li><p>public EncrypAES() throws NoSuchAlgorithmException, NoSuchPaddingException{</p>
+</li>
+<li>Security.addProvider(new com.sun.crypto.provider.SunJCE());</li>
+<li>//实例化支持DES算法的密钥生成器(算法名称命名需按规定，否则抛出异常)</li>
+<li>keygen = KeyGenerator.getInstance(“AES”);</li>
+<li>//生成密钥</li>
+<li>deskey = keygen.generateKey();</li>
+<li>//生成Cipher对象,指定其支持的DES算法</li>
+<li>c = Cipher.getInstance(“AES”);</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串加密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param str</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Encrytor(String str) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，ENCRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.ENCRYPT_MODE, deskey);</li>
+<li>byte[] src = str.getBytes();</li>
+<li>// 加密，结果保存进cipherByte</li>
+<li>cipherByte = c.doFinal(src);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>对字符串解密</li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param buff</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>public byte[] Decryptor(byte[] buff) throws InvalidKeyException,</li>
+<li>IllegalBlockSizeException, BadPaddingException {</li>
+<li>// 根据密钥，对Cipher对象进行初始化，DECRYPT_MODE表示加密模式</li>
+<li>c.init(Cipher.DECRYPT_MODE, deskey);</li>
+<li>cipherByte = c.doFinal(buff);</li>
+<li>return cipherByte;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>@param args</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException </li>
+</ul>
+</li>
+<li>*/</li>
+<li>public static void main(String[] args) throws Exception {</li>
+<li>EncrypAES de1 = new EncrypAES();</li>
+<li>String msg =”郭XX-搞笑相声全集”;</li>
+<li>byte[] encontent = de1.Encrytor(msg);</li>
+<li>byte[] decontent = de1.Decryptor(encontent);</li>
+<li>System.out.println(“明文是:” + msg);</li>
+<li>System.out.println(“加密后:” + new String(encontent));</li>
+<li>System.out.println(“解密后:” + new String(decontent));</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p><strong>(二)、非对称加密</strong> 1976年，美国学者Dime和Henman为解决信息公开传送和密钥管理问题，提出一种新的密钥交换协议，允许在不安全的媒体上的通讯双方交换信息，安全地达成一致的密钥，这就是“公开密钥系统”。相对于“对称加密算法”这种方法也叫做“非对称加密算法”。 与对称加密算法不同，非对称加密算法需要两个密钥：公开密钥（publickey）和私有密钥 （privatekey）。公开密钥与私有密钥是一对，如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密。因为加密和解密使用的是两个不同的密钥，所以这种算法叫作非对称加密算法。 <strong>1. RSA</strong> 公钥加密算法是1977年由Ron Rivest、Adi Shamirh和LenAdleman在（美国麻省理工学院）开发的。RSA取名来自开发他们三者的名字。RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的所有密码攻击，已被ISO推荐为公钥数据加密标准。RSA算法基于一个十分简单的数论事实：将两个大素数相乘十分容易，但那时想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.InvalidKeyException;</li>
+<li>import java.security.KeyPair;</li>
+<li>import java.security.KeyPairGenerator;</li>
+<li>import java.security.NoSuchAlgorithmException;</li>
+<li>import java.security.interfaces.RSAPrivateKey;</li>
+<li><p>import java.security.interfaces.RSAPublicKey;</p>
+</li>
+<li><p>import javax.crypto.BadPaddingException;</p>
+</li>
+<li>import javax.crypto.Cipher;</li>
+<li>import javax.crypto.IllegalBlockSizeException;</li>
+<li><p>import javax.crypto.NoSuchPaddingException;</p>
+</li>
+<li><p>public class EncrypRSA {</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>加密</li>
+</ul>
+</li>
+<li><ul>
+<li>@param publicKey</li>
+</ul>
+</li>
+<li><ul>
+<li>@param srcBytes</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>protected byte[] encrypt(RSAPublicKey publicKey,byte[] srcBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{</li>
+<li>if(publicKey!=null){</li>
+<li>//Cipher负责完成加密或解密工作，基于RSA</li>
+<li>Cipher cipher = Cipher.getInstance(“RSA”);</li>
+<li>//根据公钥，对Cipher对象进行初始化</li>
+<li>cipher.init(Cipher.ENCRYPT_MODE, publicKey);</li>
+<li>byte[] resultBytes = cipher.doFinal(srcBytes);</li>
+<li>return resultBytes;</li>
+<li>}</li>
+<li>return null;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>解密 </li>
+</ul>
+</li>
+<li><ul>
+<li>@param privateKey</li>
+</ul>
+</li>
+<li><ul>
+<li>@param srcBytes</li>
+</ul>
+</li>
+<li><ul>
+<li>@return</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException</li>
+</ul>
+</li>
+<li>*/</li>
+<li>protected byte[] decrypt(RSAPrivateKey privateKey,byte[] srcBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{</li>
+<li>if(privateKey!=null){</li>
+<li>//Cipher负责完成加密或解密工作，基于RSA</li>
+<li>Cipher cipher = Cipher.getInstance(“RSA”);</li>
+<li>//根据公钥，对Cipher对象进行初始化</li>
+<li>cipher.init(Cipher.DECRYPT_MODE, privateKey);</li>
+<li>byte[] resultBytes = cipher.doFinal(srcBytes);</li>
+<li>return resultBytes;</li>
+<li>}</li>
+<li>return null;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>@param args</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws BadPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IllegalBlockSizeException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchPaddingException </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws InvalidKeyException </li>
+</ul>
+</li>
+<li>*/</li>
+<li>public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {</li>
+<li>EncrypRSA rsa = new EncrypRSA();</li>
+<li>String msg = “郭XX-精品相声”;</li>
+<li>//KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象</li>
+<li>KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(“RSA”);</li>
+<li>//初始化密钥对生成器，密钥大小为1024位</li>
+<li>keyPairGen.initialize(1024);</li>
+<li>//生成一个密钥对，保存在keyPair中</li>
+<li>KeyPair keyPair = keyPairGen.generateKeyPair();</li>
+<li>//得到私钥</li>
+<li>RSAPrivateKey privateKey = (RSAPrivateKey)keyPair.getPrivate();</li>
+<li>//得到公钥</li>
+<li><p>RSAPublicKey publicKey = (RSAPublicKey)keyPair.getPublic();</p>
+</li>
+<li><p>//用公钥加密</p>
+</li>
+<li>byte[] srcBytes = msg.getBytes();</li>
+<li><p>byte[] resultBytes = rsa.encrypt(publicKey, srcBytes);</p>
+</li>
+<li><p>//用私钥解密</p>
+</li>
+<li><p>byte[] decBytes = rsa.decrypt(privateKey, resultBytes);</p>
+</li>
+<li><p>System.out.println(“明文是:” + msg);</p>
+</li>
+<li>System.out.println(“加密后是:” + new String(resultBytes));</li>
+<li>System.out.println(“解密后是:” + new String(decBytes));</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p><strong>2. DSA</strong> Digital Signature Algorithm (DSA)是Schnorr和ElGamal签名算法的变种，被美国NIST作为DSS(DigitalSignature Standard)。(感觉有点复杂，没有附代码) 详见<a href="http://63938525.iteye.com/blog/1051565" target="_blank" rel="noopener">http://63938525.iteye.com/blog/1051565</a> <strong>(三)、题外话 MySQL加密解密函数</strong> MySQL有两个函数来支持这种类型的加密，分别叫做ENCODE()和DECODE()。 下面是一个简单的实例：</p>
+<p>Mysql代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li><p>mysql&gt; INSERT INTO users (username,password) VALUES (‘joe’,ENCODE(‘guessme’,’abr’));</p>
+</li>
+<li><p>Query OK， 1 row affected （0.14 sec）</p>
+</li>
+</ol>
+<p>其中，Joe的密码是guessme，它通过密钥abracadabra被加密。要注意的是，加密完的结果是一个二进制字符串，如下所示： 提示：虽然ENCODE()和DECODE()这两个函数能够满足大多数的要求，但是有的时候您希望使用强度更高的加密手段。在这种情况下，您可以使用AES_ENCRYPT()和AES_DECRYPT()函数，它们的工作方式是相同的，但是加密强度更高。 单向加密与双向加密不同，一旦数据被加密就没有办法颠倒这一过程。因此密码的验证包括对用户输入内容的重新加密，并将它与保存的密文进行比对，看是否匹配。一种简单的单向加密方式是MD5校验码。MySQL的MD5（）函数会为您的数据创建一个“指纹”并将它保存起来，供验证测试使用。下面就是如何使用它的一个简单例子：</p>
+<p>Mysql代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li><p>mysql&gt; INSERT INTO users (username,password) VALUES (‘joe’,MD5(‘guessme’));</p>
+</li>
+<li><p>Query OK， 1 row affected （0.00 sec）</p>
+</li>
+</ol>
+<p>或者，您考虑一下使用ENCRYPT（）函数，它使用系统底层的crypt（）系统调用来完成加密。这个函数有两个参数：一个是要被加密的字符串，另一个是双（或者多）字符的“salt”。它然后会用salt加密字符串；这个salt然后可以被用来再次加密用户输入的内容，并将它与先前加密的字符串进行比对。下面一个例子说明了如何使用它：</p>
+<p>Mysql代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li><p>mysql&gt; INSERT INTO users (username,password) VALUES(‘joe’， ENCRYPT(‘guessme’,’ab’));</p>
+</li>
+<li><p>Query OK， 1 row affected （0.00 sec）</p>
+</li>
+</ol>
+<p>提示：ENCRYPT()只能用在UNIX、LINIX系统上，因为它需要用到底层的crypt()库。 <strong>二、单向加密(信息摘要)</strong> Java一般需要获取对象MessageDigest来实现单项加密(信息摘要)。 <strong>1. MD5</strong> 即Message-Digest Algorithm 5（信息-摘要算法 5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、MD3和MD4。MD5的作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。 除了MD5以外，其中比较有名的还有sha-1、RIPEMD以及Haval等</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.MessageDigest;</li>
+<li><p>import java.security.NoSuchAlgorithmException;</p>
+</li>
+<li><p>public class EncrypMD5 {</p>
+</li>
+<li><p>public byte[] eccrypt(String info) throws NoSuchAlgorithmException{</p>
+</li>
+<li>//根据MD5算法生成MessageDigest对象</li>
+<li>MessageDigest md5 = MessageDigest.getInstance(“MD5”);</li>
+<li>byte[] srcBytes = info.getBytes();</li>
+<li>//使用srcBytes更新摘要</li>
+<li>md5.update(srcBytes);</li>
+<li>//完成哈希计算，得到result</li>
+<li>byte[] resultBytes = md5.digest();</li>
+<li>return resultBytes;</li>
+<li><p>}</p>
+</li>
+<li><p>public static void main(String args[]) throws NoSuchAlgorithmException{</p>
+</li>
+<li>String msg = “郭XX-精品相声技术”;</li>
+<li>EncrypMD5 md5 = new EncrypMD5();</li>
+<li><p>byte[] resultBytes = md5.eccrypt(msg);</p>
+</li>
+<li><p>System.out.println(“密文是：” + new String(resultBytes));</p>
+</li>
+<li>System.out.println(“明文是：” + msg);</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p><strong>2. SHA</strong> 是一种数据加密算法，该算法经过加密专家多年来的发展和改进已日益完善，现在已成为公认的最安全的散列算法之一，并被广泛使用。该算法的思想是接收一段明文，然后以一种不可逆的方式将它转换成一段（通常更小）密文，也可以简单的理解为取一串输入码（称为预映射或信息），并把它们转化为长度较短、位数固定的输出序列即散列值（也称为信息摘要或信息认证代码）的过程。散列函数值可以说时对明文的一种“指纹”或是“摘要”所以对散列值的数字签名就可以视为对此明文的数字签名。</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.security.MessageDigest;</li>
+<li><p>import java.security.NoSuchAlgorithmException;</p>
+</li>
+<li><p>public class EncrypSHA {</p>
+</li>
+<li><p>public byte[] eccrypt(String info) throws NoSuchAlgorithmException{</p>
+</li>
+<li>MessageDigest md5 = MessageDigest.getInstance(“SHA”);</li>
+<li>byte[] srcBytes = info.getBytes();</li>
+<li>//使用srcBytes更新摘要</li>
+<li>md5.update(srcBytes);</li>
+<li>//完成哈希计算，得到result</li>
+<li>byte[] resultBytes = md5.digest();</li>
+<li>return resultBytes;</li>
+<li><p>}</p>
+</li>
+<li><p>/**</p>
+</li>
+<li><ul>
+<li>@param args</li>
+</ul>
+</li>
+<li><ul>
+<li>@throws NoSuchAlgorithmException </li>
+</ul>
+</li>
+<li>*/</li>
+<li>public static void main(String[] args) throws NoSuchAlgorithmException {</li>
+<li>String msg = “郭XX-精品相声技术”;</li>
+<li>EncrypSHA sha = new EncrypSHA();</li>
+<li>byte[] resultBytes = sha.eccrypt(msg);</li>
+<li>System.out.println(“明文是：” + msg);</li>
+<li><p>System.out.println(“密文是：” + new String(resultBytes));</p>
+</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p>附件中是以上几种的源代码，附带额外的两种使用方式。 增加一种关于文件的哈希算法源代码：</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>import java.io.FileInputStream;</li>
+<li>import java.io.InputStream;</li>
+<li><p>import java.security.MessageDigest;</p>
+</li>
+<li><p>public class FileHashUtil {</p>
+</li>
+<li><p>public static final char[] hexChar = {</p>
+</li>
+<li>‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’, ‘7’, ‘8’, ‘9’, ‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’ };</li>
+<li><p>public static final String[] hashTypes = new String[] { “MD2”, “MD5”, “SHA1”, “SHA-256”, “SHA-384”, “SHA-512” };</p>
+</li>
+<li><p>public void MD5File(String fileName) throws Exception{</p>
+</li>
+<li>//String fileName = args[0];</li>
+<li>System.out.println(“需要获取hash的文件为：　“ + fileName);</li>
+<li>java.util.List<messagedigest> mds = new java.util.ArrayList<messagedigest>();</messagedigest></messagedigest></li>
+<li>for (String hashType : hashTypes) {</li>
+<li>MessageDigest md = MessageDigest.getInstance(hashType);</li>
+<li>mds.add(md);</li>
+<li>}</li>
+<li>InputStream fis = null;</li>
+<li>try {</li>
+<li>fis = new FileInputStream(fileName);</li>
+<li>byte[] buffer = new byte[1024];</li>
+<li>int numRead = 0;</li>
+<li>while ((numRead = fis.read(buffer)) &gt; 0) {</li>
+<li>for (MessageDigest md : mds) {</li>
+<li>md.update(buffer, 0, numRead);</li>
+<li>}</li>
+<li>}</li>
+<li>} catch (Exception ex) {</li>
+<li>ex.printStackTrace();</li>
+<li>} finally {</li>
+<li>if (fis != null) {</li>
+<li>fis.close();</li>
+<li>}</li>
+<li>}</li>
+<li>for (MessageDigest md : mds) {</li>
+<li>System.out.println(md.getAlgorithm() + “ == “ + toHexString(md.digest()));</li>
+<li>}</li>
+<li><p>}</p>
+</li>
+<li><p>public static void main(String[] args) throws Exception {</p>
+</li>
+<li>String[] fileName = new String[] {“D:/hapfish/ShellFolder.java”,”D:/hapfish/ShellFolder - 副本.java”,</li>
+<li>“E:/ShellFolder - 副本.java”,”E:/ShellFolder.txt”,”D:/hapfish/ShellFolder.jpg”,</li>
+<li>“E:/ShellFolder增加字符.txt”,”D:/hapfish/birosoft.jar”};</li>
+<li>FileHashUtil files  = new FileHashUtil();</li>
+<li>for(int i=0;i&lt;fileName.length;i++){</li>
+<li>files.MD5File(fileName[i]);</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+<li><p>public static String toHexString(byte[] b) {</p>
+</li>
+<li>StringBuilder sb = new StringBuilder(b.length * 2);</li>
+<li>for (int i = 0; i &lt; b.length; i++) {</li>
+<li>sb.append(hexChar[(b[i] &amp; 0xf0) &gt;&gt;&gt; 4]);</li>
+<li>sb.append(hexChar[b[i] &amp; 0x0f]);</li>
+<li>}</li>
+<li>return sb.toString();</li>
+<li><p>}</p>
+</li>
+<li><p>}</p>
+</li>
+</ol>
+<p>运行说明</p>
+<p>说明代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>“D:/hapfish/ShellFolder.java”,</li>
+<li>“D:/hapfish/ShellFolder - 副本.java”,</li>
+<li>“E:/ShellFolder - 副本.java”,</li>
+<li>“E:/ShellFolder.txt”,</li>
+<li>“D:/hapfish/ShellFolder.jpg”,</li>
+<li><p>以上五个文件是同一文件经过复制、改扩展名的，最后计算哈希结果是一致的。</p>
+</li>
+<li><p>“E:/ShellFolder增加字符.txt” 增加了几个字符串，就不一样了</p>
+</li>
+<li><p>“D:/hapfish/birosoft.jar” 完全不相关的另外一个文件</p>
+</li>
+</ol>
+<p>运行结果：</p>
+<p>Java代码  <img src="http://blog.daahe.com/wp-content/uploads/2015/05/icon_star.png" alt="收藏代码"></p>
+<ol>
+<li>需要获取hash的文件为：　D:/hapfish/ShellFolder.java</li>
+<li>MD2 == 3a755a99c5e407005cd45ebd856b4649</li>
+<li>MD5 == 5d08d440fa911d1e418c69a90b83cd86</li>
+<li>SHA1 == 522c8c4f4ff1dd669e251c2ab854c3033a51ca63</li>
+<li>SHA-256 == d1feb0c73c10a759e88bd240cb9d56d0598b4ff83a0704c6679f7ba12f6c4d99</li>
+<li>SHA-384 == 8f8c9da4cd7241c58af3c52b49199033f2dcf3d67f421753999f87511618d9ea2d738e8c16b9b68a7572d06108ff10f6</li>
+<li>SHA-512 == 4711579daee3ddacbaea189310348956cb43bcaaf0099f3be047b06f16c1a20a6b71ee3a4ee018128d647e9f2ef0d644747672238e49a8da3d0cd26dfe597458</li>
+<li>需要获取hash的文件为：　D:/hapfish/ShellFolder - 副本.java</li>
+<li>MD2 == 3a755a99c5e407005cd45ebd856b4649</li>
+<li>MD5 == 5d08d440fa911d1e418c69a90b83cd86</li>
+<li>SHA1 == 522c8c4f4ff1dd669e251c2ab854c3033a51ca63</li>
+<li>SHA-256 == d1feb0c73c10a759e88bd240cb9d56d0598b4ff83a0704c6679f7ba12f6c4d99</li>
+<li>SHA-384 == 8f8c9da4cd7241c58af3c52b49199033f2dcf3d67f421753999f87511618d9ea2d738e8c16b9b68a7572d06108ff10f6</li>
+<li>SHA-512 == 4711579daee3ddacbaea189310348956cb43bcaaf0099f3be047b06f16c1a20a6b71ee3a4ee018128d647e9f2ef0d644747672238e49a8da3d0cd26dfe597458</li>
+<li>需要获取hash的文件为：　E:/ShellFolder - 副本.java</li>
+<li>MD2 == 3a755a99c5e407005cd45ebd856b4649</li>
+<li>MD5 == 5d08d440fa911d1e418c69a90b83cd86</li>
+<li>SHA1 == 522c8c4f4ff1dd669e251c2ab854c3033a51ca63</li>
+<li>SHA-256 == d1feb0c73c10a759e88bd240cb9d56d0598b4ff83a0704c6679f7ba12f6c4d99</li>
+<li>SHA-384 == 8f8c9da4cd7241c58af3c52b49199033f2dcf3d67f421753999f87511618d9ea2d738e8c16b9b68a7572d06108ff10f6</li>
+<li>SHA-512 == 4711579daee3ddacbaea189310348956cb43bcaaf0099f3be047b06f16c1a20a6b71ee3a4ee018128d647e9f2ef0d644747672238e49a8da3d0cd26dfe597458</li>
+<li>需要获取hash的文件为：　E:/ShellFolder.txt</li>
+<li>MD2 == 3a755a99c5e407005cd45ebd856b4649</li>
+<li>MD5 == 5d08d440fa911d1e418c69a90b83cd86</li>
+<li>SHA1 == 522c8c4f4ff1dd669e251c2ab854c3033a51ca63</li>
+<li>SHA-256 == d1feb0c73c10a759e88bd240cb9d56d0598b4ff83a0704c6679f7ba12f6c4d99</li>
+<li>SHA-384 == 8f8c9da4cd7241c58af3c52b49199033f2dcf3d67f421753999f87511618d9ea2d738e8c16b9b68a7572d06108ff10f6</li>
+<li>SHA-512 == 4711579daee3ddacbaea189310348956cb43bcaaf0099f3be047b06f16c1a20a6b71ee3a4ee018128d647e9f2ef0d644747672238e49a8da3d0cd26dfe597458</li>
+<li>需要获取hash的文件为：　D:/hapfish/ShellFolder.jpg</li>
+<li>MD2 == 3a755a99c5e407005cd45ebd856b4649</li>
+<li>MD5 == 5d08d440fa911d1e418c69a90b83cd86</li>
+<li>SHA1 == 522c8c4f4ff1dd669e251c2ab854c3033a51ca63</li>
+<li>SHA-256 == d1feb0c73c10a759e88bd240cb9d56d0598b4ff83a0704c6679f7ba12f6c4d99</li>
+<li>SHA-384 == 8f8c9da4cd7241c58af3c52b49199033f2dcf3d67f421753999f87511618d9ea2d738e8c16b9b68a7572d06108ff10f6</li>
+<li>SHA-512 == 4711579daee3ddacbaea189310348956cb43bcaaf0099f3be047b06f16c1a20a6b71ee3a4ee018128d647e9f2ef0d644747672238e49a8da3d0cd26dfe597458</li>
+<li>需要获取hash的文件为：　E:/ShellFolder增加字符.txt</li>
+<li>MD2 == f2717c24c6c0e110457bd17221c9ca6c</li>
+<li>MD5 == c49e353a7c4c26bd7ccb5e90917c230f</li>
+<li>SHA1 == 477c8a9e465bfaa4be42d35c032a17f7e6b42b97</li>
+<li>SHA-256 == 9fa18adaf242ebcdc6563922d84c2a163c82e1a24db2eb2b73978ed1f354a8a3</li>
+<li>SHA-384 == 4eee8f8e6d64d21c15dc01fa049f4d12a3b8e1d94d87763fe0bea75ab5ea8432fa8251289ece45ee39fe3d36b3c3020c</li>
+<li>SHA-512 == e852ec0ff77250be497389d2f5a1818c18bb66106b9905c4ee26fe0d256eb3b77e0ce9a28a84e4b67e4332ba37ec3aa7518148e3a682318c0fc34c391f45c201</li>
+<li>需要获取hash的文件为：　D:/hapfish/birosoft.jar</li>
+<li>MD2 == 38c5e1404718916dec59c33cafc909b3</li>
+<li>MD5 == dc3e2cc4fb3949cf3660e0f5f8c3fba3</li>
+<li>SHA1 == cde3dc25498afc5a563af0bb0eb54dc45f71bb28</li>
+<li>SHA-256 == adf6a961c70c6ea677dff066fc5d896fb0beb4dd442ca0eb619ae1d1b04291e5</li>
+<li>SHA-384 == fe7c6b754893c53ebd82bb53703fb5cc32115c9a38f98072f73def90729b271ee3c5c78e258bd9ff5ee5476193c2178b</li>
+<li>SHA-512 == a15376f327256a6e049dfbdc5c2ad3a98bffccc6fa92ee01ff53db6b04471ca0f45ca28f76ff4a6911b57825afa046671299141f2499d71f1dac618c92385491</li>
+</ol>
+<p>最后，把运行结果贴出来有点占空间，主要为了说明表述自己的猜想。一般来说同一哈希算法对同一文件(镜像、扩展名被修改)所产生的结果应该是一致的。 因此有个猜想，在baidu文库、腾讯的群共享上传时，先会判断是否有相同文件，从某种可能上来说也采用了对文件的哈希算法，毕竟从本地运算一个哈希算法后获得的数值要比把整个文件传过去比较实惠得多。而且字符串的比较也是很方便的。 对于某一种哈希算法，存在一种可能：就是两个不同的文件，计算出来的哈希值可能是一样的。当然为了保险，可以用两种甚至更多的哈希算法，只有在每种算法获得的哈希值都相同时，才能判断是同一个文件。 如果我们也对用户上传的文件进行哈希计算的话，就可以节省资源，同样的文件按理说可以减少上传次数……</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/05/21/java-e4-b8-ad-e5-b8-b8-e7-94-a8-e7-9a-84-e5-8a-a0-e5-af-86-e6-96-b9-e6-b3-95jdk/" data-id="cjo7aghsw007wsv0fbuedq31h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" class="article-date">
+  <time datetime="2015-05-07T17:53:36.000Z" itemprop="datePublished">2015-05-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/">Quartz任务调度快速入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>了解Quartz体系结构 Quartz对任务调度的领域问题进行了高度的抽象，提出了调度器、任务和触发器这3个核心的概念，并在org.quartz通过接口和类对重要的这些核心概念进行描述： ●Job：是一个接口，只有一个方法void execute(JobExecutionContext context)，开发者实现该接口定义运行任务，JobExecutionContext类提供了调度上下文的各种信息。Job运行时的信息保存在JobDataMap实例中； ●JobDetail：Quartz在每次执行Job时，都重新创建一个Job实例，所以它不直接接受一个Job的实例，相反它接收一个Job实现类，以便运行时通过newInstance()的反射机制实例化Job。因此需要通过一个类来描述Job的实现类及其它相关的静态信息，如Job名字、描述、关联监听器等信息，JobDetail承担了这一角色。 通过该类的构造函数可以更具体地了解它的功用：JobDetail(java.lang.String name, java.lang.String group, java.lang.Class jobClass)，该构造函数要求指定Job的实现类，以及任务在Scheduler中的组名和Job名称； ●Trigger：是一个类，描述触发Job执行的时间触发规则。主要有SimpleTrigger和CronTrigger这两个子类。当仅需触发一次或者以固定时间间隔周期执行，SimpleTrigger是最适合的选择；而CronTrigger则可以通过Cron表达式定义出各种复杂时间规则的调度方案：如每早晨9:00执行，周一、周三、周五下午5:00执行等； ●Calendar：org.quartz.Calendar和java.util.Calendar不同，它是一些日历特定时间点的集合（可以简单地将org.quartz.Calendar看作java.util.Calendar的集合——java.util.Calendar代表一个日历时间点，无特殊说明后面的Calendar即指org.quartz.Calendar）。一个Trigger可以和多个Calendar关联，以便排除或包含某些时间点。 假设，我们安排每周星期一早上10:00执行任务，但是如果碰到法定的节日，任务则不执行，这时就需要在Trigger触发机制的基础上使用Calendar进行定点排除。针对不同时间段类型，Quartz在org.quartz.impl.calendar包下提供了若干个Calendar的实现类，如AnnualCalendar、MonthlyCalendar、WeeklyCalendar分别针对每年、每月和每周进行定义； ●Scheduler：代表一个Quartz的独立运行容器，Trigger和JobDetail可以注册到Scheduler中，两者在Scheduler中拥有各自的组及名称，组及名称是Scheduler查找定位容器中某一对象的依据，Trigger的组及名称必须唯一，JobDetail的组和名称也必须唯一（但可以和Trigger的组和名称相同，因为它们是不同类型的）。Scheduler定义了多个接口方法，允许外部通过组及名称访问和控制容器中Trigger和JobDetail。 Scheduler可以将Trigger绑定到某一JobDetail中，这样当Trigger触发时，对应的Job就被执行。一个Job可以对应多个Trigger，但一个Trigger只能对应一个Job。可以通过SchedulerFactory创建一个Scheduler实例。Scheduler拥有一个SchedulerContext，它类似于ServletContext，保存着Scheduler上下文信息，Job和Trigger都可以访问SchedulerContext内的信息。SchedulerContext内部通过一个Map，以键值对的方式维护这些上下文数据，SchedulerContext为保存和获取数据提供了多个put()和getXxx()的方法。可以通过Scheduler# getContext()获取对应的SchedulerContext实例； ●ThreadPool：Scheduler使用一个线程池作为任务运行的基础设施，任务通过共享线程池中的线程提高运行效率。 Job有一个StatefulJob子接口，代表有状态的任务，该接口是一个没有方法的标签接口，其目的是让Quartz知道任务的类型，以便采用不同的执行方案。无状态任务在执行时拥有自己的JobDataMap拷贝，对JobDataMap的更改不会影响下次的执行。而有状态任务共享共享同一个JobDataMap实例，每次任务执行对JobDataMap所做的更改会保存下来，后面的执行可以看到这个更改，也即每次执行任务后都会对后面的执行发生影响。 正因为这个原因，无状态的Job可以并发执行，而有状态的StatefulJob不能并发执行，这意味着如果前次的StatefulJob还没有执行完毕，下一次的任务将阻塞等待，直到前次任务执行完毕。有状态任务比无状态任务需要考虑更多的因素，程序往往拥有更高的复杂度，因此除非必要，应该尽量使用无状态的Job。 如果Quartz使用了数据库持久化任务调度信息，无状态的JobDataMap仅会在Scheduler注册任务时保持一次，而有状态任务对应的JobDataMap在每次执行任务后都会进行保存。 Trigger自身也可以拥有一个JobDataMap，其关联的Job可以通过JobExecutionContext#getTrigger().getJobDataMap()获取Trigger中的JobDataMap。不管是有状态还是无状态的任务，在任务执行期间对Trigger的JobDataMap所做的更改都不会进行持久，也即不会对下次的执行产生影响。 Quartz拥有完善的事件和监听体系，大部分组件都拥有事件，如任务执行前事件、任务执行后事件、触发器触发前事件、触发后事件、调度器开始事件、关闭事件等等，可以注册相应的监听器处理感兴趣的事件。 图1描述了Scheduler的内部组件结构，SchedulerContext提供Scheduler全局可见的上下文信息，每一个任务都对应一个JobDataMap，虚线表达的JobDataMap表示对应有状态的任务：</p>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/05/liUzs8jeM8Hts.gif" alt="">500){this.resized=true;this.style.width=500;}” align=center&gt;</p>
+<p>图1 Scheduler结构图 一个Scheduler可以拥有多个Triger组和多个JobDetail组，注册Trigger和JobDetail时，如果不显式指定所属的组，Scheduler将放入到默认组中，默认组的组名为Scheduler.DEFAULT_GROUP。组名和名称组成了对象的全名，同一类型对象的全名不能相同。 Scheduler本身就是一个容器，它维护着Quartz的各种组件并实施调度的规则。Scheduler还拥有一个线程池，线程池为任务提供执行线程——这比执行任务时简单地创建一个新线程要拥有更高的效率，同时通过共享节约资源的占用。通过线程池组件的支持，对于繁忙度高、压力大的任务调度，Quartz将可以提供良好的伸缩性。 <strong>提示：</strong> Quartz完整下载包examples目录下拥有10多个实例，它们是快速掌握Quartz应用很好的实例。</p>
+<h4 id="使用SimpleTrigger"><a href="#使用SimpleTrigger" class="headerlink" title="使用SimpleTrigger"></a>使用SimpleTrigger</h4><p>SimpleTrigger拥有多个重载的构造函数，用以在不同场合下构造出对应的实例： ●SimpleTrigger(String name, String group)：通过该构造函数指定Trigger所属组和名称； ●SimpleTrigger(String name, String group, Date startTime)：除指定Trigger所属组和名称外，还可以指定触发的开发时间； ●SimpleTrigger(String name, String group, Date startTime, Date endTime, int repeatCount, long repeatInterval)：除指定以上信息外，还可以指定结束时间、重复执行次数、时间间隔等参数； ●SimpleTrigger(String name, String group, String jobName, String jobGroup, Date startTime, Date endTime, int repeatCount, long repeatInterval)：这是最复杂的一个构造函数，在指定触发参数的同时，还通过jobGroup和jobName，让该Trigger和Scheduler中的某个任务关联起来。 通过实现 org.quartz..Job 接口，可以使 Java 类化身为可调度的任务。代码清单1提供了 Quartz 任务的一个示例： 代码清单1 SimpleJob：简单的Job实现类  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">package com.baobaotao.basic.quartz; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import java.util.Date; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.Job; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.JobExecutionContext; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.JobExecutionException; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">public class SimpleJob implements Job { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">①实例Job接口方法 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">public void execute(JobExecutionContext jobCtx)throws JobExecutionException { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">System.out.println(jobCtx.getTrigger().getName()+ “ triggered. time is:” + (new Date())); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  这个类用一条非常简单的输出语句实现了Job接口的execute(JobExecutionContext context) 方法，这个方法可以包含想要执行的任何代码。下面，我们通过SimpleTrigger对SimpleJob进行调度： 代码清单2 SimpleTriggerRunner：使用SimpleTrigger进行调度  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">package com.baobaotao.basic.quartz; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import java.util.Date; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.JobDetail; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.Scheduler; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.SchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.SimpleTrigger; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.impl.StdSchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">public class SimpleTriggerRunner { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">public static void main(String args[]) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">try { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">①创建一个JobDetail实例，指定SimpleJob <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">JobDetail jobDetail = new JobDetail(“job1_1”,”jGroup1”, SimpleJob.class); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">②通过SimpleTrigger定义调度规则：马上启动，每2秒运行一次，共运行100次 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SimpleTrigger simpleTrigger = new SimpleTrigger(“trigger1_1”,”tgroup1”); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">simpleTrigger.setStartTime(new Date()); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">simpleTrigger.setRepeatInterval(2000); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">simpleTrigger.setRepeatCount(100); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">③通过SchedulerFactory获取一个调度器实例 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SchedulerFactory schedulerFactory = new StdSchedulerFactory(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Scheduler scheduler = schedulerFactory.getScheduler(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.scheduleJob(jobDetail, simpleTrigger);④ 注册并进行调度 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.start();⑤调度启动 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">} catch (Exception e) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">e.printStackTrace(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  首先在①处通过JobDetail封装SimpleJob，同时指定Job在Scheduler中所属组及名称，这里，组名为jGroup1，而名称为job1_1。 在②处创建一个SimpleTrigger实例，指定该Trigger在Scheduler中所属组及名称。接着设置调度的时间规则。 最后，需要创建Scheduler实例，并将JobDetail和Trigger实例注册到Scheduler中。这里，我们通过StdSchedulerFactory获取一个Scheduler实例，并通过scheduleJob(JobDetail jobDetail, Trigger trigger)完成两件事： 1)将JobDetail和Trigger注册到Scheduler中； 2)将Trigger指派给JobDetail，将两者关联起来。 当Scheduler启动后，Trigger将定期触发并执行SimpleJob的execute(JobExecutionContext jobCtx)方法，然后每 10 秒重复一次，直到任务被执行 100 次后停止。 还可以通过SimpleTrigger的setStartTime(java.util.Date startTime)和setEndTime(java.util.Date endTime)指定运行的时间范围，当运行次数和时间范围冲突时，超过时间范围的任务运行不被执行。如可以通过simpleTrigger.setStartTime(new Date(System.currentTimeMillis() + 60000L))指定60秒钟以后开始。 除了通过scheduleJob(jobDetail, simpleTrigger)建立Trigger和JobDetail的关联，还有另外一种关联Trigger和JobDetail的方式： </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">JobDetail jobDetail = new JobDetail(“job1_1”,”jGroup1”, SimpleJob.class); <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">SimpleTrigger simpleTrigger = new SimpleTrigger(“trigger1_1”,”tgroup1”); <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">… <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">simpleTrigger.setJobGroup(“jGroup1”);①-1：指定关联的Job组名 <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">simpleTrigger.setJobName(“job1_1”);①-2：指定关联的Job名称 <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">scheduler.addJob(jobDetail, true);② 注册JobDetail <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">scheduler.scheduleJob(simpleTrigger);③ 注册指定了关联JobDetail的Trigger <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  在这种方式中，Trigger通过指定Job所属组及Job名称，然后使用Scheduler的scheduleJob(Trigger trigger)方法注册Trigger。有两个值得注意的地方： 通过这种方式注册的Trigger实例必须已经指定Job组和Job名称，否则调用注册Trigger的方法将抛出异常； 引用的JobDetail对象必须已经存在于Scheduler中。也即，代码中①、②和③的先后顺序不能互换。 在构造Trigger实例时，可以考虑使用org.quartz.TriggerUtils工具类，该工具类不但提供了众多获取特定时间的方法，还拥有众多获取常见Trigger的方法，如makeSecondlyTrigger(String trigName)方法将创建一个每秒执行一次的Trigger，而makeWeeklyTrigger(String trigName, int dayOfWeek, int hour, int minute)将创建一个每星期某一特定时间点执行一次的Trigger。而getEvenMinuteDate(Date date)方法将返回某一时间点一分钟以后的时间。</p>
+<h4 id="使用CronTrigger"><a href="#使用CronTrigger" class="headerlink" title="使用CronTrigger"></a>使用CronTrigger</h4><p>CronTrigger 能够提供比 SimpleTrigger 更有具体实际意义的调度方案，调度规则基于 Cron 表达式，CronTrigger 支持日历相关的重复时间间隔（比如每月第一个周一执行），而不是简单的周期时间间隔。因此，相对于SimpleTrigger而言，CronTrigger在使用上也要复杂一些。</p>
+<h4 id="Cron表达式"><a href="#Cron表达式" class="headerlink" title="Cron表达式"></a>Cron表达式</h4><p>Quartz使用类似于Linux下的Cron表达式定义时间规则，Cron表达式由6或7个由空格分隔的时间字段组成，如表1所示： 表1 Cron表达式时间字段</p>
+<p>位置</p>
+<p>时间域名</p>
+<p>允许值</p>
+<p>允许的特殊字符</p>
+<p>1</p>
+<p>秒</p>
+<p>0-59</p>
+<p>, - * /</p>
+<p>2</p>
+<p>分钟</p>
+<p>0-59</p>
+<p>, - * /</p>
+<p>3</p>
+<p>小时</p>
+<p>0-23</p>
+<p>, - * /</p>
+<p>4</p>
+<p>日期</p>
+<p>1-31</p>
+<p>, - * ? / L W C</p>
+<p>5</p>
+<p>月份</p>
+<p>1-12</p>
+<p>, - * /</p>
+<p>6</p>
+<p>星期</p>
+<p>1-7</p>
+<p>, - * ? / L C #</p>
+<p>7</p>
+<p>年(可选)</p>
+<p>空值1970-2099</p>
+<p>, - * /</p>
+<p>Cron表达式的时间字段除允许设置数值外，还可使用一些特殊的字符，提供列表、范围、通配符等功能，细说如下： ●星号(<em>)：可用在所有字段中，表示对应时间域的每一个时刻，例如，</em>在分钟字段时，表示“每分钟”； ●问号（?）：该字符只在日期和星期字段中使用，它通常指定为“无意义的值”，相当于点位符； ●减号(-)：表达一个范围，如在小时字段中使用“10-12”，则表示从10到12点，即10,11,12； ●逗号(,)：表达一个列表值，如在星期字段中使用“MON,WED,FRI”，则表示星期一，星期三和星期五； ●斜杠(/)：x/y表达一个等步长序列，x为起始值，y为增量步长值。如在分钟字段中使用0/15，则表示为0,15,30和45秒，而5/15在分钟字段中表示5,20,35,50，你也可以使用*/y，它等同于0/y； ●L：该字符只在日期和星期字段中使用，代表“Last”的意思，但它在两个字段中意思不同。L在日期字段中，表示这个月份的最后一天，如一月的31号，非闰年二月的28号；如果L用在星期中，则表示星期六，等同于7。但是，如果L出现在星期字段里，而且在前面有一个数值X，则表示“这个月的最后X天”，例如，6L表示该月的最后星期五； ●W：该字符只能出现在日期字段里，是对前导日期的修饰，表示离该日期最近的工作日。例如15W表示离该月15号最近的工作日，如果该月15号是星期六，则匹配14号星期五；如果15日是星期日，则匹配16号星期一；如果15号是星期二，那结果就是15号星期二。但必须注意关联的匹配日期不能够跨月，如你指定1W，如果1号是星期六，结果匹配的是3号星期一，而非上个月最后的那天。W字符串只能指定单一日期，而不能指定日期范围； ●LW组合：在日期字段可以组合使用LW，它的意思是当月的最后一个工作日； ●井号(#)：该字符只能在星期字段中使用，表示当月某个工作日。如6#3表示当月的第三个星期五(6表示星期五，#3表示当前的第三个)，而4#5表示当月的第五个星期三，假设当月没有第五个星期三，忽略不触发； ● C：该字符只在日期和星期字段中使用，代表“Calendar”的意思。它的意思是计划所关联的日期，如果日期没有被关联，则相当于日历中所有日期。例如5C在日期字段中就相当于日历5日以后的第一天。1C在星期字段中相当于星期日后的第一天。 Cron表达式对特殊字符的大小写不敏感，对代表星期的缩写英文大小写也不敏感。 表2下面给出一些完整的Cron表示式的实例： 表2 Cron表示式示例</p>
+<p>表示式</p>
+<p>说明</p>
+<p>“0 0 12 <em> </em> ? “</p>
+<p>每天12点运行</p>
+<p>“0 15 10 ? <em> </em>“</p>
+<p>每天10:15运行</p>
+<p>“0 15 10 <em> </em> ?”</p>
+<p>每天10:15运行</p>
+<p>“0 15 10 <em> </em> ? *”</p>
+<p>每天10:15运行</p>
+<p>“0 15 10 <em> </em> ? 2008”</p>
+<p>在2008年的每天10：15运行</p>
+<p>“0 <em> 14 </em> * ?”</p>
+<p>每天14点到15点之间每分钟运行一次，开始于14:00，结束于14:59。</p>
+<p>“0 0/5 14 <em> </em> ?”</p>
+<p>每天14点到15点每5分钟运行一次，开始于14:00，结束于14:55。</p>
+<p>“0 0/5 14,18 <em> </em> ?”</p>
+<p>每天14点到15点每5分钟运行一次，此外每天18点到19点每5钟也运行一次。</p>
+<p>“0 0-5 14 <em> </em> ?”</p>
+<p>每天14:00点到14:05，每分钟运行一次。</p>
+<p>“0 10,44 14 ? 3 WED”</p>
+<p>3月每周三的14:10分到14:44，每分钟运行一次。</p>
+<p>“0 15 10 ? * MON-FRI”</p>
+<p>每周一，二，三，四，五的10:15分运行。</p>
+<p>“0 15 10 15 * ?”</p>
+<p>每月15日10:15分运行。</p>
+<p>“0 15 10 L * ?”</p>
+<p>每月最后一天10:15分运行。</p>
+<p>“0 15 10 ? * 6L”</p>
+<p>每月最后一个星期五10:15分运行。</p>
+<p>“0 15 10 ? * 6L 2007-2009”</p>
+<p>在2007,2008,2009年每个月的最后一个星期五的10:15分运行。</p>
+<p>“0 15 10 ? * 6#3”</p>
+<p>每月第三个星期五的10:15分运行。</p>
+<h4 id="CronTrigger实例"><a href="#CronTrigger实例" class="headerlink" title="CronTrigger实例"></a>CronTrigger实例</h4><p>下面，我们使用CronTrigger对SimpleJob进行调度，通过Cron表达式制定调度规则，让它每5秒钟运行一次： 代码清单3 CronTriggerRunner：使用CronTrigger进行调度  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">package com.baobaotao.basic.quartz; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.CronExpression; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.CronTrigger; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.JobDetail; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.Scheduler; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.SchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.impl.StdSchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">public class CronTriggerRunner { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">public static void main(String args[]) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">try { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">JobDetail jobDetail = new JobDetail(“job1_2”, “jGroup1”,SimpleJob.class); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">①-1：创建CronTrigger，指定组及名称 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">CronTrigger cronTrigger = new CronTrigger(“trigger1_2”, “tgroup1”); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">CronExpression cexp = new CronExpression(“0/5 <em> </em> <em> </em> ?”);①-2：定义Cron表达式 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">cronTrigger.setCronExpression(cexp);①-3：设置Cron表达式 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SchedulerFactory schedulerFactory = new StdSchedulerFactory(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Scheduler scheduler = schedulerFactory.getScheduler(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.scheduleJob(jobDetail, cronTrigger); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.start(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">//② <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">} catch (Exception e) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">e.printStackTrace(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  运行CronTriggerRunner，每5秒钟将触发运行SimpleJob一次。默认情况下Cron表达式对应当前的时区，可以通过CronTriggerRunner的setTimeZone(java.util.TimeZone timeZone)方法显式指定时区。你还也可以通过setStartTime(java.util.Date startTime)和setEndTime(java.util.Date endTime)指定开始和结束的时间。 在代码清单3的②处需要通过Thread.currentThread.sleep()的方式让主线程睡眠，以便调度器可以继续工作执行任务调度。否则在调度器启动后，因为主线程马上退出，也将同时引起调度器关闭，调度器中的任务都将相应销毁，这将导致看不到实际的运行效果。在单元测试的时候，让主线程睡眠经常使用的办法。对于某些长周期任务调度的测试，你可以简单地调整操作系统时间进行模拟。</p>
+<h4 id="使用Calendar"><a href="#使用Calendar" class="headerlink" title="使用Calendar"></a>使用Calendar</h4><p>在实际任务调度中，我们不可能一成不变地按照某个周期性的调度规则运行任务，必须考虑到实现生活中日历上特定日期，就象习惯了大男人作风的人在2月14号也会有不同表现一样。 下面，我们安排一个任务，每小时运行一次，并将五一节和国际节排除在外，其代码如代码清单4所示： 代码清单4 CalendarExample：使用Calendar  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">package com.baobaotao.basic.quartz; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import java.util.Calendar; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import java.util.Date; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import java.util.GregorianCalendar; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.impl.calendar.AnnualCalendar; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.TriggerUtils; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">… <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">public class CalendarExample { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">public static void main(String[] args) throws Exception { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SchedulerFactory sf = new StdSchedulerFactory(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Scheduler scheduler = sf.getScheduler(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">①法定节日是以每年为周期的，所以使用AnnualCalendar <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">AnnualCalendar holidays = new AnnualCalendar(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">②五一劳动节 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Calendar laborDay = new GregorianCalendar(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">laborDay.add(Calendar.MONTH,5); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">laborDay.add(Calendar.DATE,1); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">holidays.setDayExcluded(laborDay, true); ②-1：排除的日期，如果设置为false则为包含 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">③国庆节 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Calendar nationalDay = new GregorianCalendar(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">nationalDay.add(Calendar.MONTH,10); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">nationalDay.add(Calendar.DATE,1); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">holidays.setDayExcluded(nationalDay, true);③-1：排除该日期 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.addCalendar(“holidays”, holidays, false, false);④向Scheduler注册日历 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Date runDate = TriggerUtils.getDateOf(0,0, 10, 1, 4);⑤4月1号 上午10点 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">JobDetail job = new JobDetail(“job1”, “group1”, SimpleJob.class); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SimpleTrigger trigger = new SimpleTrigger(“trigger1”, “group1”, <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">runDate, <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">null, <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SimpleTrigger.REPEAT_INDEFINITELY, <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">60L <em> 60L </em> 1000L); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">trigger.setCalendarName(“holidays”);⑥让Trigger应用指定的日历规则 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.scheduleJob(job, trigger); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.start(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">//实际应用中主线程不能停止，否则Scheduler得不到执行，此处从略 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  由于节日是每年重复的，所以使用org.quartz.Calendar的AnnualCalendar实现类，通过②、③的代码，指定五一和国庆两个节日并通过AnnualCalendar#setDayExcluded(Calendar day, boolean exclude)方法添加这两个日期。exclude为true时表示排除指定的日期，如果为false时表示包含指定的日期。 在定制好org.quartz.Calendar后，还需要通过Scheduler#addCalendar(String calName, Calendar calendar, boolean replace, boolean updateTriggers)进行注册，如果updateTriggers为true，Scheduler中已引用Calendar的Trigger将得到更新，如④所示。 在⑥处，我们让一个Trigger指定使用Scheduler中代表节日的Calendar，这样Trigger就会避开五一和国庆这两个特殊日子了。</p>
+<h4 id="任务调度信息存储"><a href="#任务调度信息存储" class="headerlink" title="任务调度信息存储"></a>任务调度信息存储</h4><p>在默认情况下Quartz将任务调度的运行信息保存在内存中，这种方法提供了最佳的性能，因为内存中数据访问最快。不足之处是缺乏数据的持久性，当程序路途停止或系统崩溃时，所有运行的信息都会丢失。 比如我们希望安排一个执行100次的任务，如果执行到50次时系统崩溃了，系统重启时任务的执行计数器将从0开始。在大多数实际的应用中，我们往往并不需要保存任务调度的现场数据，因为很少需要规划一个指定执行次数的任务。 对于仅执行一次的任务来说，其执行条件信息本身应该是已经持久化的业务数据（如锁定到期解锁任务，解锁的时间应该是业务数据），当执行完成后，条件信息也会相应改变。当然调度现场信息不仅仅是记录运行次数，还包括调度规则、JobDataMap中的数据等等。 如果确实需要持久化任务调度信息，Quartz允许你通过调整其属性文件，将这些信息保存到数据库中。使用数据库保存任务调度信息后，即使系统崩溃后重新启动，任务的调度信息将得到恢复。如前面所说的例子，执行50次崩溃后重新运行，计数器将从51开始计数。使用了数据库保存信息的任务称为持久化任务。</p>
+<h4 id="通过配置文件调整任务调度信息的保存策略"><a href="#通过配置文件调整任务调度信息的保存策略" class="headerlink" title="通过配置文件调整任务调度信息的保存策略"></a>通过配置文件调整任务调度信息的保存策略</h4><p>其实Quartz JAR文件的org.quartz包下就包含了一个quartz.properties属性配置文件并提供了默认设置。如果需要调整默认配置，可以在类路径下建立一个新的quartz.properties，它将自动被Quartz加载并覆盖默认的设置。 先来了解一下Quartz的默认属性配置文件： 代码清单5 quartz.properties：默认配置 ①集群的配置，这里不使用集群 org.quartz.scheduler.instanceName = DefaultQuartzScheduler org.quartz.scheduler.rmi.export = false org.quartz.scheduler.rmi.proxy = false org.quartz.scheduler.wrapJobExecutionInUserTransaction = false ②配置调度器的线程池 org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool org.quartz.threadPool.threadCount = 10 org.quartz.threadPool.threadPriority = 5 org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread = true ③配置任务调度现场数据保存机制 org.quartz.jobStore.class = <strong>org.quartz.simpl.RAMJobStore</strong> Quartz的属性配置文件主要包括三方面的信息： 1)集群信息； 2)调度器线程池； 3)任务调度现场数据的保存。 如果任务数目很大时，可以通过增大线程池的大小得到更好的性能。默认情况下，Quartz采用org.quartz.simpl.RAMJobStore保存任务的现场数据，顾名思义，信息保存在RAM内存中，我们可以通过以下设置将任务调度现场数据保存到数据库中： 代码清单6 quartz.properties：使用数据库保存任务调度现场数据 … org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX org.quartz.jobStore.tablePrefix = QRTZ_<strong>①数据表前缀</strong> org.quartz.jobStore.dataSource = qzDS<strong>②数据源名称</strong> ③定义数据源的具体属性 org.quartz.dataSource.qzDS.driver = oracle.jdbc.driver.OracleDriver org.quartz.dataSource.qzDS.URL = jdbc:oracle:thin:@localhost:1521:ora9i org.quartz.dataSource.qzDS.user = stamen org.quartz.dataSource.qzDS.password = abc org.quartz.dataSource.qzDS.maxConnections = 10 要将任务调度数据保存到数据库中，就必须使用org.quartz.impl.jdbcjobstore.JobStoreTX代替原来的org.quartz.simpl.RAMJobStore并提供相应的数据库配置信息。首先①处指定了Quartz数据库表的前缀，在②处定义了一个数据源，在③处具体定义这个数据源的连接信息。 你必须事先在相应的数据库中创建Quartz的数据表（共8张），在Quartz的完整发布包的docs/dbTables目录下拥有对应不同数据库的SQL脚本。</p>
+<h4 id="查询数据库中的运行信息"><a href="#查询数据库中的运行信息" class="headerlink" title="查询数据库中的运行信息"></a>查询数据库中的运行信息</h4><p>任务的现场保存对于上层的Quartz程序来说是完全透明的，我们在src目录下编写一个如代码清单6所示的quartz.properties文件后，重新运行代码清单2或代码清单3的程序，在数据库表中将可以看到对应的持久化信息。当调度程序运行过程中途停止后，任务调度的现场数据将记录在数据表中，在系统重启时就可以在此基础上继续进行任务的调度。 代码清单7 JDBCJobStoreRunner：从数据库中恢复任务的调度  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">package com.baobaotao.basic.quartz; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.Scheduler; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.SchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.SimpleTrigger; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.Trigger; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">import org.quartz.impl.StdSchedulerFactory; <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">public class JDBCJobStoreRunner { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">public static void main(String args[]) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">try { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">SchedulerFactory schedulerFactory = new StdSchedulerFactory(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Scheduler scheduler = schedulerFactory.getScheduler(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">①获取调度器中所有的触发器组 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">String[] triggerGroups = scheduler.getTriggerGroupNames(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">②重新恢复在tgroup1组中，名为trigger1_1触发器的运行 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">for (int i = 0; i &lt; triggerGroups.length; i++) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">String[] triggers = scheduler.getTriggerNames(triggerGroups[i]); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">for (int j = 0; j &lt; triggers.length; j++) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">Trigger tg = scheduler.getTrigger(triggers[j],triggerGroups[i]); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">if (tg instanceof SimpleTrigger <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">&amp;&amp; tg.getFullName().equals(“tgroup1.trigger1_1”)) {②-1:根据名称判断 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">②-1:恢复运行 <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.rescheduleJob(triggers[j], triggerGroups[i],tg); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">scheduler.start(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">} catch (Exception e) { <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">e.printStackTrace(); <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">} <img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""></p>
+<p>  当代码清单2中的SimpleTriggerRunner执行到一段时间后非正常退出，我们就可以通过这个JDBCJobStoreRunner根据记录在数据库中的现场数据恢复任务的调度。Scheduler中的所有Trigger以及JobDetail的运行信息都会保存在数据库中，这里我们仅恢复tgroup1组中名称为trigger1_1的触发器，这可以通过如②-1所示的代码进行过滤，触发器的采用GROUP.TRIGGER_NAME的全名格式。通过Scheduler#rescheduleJob(String triggerName,String groupName,Trigger newTrigger)即可重新调度关联某个Trigger的任务。 下面我们来观察一下不同时期qrtz_simple_triggers表的数据： 1．运行代码清单2的SimpleTriggerRunner一小段时间后退出：</p>
+<p><img src="http://img.zdnet.com.cn/0/252/liwpcFeXRINSw.gif" alt="">500){this.resized=true;this.style.width=500;}” align=center resized=”true”&gt;</p>
+<p>REPEAT_COUNT表示需要运行的总次数，而TIMES_TRIGGER表示已经运行的次数。 2．运行代码清单7的JDBCJobStoreRunner恢复trigger1_1的触发器，运行一段时间后退出，这时qrtz_simple_triggers中的数据如下：</p>
+<p><img src="http://img.zdnet.com.cn/0/253/liUoSITpuhrBg.gif" alt="">500){this.resized=true;this.style.width=500;}” align=center resized=”true”&gt;</p>
+<p>首先Quartz会将原REPEAT_COUNT-TIMES_TRIGGER得到新的REPEAT_COUNT值，并记录已经运行的次数（重新从0开始计算）。 3．重新启动JDBCJobStoreRunner运行后，数据又将发生相应的变化：</p>
+<p><img src="http://img.zdnet.com.cn/0/254/liZI9tW4gqYzc.gif" alt="">500){this.resized=true;this.style.width=500;}” align=center resized=”true”&gt;</p>
+<p>4．继续运行直至完成所有剩余的次数，再次查询qrtz_simple_triggers表：</p>
+<p><img src="http://img.zdnet.com.cn/0/255/liKRsyOoJAtQ.gif" alt="">500){this.resized=true;this.style.width=500;}” align=center resized=”true”&gt;</p>
+<p>这时，该表中的记录已经变空。 值得注意的是，如果你使用JDBC保存任务调度数据时，当你运行代码清单2的SimpleTriggerRunner然后退出，当再次希望运行SimpleTriggerRunner时，系统将抛出JobDetail重名的异常： Unable to store Job with name: ‘job1_1’ and group: ‘jGroup1’, because one already exists with this identification. 因为每次调用Scheduler#scheduleJob()时，Quartz都会将JobDetail和Trigger的信息保存到数据库中，如果数据表中已经同名的JobDetail或Trigger，异常就产生了。 本文使用quartz 1.6版本，我们发现当后台数据库使用MySql时，数据保存不成功，该错误是Quartz的一个Bug，相信会在高版本中得到修复。因为HSQLDB不支持SELECT * FROM TABLE_NAME FOR UPDATE的语法，所以不能使用HSQLDB数据库。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>Quartz提供了最为丰富的任务调度功能，不但可以制定周期性运行的任务调度方案，还可以让你按照日历相关的方式进行任务调度。Quartz框架的重要组件包括Job、JobDetail、Trigger、Scheduler以及辅助性的JobDataMap和SchedulerContext。 Quartz拥有一个线程池，通过线程池为任务提供执行线程，你可以通过配置文件对线程池进行参数定制。Quartz的另一个重要功能是可将任务调度信息持久化到数据库中，以便系统重启时能够恢复已经安排的任务。此外，Quartz还拥有完善的事件体系，允许你注册各种事件的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/05/08/quartz-e4-bb-bb-e5-8a-a1-e8-b0-83-e5-ba-a6-e5-bf-ab-e9-80-9f-e5-85-a5-e9-97-a8/" data-id="cjo7aghtj009esv0fn6817dxj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" class="article-date">
@@ -103,7 +1741,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjo79jtws002p450fqqa8g39r" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjo7aghq8002qsv0f056813hm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,7 +1784,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjo79jtzk008d450fniwa0eby" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjo7aght6008jsv0fe8tt4n91" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +1826,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" data-id="cjo79jtzd007w450flqg00h9g" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" data-id="cjo7aghsz0083sv0f0o0avfaw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -229,7 +1867,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" data-id="cjo79jtzc007u450fph1nddbl" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" data-id="cjo7aghsx007ysv0fggo81637" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,397 +1911,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" data-id="cjo79jtza007r450fpwukiwzj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" class="article-date">
-  <time datetime="2015-04-28T02:52:11.000Z" itemprop="datePublished">2015-04-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/">linux 增加非标准端口</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>yum -y install policycoreutils-python semanage port -l|grep http #查看http开放端口 semanage port -a -t http_port_t -p tcp 888 #增加这个非标准端口即可 getsebool -a | grep httpd #setsebool httpd_can_network_connect 1 setsebool -P httpd_can_network_connect 1</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" data-id="cjo79jtzh0085450fi23qu7uj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" class="article-date">
-  <time datetime="2015-04-22T17:44:23.000Z" itemprop="datePublished">2015-04-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/">Linux cp 命令的15个示例 - 创建文件和目录的副本</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用<strong>cp</strong>命令来实现。</p>
-<h3 id="copy-命令是什么"><a href="#copy-命令是什么" class="headerlink" title="copy 命令是什么"></a>copy 命令是什么</h3><p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/134411r8in1vzsuppvz1wd.png" alt=""> 正如我们在上文提到的，<strong>cp</strong>是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。</p>
-<h4 id="1-不带任何参数下，运行cp"><a href="#1-不带任何参数下，运行cp" class="headerlink" title="1. 不带任何参数下，运行cp"></a>1. 不带任何参数下，运行cp</h4><p>这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像这样子输入：</p>
-<ol>
-<li>$ cp myfile.txt /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_127.png" alt="Copy without options"> 如果我们没有输入绝对路径，这意味着我们正在当前目录下拷贝一个文件。在上面的实例中，<strong>myfile.txt</strong>位于<strong>/home/pungki/Documents</strong>目录下。如果我们当前目录正是<strong>/home/pungki/Documets</strong>,那么没有必要输入<strong>/home/pungki/Documents/myfile.txt</strong>来拷贝文件。当<strong>/home/pungki/office</strong>是一个目录，则文件会拷贝到里面。</p>
-<h4 id="2-同时拷贝多个文件"><a href="#2-同时拷贝多个文件" class="headerlink" title="2. 同时拷贝多个文件"></a>2. 同时拷贝多个文件</h4><p>要在同时拷贝多个文件，我们只需要将多个文件用空格隔开。如下示例：</p>
-<ol>
-<li>$ cp file_1.txt file_2.txt file_3.txt /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_128.png" alt="Copying multiple files"></p>
-<h4 id="3-拷贝一个目录"><a href="#3-拷贝一个目录" class="headerlink" title="3. 拷贝一个目录"></a>3. 拷贝一个目录</h4><p>要拷贝一个目录的话会有点棘手。你需要添加 <strong>-r</strong> 或者 <strong>-R</strong> 选项来实现。<strong>-r</strong>或<strong>-R</strong> 选项表明递归操作。无论该目录是否为空目录，<strong>这个选项都是必要的</strong>。如下示例：</p>
-<ol>
-<li>$ cp -r directory_1 /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_129.png" alt="Copy directory"> 需要注意的一件事，你需要<strong>移除在目录名尾部的斜杠</strong>。否则你会收到类似的错误信息<strong>cp: omitting directory‘directory_1/</strong>’ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_130.png" alt="Copy directory error"> 如果你收到错误信息，则目录不会被拷贝到目标文件夹。</p>
-<h4 id="4-创建文件的硬链接，而不是拷贝它们"><a href="#4-创建文件的硬链接，而不是拷贝它们" class="headerlink" title="4. 创建文件的硬链接，而不是拷贝它们"></a>4. 创建文件的硬链接，而不是拷贝它们</h4><p>拷贝文件意味着你必须使用一些存储空间来储存拷贝的文件。有时候出于某种原因，你可能想要创建“快捷方式”或者链接到文件，而不是拷贝它们。要做到这一点，我们可以使用<strong>-l</strong>选项。</p>
-<ol>
-<li>$ cp -l file_4.txt /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_131.png" alt="Copy hardlinks"> 从上图看出，我们看到<strong>file_4.txt</strong>的硬链接已经拷贝到<strong>/home/pungki/office/file_4.txt</strong>。标记有同样的 inode, <strong>835386</strong>。但是请注意，硬链接不能用来创建目录。下面让我们看一个例子。 _原目录 directory_1 的 inode 值是 278230_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_132.png" alt="Inode number of original directory"> _原文件 file_5.txt 的 inode 值是 279231_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_133.png" alt="Original inode number of file"> _对 directory_1 执行 cp 命令_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_134.png" alt="Copy using -rl options"> _拷贝的 directory_1副本的 inode 值是 274800_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_135.png" alt="Inode number of copied directory"> _拷贝的 file_5.txt副本的 inode 值是 279231。跟它的原文件一样_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_136.png" alt="Inode number of copied file"></p>
-<h4 id="5-创建文件的符号链接"><a href="#5-创建文件的符号链接" class="headerlink" title="5. 创建文件的符号链接"></a>5. 创建文件的符号链接</h4><p>也有一种链接叫做 <strong>软链接</strong> 或 <strong>符号链接</strong>。我们用 <strong>-s</strong> 选项来实现。下面是命令的示例。</p>
-<ol>
-<li>$ cp -s /home/pungki/Documents/file_6.txt file_6.txt</li>
-</ol>
-<p>创建符号链接只能在当前目录下进行。在上面的截图中，我们想要创建符号链接 <strong>/home/pungki/office/file_6.txt 指向原文件 /home/pungki/Documents/file_6.txt</strong>。但是为了创建符号链接，<strong>我必须</strong>在将/home/pungki/office作为目标目录。一旦我设法进入目录，我就可以向上面一样运行 cp <strong>-s</strong> 命令。 现在你列出文件详情，你会看到<strong>/home/pungki/office/file_6.txt</strong>指向了原文件。在其文件名后标记了箭头符号。 <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_137.png" alt="Symbolic links"></p>
-<h4 id="6-不随符号链接拷贝原文件"><a href="#6-不随符号链接拷贝原文件" class="headerlink" title="6. 不随符号链接拷贝原文件"></a>6. 不随符号链接拷贝原文件</h4><p>[译注:意思是只拷贝符号链接文件] 我们可以用 <strong>-P</strong> 选项来实现。当对符号链接使用 cp 命令，它会照原样拷贝它自身。来看看下面的示例。</p>
-<ol>
-<li>$ cp -P file_6.txt ./movie</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_138.png" alt="Copy using -P option"> 如你所见，cp 命令照原样拷贝<strong>file_6.txt</strong>自身。文件类型仍然是一个符号链接。</p>
-<h4 id="7-随符号链接拷贝原文件"><a href="#7-随符号链接拷贝原文件" class="headerlink" title="7. 随符号链接拷贝原文件"></a>7. 随符号链接拷贝原文件</h4><p>现在我们可以试一下<strong>-L</strong>选项。基本上，这个刚好与上面的 -P 选项 <strong>相反</strong>。下面是个示例：</p>
-<ol>
-<li>$ cp -L file_6.txt ./movie</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_139.png" alt="Copy using -L option"> 使用这个选项，拷贝的文件将会和<strong>file_6.txt</strong>原文件一样。我们可以从文件大小看出来。拷贝的文件有<strong>50 字节</strong>而当<strong>file_6.txt</strong>作为符号链接时文件大小只有<strong>33 字节</strong>。</p>
-<h4 id="8-文件归档"><a href="#8-文件归档" class="headerlink" title="8. 文件归档"></a>8. 文件归档</h4><p>当我们去拷贝一个目录时，我们会用<strong>-r</strong>或者<strong>-R</strong>选项。但是我们也可以用<strong>-a</strong>选项来归档文件。这样会创建文件和目录的<strong>准确套录</strong>，如果有的话也可以包括符号链接。下面是示例：[译注：-a 会保留原文件或目录的属性]</p>
-<ol>
-<li>$ cp -a directory_1/ /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_140.png" alt="Copy using -a option"> 上列的命令会拷贝一个名为 directory_1 的目录到<strong>/home/pungki/office</strong>目录下。如你所见，<strong>file_6.txt</strong>依然作为符号链接被复制。</p>
-<h4 id="9-显示正在做什么"><a href="#9-显示正在做什么" class="headerlink" title="9. 显示正在做什么"></a>9. 显示正在做什么</h4><p>默认情况下，当拷贝作业成功时，我们仅仅会再次看到命令提示符。如果你想了解在拷贝文件时都发生了什么，我们可以用 <strong>-v</strong> 选项。</p>
-<ol>
-<li>$ cp -v *.txt /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_141.png" alt="Verbose option"> 当我们从当前目录下拷贝所有的 txt 文件到 <strong>/home/pungki/office</strong> 目录，<strong>-v</strong>选项会显示正在操作的过程。这些额外的信息会帮助我们了解更多拷贝过程。</p>
-<h4 id="10-当原文件较目标文件新时拷贝"><a href="#10-当原文件较目标文件新时拷贝" class="headerlink" title="10. 当原文件较目标文件新时拷贝"></a>10. 当原文件较目标文件新时拷贝</h4><p>我们用 <strong>-u</strong>选项来实现。下面是具体示例:</p>
-<ol>
-<li>$ cp -vu *.txt /home/pungki/office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_142.png" alt="Copy only if newer"> 起初我们看到<strong>file_1.txt 是0字节</strong>大小。然后我们用 vi 编辑，加入一些内容并保存。接下来，我们发现文件大小已经变为了 36 个字节。 与此同时在<strong>/home/pungki/office</strong>目录中，我们<strong>已经包含了所有</strong>txt文件。当我们用 -u 选项，结合 -v 选项来查看具体操作，cp 命令会只拷贝比目标目录下新的文件。因此，我们看到<strong>只有 file_1.txt 拷贝到 /home/pungki/office 目录下</strong>。</p>
-<h4 id="11-使用交互模式"><a href="#11-使用交互模式" class="headerlink" title="11. 使用交互模式"></a>11. 使用交互模式</h4><p>交互模式下会询问是否覆盖目标目录下的文件。使用 <strong>-i</strong> 选项，启用交互模式。</p>
-<ol>
-<li>$ cp -ir directory_1/ /home/pungki/office/</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_143.png" alt="Interactive mode"></p>
-<h4 id="12-创建备份文件"><a href="#12-创建备份文件" class="headerlink" title="12. 创建备份文件"></a>12. 创建备份文件</h4><p>当目标目录已经含有同名文件，默认情况下 cp 命令会覆盖目标目录下的同名文件。使用 <strong>–backup</strong> 选项，cp 命令会为每一个现有的目标文件做一个备份。../office 相对于 /home/pungki/office 。下面是示例：</p>
-<ol>
-<li>$ cp –backup=simple -v *.txt ../office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_144.png" alt="Backup option"> 正如我们看到的，<strong>–backup=simple</strong> 选项会创建一个在文件名末尾用波浪符标记(~)的备份文件。<strong>–backup</strong> 选项也有一些其他控制：</p>
-<ul>
-<li><strong>none, off</strong>:从不备份(即使给出 –backup)</li>
-<li><strong>numbered, t</strong>:用编号备份</li>
-<li><strong>existing, nil</strong> :如果编号备份存在则使用编号备份，否者用简易备份[译注：也就是用波浪号]</li>
-<li><strong>simple, never</strong> :总是使用简易备份</li>
-</ul>
-<h4 id="13-只拷贝文件属性"><a href="#13-只拷贝文件属性" class="headerlink" title="13. 只拷贝文件属性"></a>13. 只拷贝文件属性</h4><p>cp 命令也提供给我们 <strong>–attributes-only</strong> 选项。顾名思义，这个选项只会拷贝文件名及其属性，不会拷贝任何数据。下面是示例：</p>
-<ol>
-<li>$ cp –attributes-only file_6.txt -v ../office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_145.png" alt="Copy attributes only"> 从上图看出， <strong>原文件 file_6.txt 有 50 字节</strong>大小。用了 <strong>–attributes-only</strong>选项，<strong>拷贝的文件只有0字节</strong>大小。这是因为文件内容并没有拷贝。</p>
-<h4 id="14-强制拷贝"><a href="#14-强制拷贝" class="headerlink" title="14. 强制拷贝"></a>14. 强制拷贝</h4><p>用了 <strong>-f</strong> 选项会强制进行拷贝操作。如果目标文件不能打开，可以用 <strong>-f</strong> 尝试一下。</p>
-<ol>
-<li>$ cp -f *.txt -v ../office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_146.png" alt="Copy with force"></p>
-<h4 id="15-在拷贝之前先删除目标"><a href="#15-在拷贝之前先删除目标" class="headerlink" title="15. 在拷贝之前先删除目标"></a>15. 在拷贝之前先删除目标</h4><p>我们可以用，<strong>–remove-destination 选项</strong> 实现。这个选项与上面的<strong>-f选项形成对照</strong>。如果 cp 命令在目标目录下发现同名文件， cp 命令会先删除目标文件，然后再拷贝一份新的。下面是示例：</p>
-<ol>
-<li>$ cp –remove-destination *.txt -v ../office</li>
-</ol>
-<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_147.png" alt="Remove destination option"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>cp 命令是 Linux 下最基础的命令之一。对于那些想要学习 Linux 的人，必须得把这个命令掌握。当然你也可以在你的终端下键入<strong>man cp</strong> 或者 <strong>cp –help</strong> 来显示更多帮助信息。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" data-id="cjo79jtzg0081450fr3fn9fil" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" class="article-date">
-  <time datetime="2015-04-21T23:34:47.000Z" itemprop="datePublished">2015-04-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/">防御暴力破解SSH攻击</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>托管在IDC的机器我们通常都用SSH方式来远程管理.但是经常可以发现log-watch的日志中有大量试探登录的</p>
-<p>信息,为了我们的主机安全,有必要想个方法来阻挡这些可恨的”HACKER”</p>
-<p>有很多办法来阻挡这些密码尝试 1 修改端口 2 健壮的密码 3 RSA公钥认证 4 使用iptables脚本 5 使用sshd日志过滤 6 使用tcp_wrappers过滤 7 使用knockd</p>
-<p>1 vi /etc/ssh/sshd_config #Port 22 默认端口为22,为了避免被扫描,去掉#,改成一个其他的端口,比如45632 保存后重启sshd服务.service sshd restart</p>
-<p>2没什么可说的,密码的复杂性可以增加破解的难度,大小写混合加上数字并且有足够的密码长度就比较安全</p>
-<p>了,唯一的问题就是要牢记密码.</p>
-<p>3.默认的登录方式是password,如果需要用RSA公钥登录,需要先创建RSA Key #ssh-keygen -t rsa -b 1024 会生成私钥/home/username/.ssh/id_rsa 同时生成公钥/home/username/.ssh/id_rsa.pub 输入一个加密短语(也可省略)</p>
-<p>修改sshd 设置,编辑/etc/ssh/sshd_config ‘PasswordAuthentication no’ RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile      .ssh/id_rsa.pub 将公钥下载到本地计算机,然后在ssh客户端软件Secure CRT中设置好,就可以登录了</p>
-<p>4 iptbles脚本 此脚本允许每分钟3个连接.有白名单,并有日志纪录</p>
-<p>iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –set  –name SSH iptables -A INPUT -p tcp –dport 22 -m state –state NEW -j SSH_WHITELIST iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –update  –seconds 60 –</p>
-<p>hitcount 4 –rttl –name SSH -j ULOG –ulog-prefix SSH_brute_force iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –update  –seconds 60 –</p>
-<p>hitcount 4 –rttl –name SSH -j DROP iptables的版本需要&gt;1.2.11 (1.2不支持 –rttl参数)</p>
-<p>5使用sshd日志过滤 有几个软件(脚本)可以做到. sshfilter <a href="http://www.csc.liv.ac.uk/~greg/sshdfilter/" target="_blank" rel="noopener">[url]http://www.csc.liv.ac.uk/~greg/sshdfilter/[/url]</a> Fail2Ban  <a href="http://fail2ban.sourceforge.net/" target="_blank" rel="noopener">[url]http://fail2ban.sourceforge.net/[/url]</a> DenyHosts <a href="http://denyhosts.sourceforge.net/" target="_blank" rel="noopener">[url]http://denyhosts.sourceforge.net/[/url]</a></p>
-<p>需要sshd支持tcp_wrappers此功能. [root@as4test include]# ldd /usr/sbin/sshd | grep libwrap libwrap.so.0 =&gt; /usr/lib64/libwrap.so.0 (0x0000002a9566c000) 如果有libwrap.so.0这个库说明支持此功能 另一种测试方法:在/etc/hosts.deny加入一行127.0.0.1 然后ssh localhost,如果无法连接,说明支持.</p>
-<p>$ tar zxvf DenyHosts-2.6.tar.gz</p>
-<p>$ cd DenyHosts-2.6</p>
-<p>as root:</p>
-<p># python setup.py install</p>
-<p>#cd /usr/share/denyhost</p>
-<p># cp denyhosts.cfg-dist denyhosts.cfg 配置文件 # cp daemon-control-dist daemon-control 启动脚本 # chown root daemon-control</p>
-<p># chmod 700 daemon-control</p>
-<p># cd /etc/init.d</p>
-<p># ln -s /usr/share/denyhosts/daemon-control denyhosts</p>
-<p># chkconfig –add denyhosts 添加到开机启动服务中</p>
-<p>6 使用tcp_wrappers过滤 1 下载脚本<a href="http://www.la-samhna.de/misc/sshblock.sh" target="_blank" rel="noopener">[url]http://www.la-samhna.de/misc/sshblock.sh[/url]</a> 2 设置可执行权限 chmod 755 /usr/local/bin/sshblock.sh 3 在/etc/hosts.allow中添加以下内容 #__START_SSHBLOCK__ #__END_SSHBLOCK__ sshd : ALL : spawn (/usr/local/bin/sshblock.sh %a)&amp; 设置 DONTBLOCK 白名单 BURST_MAX=5 BURST_TIM=60 60秒内登录5次就封锁 PURGE_TIM=3600 3600秒后解冻</p>
-<p>7  使用KNOCKD knockd 监视一个预定义模式在iptables的日志,例如一次击中端口6356,一次击中端口63356,两次击中端口</p>
-<p>9356,这相当于敲一个关闭的门用一种特殊的暗码来被konckd识别,konckd 将使用iptables来打开一个预定</p>
-<p>义端口例如ssh的22端口在一个预定定义时间.(比如一分钟),如果一个ssh session 在这个时间范围内打开,</p>
-<p>这个端口会一直保留.直到预定义时间过期后ssh端口被knockd关掉.</p>
-<p>缺点:比较复杂的方案,不适合普通人 需要客户端(knockd-client)来实现port knocking”,同时需要knockd-server来响应. 实际上,很容易检测到这种通讯模式,一旦攻击者可以监控你的通讯,这种解决方案无法提供安全防护针对本</p>
-<p>地攻击者.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" data-id="cjo79jtyp0063450feldpeptk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-1098" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/21/1098/" class="article-date">
-  <time datetime="2015-04-21T00:49:56.000Z" itemprop="datePublished">2015-04-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/21/1098/">编译nginx 模块</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>./configure –with-http_stub_status_module –prefix=/usr/local/nginx –with-pcre=/home/nginx/tools/pcre-8.36 –add-module=/home/nginx/tools/nginx_upstream_jvm_route –add-module=/home/nginx/tools/nginx_ajp_model –user=nginx –group=nginx yum install gcc yum install -y zlib-devel yum install -y gcc gcc-c++</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/21/1098/" data-id="cjo79jtuh000m450fs3z7j7me" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" class="article-date">
-  <time datetime="2015-04-20T01:39:26.000Z" itemprop="datePublished">2015-04-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Platform Version</p>
-<p>API Level</p>
-<p>VERSION_CODE</p>
-<p>Notes</p>
-<p><a href="http://developer.android.com/about/versions/android-4.4.html" target="_blank" rel="noopener">Android 4.4</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/19/changes.html" title="Diff Report" target="_blank" rel="noopener">19</a></p>
-<p><code>[KITKAT](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#KITKAT)</code></p>
-<p><a href="http://developer.android.com/about/versions/kitkat.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-4.3.html" target="_blank" rel="noopener">Android 4.3</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/18/changes.html" title="Diff Report" target="_blank" rel="noopener">18</a></p>
-<p><code>[JELLY_BEAN_MR2](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN_MR2)</code></p>
-<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-4.2.html" target="_blank" rel="noopener">Android 4.2, 4.2.2</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/17/changes.html" title="Diff Report" target="_blank" rel="noopener">17</a></p>
-<p><code>[JELLY_BEAN_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN_MR1)</code></p>
-<p><a href="http://developer.android.com/about/versions/jelly-bean.html#android-42" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-4.1.html" target="_blank" rel="noopener">Android 4.1, 4.1.1</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/16/changes.html" title="Diff Report" target="_blank" rel="noopener">16</a></p>
-<p><code>[JELLY_BEAN](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)</code></p>
-<p><a href="http://developer.android.com/about/versions/jelly-bean.html#android-41" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-4.0.3.html" target="_blank" rel="noopener">Android 4.0.3, 4.0.4</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/15/changes.html" title="Diff Report" target="_blank" rel="noopener">15</a></p>
-<p><code>[ICE_CREAM_SANDWICH_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-4.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-4.0.html" target="_blank" rel="noopener">Android 4.0, 4.0.1, 4.0.2</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/14/changes.html" title="Diff Report" target="_blank" rel="noopener">14</a></p>
-<p><code>[ICE_CREAM_SANDWICH](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-3.2.html" target="_blank" rel="noopener">Android 3.2</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/13/changes.html" title="Diff Report" target="_blank" rel="noopener">13</a></p>
-<p><code>[HONEYCOMB_MR2](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB_MR2)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-3.1.html" target="_blank" rel="noopener">Android 3.1.x</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/12/changes.html" title="Diff Report" target="_blank" rel="noopener">12</a></p>
-<p><code>[HONEYCOMB_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB_MR1)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-3.1-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-3.0.html" target="_blank" rel="noopener">Android 3.0.x</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/11/changes.html" title="Diff Report" target="_blank" rel="noopener">11</a></p>
-<p><code>[HONEYCOMB](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-3.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-2.3.3.html" target="_blank" rel="noopener">Android 2.3.4 Android 2.3.3</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/10/changes.html" title="Diff Report" target="_blank" rel="noopener">10</a></p>
-<p><code>[GINGERBREAD_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#GINGERBREAD_MR1)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-2.3-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-2.3.html" target="_blank" rel="noopener">Android 2.3.2 Android 2.3.1 Android 2.3</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/9/changes.html" title="Diff Report" target="_blank" rel="noopener">9</a></p>
-<p><code>[GINGERBREAD](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#GINGERBREAD)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-2.2.html" target="_blank" rel="noopener">Android 2.2.x</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/8/changes.html" title="Diff Report" target="_blank" rel="noopener">8</a></p>
-<p><code>[FROYO](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#FROYO)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-2.2-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-2.1.html" target="_blank" rel="noopener">Android 2.1.x</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/7/changes.html" title="Diff Report" target="_blank" rel="noopener">7</a></p>
-<p><code>[ECLAIR_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR_MR1)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-2.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-2.0.1.html" target="_blank" rel="noopener">Android 2.0.1</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/6/changes.html" title="Diff Report" target="_blank" rel="noopener">6</a></p>
-<p><code>[ECLAIR_0_1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR_0_1)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-2.0.html" target="_blank" rel="noopener">Android 2.0</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/5/changes.html" title="Diff Report" target="_blank" rel="noopener">5</a></p>
-<p><code>[ECLAIR](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-1.6.html" target="_blank" rel="noopener">Android 1.6</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/4/changes.html" title="Diff Report" target="_blank" rel="noopener">4</a></p>
-<p><code>[DONUT](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#DONUT)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-1.6-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-1.5.html" target="_blank" rel="noopener">Android 1.5</a></p>
-<p><a href="http://developer.android.com/sdk/api_diff/3/changes.html" title="Diff Report" target="_blank" rel="noopener">3</a></p>
-<p><code>[CUPCAKE](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#CUPCAKE)</code></p>
-<p><a href="http://developer.android.com/about/versions/android-1.5-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
-<p><a href="http://developer.android.com/about/versions/android-1.1.html" target="_blank" rel="noopener">Android 1.1</a></p>
-<p>2</p>
-<p><code>[BASE_1_1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#BASE_1_1)</code></p>
-<p>Android 1.0</p>
-<p>1</p>
-<p><code>`[BASE](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#BASE)`</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" data-id="cjo79jtwh002a450fln958f5a" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" data-id="cjo7aghsy0080sv0f6a1nlcbc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -730,23 +1978,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+            <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+            <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+            <a href="/2018/11/07/java-io/">java-io</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+            <a href="/2018/11/07/message-queue/">消息队列</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

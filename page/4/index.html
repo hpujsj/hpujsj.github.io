@@ -72,6 +72,396 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" class="article-date">
+  <time datetime="2015-04-28T02:52:11.000Z" itemprop="datePublished">2015-04-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/">linux 增加非标准端口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>yum -y install policycoreutils-python semanage port -l|grep http #查看http开放端口 semanage port -a -t http_port_t -p tcp 888 #增加这个非标准端口即可 getsebool -a | grep httpd #setsebool httpd_can_network_connect 1 setsebool -P httpd_can_network_connect 1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" data-id="cjo7aght2008csv0fgtk3b4c8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" class="article-date">
+  <time datetime="2015-04-22T17:44:23.000Z" itemprop="datePublished">2015-04-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/">Linux cp 命令的15个示例 - 创建文件和目录的副本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>拷贝文件和目录是每一个操作系统的基本指令。备份行为基本上是创建文件和目录的副本。在Linux系统下，我们可以用<strong>cp</strong>命令来实现。</p>
+<h3 id="copy-命令是什么"><a href="#copy-命令是什么" class="headerlink" title="copy 命令是什么"></a>copy 命令是什么</h3><p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/134411r8in1vzsuppvz1wd.png" alt=""> 正如我们在上文提到的，<strong>cp</strong>是一个用来创建文件和目录副本的命令。在这里我们提供了一些在日常操作中可能用到的cp命令的实例。</p>
+<h4 id="1-不带任何参数下，运行cp"><a href="#1-不带任何参数下，运行cp" class="headerlink" title="1. 不带任何参数下，运行cp"></a>1. 不带任何参数下，运行cp</h4><p>这是 cp 命令最基础的使用。 拷贝名为 myfile.txt 从一个位置到另一个位置，我们可以像这样子输入：</p>
+<ol>
+<li>$ cp myfile.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_127.png" alt="Copy without options"> 如果我们没有输入绝对路径，这意味着我们正在当前目录下拷贝一个文件。在上面的实例中，<strong>myfile.txt</strong>位于<strong>/home/pungki/Documents</strong>目录下。如果我们当前目录正是<strong>/home/pungki/Documets</strong>,那么没有必要输入<strong>/home/pungki/Documents/myfile.txt</strong>来拷贝文件。当<strong>/home/pungki/office</strong>是一个目录，则文件会拷贝到里面。</p>
+<h4 id="2-同时拷贝多个文件"><a href="#2-同时拷贝多个文件" class="headerlink" title="2. 同时拷贝多个文件"></a>2. 同时拷贝多个文件</h4><p>要在同时拷贝多个文件，我们只需要将多个文件用空格隔开。如下示例：</p>
+<ol>
+<li>$ cp file_1.txt file_2.txt file_3.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_128.png" alt="Copying multiple files"></p>
+<h4 id="3-拷贝一个目录"><a href="#3-拷贝一个目录" class="headerlink" title="3. 拷贝一个目录"></a>3. 拷贝一个目录</h4><p>要拷贝一个目录的话会有点棘手。你需要添加 <strong>-r</strong> 或者 <strong>-R</strong> 选项来实现。<strong>-r</strong>或<strong>-R</strong> 选项表明递归操作。无论该目录是否为空目录，<strong>这个选项都是必要的</strong>。如下示例：</p>
+<ol>
+<li>$ cp -r directory_1 /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_129.png" alt="Copy directory"> 需要注意的一件事，你需要<strong>移除在目录名尾部的斜杠</strong>。否则你会收到类似的错误信息<strong>cp: omitting directory‘directory_1/</strong>’ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_130.png" alt="Copy directory error"> 如果你收到错误信息，则目录不会被拷贝到目标文件夹。</p>
+<h4 id="4-创建文件的硬链接，而不是拷贝它们"><a href="#4-创建文件的硬链接，而不是拷贝它们" class="headerlink" title="4. 创建文件的硬链接，而不是拷贝它们"></a>4. 创建文件的硬链接，而不是拷贝它们</h4><p>拷贝文件意味着你必须使用一些存储空间来储存拷贝的文件。有时候出于某种原因，你可能想要创建“快捷方式”或者链接到文件，而不是拷贝它们。要做到这一点，我们可以使用<strong>-l</strong>选项。</p>
+<ol>
+<li>$ cp -l file_4.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_131.png" alt="Copy hardlinks"> 从上图看出，我们看到<strong>file_4.txt</strong>的硬链接已经拷贝到<strong>/home/pungki/office/file_4.txt</strong>。标记有同样的 inode, <strong>835386</strong>。但是请注意，硬链接不能用来创建目录。下面让我们看一个例子。 _原目录 directory_1 的 inode 值是 278230_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_132.png" alt="Inode number of original directory"> _原文件 file_5.txt 的 inode 值是 279231_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_133.png" alt="Original inode number of file"> _对 directory_1 执行 cp 命令_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_134.png" alt="Copy using -rl options"> _拷贝的 directory_1副本的 inode 值是 274800_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_135.png" alt="Inode number of copied directory"> _拷贝的 file_5.txt副本的 inode 值是 279231。跟它的原文件一样_ <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_136.png" alt="Inode number of copied file"></p>
+<h4 id="5-创建文件的符号链接"><a href="#5-创建文件的符号链接" class="headerlink" title="5. 创建文件的符号链接"></a>5. 创建文件的符号链接</h4><p>也有一种链接叫做 <strong>软链接</strong> 或 <strong>符号链接</strong>。我们用 <strong>-s</strong> 选项来实现。下面是命令的示例。</p>
+<ol>
+<li>$ cp -s /home/pungki/Documents/file_6.txt file_6.txt</li>
+</ol>
+<p>创建符号链接只能在当前目录下进行。在上面的截图中，我们想要创建符号链接 <strong>/home/pungki/office/file_6.txt 指向原文件 /home/pungki/Documents/file_6.txt</strong>。但是为了创建符号链接，<strong>我必须</strong>在将/home/pungki/office作为目标目录。一旦我设法进入目录，我就可以向上面一样运行 cp <strong>-s</strong> 命令。 现在你列出文件详情，你会看到<strong>/home/pungki/office/file_6.txt</strong>指向了原文件。在其文件名后标记了箭头符号。 <img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_137.png" alt="Symbolic links"></p>
+<h4 id="6-不随符号链接拷贝原文件"><a href="#6-不随符号链接拷贝原文件" class="headerlink" title="6. 不随符号链接拷贝原文件"></a>6. 不随符号链接拷贝原文件</h4><p>[译注:意思是只拷贝符号链接文件] 我们可以用 <strong>-P</strong> 选项来实现。当对符号链接使用 cp 命令，它会照原样拷贝它自身。来看看下面的示例。</p>
+<ol>
+<li>$ cp -P file_6.txt ./movie</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_138.png" alt="Copy using -P option"> 如你所见，cp 命令照原样拷贝<strong>file_6.txt</strong>自身。文件类型仍然是一个符号链接。</p>
+<h4 id="7-随符号链接拷贝原文件"><a href="#7-随符号链接拷贝原文件" class="headerlink" title="7. 随符号链接拷贝原文件"></a>7. 随符号链接拷贝原文件</h4><p>现在我们可以试一下<strong>-L</strong>选项。基本上，这个刚好与上面的 -P 选项 <strong>相反</strong>。下面是个示例：</p>
+<ol>
+<li>$ cp -L file_6.txt ./movie</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_139.png" alt="Copy using -L option"> 使用这个选项，拷贝的文件将会和<strong>file_6.txt</strong>原文件一样。我们可以从文件大小看出来。拷贝的文件有<strong>50 字节</strong>而当<strong>file_6.txt</strong>作为符号链接时文件大小只有<strong>33 字节</strong>。</p>
+<h4 id="8-文件归档"><a href="#8-文件归档" class="headerlink" title="8. 文件归档"></a>8. 文件归档</h4><p>当我们去拷贝一个目录时，我们会用<strong>-r</strong>或者<strong>-R</strong>选项。但是我们也可以用<strong>-a</strong>选项来归档文件。这样会创建文件和目录的<strong>准确套录</strong>，如果有的话也可以包括符号链接。下面是示例：[译注：-a 会保留原文件或目录的属性]</p>
+<ol>
+<li>$ cp -a directory_1/ /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_140.png" alt="Copy using -a option"> 上列的命令会拷贝一个名为 directory_1 的目录到<strong>/home/pungki/office</strong>目录下。如你所见，<strong>file_6.txt</strong>依然作为符号链接被复制。</p>
+<h4 id="9-显示正在做什么"><a href="#9-显示正在做什么" class="headerlink" title="9. 显示正在做什么"></a>9. 显示正在做什么</h4><p>默认情况下，当拷贝作业成功时，我们仅仅会再次看到命令提示符。如果你想了解在拷贝文件时都发生了什么，我们可以用 <strong>-v</strong> 选项。</p>
+<ol>
+<li>$ cp -v *.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_141.png" alt="Verbose option"> 当我们从当前目录下拷贝所有的 txt 文件到 <strong>/home/pungki/office</strong> 目录，<strong>-v</strong>选项会显示正在操作的过程。这些额外的信息会帮助我们了解更多拷贝过程。</p>
+<h4 id="10-当原文件较目标文件新时拷贝"><a href="#10-当原文件较目标文件新时拷贝" class="headerlink" title="10. 当原文件较目标文件新时拷贝"></a>10. 当原文件较目标文件新时拷贝</h4><p>我们用 <strong>-u</strong>选项来实现。下面是具体示例:</p>
+<ol>
+<li>$ cp -vu *.txt /home/pungki/office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_142.png" alt="Copy only if newer"> 起初我们看到<strong>file_1.txt 是0字节</strong>大小。然后我们用 vi 编辑，加入一些内容并保存。接下来，我们发现文件大小已经变为了 36 个字节。 与此同时在<strong>/home/pungki/office</strong>目录中，我们<strong>已经包含了所有</strong>txt文件。当我们用 -u 选项，结合 -v 选项来查看具体操作，cp 命令会只拷贝比目标目录下新的文件。因此，我们看到<strong>只有 file_1.txt 拷贝到 /home/pungki/office 目录下</strong>。</p>
+<h4 id="11-使用交互模式"><a href="#11-使用交互模式" class="headerlink" title="11. 使用交互模式"></a>11. 使用交互模式</h4><p>交互模式下会询问是否覆盖目标目录下的文件。使用 <strong>-i</strong> 选项，启用交互模式。</p>
+<ol>
+<li>$ cp -ir directory_1/ /home/pungki/office/</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_143.png" alt="Interactive mode"></p>
+<h4 id="12-创建备份文件"><a href="#12-创建备份文件" class="headerlink" title="12. 创建备份文件"></a>12. 创建备份文件</h4><p>当目标目录已经含有同名文件，默认情况下 cp 命令会覆盖目标目录下的同名文件。使用 <strong>–backup</strong> 选项，cp 命令会为每一个现有的目标文件做一个备份。../office 相对于 /home/pungki/office 。下面是示例：</p>
+<ol>
+<li>$ cp –backup=simple -v *.txt ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_144.png" alt="Backup option"> 正如我们看到的，<strong>–backup=simple</strong> 选项会创建一个在文件名末尾用波浪符标记(~)的备份文件。<strong>–backup</strong> 选项也有一些其他控制：</p>
+<ul>
+<li><strong>none, off</strong>:从不备份(即使给出 –backup)</li>
+<li><strong>numbered, t</strong>:用编号备份</li>
+<li><strong>existing, nil</strong> :如果编号备份存在则使用编号备份，否者用简易备份[译注：也就是用波浪号]</li>
+<li><strong>simple, never</strong> :总是使用简易备份</li>
+</ul>
+<h4 id="13-只拷贝文件属性"><a href="#13-只拷贝文件属性" class="headerlink" title="13. 只拷贝文件属性"></a>13. 只拷贝文件属性</h4><p>cp 命令也提供给我们 <strong>–attributes-only</strong> 选项。顾名思义，这个选项只会拷贝文件名及其属性，不会拷贝任何数据。下面是示例：</p>
+<ol>
+<li>$ cp –attributes-only file_6.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_145.png" alt="Copy attributes only"> 从上图看出， <strong>原文件 file_6.txt 有 50 字节</strong>大小。用了 <strong>–attributes-only</strong>选项，<strong>拷贝的文件只有0字节</strong>大小。这是因为文件内容并没有拷贝。</p>
+<h4 id="14-强制拷贝"><a href="#14-强制拷贝" class="headerlink" title="14. 强制拷贝"></a>14. 强制拷贝</h4><p>用了 <strong>-f</strong> 选项会强制进行拷贝操作。如果目标文件不能打开，可以用 <strong>-f</strong> 尝试一下。</p>
+<ol>
+<li>$ cp -f *.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_146.png" alt="Copy with force"></p>
+<h4 id="15-在拷贝之前先删除目标"><a href="#15-在拷贝之前先删除目标" class="headerlink" title="15. 在拷贝之前先删除目标"></a>15. 在拷贝之前先删除目标</h4><p>我们可以用，<strong>–remove-destination 选项</strong> 实现。这个选项与上面的<strong>-f选项形成对照</strong>。如果 cp 命令在目标目录下发现同名文件， cp 命令会先删除目标文件，然后再拷贝一份新的。下面是示例：</p>
+<ol>
+<li>$ cp –remove-destination *.txt -v ../office</li>
+</ol>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2015/04/daahe.com_147.png" alt="Remove destination option"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>cp 命令是 Linux 下最基础的命令之一。对于那些想要学习 Linux 的人，必须得把这个命令掌握。当然你也可以在你的终端下键入<strong>man cp</strong> 或者 <strong>cp –help</strong> 来显示更多帮助信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" data-id="cjo7aght10089sv0f1dxgj1yf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" class="article-date">
+  <time datetime="2015-04-21T23:34:47.000Z" itemprop="datePublished">2015-04-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/">防御暴力破解SSH攻击</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>托管在IDC的机器我们通常都用SSH方式来远程管理.但是经常可以发现log-watch的日志中有大量试探登录的</p>
+<p>信息,为了我们的主机安全,有必要想个方法来阻挡这些可恨的”HACKER”</p>
+<p>有很多办法来阻挡这些密码尝试 1 修改端口 2 健壮的密码 3 RSA公钥认证 4 使用iptables脚本 5 使用sshd日志过滤 6 使用tcp_wrappers过滤 7 使用knockd</p>
+<p>1 vi /etc/ssh/sshd_config #Port 22 默认端口为22,为了避免被扫描,去掉#,改成一个其他的端口,比如45632 保存后重启sshd服务.service sshd restart</p>
+<p>2没什么可说的,密码的复杂性可以增加破解的难度,大小写混合加上数字并且有足够的密码长度就比较安全</p>
+<p>了,唯一的问题就是要牢记密码.</p>
+<p>3.默认的登录方式是password,如果需要用RSA公钥登录,需要先创建RSA Key #ssh-keygen -t rsa -b 1024 会生成私钥/home/username/.ssh/id_rsa 同时生成公钥/home/username/.ssh/id_rsa.pub 输入一个加密短语(也可省略)</p>
+<p>修改sshd 设置,编辑/etc/ssh/sshd_config ‘PasswordAuthentication no’ RSAAuthentication yes PubkeyAuthentication yes AuthorizedKeysFile      .ssh/id_rsa.pub 将公钥下载到本地计算机,然后在ssh客户端软件Secure CRT中设置好,就可以登录了</p>
+<p>4 iptbles脚本 此脚本允许每分钟3个连接.有白名单,并有日志纪录</p>
+<p>iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –set  –name SSH iptables -A INPUT -p tcp –dport 22 -m state –state NEW -j SSH_WHITELIST iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –update  –seconds 60 –</p>
+<p>hitcount 4 –rttl –name SSH -j ULOG –ulog-prefix SSH_brute_force iptables -A INPUT -p tcp –dport 22 -m state –state NEW -m recent –update  –seconds 60 –</p>
+<p>hitcount 4 –rttl –name SSH -j DROP iptables的版本需要&gt;1.2.11 (1.2不支持 –rttl参数)</p>
+<p>5使用sshd日志过滤 有几个软件(脚本)可以做到. sshfilter <a href="http://www.csc.liv.ac.uk/~greg/sshdfilter/" target="_blank" rel="noopener">[url]http://www.csc.liv.ac.uk/~greg/sshdfilter/[/url]</a> Fail2Ban  <a href="http://fail2ban.sourceforge.net/" target="_blank" rel="noopener">[url]http://fail2ban.sourceforge.net/[/url]</a> DenyHosts <a href="http://denyhosts.sourceforge.net/" target="_blank" rel="noopener">[url]http://denyhosts.sourceforge.net/[/url]</a></p>
+<p>需要sshd支持tcp_wrappers此功能. [root@as4test include]# ldd /usr/sbin/sshd | grep libwrap libwrap.so.0 =&gt; /usr/lib64/libwrap.so.0 (0x0000002a9566c000) 如果有libwrap.so.0这个库说明支持此功能 另一种测试方法:在/etc/hosts.deny加入一行127.0.0.1 然后ssh localhost,如果无法连接,说明支持.</p>
+<p>$ tar zxvf DenyHosts-2.6.tar.gz</p>
+<p>$ cd DenyHosts-2.6</p>
+<p>as root:</p>
+<p># python setup.py install</p>
+<p>#cd /usr/share/denyhost</p>
+<p># cp denyhosts.cfg-dist denyhosts.cfg 配置文件 # cp daemon-control-dist daemon-control 启动脚本 # chown root daemon-control</p>
+<p># chmod 700 daemon-control</p>
+<p># cd /etc/init.d</p>
+<p># ln -s /usr/share/denyhosts/daemon-control denyhosts</p>
+<p># chkconfig –add denyhosts 添加到开机启动服务中</p>
+<p>6 使用tcp_wrappers过滤 1 下载脚本<a href="http://www.la-samhna.de/misc/sshblock.sh" target="_blank" rel="noopener">[url]http://www.la-samhna.de/misc/sshblock.sh[/url]</a> 2 设置可执行权限 chmod 755 /usr/local/bin/sshblock.sh 3 在/etc/hosts.allow中添加以下内容 #__START_SSHBLOCK__ #__END_SSHBLOCK__ sshd : ALL : spawn (/usr/local/bin/sshblock.sh %a)&amp; 设置 DONTBLOCK 白名单 BURST_MAX=5 BURST_TIM=60 60秒内登录5次就封锁 PURGE_TIM=3600 3600秒后解冻</p>
+<p>7  使用KNOCKD knockd 监视一个预定义模式在iptables的日志,例如一次击中端口6356,一次击中端口63356,两次击中端口</p>
+<p>9356,这相当于敲一个关闭的门用一种特殊的暗码来被konckd识别,konckd 将使用iptables来打开一个预定</p>
+<p>义端口例如ssh的22端口在一个预定定义时间.(比如一分钟),如果一个ssh session 在这个时间范围内打开,</p>
+<p>这个端口会一直保留.直到预定义时间过期后ssh端口被knockd关掉.</p>
+<p>缺点:比较复杂的方案,不适合普通人 需要客户端(knockd-client)来实现port knocking”,同时需要knockd-server来响应. 实际上,很容易检测到这种通讯模式,一旦攻击者可以监控你的通讯,这种解决方案无法提供安全防护针对本</p>
+<p>地攻击者.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" data-id="cjo7aghs70061sv0fu4lyuqol" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-1098" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/21/1098/" class="article-date">
+  <time datetime="2015-04-21T00:49:56.000Z" itemprop="datePublished">2015-04-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/21/1098/">编译nginx 模块</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>./configure –with-http_stub_status_module –prefix=/usr/local/nginx –with-pcre=/home/nginx/tools/pcre-8.36 –add-module=/home/nginx/tools/nginx_upstream_jvm_route –add-module=/home/nginx/tools/nginx_ajp_model –user=nginx –group=nginx yum install gcc yum install -y zlib-devel yum install -y gcc gcc-c++</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/21/1098/" data-id="cjo7aghno000hsv0fi0pplv8x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" class="article-date">
+  <time datetime="2015-04-20T01:39:26.000Z" itemprop="datePublished">2015-04-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/">Android SDKVersion 参数列表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Platform Version</p>
+<p>API Level</p>
+<p>VERSION_CODE</p>
+<p>Notes</p>
+<p><a href="http://developer.android.com/about/versions/android-4.4.html" target="_blank" rel="noopener">Android 4.4</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/19/changes.html" title="Diff Report" target="_blank" rel="noopener">19</a></p>
+<p><code>[KITKAT](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#KITKAT)</code></p>
+<p><a href="http://developer.android.com/about/versions/kitkat.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-4.3.html" target="_blank" rel="noopener">Android 4.3</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/18/changes.html" title="Diff Report" target="_blank" rel="noopener">18</a></p>
+<p><code>[JELLY_BEAN_MR2](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN_MR2)</code></p>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-4.2.html" target="_blank" rel="noopener">Android 4.2, 4.2.2</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/17/changes.html" title="Diff Report" target="_blank" rel="noopener">17</a></p>
+<p><code>[JELLY_BEAN_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN_MR1)</code></p>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html#android-42" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-4.1.html" target="_blank" rel="noopener">Android 4.1, 4.1.1</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/16/changes.html" title="Diff Report" target="_blank" rel="noopener">16</a></p>
+<p><code>[JELLY_BEAN](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)</code></p>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html#android-41" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-4.0.3.html" target="_blank" rel="noopener">Android 4.0.3, 4.0.4</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/15/changes.html" title="Diff Report" target="_blank" rel="noopener">15</a></p>
+<p><code>[ICE_CREAM_SANDWICH_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-4.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-4.0.html" target="_blank" rel="noopener">Android 4.0, 4.0.1, 4.0.2</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/14/changes.html" title="Diff Report" target="_blank" rel="noopener">14</a></p>
+<p><code>[ICE_CREAM_SANDWICH](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-3.2.html" target="_blank" rel="noopener">Android 3.2</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/13/changes.html" title="Diff Report" target="_blank" rel="noopener">13</a></p>
+<p><code>[HONEYCOMB_MR2](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB_MR2)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-3.1.html" target="_blank" rel="noopener">Android 3.1.x</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/12/changes.html" title="Diff Report" target="_blank" rel="noopener">12</a></p>
+<p><code>[HONEYCOMB_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB_MR1)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-3.1-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-3.0.html" target="_blank" rel="noopener">Android 3.0.x</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/11/changes.html" title="Diff Report" target="_blank" rel="noopener">11</a></p>
+<p><code>[HONEYCOMB](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#HONEYCOMB)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-3.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-2.3.3.html" target="_blank" rel="noopener">Android 2.3.4 Android 2.3.3</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/10/changes.html" title="Diff Report" target="_blank" rel="noopener">10</a></p>
+<p><code>[GINGERBREAD_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#GINGERBREAD_MR1)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-2.3-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-2.3.html" target="_blank" rel="noopener">Android 2.3.2 Android 2.3.1 Android 2.3</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/9/changes.html" title="Diff Report" target="_blank" rel="noopener">9</a></p>
+<p><code>[GINGERBREAD](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#GINGERBREAD)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-2.2.html" target="_blank" rel="noopener">Android 2.2.x</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/8/changes.html" title="Diff Report" target="_blank" rel="noopener">8</a></p>
+<p><code>[FROYO](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#FROYO)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-2.2-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-2.1.html" target="_blank" rel="noopener">Android 2.1.x</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/7/changes.html" title="Diff Report" target="_blank" rel="noopener">7</a></p>
+<p><code>[ECLAIR_MR1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR_MR1)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-2.0-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-2.0.1.html" target="_blank" rel="noopener">Android 2.0.1</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/6/changes.html" title="Diff Report" target="_blank" rel="noopener">6</a></p>
+<p><code>[ECLAIR_0_1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR_0_1)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-2.0.html" target="_blank" rel="noopener">Android 2.0</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/5/changes.html" title="Diff Report" target="_blank" rel="noopener">5</a></p>
+<p><code>[ECLAIR](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ECLAIR)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-1.6.html" target="_blank" rel="noopener">Android 1.6</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/4/changes.html" title="Diff Report" target="_blank" rel="noopener">4</a></p>
+<p><code>[DONUT](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#DONUT)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-1.6-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-1.5.html" target="_blank" rel="noopener">Android 1.5</a></p>
+<p><a href="http://developer.android.com/sdk/api_diff/3/changes.html" title="Diff Report" target="_blank" rel="noopener">3</a></p>
+<p><code>[CUPCAKE](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#CUPCAKE)</code></p>
+<p><a href="http://developer.android.com/about/versions/android-1.5-highlights.html" target="_blank" rel="noopener">Platform Highlights</a></p>
+<p><a href="http://developer.android.com/about/versions/android-1.1.html" target="_blank" rel="noopener">Android 1.1</a></p>
+<p>2</p>
+<p><code>[BASE_1_1](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#BASE_1_1)</code></p>
+<p>Android 1.0</p>
+<p>1</p>
+<p><code>`[BASE](http://developer.android.com/reference/android/os/Build.VERSION_CODES.html#BASE)`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" data-id="cjo7aghpx0029sv0fetlqc5t5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/" class="article-date">
@@ -794,7 +1184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/" data-id="cjo79jtxx004e450fb5ny9lj7" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/" data-id="cjo7aghrf004gsv0fo1d074n3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1096,7 +1486,7 @@ grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/15/e7-90-86-e8-a7-a3oauth-2-0/" data-id="cjo79jtyd0059450f47z79pgo" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/15/e7-90-86-e8-a7-a3oauth-2-0/" data-id="cjo7aghrv005asv0f3zy9fakb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1137,7 +1527,7 @@ grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/12/mysql-e5-b8-b8-e7-94-a8-e5-91-bd-e4-bb-a4-e5-8f-8a-e8-af-ad-e5-8f-a5/" data-id="cjo79jtzl008f450fnb1b3q4q" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/12/mysql-e5-b8-b8-e7-94-a8-e5-91-bd-e4-bb-a4-e5-8f-8a-e8-af-ad-e5-8f-a5/" data-id="cjo7aght6008lsv0f6etud8yt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1178,7 +1568,7 @@ grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/12/1071/" data-id="cjo79jtue000l450f3wgioip3" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/12/1071/" data-id="cjo7aghnl000fsv0fy5wa1las" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1219,231 +1609,7 @@ grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/12/e4-ba-94-e7-ac-94-e5-ad-97-e6-a0-b9/" data-id="cjo79jtxe003a450fxqis5b2o" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-vi-e5-91-bd-e4-bb-a4-e5-9b-be-e8-a7-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/12/vi-e5-91-bd-e4-bb-a4-e5-9b-be-e8-a7-a3/" class="article-date">
-  <time datetime="2015-04-11T19:20:28.000Z" itemprop="datePublished">2015-04-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/12/vi-e5-91-bd-e4-bb-a4-e5-9b-be-e8-a7-a3/">Vi命令图解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://blog.daahe.com/wp-content/uploads/2015/04/linux-vi.jpg" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2015/04/linux-vi.jpg" alt="linux-vi"></a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/12/vi-e5-91-bd-e4-bb-a4-e5-9b-be-e8-a7-a3/" data-id="cjo79ju07009r450fc7k1ygqb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/" class="article-date">
-  <time datetime="2015-04-02T20:46:52.000Z" itemprop="datePublished">2015-04-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/">CSS字体大小: em与px、pt、百分比之间的对比</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CSS样式最混乱的一个方面是应用程序中文本扩展的font-size属性。在CSS中,你可以用四个不同的单位度量来显示在web浏览器中的文本大小。这四个单位哪一种最适合Web? 这个问题引起了广泛的争论。找到一个确定的答案是困难的, 因为这个问题,本身就是如此难以回答。</p>
-<h3 id="接触这些单位"><a href="#接触这些单位" class="headerlink" title="　　接触这些单位"></a>　　接触这些单位</h3><ol>
-<li>“Ems”(em):“em”是一个可伸缩的单位, 用于web文档媒体展示。一个em等于当前的字体大小,例如,如果文档的字体大小是12 pt,1 em等于12 pt。Ems在本质上是可伸缩的,所以2 em相当于24 pt，.5 em相当于6 pt等。ems由于其可伸缩性和适应移动设备的特性在web文档中正变得越来越受欢迎。 2.  像素(px):像素是固定大小的单元,用于屏幕媒体(即在电脑屏幕上读取)。一个像素等于电脑屏幕上的一个点 (是你屏幕分辨率的最小分割)。许多<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%CD%F8%D2%B3%C9%E8%BC%C6%CA%A6&amp;k0=%CD%F8%D2%B3%C9%E8%BC%C6%CA%A6&amp;kdi0=0&amp;luki=4&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">网页设计师</a>在web文档使用像素单位以生产浏览器渲染的像素完美呈现的网站。像素单元的一个问题是,它没有为视障读者的扩展,以适应移动设备。 3.  点(pt):点通常用于印刷媒体(任何打印在纸上的媒体,等等)。一个点等于一英寸的1/72。点更像像素,他们是固定大小的单位,不能伸缩。 4. 百分比(%):百分比单位更像“em”单位,除了一些根本性的差异。首先,当前的字体大小等于100%(比如12 pt = 100%)。当使用百分比单位,你的文字在移动设备上仍然保持完全的可伸缩性和可访问性。</li>
-</ol>
-<h3 id="那么，区别是什么呢"><a href="#那么，区别是什么呢" class="headerlink" title="　　那么，区别是什么呢?"></a>　　那么，区别是什么呢?</h3><p>当你动态地观察他们就很容易理解字体大小单位之间的区别。一般来说,<strong>1 em = 12 pt = 16 px = 100%</strong>。当使用这些font-size, 增加基础本字体大小(使用CSS选择器)从100%到120%，让我们看看会发生什么。 <img src="http://blog.daahe.com/wp-content/uploads/2015/04" alt=""> 正如你所看到的, 随着基本字体大小增加em和百分比单位变大,但px 和 pt 没有变化。为你的文本设置一个绝对的大小很容易,但它是更容易在你的访客使用可伸缩的文本,可以显示任何设备或机器上。出于这个原因,em和百分比单位是web文档文本的首选。</p>
-<h3 id="Em和percent的对比"><a href="#Em和percent的对比" class="headerlink" title="　　Em和percent的对比"></a>　　Em和percent的对比</h3><p>我们定义点和像素单位不一定是最适合web文档,留下来是的em和百分比单位。在理论上,em和百分比单位是相同的,但在应用程序中,他们实际上有一些细微的差别需要着重考虑。 在上面的示例中,我们使用百分比单位作为我们的基础字体大小(body上标记)。如果你把你的字体大小从百分比变为ems(即body{font-size:1 em;}),你可能不会注意到有什么差别。让我们看看当“1 em”是我们的body字体大小,当客户端改变浏览器的“文字大小”设置(这在一些浏览器中可用,如Internet Explorer)会发生什么。 <img src="http://www.admin10000.com/UploadFiles/Document/201407/20/20140720145648095575.GIF" alt=""> 当客户端的浏览器文本大小设置为“medium”, ems和百分比之间没有区别。然而,当设置改变,差别是相当大的。“Smallest”设置,ems比百分比小得多,而当设置为“Largest”,这时恰恰相反,ems比百分比显示地更大。有些可能会说,当真正去扩展时em单位在扩展,在实际的应用程序中,em文本尺度变化太大, 在一些客户端机器上最小的文本变得不是很清晰。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="　　结论"></a>　　结论</h3><p>理论上,em单位是网上新的和即将到来的字体大小标准,但在实践中,百分比单位似乎给用户提供一个更加一致的和可访问的显示。当客户端设置改变,百分比文本以合理的比例扩展,允许<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%C9%E8%BC%C6%CA%A6&amp;k0=%C9%E8%BC%C6%CA%A6&amp;kdi0=0&amp;luki=2&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">设计师</a>保持可读性,可访问性和<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%CA%D3%BE%F5%C9%E8%BC%C6&amp;k0=%CA%D3%BE%F5%C9%E8%BC%C6&amp;kdi0=0&amp;luki=3&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">视觉设计</a>。</p>
-<h3 id="赢家-百分比-。"><a href="#赢家-百分比-。" class="headerlink" title="　　赢家:百分比(%)。"></a>　　赢家:百分比(%)。</h3><h3 id="附录-2011年1月"><a href="#附录-2011年1月" class="headerlink" title="　　附录(2011年1月)"></a>　　附录(2011年1月)</h3><p>从我写这篇文章已经有几年了,我想总结那段时间所发生的讨论。一般来说,当我开始一个新的<a href="http://cpro.baidu.com/cpro/ui/uijs.php?c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;jk=10de77dab689504b&amp;k=%C9%E8%BC%C6&amp;k0=%C9%E8%BC%C6&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=06011078_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=4b5089b6da77de10&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;tu=u1922429&amp;u=http%3A%2F%2Fwww%2Eadmin10000%2Ecom%2Fdocument%2F4753%2Ehtml&amp;urlid=0" target="_blank" rel="noopener">设计</a>,我将在body元素上使用百分比(body { font-size: 62.5%; })，然后使用em单位大小来比较。只要body使用百分比单位设置,您可以选择使用百分比或ems或其他任何CSS规则和选择器并且在你的基础字体大小上保持使用百分比的好处。在过去的几年中,这确实成为设计的标准。 像素现在被认为是可接受的字体大小单位(用户可以使用浏览器的“缩放”功能读小文本),虽然由于移动设备非常高的密度屏幕(一些Android和iPhone设备每英寸超过200到 300个像素,让你11 - 12-pixel字体很难看到!)他们也开始引起一些问题。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/03/css-e5-ad-97-e4-bd-93-e5-a4-a7-e5-b0-8f-em-e4-b8-8epx-e3-80-81pt-e3-80-81-e7-99-be-e5-88-86-e6-af-94-e4-b9-8b-e9-97-b4-e7-9a-84-e5-af-b9-e6-af-94/" data-id="cjo79jtww002u450fwxibyc9g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" class="article-date">
-  <time datetime="2015-03-08T02:07:43.000Z" itemprop="datePublished">2015-03-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/">Android常用知识点总汇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、系统上安装了多种浏览器，能否指定某浏览器访问指定页面？请说明原由。 如果在你的android系统上安装了多种浏览器，能否指定某浏览器访问指定页面？答案当然是：肯定的。 具体方法如下： Intent intent = newIntent(); intent.setAction(“android.intent.action.VIEW”); Uri content_uri_browsers = Uri.parse(“<a href="http://isomobile.com&quot;)" target="_blank" rel="noopener">http://isomobile.com&quot;)</a>; intent.setData(content_uri_browsers); intent.setClassName(“com.android.browser”, “com.android.browser.BrowserActivity”); startActivity(intent); 问题的关键在于我们设置了class name，也就是我们想要跳转的pakcage的activity。如果你想要跳转到其它的浏览器，只需要修改一下这个函数就OK了。 好，我们现在来让刚刚的思路来指导我们的实践。假如我们现在要直接启动UC浏览器，那么我们该怎么做呢？让我们step by step吧。 1）下载UC apk： <a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fi-uc.net%2Fread.php%3F2" target="_blank" rel="noopener">http://i-uc.net/read.php?2</a> 2）用7zip解压apk文件，得到classes.dex文件 3）下载反编译dex文件工具： <a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fnchc.dl.sourceforge.net%2Fproject%2Fdedexer%2Fdedexer%2F1.5%2Fddx1.5.jar" target="_blank" rel="noopener">http://nchc.dl.sourceforge.net/project/dedexer/dedexer/1.5/ddx1.5.jar</a>（Dedexer 项目主页:<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fdedexer.sourceforge.net%2F" target="_blank" rel="noopener">http://dedexer.sourceforge.net/</a> ） 4）执行命令：java -jar ddx1.5.jar -o -D -d c:     c:classes.dex 5）得到package name是：com.uc.browser,启动的activity是：com.uc.browser.ActivityUpdate（补充：当我在这里选择采用ActivityBrowser的时候发觉权限不够，报permiss denied 异常，而且也不是我们要的那个activity，幸运的是在第二次尝试用ActivityUpdate，刚好能满足要求） 6）修改上面的代码为intent.setClassName(“com.uc.browser”,”com.uc.browser.ActivityUpdate”); 二、请解释下Android程序运行时权限与文件系统权限的区别 要区分apk运行时的拥有的权限与在文件系统上被访问（读写执行）的权限两个概念。apk程序是运行在虚拟机上的,对应的是Android独特的权限机制，只有体现到文件系统上时才使用linux的权限设置。 （一）linux文件系统上的权限 -rwxr-x–x system   system       4156 2010-04-30 16:13 test.apk 代表的是相应的用户/用户组及其他人对此文件的访问权限，与此文件运行起来具有的权限完全不相关。比如上面的例子只能说明system用户拥有对此文件的读写执行权限；system组的用户对此文件拥有读、执行权限；其他人对此文件只具有执行权限。而test.apk运行起来后可以干哪些事情，跟这个就不相关了。千万不要看apk文件系统上属于system/system用户及用户组，或者root/root用户及用户组，就认为apk具有system或root权限 （二）Android的权限规则 （1)Android中的apk必须签名 这种签名不是基于权威证书的，不会决定某个应用允不允许安装，而是一种自签名证书。重要的是，android系统有的权限是基于签名的。比如：system等级的权限有专门对应的签名，签名不对，权限也就获取不到。默认生成的APK文件是debug签名的。获取system权限时用到的签名，见：<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fhi.baidu.com%2Fdonghaozheng%2Fblog%2Fitem%2F30a00d4f9fca873baec3ab69.html" target="_blank" rel="noopener">如何使Android应用程序获取系统权限</a> （2）基于UserID的进程级别的安全机制 大家都知道，进程有独立的地址空间，进程与进程间默认是不能互相访问的，是一种很可靠的保护机制。Android通过为每一个安装在设备上的包（apk）分配唯一的linux userID来实现，名称为”app_”加一个数字，比如app_43不同的UserID，运行在不同的进程，所以apk之间默认便不能相互访问。Android提供了如下的一种机制，可以使两个apk打破前面讲的这种壁垒。在AndroidManifest.xml中利用sharedUserId属性给不同的package分配相同的userID，通过这样做，两个package可以被当做同一个程序，系统会分配给两个程序相同的UserID。当然，基于安全考虑，两个package需要有相同的签名，否则没有验证也就没有意义了。（这里补充一点:并不是说分配了同样的UserID，两程序就运行在同一进程, 下面为PS指令摘取的，显然，system、app_2分别对应的两个进程的PID都不同，不知Android到底是怎样实现它的机制的） User   PID PPID system    953   883   187340 55052 ffffffff afe0cbcc S system_server app_2     1072 883   100264 19564 ffffffff afe0dcc4 S com.android.inputmethod. system    1083 883   111808 23192 ffffffff afe0dcc4 S android.process.omsservi app_2     1088 883   156464 45720 ffffffff afe0dcc4 S android.process.acore （3）默认apk生成的数据对外是不可见的 实现方法是：Android会为程序存储的数据分配该程序的UserID。借助于Linux严格的文件系统访问权限，便实现了apk之间不能相互访问似有数据的机制。 例：我的应用创建的一个文件，默认权限如下，可以看到只有UserID为app_21的程序才能读写该文件。 -rw——- app_21   app_21      87650 2000-01-01 09:48 test.txt 如何对外开放？ 使用MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE 标记。 When creating a new file with getSharedPreferences(String, int), openFileOutput(String, int), or openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory), you can use the MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE flags to allow any other package to read/write the file. When setting these flags, the file is still owned by your application, but its global read and/or write permissions have been set appropriately so any other application can see it. （4）AndroidManifest.xml中的显式权限声明 Android默认应用是没有任何权限去操作其他应用或系统相关特性的，应用在进行某些操作时都需要显式地去申请相应的权限。 一般以下动作时都需要申请相应的权限： A particular permission may be enforced at a number of places during your program’s operation: At the time of a call into the system, to prevent an application from executing certain functions. When starting an activity, to prevent applications from launching activities of other applications. Both sending and receiving broadcasts, to control who can receive your broadcast or who can send a broadcast to you. When accessing and operating on a content provider. Binding or starting a service. 在应用安装的时候，package installer会检测该应用请求的权限，根据该应用的签名或者提示用户来分配相应的权限。在程序运行期间是不检测权限的。如果安装时权限获取失败，那执行就会出错，不会提示用户权限不够。大多数情况下，权限不足导致的失败会引发一个 SecurityException， 会在系统log（system log）中有相关记录。 （5）权限继承/UserID继承 当我们遇到apk权限不足时，我们有时会考虑写一个linux程序，然后由apk调用它去完成某个它没有权限完成的事情，很遗憾，这种方法是行不通的。前面讲过，android权限是经营在进程层面的，也就是说一个apk应用启动的子进程的权限不可能超越其父进程的权限（即apk的权限），即使单独运行某个应用有权限做某事，但如果它是由一个apk调用的，那权限就会被限制。实际上，android是通过给子进程分配父进程的UserID实现这一机制的。 （三）常见权限不足问题分析 首先要知道，普通apk程序是运行在非root、非system层级的，也就是说看要访问的文件的权限时，看的是最后三位。另外，通过system/app安装的apk的权限一般比直接安装或adb install安装的apk的权限要高一些。 言归正传，运行一个android应用程序过程中遇到权限不足，一般分为两种情况: （1）Log中可明显看到权限不足的提示。 此种情况一般是AndroidManifest.xml中缺少相应的权限设置，好好查找一番权限列表，应该就可解决，是最易处理的情况。有时权限都加上了，但还是报权限不足，是什么情况呢？Android系统有一些API及权限是需要apk具有一定的等级才能运行的。比如 SystemClock.setCurrentTimeMillis()修改系统时间，WRITE_SECURE_SETTINGS权限好像都是需要有system级的权限才行。也就是说UserID是system。 （2）Log里没有报权限不足，而是一些其他Exception的提示,这也有可能是权限不足造成的。比如：我们常会想读/写一个配置文件或其他一些不是自己创建的文件，常会报java.io.FileNotFoundException错误。系统认为比较重要的文件一般权限设置的也会比较严格，特别是一些很重要的(配置)文件或目录。如 -r–r—– bluetooth bluetooth      935 2010-07-09 20:21 dbus.conf drwxrwx–x system   system            2010-07-07 02:05 data dbus.conf好像是蓝牙的配置文件，从权限上来看，根本就不可能改动，非bluetooth用户连读的权利都没有。/data目录下存的是所有程序的私有数据，默认情况下android是不允许普通apk访问/data目录下内容的，通过data目录的权限设置可知，其他用户没有读的权限。所以adb普通权限下在data目录下敲ls命令，会得到opendir failed, Permission denied的错误，通过代码file.listfiles()也无法获得data目录下的内容。 上面两种情况，一般都需要提升apk的权限，目前我所知的apk能提升到的权限就是system（具体方法见：<a href="http://m.baidu.com/from=844b/bd_page_type=1/ssid=0/uid=0/pu=usm%400%2Csz%401320_1001%2Cta%40iphone_2_4.4_3_537/baiduid=6EAF5696C1EEDED3BD74418829322FD2/w=0_10_android%E7%9F%A5%E8%AF%86/t=iphone/l=3/tc?m=8&amp;srd=1&amp;dict=30&amp;src=http%3A%2F%2Fhi.baidu.com%2Fdonghaozheng%2Fblog%2Fitem%2F30a00d4f9fca873baec3ab69.html" target="_blank" rel="noopener">如何使Android应用程序获取系统权限</a>）, 至于是否有root级的，如何提升至root级不得而知，知道的朋友劳烦告知，感激不尽。 三、AIDL的全称是什么？如何工作？能处理哪些类型的数据？ 详情请参看：<a href="http://buaadallas.blog.51cto.com/399160/372090" target="_blank" rel="noopener">http://buaadallas.blog.51cto.com/399160/372090</a> 部分概念： 在Android中, 每个应用程序都可以有自己的进程. 在写UI应用的时候, 经常要用到Service. 在不同的进程中, 怎样传递对象呢?  显然, Java中不允许跨进程内存共享。因此传递对象, 只能把对象拆分成操作系统能理解的简单形式, 以达到跨界对象访问的目的。在J2EE中,采用RMI的方式, 可以通过序列化传递对象。在Android中, 则采用AIDL的方式。 理论上AIDL可以传递Bundle,实际上做起来却比较麻烦. AIDL(AndRoid接口描述语言)是一种借口描述语言; 编译器可以通过aidl文件生成一段代码，通过预先定义的接口达到两个进程内部通信进程的目的. 如果需要在一Activity中, 访问另一个Service中的某个对象, 需要先将对象转化成AIDL可识别的参数(可能是多个参数), 然后使用AIDL来传递这些参数, 在消息的接收端, 使用这些参数组装成自己需要的对象。 AIDL的IPC的机制和COM或CORBA类似, 是基于接口的，但它是轻量级的。它使用代理类在客户端和实现层间传递值. 如果要使用AIDL, 需要完成2件事情: 1. 引入AIDL的相关类; 2. 调用aidl产生的class。 AIDL的创建方法: AIDL语法很简单,可以用来声明一个带一个或多个方法的接口，也可以传递参数和返回值。由于远程调用的需要, 这些参数和返回值并不是任何类型.下面是些AIDL支持的数据类型: 1. 不需要import声明的简单Java编程语言类型(int,boolean等) 2. String, CharSequence不需要特殊声明 3. List, Map和Parcelables类型, 这些类型内所包含的数据成员也只能是简单数据类型, String等其他比支持的类型。 四、请解释下在单线程模型中Message、Handler、Message Queue、Looper之间的关系。 1. Android进程 在了解Android线程之前得先了解一下Android的进程。当一个程序第一次启动的时候，Android会启动一个LINUX进程和一个主线程。默认的情况下，所有该程序的组件都将在该进程和线程中运行。同时，Android会为每个应用程序分配一个单独的LINUX用户。Android会尽量保留一个正在运行进程，只在内存资源出现不足时，Android 会尝试停止一些进程从而释放足够的资源给其他新的进程使用，也能保证用户正在访问的当前进程有足够的资源去及时地响应用户的事件。Android会根据进程中运行的组件类别以及组件的状态来判断该进程的重要性，Android会首先停止那些不重要的进程。按照重要性从高到低一共有五个级别： 前台进程 前台进程是用户当前正在使用的进程。只有一些前台进程可以在任何时候都存在。他们是最后一个被结束的，当内存低到根本连他们都不能运行的时候。一般来说，在这种情况下，设备会进行内存调度，中止一些前台进程来保持对用户交互的响应。 可见进程 可见进程不包含前台的组件但是会在屏幕上显示一个可见的进程是的重要程度很高，除非前台进程需要获取它的资源，不然不会被中止。 服务进程 运行着一个通过startService() 方法启动的service，这个service不属于上面提到的2种更高重要性的。service所在的进程虽然对用户不是直接可见的，但是他们执行了用户非常关注的任务（比如播放mp3，从网络下载数据）。只要前台进程和可见进程有足够的内存，系统不会回收他们。 后台进程 运 行着一个对用户不可见的activity（调用过 onStop() 方法).这些进程对用户体验没有直接的影响，可以在服务进程、可见进程、前台进程需要内存的时候回收。通常，系统中会有很多不可见进程在运行，他们被保存在LRU (least recently used) 列表中，以便内存不足的时候被第一时间回收。如果一个activity正确的执行了它的生命周期，关闭这个进程对于用户体验没有太大的影响。 空进程 未运行任何程序组件。运行这些进程的唯一原因是作为一个缓存，缩短下次程序需要重新使用的启动时间。系统经常中止这些进程，这样可以调节程序缓存和系统缓存的平衡。Android 对进程的重要性评级的时候，选取它最高的级别。另外，当被另外的一个进程依赖的时候，某个进程的级别可能会增高。一个为其他进程服务的进程永远不会比被服务的进程重要级低。因为服务进程比后台activity进程重要级高，因此一个要进行耗时工作的activity最好启动一个service来做这个工作，而不是开启一个子进程――特别是这个操作需要的时间比activity存在的时间还要长的时候。例如，在后台播放音乐，向网上上传摄像头拍到的图片，使用service可以使进程最少获取到“服务进程”级别的重要级，而不用考虑activity目前是什么状态。broadcast receivers做费时的工作的时候，也应该启用一个服务而不是开一个线程。 2. 单线程模型 当一个程序第一次启动时，Android会同时启动一个对应的主线程（Main Thread），主线程主要负责处理与UI相关的事件，如用户的按键事件，用户接触屏幕的事件以及屏幕绘图事件，并把相关的事件分发到对应的组件进行处理。所以主线程通常又被叫做UI线程。在开发Android应用时必须遵守单线程模型的原则： Android UI操作并不是线程安全的并且这些操作必须在UI线程中执行。 2.1 子线程更新UI Android的UI是单线程(Single-threaded)的。为了避免拖住GUI，一些较费时的对象应该交给独立的线程去执行。如果幕后的线程来执行UI对象，Android就会发出错误讯息 CalledFromWrongThreadException。以后遇到这样的异常抛出时就要知道怎么回事了！ 2.2 Message Queue 在单线程模型下，为了解决类似的问题，Android设计了一个Message Queue(消息队列)， 线程间可以通过该Message Queue并结合Handler和Looper组件进行信息交换。下面将对它们进行分别介绍： 1. Message Message消息，理解为线程间交流的信息，处理数据后台线程需要更新UI，则发送Message内含一些数据给UI线程。 2. Handler Handler处理者，是Message的主要处理者，负责Message的发送，Message内容的执行处理。后台线程就是通过传进来的 Handler对象引用来sendMessage(Message)。而使用Handler，需要implement该类的 handleMessage(Message)方法，它是处理这些Message的操作内容，例如Update UI。通常需要子类化Handler来实现handleMessage方法。 3. Message Queue Message Queue消息队列，用来存放通过Handler发布的消息，按照先进先出执行。 每个message queue都会有一个对应的Handler。Handler会向message queue通过两种方法发送消息：sendMessage或post。这两种消息都会插在message queue队尾并按先进先出执行。但通过这两种方法发送的消息执行的方式略有不同：通过sendMessage发送的是一个message对象,会被 Handler的handleMessage()函数处理；而通过post方法发送的是一个runnable对象，则会自己执行。 4. Looper Looper是每条线程里的Message Queue的管家。Android没有Global的Message Queue，而Android会自动替主线程(UI线程)建立Message Queue，但在子线程里并没有建立Message Queue。所以调用Looper.getMainLooper()得到的主线程的Looper不为NULL，但调用Looper.myLooper() 得到当前线程的Looper就有可能为NULL。 对于子线程使用Looper，API Doc提供了正确的使用方法： 这个Message机制的大概流程： 1）在Looper.loop()方法运行开始后，循环地按照接收顺序取出Message Queue里面的非NULL的Message。 2）一开始Message Queue里面的Message都是NULL的。当Handler.sendMessage(Message)到Message Queue，该函数里面设置了那个Message对象的target属性是当前的Handler对象。随后Looper取出了那个Message，则调用该Message的target指向的Hander的dispatchMessage函数对Message进行处理。 在dispatchMessage方法里，如何处理Message则由用户指定，三个判断，优先级从高到低： 1) Message里面的Callback，一个实现了Runnable接口的对象，其中run函数做处理工作； 2) Handler里面的mCallback指向的一个实现了Callback接口的对象，由其handleMessage进行处理； 3) 处理消息Handler对象对应的类继承并实现了其中handleMessage函数，通过这个实现的handleMessage函数处理消息。 由此可见，我们实现的handleMessage方法是优先级最低的！ 3. Handler处理完该Message (update UI) 后，Looper则设置该Message为NULL，以便回收！ 在网上有很多文章讲述主线程和其他子线程如何交互，传送信息，最终谁来执行处理信息之类的，个人理解是最简单的方法——判断Handler对象里面的Looper对象是属于哪条线程的，则由该线程来执行！ 1）当Handler对象的构造函数的参数为空，则为当前所在线程的Looper； 2） Looper.getMainLooper()得到的是主线程的Looper对象，Looper.myLooper()得到的是当前线程的Looper对象。 五、注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。 Android 的广播机制 在 Android 里面有各种各样的广播，比如电池的使用状态，电话的接收和短信的接收都会产生一个广播，应用程序开发者也可以监听这些广播并做出程序逻辑的处理。下面我画一张粗略的图来帮助大家理解广播的运行机制。 Android 中有各式各样的广播，各种广播在Android 系统中运行，当系统/应用程序运行时便会向 Android 注册各种广播，Android 接收到广播会便会判断哪种广播需要哪种事件，然后向不同需要事件的应用程序注册事件，不同的广播可能处理不同的事件也可能处理相同的广播事件，这时就需要 Android 系统为我们做筛选。 案例分析： 一个经典的电话黑名单，首先通过将黑名单号码保存在数据库里面，当来电时，我们接收到来电广播并将黑名单号码与数据库中的某个数据做匹配，如果匹配的话则做出相应的处理，比如挂掉电话、比如静音等等… Demo 分析： 下面通过一个小DEMO 来讲解一下广播在Android 中如何编写，在Demo中我们设置了一个按钮为按钮设置点击监听通过点击发送广播，在后台中接收到广播并打印LOG信息。代码如下： //BroadCastActivity 页面代码 publicclassBroadCastActivity extendsActivity { publicstaticfinalString ACTION_INTENT_TEST = “com.terry.broadcast.test”; @Override publicvoidonCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.main); Button btn = (Button) findViewById(R.id.Button01); btn.setOnClickListener(newOnClickListener() { @Override publicvoidonClick(View v) { //TODO Auto-generated method stub Intent intent = newIntent(ACTION_INTENT_TEST); sendBroadcast(intent); } }); } } //接收器代码如下： publicclassmyBroadCast extendsBroadcastReceiver { publicmyBroadCast() { Log.v(“BROADCAST_TAG”, “myBroadCast”); } @Override publicvoidonReceive(Context context, Intent intent) { //TODO Auto-generated method stub Log.v(“BROADCAST_TAG”, “onReceive”); } } Android 广播的生命周期 在上面的接收器中，继承了BroadcastReceiver 并重写了它的onReceive 并构造了一个函数，下面通过图片来一步一步认识 Android 广播的生命周期。当我点击一下按钮，它向Android 发送了一个广播，如下图： 这时我们再点击一下按钮，它还是会再向 Android 系统发送广播，此时日志信息如下： 下面本人画一张图像，描述了Android 中广播的生命周期，其次它并不像Activity 一样复杂，运行原理很简单如下图： 下面来看一下SDK给出的解释： 大意为：如果一个广播处理完onReceive 那么系统将认定此对象将不再是一个活动的对象，也就会finished掉它。 至此，大家应该能明白 Android 的广播生命周期的原理，代码也不用多介绍，很简单的一个发送广播并处理广播的Demo。 Android 如何判断并筛选广播? 前 面说过 Android 的广播有各式各样，那么Android 系统是如何帮我们处理我们需要哪种广播并为我们提供相应的广播服务呢？这里有一点需要大家注意，每实现一个广播接收类必须在我们应用程序中的 manifest 中显式的注明哪一个类需要广播，并为其设置过滤器，如下图： Tip:action 代表一个要执行的动作，在Andriod 中有很action 比如 ACTION_VIEW,ACTION_EDIT 那么有些人会问了，如果我在一个广播接收器中要处理多个动作呢？那要如何去处理？ 在Android 的接收器中onReceive 以经为我们想到的，同样的你必须在Intent-filter 里面注册该动作，可以是系统的广播动作也可以是自己需要的广播，之后你之需要在onReceive 方法中，通过intent.getAction()判断传进来的动作即可做出不同的处理，不同的动作。具体大家可以去尝试测试一下。 小结： 在Android 中如果要发送一个广播必须使用sendBroadCast 向系统发送对其感兴趣的广播接收器中。 使用广播必须要有一个intent 对象必设置其action动作对象 使用广播必须在配置文件中显式的指明该广播对象 每次接收广播都会重新生成一个接收广播的对象 在BroadCast 中尽量不要处理太多逻辑问题，建议复杂的逻辑交给Activity 或者 Service 去处理 Android广播机制（两种注册方法） 在android下，要想接受广播信息，那么这个广播接收器就得我们自己来实现了，我们可以继承BroadcastReceiver，就可以有一个广播接受器了。有个接受器还不够，我们还得重写BroadcastReceiver里面的onReceiver方法，当来广播的时候我们要干什么，这就要我们自己来实现，不过我们可以搞一个信息防火墙。具体的代码： publicclassSmsBroadCastReceiver extendsBroadcastReceiver { @Override publicvoidonReceive(Context context, Intent intent) { Bundle bundle = intent.getExtras(); Object[] object = (Object[])bundle.get(“pdus”); SmsMessage sms[]=newSmsMessage[object.length]; for(inti=0;i&lt;object.length;i++) { sms[0] = SmsMessage.createFromPdu((byte[])object[i]); Toast.makeText(context, “来自”+sms[i].getDisplayOriginatingAddress()+” 的消息是：”+sms[i].getDisplayMessageBody(), Toast.LENGTH_SHORT).show(); } //终止广播，在这里我们可以稍微处理，根据用户输入的号码可以实现短信防火墙。 abortBroadcast(); } } 当实现了广播接收器，还要设置广播接收器接收广播信息的类型，这里是信息：android.provider.Telephony.SMS_RECEIVED。我们就可以把广播接收器注册到系统里面，可以让系统知道我们有个广播接收器。这里有两种，一种是代码动态注册： //生成广播处理 smsBroadCastReceiver = new SmsBroadCastReceiver(); //实例化过滤器并设置要过滤的广播 IntentFilter intentFilter = newIntentFilter(“android.provider.Telephony.SMS_RECEIVED”); //注册广播 BroadCastReceiverActivity.this.registerReceiver(smsBroadCastReceiver, intentFilter); 一种是在AndroidManifest.xml中配置广播   package=”spl.broadCastReceiver” android:versionCode=”1” android:versionName=”1.0”&gt;   android:label=”@string/app_name”&gt;               两种注册类型的区别是： 1)第一种不是常驻型广播，也就是说广播跟随程序的生命周期。 2)第二种是常驻型，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行。 BroadcastReceiver用于监听被广播的事件 必须被注册，有两种方法： 1、在应用程序的代码中注册 注册BroadcastReceiver： registerReceiver（receiver，filter）； 取消注册BroadcastReceiver： unregisterReceiver（receiver）； 当BroadcastReceiver更新UI，通常会使用这样的方法注册。启动Activity时候注册BroadcastReceiver，Activity不可见时候，取消注册。 2、在androidmanifest.xml当中注册     使用这样的方法注册弊端：它会始终处于活动状态，毕竟是手机开发，cpu和电源资源比较少，一直处于活动耗费大，不利。 六. Android Service和Binder、AIDL? 作为Android重要的后台服务，这些每个Android开发者都应该掌握，这也算是和Java SE最大的不同了，具体的实例大家可以查看Android音乐播放器的源代码Music.git中的，这里不再赘述。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/03/08/android-e5-b8-b8-e7-94-a8-e7-9f-a5-e8-af-86-e7-82-b9-e6-80-bb-e6-b1-87/" data-id="cjo79jtvg001k450f5nbrmj72" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-b8-b8-e7-94-a8linux-e5-91-bd-e4-bb-a4" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/24/e5-b8-b8-e7-94-a8linux-e5-91-bd-e4-bb-a4/" class="article-date">
-  <time datetime="2014-05-23T23:04:04.000Z" itemprop="datePublished">2014-05-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/24/e5-b8-b8-e7-94-a8linux-e5-91-bd-e4-bb-a4/">常用Linux命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、查看sshd是否已经是<a href="http://www.2cto.com/os/" target="_blank" rel="noopener">系统</a>服务</p>
-<p># chkconfig –list |grep sshd</p>
-<p>会显示：</p>
-<p> sshd    0:off 1:off 2:off 3:off 4:off 5:off 6:off</p>
-<p>使用如下命令设置sshd服务自动启动：</p>
-<p># chkconfig –level 5 sshd on</p>
-<p>2、检查服务是否启用</p>
-<p>ps -ef | grep ssh</p>
-<p>3、安装服务</p>
-<p>yum install openssh-server</p>
-<p>4、安装完之后开启 </p>
-<p>/etc/init.d/sshd start</p>
-<p>5、</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2014/05/24/e5-b8-b8-e7-94-a8linux-e5-91-bd-e4-bb-a4/" data-id="cjo79jtxz004i450fqb0xnrkr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/" class="article-date">
-  <time datetime="2014-02-11T22:10:20.000Z" itemprop="datePublished">2014-02-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/">以安装成服务的tomcat环境设置远程调试功能</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>此种情况就是针对将tomcat安装成本地服务了，但是又想进行远程调试的情况，别说改catalina.bat，就是应为改不了才尝试其他办法的。 你可以通过如下方式来编辑Tomcat的服务启动参数来调试安装成Tomcat服务后的web应用程序。   打开命令提示符 设置CATALINA_HOME环境变量，把其指向tomcat主目录 例如：set CATALINA_HOME=d:tomcat6 运行如下命令：%CATALINA_HOME%bintomcat6w.exe //ES//&lt;这里填写你的Tomcat的服务名&gt; 当然了，我的服务名是自定制过的，不是tomcat6 弹出了一个服务编辑框神马的，然后再在“属性”框上选择 Java 标签，打开后有很多配置的选项，神马都是浮云，不用理会 直接找到Java Options文本输入区域，然后在里头添加如下两行： -Xdebug -Xrunjdwp:transport=dt_socket,address=9999,server=y,suspend=n 如果你只想在本机进行tomcat的调试，那么将address=9999的9999替换成127.0.0.1:9999，这样你就只能在本机调试了，上述的方法是保证你在任何能访问到的机器上都能调试你的tomcat的配置哦，小心点为妙。 点击”Apply”，然后点击”OK”关闭对话框 重启你的Tomcat服务器，然后检查一下，是不是发现9999端口监听了呢？通过netstat -an命令何以查看哦。 使用IDE通过9999端口连接到Tomcat，开始你的远程调试之旅吧 如果你已经使用了Eclipse,你可以在Remote Debugging with Eclipse获得更多信息。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2014/02/12/e4-bb-a5-e5-ae-89-e8-a3-85-e6-88-90-e6-9c-8d-e5-8a-a1-e7-9a-84tomcat-e7-8e-af-e5-a2-83-e8-ae-be-e7-bd-ae-e8-bf-9c-e7-a8-8b-e8-b0-83-e8-af-95-e5-8a-9f-e8-83-bd/" data-id="cjo79jtxi003k450fiytryc5y" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/12/e4-ba-94-e7-ac-94-e5-ad-97-e6-a0-b9/" data-id="cjo7aghqu003asv0f311rnipg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1510,23 +1676,23 @@ grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
       <ul>
         
           <li>
-            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+            <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+            <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+            <a href="/2018/11/07/java-io/">java-io</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+            <a href="/2018/11/07/message-queue/">消息队列</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

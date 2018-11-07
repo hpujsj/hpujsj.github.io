@@ -72,6 +72,220 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" class="article-date">
+  <time datetime="2013-10-19T01:45:14.000Z" itemprop="datePublished">2013-10-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/">除去Discuz域名中的目录路径</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一般在空间安装discuz会将其安装在根目录中，使用域名映射到根目录上。这时没有什么问题。但如果为了在一个空间中多放几个网站，一般会为每个网站创建一个目录，将各个网站的域名映射到对应的目录上。使用该方法可以在一个空间中安装多个discuz。但此时访问discuz时，一般会在域名后面多出来一个该discuz所在的目录，如将在个discuz安装在bbscenter目录中，对应的域名为bbs.daahe.com,此时访问该discuz时，将会出来诸如<a href="http://bbs.daahe.com/bbscenter/forum.php的路径。" target="_blank" rel="noopener">http://bbs.daahe.com/bbscenter/forum.php的路径。</a> 为了解决该问题，可采用如下方法: 1、找到source/class/discuz/discuz_application.php文件。 2、打开该文件，找到private function _init_env() 方法。 3、找到如下代码处： <code>define(&#39;MAGIC_QUOTES_GPC&#39;, function_exists(&#39;get_magic_quotes_gpc&#39;) &amp;&amp; get_magic_quotes_gpc()); define(&#39;ICONV_ENABLE&#39;, function_exists(&#39;iconv&#39;)); define(&#39;MB_ENABLE&#39;, function_exists(&#39;mb_convert_encoding&#39;)); define(&#39;EXT_OBGZIP&#39;, function_exists(&#39;ob_gzhandler&#39;)); define(&#39;TIMESTAMP&#39;, time());</code> 4、在此代码后加: define(‘SUB_DIR’, ‘/bbscenter/‘); //bbscenter是该应用所有目录</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/10/19/e9-99-a4-e5-8e-bbdiscuz-e5-9f-9f-e5-90-8d-e4-b8-ad-e7-9a-84-e7-9b-ae-e5-bd-95-e8-b7-af-e5-be-84/" data-id="cjo7aghs90068sv0fddlyw6t1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" class="article-date">
+  <time datetime="2013-05-15T19:46:25.000Z" itemprop="datePublished">2013-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/">css实现书籍目录效果，点线自适应</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实实现起来很简单。要求点线长度自适应。仔细看看，我的点线还是有些问题的，不完整。不知道如何解决，图片么？ <a href="http://blog.daahe.com/archives/938/75290c1a45ceec468718bf58" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2013/05/75290c1a45ceec468718bf58.jpg" alt="75290c1a45ceec468718bf58"></a> 代码实现如下： css： <em>{margin:0;padding:0;} body{font:12px Arial;} ul{list-style:none;} .menu{width:600px;margin:10px auto;overflow:hidden;border:1px solid green;} .menu li{position:relative;padding-left:4px;height:22px;line-height:22px;/</em>此属性相当重要啊，没了它，下划线就木有了，原理你懂的<em>/white-space:nowrap;font-size:14px;/</em>此后的设置针对ie6,子元素设置为position:relative;时，在Ie6中找不到父元素<em>/width:100%;overflow:hidden;} .menu li .page_index{position:absolute;display:block;padding:0 4px;right:0;top:0;line-height:22px;z-index:1;background:#fff;} .menu li .dashed_line{height:0;overflow:hidden;display:inline-block;width:100%;margin:0 4px;border-bottom:1px dashed #333;/</em>实现下划线居中*/vertical-align:middle;} html结构：</p>
+<ul>
+<li>ajax简介12</li>
+<li>ajax插件介绍13</li>
+<li>ajax项目实例应用18</li>
+<li>ajax应用总结20</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/05/16/css-e5-ae-9e-e7-8e-b0-e4-b9-a6-e7-b1-8d-e7-9b-ae-e5-bd-95-e6-95-88-e6-9e-9c-ef-bc-8c-e7-82-b9-e7-ba-bf-e8-87-aa-e9-80-82-e5-ba-94/" data-id="cjo7aghqj0030sv0ftsh4sehu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" class="article-date">
+  <time datetime="2013-04-02T18:08:00.000Z" itemprop="datePublished">2013-04-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/">IE9中的“浏览器模式”和“文档模式”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>浏览器模式”和“文档模式”的区别 在IE8中按F12键，打开“开发人员工具”，在菜单栏中可以看到“浏览器模式”和“文档模式”的切换菜单，其中可以选择切换到IE6/7/8等不同的网页模式。那“浏览器模式”和“文档模式”之间有什么区别呢？ “浏览器模式”用于切换IE针对该网页的默认文档模式、对不同版本浏览器的条件备注解析、发送给网站服务器的用户代理（User-Agent）字符串的值。网站可以根据浏览器返回的不同用户代理字符串判断浏览器的版本和安装的功能，这样就可以向不同的浏览器返回不同的页面内容。 默认情况下，IE8的浏览器模式为IE8。用户可以通过单击地址栏旁边的兼容性视图按钮（ ）来手动切换到不同的浏览器模式。在IE8中，IE8兼容性视图会以IE7文档模式来显示网页，同时会向服务器发送IE7的用户代理字符串。 “文档模式”用于指定IE的页面排版引擎（Trident）以哪个版本的方式来解析并渲染网页代码。切换文档模式会导致网页被刷新，但不会更改用户代理字符串中的版本号，也不会从服务器重新下载网页。切换浏览器模式的同时，浏览器也会自动切换到相应的文档模式。</p>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2013/04/b5ce925471d76a493a2935b5.jpg" alt="IE9中的“浏览器模式”和“文档模式”"></p>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2013/04/daahe.com_5.jpg" alt="IE9中的“浏览器模式”和“文档模式”"></p>
+<p><img src="http://blog.daahe.com/wp-content/uploads/2013/04/daahe.com_6.jpg" alt="IE9中的“浏览器模式”和“文档模式”"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/04/03/ie9-e4-b8-ad-e7-9a-84-e6-b5-8f-e8-a7-88-e5-99-a8-e6-a8-a1-e5-bc-8f-e5-92-8c-e6-96-87-e6-a1-a3-e6-a8-a1-e5-bc-8f/" data-id="cjo7aghsp007bsv0f58yqqekb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2013-04-01T23:59:08.000Z" itemprop="datePublished">2013-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/">Web设计（UI/UE）经验的总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人们通常在访问购物网站时，并未将它当作艺术品来赞赏。而是为了获得有关产品的信息，找到他想要的产品。所以网站的设计应该尽量清楚和有条理，以便他们能够容易的找到想要购买的产品。 在进行Web设计时，形式应该服从功能。这种方法应用于我们站点的整个设计过程中。 <strong>基本设计中注意的几处：</strong> 1、用户界面元素要一致.同一个控件在不同的页面上功能要相同。 2、导航栏位置要一致。决定站点的哪些页和功能需要在站点的任何页上都可被访问到。这就是应该保持一致性的”全局导航栏”。 3、注意基本的图形设计原则：例如排版式样、色彩和版面的设计。 4、注意相关元素和功能模块的位置和目的，这可帮助访问者从其它相邻的选择和位置来推断某个链接的功能。 5、网页不可以过于庞大,图片需要使用适当的压缩模式来优化它们。 <strong>设计中的难点、矛盾，也是规则：</strong> 1、我们要将站点设计得尽量简单易用。 2、另一方面，我们要确保站点中所有强大的工具可为经验丰富的用户所用。 <strong>做以下的工作：</strong> 1、了解您的用户，调查究竟哪些人在访问您的站点，以及他们为什么要访问。 2、为您的用户提供所需的信息。使导航元素保持一致，并且确保对访问率最高的区域进行明显的标记，是它们易于被找到。 3、使用清楚的消息，如果您需要用户填写姓名，那么就直截了当地说。让访问者自己去计算，他们会感到沮丧，于是转到其它更简单的站点。 4、保持一致性，虽然更改不同Web页的外观并不难，但这并不意味着您应该这么做。将主要功能–例如返回”主页”的链接或者执行一个搜索–放在每页的相同位置。 5、使站点可用。牢记设计和测试站点的可用性。确保用户可容易地执行任务以获得所需信息。如果新的设计没有在这些方面获得改善，那么就不要实施它。 6、保持简洁，说起来容易做起来难。尝试征求反馈意见。有时新人可以很容易找到解决方案。 7、尝试新的东西.不要害怕打破常规，尝试一些完全不同的东西。如果您不试试，永远不会找到真正的答案。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/04/02/web-e8-ae-be-e8-ae-a1-ef-bc-88uiue-ef-bc-89-e7-bb-8f-e9-aa-8c-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjo7aghty00a0sv0ffvaikv1u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" class="article-date">
+  <time datetime="2013-03-05T17:34:47.000Z" itemprop="datePublished">2013-03-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/j2ee/">j2ee</a>►<a class="article-category-link" href="/categories/Android/j2ee/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/">CMake 手册详解目录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>8、[configure_file](http://www.cnblogs.com/coderfenghc/archive/2012/07/04/2576862.html) 9、[CMake手册详解 （九）](http://www.cnblogs.com/coderfenghc/archive/2012/07/05/2578451.html)内容为else elseif enable\_language enable\_testing endforeach endfunction endif endmacro endwhile execute_process export 10、[file&lt; 文件操作命令](http://www.cnblogs.com/coderfenghc/archive/2012/07/08/2581734.html) 11、[find_file&lt;查找一个文件的完整路径。](http://www.cnblogs.com/coderfenghc/archive/2012/07/11/2585616.html) 12、[find_library&lt;查找一个库文件](http://www.cnblogs.com/coderfenghc/archive/2012/07/14/2591135.html) 13、[find_package 为外部工程加载设置。](http://www.cnblogs.com/coderfenghc/archive/2012/07/15/2592758.html) 14、[find_path&lt;搜索包含某个文件的路径](http://www.cnblogs.com/coderfenghc/archive/2012/07/19/2599988.html) 15、[`find_program` 查找可执行程序](http://www.cnblogs.com/coderfenghc/archive/2012/07/22/2604041.html) 16 、[CMake 手册详解（十六）](http://www.cnblogs.com/coderfenghc/archive/2012/07/28/2613567.html)`foreach`  `function`  `get_cmake_property`  `get_directory_property`  `get_filename_component`
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/03/06/cmake-e6-89-8b-e5-86-8c-e8-af-a6-e8-a7-a3-e7-9b-ae-e5-bd-95/" data-id="cjo7aghq7002osv0f2qr25xfy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" class="article-date">
@@ -103,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo79jtxq0043450fo64dhe2l" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo7aghr70045sv0fseq89ww3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo79jtwp002l450fvux029vd" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo7aghq1002fsv0faueyddvh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo79jtuj000n450fgpqfrdsh" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo7aghnv000msv0f660x7dr5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -235,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo79jtzu008y450fipg54ckz" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo7aghte0093sv0ftot5zku5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -279,219 +493,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo79jtxp0040450f9fvqup52" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" class="article-date">
-  <time datetime="2012-12-27T06:39:54.000Z" itemprop="datePublished">2012-12-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/">快播大屏幕——多屏互动新体验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>快播大屏幕，是一款基于多屏互动的智能播放设备，通过无线网络连接的方式，可将智能手机、平板电脑等移动终端的媒体内容（图片、音乐、视频、游戏等）传输到电视、投影仪等大屏幕上进行播放，实现各种屏幕之间自由切换和分享，简而言之，就像一条看不见的 HDMI 高清线。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/1.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/1.png" alt="" title="1"></a></p>
-<h3 id="类-Apple-TV-的产品本质"><a href="#类-Apple-TV-的产品本质" class="headerlink" title="类 Apple TV 的产品本质"></a><strong>类 Apple TV 的产品本质</strong></h3><p>Apple TV 是由苹果公司推出的一款高清电视机顶盒产品，用户可以通过 Apple TV 在线收看电视节目，也可以通过 Airplay 功能，将 iPad、iPhone、iPod 和 PC 中的照片、视频和音乐通过传输到电视上进行播放。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/2f.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/2f.png" alt="" title="2f"></a> 而快播大屏幕虽然在产品定位上不同于 Apple TV ，但功能在一定程度上也承担着同样的需求：定位于智能手机配件，可实现智能手持终端内容到电视、电脑等大屏幕的展示和互动，兼容了苹果“AirPlay”、微软“DLNA”等其它多屏互动协议，相比较苹果产品，其适用性更广泛。除去机顶盒内容层面来说，这是一个非苹果用户的主要选择，苹果用户可以在苹果自家的产品上通过苹果自带的协议实现操控，但在其他设备上来说还是需要解决的问题，由于不同设备所支持的协议不一样，不同设备的系统也不同，所以几乎很难实现互通，借助快播大屏幕可以在一定程度上解决这个问题。</p>
-<h3 id="内容层面的风险回避"><a href="#内容层面的风险回避" class="headerlink" title="内容层面的风险回避"></a>内容层面的风险回避</h3><p>前一段时间闹得沸沸扬扬的小米盒子风波，其主要问题就是来源于内容层面的政策障碍，根据广电总局颁发的《持有互联网电视牌照机构运营管理要求》(业内称“181号文”)文件，要想做机顶盒只能选择连接广电总局批准的互联网电视内容服务机构设立的合法内容服务平台。目前通过广电总局验收的平台只有7家(即7大牌照方)，分别是CNTV、百视通、南方传媒、华数、中国国际广播电台的 CIBN、湖南广电以及中央人民广播电台的CNBN(央广广播电视网络台)，而什么都不具备的小米盒子显然是踩了红线。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/43.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/43.png" alt="" title="43"></a> 而在这一点上快播大屏幕采取了一个比较讨巧的方式：定位为工具而非内容平台，但通过技术手段解决内容需求。 快播大屏幕产品定位于多屏互动，并没有涉及到内容层面。但通过快播大屏幕研发的“ Qvod Smartplay ”协议，同时兼容苹果“Airplay” 、微软 “DLNA” 协议，这意味着快播大屏幕将全面支持包括腾讯视频、搜狐视频、奇艺影视、 PPTV 等目前市面上大部分主流的基于多屏互动的互联网视频应用。相比于小米盒子把这些互联网视频整合在盒子中的风险来说，快播大屏幕是几乎没有风险的，它所做的只是将你手持智能终端的内容投影到电视上，在一定程度上来说手持智能终端的内容是不比小米盒子少的，但却没有政策风险。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/5c.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/5c.png" alt="" title="5c"></a></p>
-<h3 id="多屏时代的新需求"><a href="#多屏时代的新需求" class="headerlink" title="多屏时代的新需求"></a>多屏时代的新需求</h3><p>随着智能终端的兴起，我们的生活里已经不只是过去的一块屏那么简单，从过去唯一的电视屏到现在的手机屏、PAD屏、电脑屏、电视屏甚至投影屏等各种各样的屏幕。每个屏有自己的应用场景以及交互特性，也会带来不同的体验。 手机由于便携性和通讯属性，主要满足用户沟通的需求，在智能手机时代在满足沟通这个基本前提之下还能满足一些工作及娱乐需求。平板电脑更适合文字和图片阅读，在游戏互动上也有比智能手机更好的体验，主要满足娱乐的需求。电脑属于更高交互性的东西，满足工作和娱乐的多种需求。电视屏幕更多的是追求高质感的画面视觉效果，更多的是娱乐的拓展。 屏多了，问题也随之而来，多屏的属性在很多情况下定位并没有特别明显的差异，很多时候不同屏幕之间的内容在多屏之间是需要显示和互动的。苹果自有的系统很好的解决了这个问题，在苹果产品之间可以实现平滑的无缝显示和操控，但对于 Android 用户来说，这个产品或许能在一定程度上满足他们的需求。 <a href="http://blog.daahe.com/wp-content/uploads/2012/12/6e.png" target="_blank" rel="noopener"><img src="http://blog.daahe.com/wp-content/uploads/2012/12/6e.png" alt="" title="6e"></a> 举一个比较简单的使用场景：手机游戏功能的拓展。 通过快播大屏幕将手机中的画面同步传输到电视屏幕上，手机端就成为了万能的游戏手柄，同理可以将平板上的画面同步传输到电视屏幕上，平板也会变成游戏手柄，只要这些游戏支持 QVOD SmartPlay，都可以在不同屏幕间传输及互动，对于过去需要额外游戏设备来完成的游戏，现在通过手机这样的交互就可以完成，对用户来说是一件好事。 定位为配件的快播大屏幕，绕开了政策风险，给了用户更多的选择，只是能否被用户认可，还需要市场的检验。 原文地址：<a href="http://www.geekpark.net/read/view/168910" target="_blank" rel="noopener">http://www.geekpark.net/read/view/168910</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" data-id="cjo79jty3004s450fm7a030nz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-a4-8f-e5-a4-a9-e9-87-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/08/e5-a4-8f-e5-a4-a9-e9-87-8c/" class="article-date">
-  <time datetime="2012-12-07T19:49:36.000Z" itemprop="datePublished">2012-12-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活/">生活</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/08/e5-a4-8f-e5-a4-a9-e9-87-8c/">那个夏天</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://blog.daahe.com/wp-content/uploads/2012/12/e61190ef76c6a7ef25113c4afdfaaf51f3de66a3.jpg" alt=""></p>
-<p>那个夏天，我在街上漫步，心里一直在思念，思念着你。 那个夏天，我沿河泛舟，一直为我们的故事流泪，痛哭。 那个夏天，我画笔零乱，思绪万千，陷入深深的悲痛之中不能自持，泣不成声。 那个夏天，我怀着你的话语入眠，在漆黑的夜里，我一次次地梦到你笑容。  谁能告诉我 谁能理解我 当初，我的选择是那么的恰当,正确。 而如今我的感受却是… 从此 那个夏天的夜晚，我停下了脚步，去仰望美丽而深蓝的夜空，去寻找那可爱的星星。 那个夏天的夜晚，我放下了船桨，去聆听潺潺的河水，和她一起歌唱 那个夏天的夜晚，我放下了画笔，让自己变成了一幅图画， 那个夏天的夜晚，我不再入睡，整夜整夜地回忆和你一起的<a href="http://blog.daahe.com/" target="_blank" rel="noopener">美好时光</a> 我期待着清晨第一屡阳光拥抱着我，给我温暖。 我在等待，等待，我也只需等待。 但是，不久我就睡着了。 我进入了一个有你的梦乡。 我选择在梦中与你畅所欲言，没有人知道我是多么的从容。 我选择午夜里在你身边尽情欢笑，你不知道我有多么的轻松。 最后我选择带着那种，那种美妙的感觉面对现实的世界。 最后我选择了微笑，微笑着看你从我身边经过。 最后我选择独自一人做个诚实的自己，而不是在人群中掩饰自己。 今天，是一个美好夏日里的一天，你已经走进了我美好的幻想中。 明天，一样，直到永远…… 带着这样的感觉我将变得坚强快乐直到永远。 我，我行吗？ 忘记我们的过去，去过快乐的生活， 你，你能吗？ 我想：如果我从来没有来到这个世界，没有经历我们的故事，那么我就从来没有活过。 我想：如果不是偶然之间听到你的歌声，我将永远不能从你那获得足够的勇气。 如果说这是我生活中的一部分，必定也是你生活中的一部分，但没有人相信。 可是，一旦我相信了，我的世界会有所不同。 那个夏天，就像四季中的任何一天，没什么不同。 我的故事也是如此的短暂、微不足道，但是我的感觉、我的回忆却是如此的绵长。 那个夏天，是如此的美好，但我必须努力，努力地忘记，因为现在已是深秋，冬天也将临近….. 最后送上我深深的祝愿 希望你能安稳的入睡，过上幸福的生活 就这样吧…… 来源：<a href="http://blog.daahe.com/archives/831" target="_blank" rel="noopener">http://blog.daahe.com</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/08/e5-a4-8f-e5-a4-a9-e9-87-8c/" data-id="cjo79jtxr0045450f4zvf6wo8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-one-summers-day" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/06/one-summers-day/" class="article-date">
-  <time datetime="2012-12-05T22:20:49.000Z" itemprop="datePublished">2012-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活/">生活</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/06/one-summers-day/">one summer&#39;s day</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://blog.daahe.com/wp-content/uploads/2012/12/d439b6003af33a8756b0abbdc65c10385243b5bc.jpg" alt=""> One summer’s day,I am walking along the street,thinking ,thinking about you all the time. One summer’s day,I am driving along the river ,crying,crying for our story all the time. One summer’s day,I am drawing along the feeling,coughing,coughing by my deep sorrow. One summer’s day,I am sleeping along your words,dreaming ,dreaming of your smiling face in the dark night.  And who can tell me And who can understand me My choice is the most appropriate and everything seems right. Everything appears ok but my own feeling…… And then On one summer’s night,I stop walking,I stop to look up to see the beautiful darkblue sky and the lovely stars. On one summer’s night,I stop driving,I stop to listen to the whisper of the river and sing with her. On one summer’s night,I stop drawing,I stop to make myself a drawing,with health look in my eye. On one summer’s night,I stop sleeping,I stop to thy to forget all the beautiful memories about you all the night. And I am waiting for the first sunshine to give me a hug and warm. I am waiting,waiting ,and what I have to do is waiting. And I felt asleep not very soon. I felt asleep in the dream about you. I choose to talk with you in the dream and nobody knows that so I felt easy. I choose to laugh around you in the midnight and you don’t konw so I felt comfortable. I finally choose to keep the feeling,keep the lovely feeling,in the opposite of the realistic world. I finally choose to smile,smiling when you passing by. I finally choose to be honest when I’m alone but a lier when I’m in the crowd. And today,is one of the nice summer’s day and you have paid some visit to my imagination. And tomorrow,will be a same day,and forever…… To be strong and be happy with the feeling forever Can I ,can I ? To live a happy life and forget our story Can you, can you ? If,I never come to the world and haven’t come across our story, then I never live, I think. If,I haven’t happened to hear your song and never felt some courage form you,I never live,I think. But and if ,they are part of my life and of course yours,but no one knows they can believe. But ,if I believe,my world will be different. One summer’s day,just like anyother day of the four seasons. And my little story is so short but my feeling and thinking is so long. One summer’s day is so beautiful but I must forget,forget that,I’m in the fall,and winter is drawing near…… and the last word of my heart may you have a sound sleep and a happy life that’s all ……</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/06/one-summers-day/" data-id="cjo79jtzp008n450fa78bruv3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-object-e5-92-8cembed-e6-a0-87-e7-ad-be" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" class="article-date">
-  <time datetime="2012-12-04T18:59:45.000Z" itemprop="datePublished">2012-12-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/">OBJECT和EMBED标签 </a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、介绍： 我们要在网页中正常显示flash内容，那么页面中必须要有指定flash路径的标 签。也就是OBJECT和EMBED标签。OBJECT标签是用于windows平台的IE浏览器的，而EMBED是用于windows和 Macintosh平台下的Netscape Navigator浏览器以及Macintosh平台下的IE浏览器。windows平台的IE利用Activex控件来播放flash而其它的浏览器则 使用Netscape插件技术来播放flash。 下面是简单的网页中插入flash的代码示例： Code:      二、为什么要使用以上全部的标签？能省略某些标签不？ OBJECT 标签是用于windows IE3.0及以后浏览器或者其它支持Activex控件的浏览器。“classid”和“codebase”属性必须要精确地按上例所示的写法写，它们告 诉浏览器自动下载flash player的地址。如果你没有安装过flash player 那么IE3.0以后的浏览器会跳出一个提示框访问是否要自动安装flash player。当然，如果你不想让那些没有安装flash player的用户自动下载播放器，或许你可以省略掉这些代码。 EMBED标签是用于Netscape Navigator2.0及以后的浏览器或其它支持Netscape插件的浏览器。“pluginspage”属性告诉浏览器下载flash player的地址，如果还没有安装flash player的话，用户安装完后需要重启浏览器才能正常使用。 为了确保大多数浏览器能正常显 示flash，你需要把EMBED标签嵌套放在OBJECT标签内，就如上面代码例子一样。支持Activex控件的浏览器将会忽略OBJECT标签内的 EMBED标签。Netscape和使用插件的IE浏览器将只读取EMBED标签而不会识别OBJECT标签。也就是说，如果你省略了EMBED标签，那 firefox就不能识别你的flash了（不过纳闷的是，省略了object只写embed，IE也能正常显示flash，呵呵，具体的再仔细看看 了）。 下面列出了用于发布影片的OBJECT和EMBED标签的必要以及可选属性。 一、必需属性： ·CLASSID-设置浏览器的Activex控件，仅用于OBJECT标签。 ·CODEBASE-设置flash Activex控件的位置，因而如果浏览器如果没有安装的话，可以自动下载安装。仅用于OBJECT标签。 ·WIDTH-以百分比或象素指定flash影片的宽度。 ·HEIGHT-以百分比或象素指定flash影片的高度。 ·SRC-指定影片的下载地址。仅用于EMBED标签。 ·PLUGINSPAGE-设置flash 插件的位置，因而如果浏览器如果没有安装的话，可以自动下载安装。仅用于EMBED标签。 ·MOVIE-指定影片的下载地址。仅用于OBJECT标签。 二、可选属性及可用的值： ·ID-设定变量名，用于脚本代码的引用。仅用于OBJECT。 ·NAME -设定变量名，用于脚本代码（如javascript）的引用。仅用于EMBED。 ·SWLIVECONNECT - （true或false）指定当flash player第一次下载时，是否启用java。如果些属性省略，默认值为false。你果你在相同页同使用javascript和flash，java必须使用FSCommand来工作。 ·PLAY -（true或false）指定flash影片是否在下载完成后就自动播放，如果省略此属性，则默认为true。 ·LOOP - （true或false）指定影片播放完最后一帧后是停止还是继续循环播放，如果省略此属性，则默认为true。 ·MENU - （true或false） ·True 显示全部的菜单，允许用户放大，缩小等控制影片播放等操作。 ·False 显示只包含设置选项和关于flash的菜单。 ·QUALITY - (low, high, autolow, autohigh, best ) ·Low 速度优于美观，而且不应用反锯齿。 ·Autolow 刚开始着重于速度，但当需要时随时提升美观。 ·Autohigh 同时着重播放速度和美观，但需要时则牺牲美观来保证播放速度。 ·Medium 应用一些反锯齿而不平滑位图。它质量高于low设置而低于high设置。 ·High 美观优于播放速度，而且一直应用反锯齿。如果影片不包含动画，位图会被平滑化;而如果影片包含动画，位图将不变平滑。 ·Best 提供最好的显示质量而不考虑播放速度。所有输出都应用反锯齿及所有位图都被平滑化。 ·SCALE - (showall, noborder, exactfit) ·Default(Show all)影片在指定的区域内显示，但保持原始的比例。影片两侧将会出现边框。 ·No Boder 收缩影片以适合指定的区域，保持影片不失真，但部分影片将可能将裁切。然而保持影片的原始比例。 ·Exact Fit 使整个影片在指定的区域内显示，影片有可能变形失真，而且不保持原始的比例。 ·ALIGN - (l, t, r, b) ·默认为居中，当浏览器窗口小于影片时，边缘会被裁切。 ·Left,Right,Top,Bottom按照相应的设置沿浏览器的边缘对齐。如果需要，另外三边将被裁切。 ·SALIGN - (l, t, r, b, tl, tr, bl, br) ·L,R,T,B ·TL,TR ·BL,BR ·WMODE- (window, opaque, transparent) 设置flash影片的window mode属性，指定flash在浏览器中的透明，层叠及位置。 ·Window 影片在浏览器中自己的矩形窗口内播放。 ·Opaque 影片隐藏了所有在它后面的内容。 ·Transparent 使flash影片透明，显示透明影片后面的网页内容。这将会降低动画的性能。而且这个属性不是在所有浏览器中都可用的。 ·BGCOLOR - （#RRGGBB, 十六进制RGB值。）指定影片的背景颜色。使用这个属性覆盖flash中设定的背景颜色。 ·BASE - 设定基准目录或URL，用来解决所以flash中的相对路径。类似网页中的标签。 ·FLASHVARS 传递变量到flash player，需要flash player6及以后的版本。 ·传递root级变量到影片。字符串的格式是用“&amp;”分隔的name=value集。 ·浏览器支持64kB大小的字符串长度。 ·更多关于FlashVars的信息，请查看相关文档。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" data-id="cjo79jtzn008j450fxvx1y7d5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-onintercepttouchevent-e5-92-8contouchevent" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/" class="article-date">
-  <time datetime="2012-11-29T00:33:08.000Z" itemprop="datePublished">2012-11-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/道听途说/">道听途说</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/">onInterceptTouchEvent和onTouchEvent</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本帖记录onInterceptTouchEvent和onTouchEvent调用关系，即各种return true和return false的运行情况。</p>
-<p>return true和return false，代表的是是否消费完该事件，也就是该事件是否会继续传递给下层或者上层组件继续处理。return true代表消费完不会继续传递，return false代表没有消费完将会继续传递。</p>
-<p>如果没有onInterceptTouchEvent，只考虑onTouchEvent的话，比较容易分析和理解。假如有三层布局结构，linearLayout1,linearLayout2,textView，从前到后是包含的关系。那么下面分情况说明。<br>1.如果它们的onTouchEvent都返回false的话，DOWN事件会自上而下（textView位于最上层）依次传递，最终都没有消费完此事件，都只会进入onTouchEvent方法一次并且MotionEvent的action为MotionEvent.ACTION_DOWN，move和up等事件不会继续处理。<br>2.如果textView的onTouchEvent返回true，表示textView消费了此事件，不会传给父组件linearLayout2和linearLayout1了，并且还会继续处理move和up等事件。<br>3.linearLayout2和linearLayout1的onTouchEvent返回true和上面的情况一样，都不会继续传给父容器而且本身继续处理move和up等事件。<br>OK，这种情况还是比较容易理解的。</p>
-<p>下面加入onInterceptTouchEvent。<br>onInterceptTouchEvent只有ViewGroup才会有，用于在进入自身onTouchEvent或者子组件onTouchEvent之前处理事件。注意onTouch是自上而下传递，而onInterceptTouch却是由下而上传递的。来了一个DOWN事件，首先进入的必然是最底层的viewGroup的onInterceptTouchEvent方法，然后根据return的值进入自身或者子组件的onTouch事件，当然如果子组件也是viewgroup的话，在进入子组件的onTouch之前也会进入子组件的onInterceptTouchEvent方法。<br>下面也分几种情况介绍：<br>1.当onInterceptTouchEvent返回false时，表示没有消费完此事件，会继续传递个子组件的onTouch继续处理。注意这种情况不会就不会传递给这个ViewGroup自身的onTouch事件处理了。这和onTouch如果返回false，后续的move、up等事件都不会继续处理了可以做同样理解。<br>2.当onInterceptTouchEvent返回true时，表示消费完此事件，或者说将在此组件上消费该事件。这种情况该事件会传递给ViewGroup自身的onTouch事件去处理，而不会传递给子组件的onTouch方法了。<br>由此可以总结，onInterceptTouchEvent返回值只是决定了是要把事件传递给自身的onTouch事件还是传递给子组件的onTouch事件。返回false表示没有消费完将传递个子组件的onTouch方法，返回true表示自身消费此事件，将传递给自身的onTouch方法而不会传递给子组件的onTouch方法了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/" data-id="cjo79jtzo008l450f733w8i07" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo7aghr50040sv0fg84mxc1n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -558,23 +560,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+            <a href="/2018/11/07/java-JNDI/">java-JNDI</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
+            <a href="/2018/11/07/java-multi-thread/">java-multi-thread</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/feature2/">马化腾：未来或许通过脑电波进行沟通而不再依靠移动终端设备</a>
+            <a href="/2018/11/07/java-io/">java-io</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/world-without-language/">无言的世界</a>
+            <a href="/2018/11/07/message-queue/">消息队列</a>
           </li>
         
           <li>
-            <a href="/2018/10/21/the-summary-day/">那年夏天</a>
+            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>
