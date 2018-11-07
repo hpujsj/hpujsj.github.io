@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" class="article-date">
+  <time datetime="2010-11-16T14:44:57.000Z" itemprop="datePublished">2010-11-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/">Android数据库ContentProvider封装原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家都知道Android数据库使用的是SQLite，但是Google为了给我们简化操作，可以不用经常编写容易出错的SQL语句，直接通过 ContentProvider来封装数据的query查询、添加insert、删除delete和更新update，我们就以Android系统的 SDK中的例子来给大家简单的说明下吧。 public class NotePadProvider extends ContentProvider { private static final String TAG = “NotePadProvider”; private static final String DATABASE_NAME = “note_pad.db”; //数据库存储文件名，包含了.db后缀 private static final int DATABASE_VERSION = 2; //数据库版本号，这个是自己定义的，未来扩展数据库时自己可以方便的定义升级规则 private static final String NOTES_TABLE_NAME = “notes”; //表名 private static HashMap sNotesProjectionMap; //常规的Notes private static HashMap sLiveFolderProjectionMap; //LiveFoder内容 private static final int NOTES = 1; private static final int NOTE_ID = 2; private static final int LIVE_FOLDER_NOTES = 3; private static final UriMatcher sUriMatcher; //通常我们操作数据库的Uri比如content://android/cwj/1103这样的Uri均通过 UriMatcher注册并识别的。 private static class DatabaseHelper extends SQLiteOpenHelper { //数据库辅助子类 DatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); } @Override public void onCreate(SQLiteDatabase db) { //首次生成数据库，执行sql命令创建一个表 db.execSQL(“CREATE TABLE “ + NOTES_TABLE_NAME + “ (“ + Notes._ID + “ INTEGER PRIMARY KEY,” + Notes.TITLE + “ TEXT,” + Notes.NOTE + “ TEXT,” + Notes.CREATED_DATE + “ INTEGER,” + Notes.MODIFIED_DATE + “ INTEGER” + “);”); } @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { //刚来数据的版本，就是为了定义我们如果未来数据库需要扩展，帮助用户识别并根据规则自动升级数据库文件 Log.w(TAG, “Upgrading database from version “ + oldVersion + “ to “ + newVersion + “, which will destroy all old data”); db.execSQL(“DROP TABLE IF EXISTS notes”); //由于这里没有做细节处理，如果有新版本，删除老的表，我们未来不能这样处理，这仅仅是Google的例子而已所以删除老版本数据 onCreate(db); } } private DatabaseHelper mOpenHelper; @Override public boolean onCreate() { //这里重写ContentProvider的onCreate方法做一些初始化操作 mOpenHelper = new DatabaseHelper(getContext()); return true; } //有关数据库的查询操作，Android的SQLite提供了一个SQLiteQueryBuilder方法再次将SQL命令封装了下，单独分离出表名，排序方法等 @Override public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) { SQLiteQueryBuilder qb = new SQLiteQueryBuilder(); qb.setTables(NOTES_TABLE_NAME); switch (sUriMatcher.match(uri)) { case NOTES: qb.setProjectionMap(sNotesProjectionMap); break; case NOTE_ID: qb.setProjectionMap(sNotesProjectionMap); qb.appendWhere(Notes._ID + “=” + uri.getPathSegments().get(1)); break; case LIVE_FOLDER_NOTES: qb.setProjectionMap(sLiveFolderProjectionMap); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } String orderBy; if (TextUtils.isEmpty(sortOrder)) { orderBy = NotePad.Notes.DEFAULT_SORT_ORDER; } else { orderBy = sortOrder; } SQLiteDatabase db = mOpenHelper.getReadableDatabase(); Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy); c.setNotificationUri(getContext().getContentResolver(), uri); return c; } @Override public String getType(Uri uri) { switch (sUriMatcher.match(uri)) { case NOTES: case LIVE_FOLDER_NOTES: return Notes.CONTENT_TYPE; case NOTE_ID: return Notes.CONTENT_ITEM_TYPE; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } } 有关数据的插入操作，重写ContentProvider的insert方法即可 @Override public Uri insert(Uri uri, ContentValues initialValues) { if (sUriMatcher.match(uri) != NOTES) { throw new IllegalArgumentException(“Unknown URI “ + uri); } ContentValues values; if (initialValues != null) { values = new ContentValues(initialValues); } else { values = new ContentValues(); } Long now = Long.valueOf(System.currentTimeMillis()); if (values.containsKey(NotePad.Notes.CREATED_DATE) == false) { values.put(NotePad.Notes.CREATED_DATE, now); } if (values.containsKey(NotePad.Notes.MODIFIED_DATE) == false) { values.put(NotePad.Notes.MODIFIED_DATE, now); } if (values.containsKey(NotePad.Notes.TITLE) == false) { Resources r = Resources.getSystem(); values.put(NotePad.Notes.TITLE, r.getString(android.R.string.untitled)); } if (values.containsKey(NotePad.Notes.NOTE) == false) { values.put(NotePad.Notes.NOTE, “”); } SQLiteDatabase db = mOpenHelper.getWritableDatabase(); long rowId = db.insert(NOTES_TABLE_NAME, Notes.NOTE, values); if (rowId &gt; 0) { Uri noteUri = ContentUris.withAppendedId(NotePad.Notes.CONTENT_URI, rowId); getContext().getContentResolver().notifyChange(noteUri, null); //通知数据库内容有改变 return noteUri; } throw new SQLException(“Failed to insert row into “ + uri); } @Override public int delete(Uri uri, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.delete(NOTES_TABLE_NAME, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.delete(NOTES_TABLE_NAME, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } @Override public int update(Uri uri, ContentValues values, String where, String[] whereArgs) { SQLiteDatabase db = mOpenHelper.getWritableDatabase(); int count; switch (sUriMatcher.match(uri)) { case NOTES: count = db.update(NOTES_TABLE_NAME, values, where, whereArgs); break; case NOTE_ID: String noteId = uri.getPathSegments().get(1); count = db.update(NOTES_TABLE_NAME, values, Notes._ID + “=” + noteId + (!TextUtils.isEmpty(where) ? “ AND (“ + where + ‘)’ : “”), whereArgs); break; default: throw new IllegalArgumentException(“Unknown URI “ + uri); } getContext().getContentResolver().notifyChange(uri, null); return count; } 最后我们需要在构造奔雷时就监听Uri，如果处理的Uri需要其他程序获知，需要在Androidmanifest.xml文件中显式的导出provider的Uri定义 static { sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH); sUriMatcher.addURI(NotePad.AUTHORITY, “notes”, NOTES); sUriMatcher.addURI(NotePad.AUTHORITY, “notes/#”, NOTE_ID); sUriMatcher.addURI(NotePad.AUTHORITY, “live_folders/notes”, LIVE_FOLDER_NOTES); sNotesProjectionMap = new HashMap(); sNotesProjectionMap.put(Notes._ID, Notes._ID); sNotesProjectionMap.put(Notes.TITLE, Notes.TITLE); sNotesProjectionMap.put(Notes.NOTE, Notes.NOTE); sNotesProjectionMap.put(Notes.CREATED_DATE, Notes.CREATED_DATE); sNotesProjectionMap.put(Notes.MODIFIED_DATE, Notes.MODIFIED_DATE); // Support for Live Folders. sLiveFolderProjectionMap = new HashMap(); sLiveFolderProjectionMap.put(LiveFolders._ID, Notes._ID + “ AS “ + LiveFolders._ID); sLiveFolderProjectionMap.put(LiveFolders.NAME, Notes.TITLE + “ AS “ + LiveFolders.NAME); // Add more columns here for more robust Live Folders. } } 最后帮助初学者简单的概括下Android的ContentProvider类的作用，就是尽可能的减少SQL语句的编写在外部操作，封装成方法，而有关SQL语言的执行在DatabaseHelper中也被简化和分离出了，而SQL语句主要是体现在选择表的字段，where这样的条件限定语句大大减少了我们日常的开发。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2010/11/16/android-e6-95-b0-e6-8d-ae-e5-ba-93contentprovider-e5-b0-81-e8-a3-85-e5-8e-9f-e7-90-86/" data-id="cjo79gaa1001rxs0f8ku2c904" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" class="article-date">
@@ -105,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo78uayd0064p00f9m7y67pd" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/google-android-ui-e4-b9-8b-e5-9b-b0-e5-a2-83-ef-bc-9a-e7-bb-9f-e4-b8-80-e8-bf-98-e6-98-af-e5-88-86-e5-8c-96/" data-id="cjo79gadq0070xs0fcw3la36h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ui/">ui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发/">开发</a></li></ul>
@@ -148,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo78uaw3001rp00fqhaug6ls" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/16/androidactivity-e7-9a-84oncreate-e7-9a-84-e5-8f-82-e6-95-b0-e7-9a-84-e7-94-a8-e9-80-94/" data-id="cjo79gaaj002fxs0fkz07xp4j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -189,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo78uaxu0052p00f48c2rkdj" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/e7-bd-97-e9-a9-ac-e4-b8-8d-e6-98-af-e4-b8-80-e5-a4-a9-e5-bb-ba-e6-88-90-e7-9a-84-ef-bc-8c-e6-88-91-e4-bb-ac-e4-b8-80-e7-9b-b4-e5-9c-a8-e5-8a-aa-e5-8a-9b-ef-bc-8d-e5-85-b3-e4-ba-8edatacross/" data-id="cjo79gada005sxs0fvf3t6yfs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/datacross/">datacross</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据转换/">数据转换</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/格式转换/">格式转换</a></li></ul>
@@ -232,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo78uayc0061p00f6hl0i9fs" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/08/flex-e5-bc-b9-e5-87-ba-e9-a1-b5-e9-9d-a2-e4-b8-8d-e8-83-bd-e7-9b-91-e5-90-ac-e5-88-b0-e4-b8-bb-e7-a8-8b-e5-ba-8f-e4-b8-ad-e7-9a-84-e4-ba-8b-e4-bb-b6/" data-id="cjo79gado006uxs0f82img9kl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -277,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo78uazp0098p00fmcqa0fxd" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8a-ef-bc-89/" data-id="cjo79ga8s000qxs0fg25nv1cq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -320,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo78uazn0096p00fu6o9o95y" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/360-vs-qq-ef-bc-9a-e4-b8-80-e5-9c-ba-e7-b2-be-e5-bf-83-e7-ad-96-e5-88-92-e7-9a-84-e8-a5-bf-e5-ae-89-e4-ba-8b-e5-8f-98-ef-bc-88-e4-b8-8b-ef-bc-89/" data-id="cjo79ga8t000sxs0fz6brfeia" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" data-id="cjo78uax7003np00f7aji6hf4" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/07/e5-ae-a2-e6-88-b7-e7-ab-af-e4-b8-8e-e6-9c-8d-e5-8a-a1-e5-99-a8-e5-90-8c-e6-ad-a5-e6-95-b0-e6-8d-ae/" data-id="cjo79gac6004dxs0f8ex7kjyy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -402,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" data-id="cjo78uawh002gp00fyejiosmg" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/11/04/datacrosssimpleselectfieldcachewriter-e5-8f-8a-e7-94-a8-e9-80-94/" data-id="cjo79gab10032xs0f29tipzid" class="article-share-link">Share</a>
       
       
     </footer>
@@ -443,48 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" data-id="cjo78uaxq004sp00fudx1twcn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/09/01/e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4/" class="article-date">
-  <time datetime="2010-09-01T03:53:29.000Z" itemprop="datePublished">2010-09-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/09/01/e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4/">做事要果断，不可拖泥带水</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>每个事都要有一个完成的标志，不能没完没了，即使不成功，也要以失败结束。这样才能开启新的事情。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2010/09/01/e5-81-9a-e4-ba-8b-e8-a6-81-e6-9e-9c-e6-96-ad-ef-bc-8c-e4-b8-8d-e5-8f-af-e6-8b-96-e6-b3-a5-e5-b8-a6-e6-b0-b4/" data-id="cjo78uaww0032p00f75wsrbn1" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2010/09/01/e7-bb-99-e7-94-9f-e5-91-bd-e4-b8-80-e4-b8-aa-e6-9c-9f-e9-99-90/" data-id="cjo79gad9005nxs0fw21d49p6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -538,7 +538,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
     </div>
   </div>
 
@@ -549,6 +549,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+          </li>
         
           <li>
             <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
@@ -564,10 +568,6 @@
         
           <li>
             <a href="/2018/10/21/the-summary-day/">那年夏天</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/feature/">我们的未来</a>
           </li>
         
       </ul>

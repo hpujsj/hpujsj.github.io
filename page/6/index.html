@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" class="article-date">
+  <time datetime="2013-01-07T05:57:25.000Z" itemprop="datePublished">2013-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/">在一个千万级的数据库查寻中，如何提高查询效率？分别说出在数据库设计、SQL语句、java等层面的解决方案。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一个千万级的数据库查寻中，如何提高查询效率？分别说出在数据库设计、SQL语句、java等层面的解决方案。 解答： 1）数据库设计方面： a. 对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。 b. 应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询： select id from t where num=0 c. 并不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时,查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。 d. 索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。 e. 应尽可能的避免更新索引数据列，因为索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新索引数据列，那么需要考虑是否应将该索引建为索引。 f. 尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。 g. 尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。 h. 尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。 i. 避免频繁创建和删除临时表，以减少系统表资源的消耗。 j. 临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件，最好使用导出表。 k. 在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。 l. 如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。 2)SQL语句方面： a. 应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。 b. 应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num=10 or num=20 可以这样查询： select id from t where num=10 union all select id from t where num=20 c. in 和 not in 也要慎用，否则会导致全表扫描，如： select id from t where num in(1,2,3) 对于连续的数值，能用 between 就不要用 in 了： select id from t where num between 1 and 3 d. 下面的查询也将导致全表扫描： select id from t where name like ‘%abc%’ e. 如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描： select id from t where<a href="mailto:num=@num" target="_blank" rel="noopener">num=@num</a> 可以改为强制查询使用索引： select id from t with(index(索引名)) where<a href="mailto:num=@num" target="_blank" rel="noopener">num=@num</a> f. 应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如： select id from t where num/2=100 应改为: select id from t where num=100*2 g. 应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如： select id from t where substring(name,1,3)=’abc’–name以abc开头的id select id from t where datediff(day,createdate,’2005-11-30’)=0–‘2005-11-30’生成的id 应改为: select id from t where name like ‘abc%’ select id from t where createdate&gt;=’2005-11-30’ and createdate&lt;’2005-12-1’ h. 不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。 i. 不要写一些没有意义的查询，如需要生成一个空表结构： select col1,col2 into #t from t where 1=0 这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样： create table #t(…) j. 很多时候用 exists 代替 in 是一个好的选择： select num from a where num in(select num from b) 用下面的语句替换： select num from a where exists(select 1 from b where num=a.num) k. 任何地方都不要使用 select * from t ，用具体的字段列表代替“*”，不要返回用不到的任何字段。 l. 尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。 m. 尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。 n. 尽量避免大事务操作，提高系统并发能力。 3)java方面： a.尽可能的少造对象。 b.合理摆正系统设计的位置。大量数据操作，和少量数据操作一定是分开的。大量的数据操作，肯定不是ORM框架搞定的。， c.使用jDBC链接数据库操作数据 d.控制好内存，让数据流起来，而不是全部读到内存再处理，而是边读取边处理； e.合理利用内存，有的数据要缓存</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2013/01/07/e5-9c-a8-e4-b8-80-e4-b8-aa-e5-8d-83-e4-b8-87-e7-ba-a7-e7-9a-84-e6-95-b0-e6-8d-ae-e5-ba-93-e6-9f-a5-e5-af-bb-e4-b8-ad-ef-bc-8c-e5-a6-82-e4-bd-95-e6-8f-90-e9-ab-98-e6-9f-a5-e8-af-a2-e6-95-88-e7-8e-87/" data-id="cjo79gabx0044xs0f8lb92lzw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" class="article-date">
@@ -104,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo78uaw5001xp00f6377v92k" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/31/ar-e7-9c-bc-e9-95-9c-e5-b0-86-e6-94-b9-e5-8f-98-e6-88-91-e4-bb-ac-e7-9a-84-e4-b8-96-e7-95-8c/" data-id="cjo79gaap002mxs0f4f3n9o0r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -149,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo78uava000fp00fwjer1dyf" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/30/2015-e5-b9-b4-e4-bd-a0-e7-9a-84-e6-99-ba-e8-83-bd-e6-89-8b-e6-9c-ba-e5-b0-86-e5-8f-96-e4-bb-a3-e4-bd-a0-e7-9a-84-e8-bd-a6-e9-92-a5-e5-8c-99/" data-id="cjo79ga8q000oxs0f83p745ma" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo78uaz0007wp00fo4nj84j5" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/29/poke-e5-af-b9-snapchat-ef-bc-9a-e4-b8-8d-e5-be-97-e8-a6-81-e9-a2-86-e7-9a-84-e5-be-ae-e5-88-9b-e6-96-b0/" data-id="cjo79gaei008zxs0f3j0apbg1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo78uazs009fp00fjs9asxie" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/28/e5-9b-be-e7-89-87-e7-b1-bb-e5-ba-94-e7-94-a8-e5-a6-82-e4-bd-95-e7-9b-88-e5-88-a9/" data-id="cjo79gabv0041xs0fgxchldu2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -282,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" data-id="cjo78uaxf0042p00f3a4ciqvi" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/27/e5-bf-ab-e6-92-ad-e5-a4-a7-e5-b1-8f-e5-b9-95-e5-a4-9a-e5-b1-8f-e4-ba-92-e5-8a-a8-e6-96-b0-e4-bd-93-e9-aa-8c/" data-id="cjo79gacj004rxs0f93n4ox7r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/08/e5-a4-8f-e5-a4-a9-e9-87-8c/" data-id="cjo78uax4003gp00fen41hbl5" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/08/e5-a4-8f-e5-a4-a9-e9-87-8c/" data-id="cjo79gac10048xs0fxbojak5x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -365,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/06/one-summers-day/" data-id="cjo78uayy007qp00fmqbn0u1p" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/06/one-summers-day/" data-id="cjo79gaed008mxs0f1d1clwe9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -406,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" data-id="cjo78uayv007hp00f1jm38p3l" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/12/05/object-e5-92-8cembed-e6-a0-87-e7-ad-be/" data-id="cjo79gaec008kxs0fvw9xtke5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,48 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/" data-id="cjo78uayw007jp00fdl8aqdep" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-android-e8-ae-be-e7-bd-aeapn" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2012/11/28/android-e8-ae-be-e7-bd-aeapn/" class="article-date">
-  <time datetime="2012-11-27T23:49:08.000Z" itemprop="datePublished">2012-11-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/11/28/android-e8-ae-be-e7-bd-aeapn/">android 设置APN</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>android的APN设置，也就是移动网络的接入点设置，有些时候可能项目需要会用到一些专用的apn专网，如果需要用户去手动设置的话显然可行性不高，所以需要在代码中自动为客户生成一个接入点，并在应用启动的时候自动切换到改接入点，退出的时候重新换回用户的默认接入点，这里只讲关键技术点，具体实现自行研究，实践才能出真知； 1、首先了解一下APN的位置， // APN列表资源 private static Uri APN_LIST_URI = Uri.parse(“content://telephony/carriers”); // 默认APN资源（当前正在使用的apn） private static Uri PREFERRED_APN_URI = Uri.parse(“content://telephony/carriers/preferapn”); 2、检测一个APN是否存 int id = -1; ContentResolver resolver = context.getContentResolver(); Cursor c = resolver.query(APN_LIST_URI, new String[] { “_id”, “name”, “apn” }, “apn like ‘%myapn%’”, null, null); //从apn列表中查找apn名称为myapn的apn信息 if (c != null &amp;&amp; c.moveToNext()) { id = c.getShort(c.getColumnIndex(“_id”)); //获取该apn的id信息 System.out.println(“APN已经存在”); } else { System.out.println(“APN不存在”); } 3、添加一个新的APN，设置apn的信息还需要获取当前SIM卡的运营商信息 protected String getSIMInfo() { TelephonyManager iPhoneManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE); return iPhoneManager.getSimOperator(); } public int AddXFTApn() { System.out.println(“添加一个新的apn ==&gt; XFT APN”); int apnId = -1; String NUMERIC = getSIMInfo(); if (NUMERIC == null) { Toast.makeText(context, “不存在SIM卡”, Toast.LENGTH_SHORT).show(); return -1; } ContentResolver resolver = context.getContentResolver(); ContentValues values = new ContentValues(); values.put(“name”,“专用APN”); //apn中文描述 values.put(“apn”, “myapn”); //apn名称 values.put(“type”, “default,supl”); values.put(“numeric”, NUMERIC); values.put(“mcc”, NUMERIC.substring(0, 3)); values.put(“mnc”, NUMERIC.substring(3, NUMERIC.length())); values.put(“proxy”, “”); values.put(“port”, “”); values.put(“mmsproxy”, “”); values.put(“mmsport”, “”); values.put(“user”, “”); values.put(“server”, “”); values.put(“password”, “”); values.put(“mmsc”, “”); Cursor c = null; // 获取新添加的apn的ID try { Uri newRow = resolver.insert(APN_LIST_URI, values); if (newRow != null) { c = resolver.query(newRow, null, null, null, null); int idindex = c.getColumnIndex(“_id”); c.moveToFirst(); apnId = idindex; } } catch (SQLException e) { e.printStackTrace(); } if (c != null) c.close(); return apnId; } 4、设置使用指定的apn接入点连接网络 public boolean setDefaultApn(int apnId) { // System.out.println(“设置选中的apnID ==》 “ + apnId); boolean res = false; ContentResolver resolver = context.getContentResolver(); ContentValues values = new ContentValues(); values.put(“apn_id”, apnId); try { resolver.update(PREFERRED_APN_URI, values, null, null); Cursor c = resolver.query(PREFERRED_APN_URI, new String[] { “name”, “apn” }, “_id=” + apnId, null, null); if (c != null) { res = true; c.close(); } } catch (SQLException e) { e.printStackTrace(); } return res; }</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/11/28/android-e8-ae-be-e7-bd-aeapn/" data-id="cjo78uavz001jp00fugwumodz" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/11/29/onintercepttouchevent-e5-92-8contouchevent/" data-id="cjo79gaee008oxs0fnr0za7jg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -545,7 +545,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
     </div>
   </div>
 
@@ -556,6 +556,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+          </li>
         
           <li>
             <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
@@ -571,10 +575,6 @@
         
           <li>
             <a href="/2018/10/21/the-summary-day/">那年夏天</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/feature/">我们的未来</a>
           </li>
         
       </ul>

@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" class="article-date">
+  <time datetime="2015-05-07T17:40:37.000Z" itemprop="datePublished">2015-05-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/未分类/">未分类</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/">cron表达式详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式： <em>Seconds Minutes Hours DayofMonth Month DayofWeek Year或 Seconds Minutes Hours DayofMonth Month DayofWeek</em> 每一个域可出现的字符如下： Seconds:可出现”, - <em> /“四个字符，有效范围为0-59的整数 Minutes:可出现”, - </em> /“四个字符，有效范围为0-59的整数 Hours:可出现”, - <em> /“四个字符，有效范围为0-23的整数 DayofMonth:可出现”, - </em> / ? L W C”八个字符，有效范围为0-31的整数 Month:可出现”, - <em> /“四个字符，有效范围为1-12的整数或JAN-DEc DayofWeek:可出现”, - </em> / ? L C #”四个字符，有效范围为1-7的整数或SUN-SAT两个范围。1表示星期天，2表示星期一， 依次类推 Year:可出现”, - <em> /“四个字符，有效范围为1970-2099年 每一个域都使用数字，但还可以出现如下特殊字符，它们的含义是： (1)</em>：表示匹配该域的任意值，假如在Minutes域使用<em>, 即表示每分钟都会触发事件。 (2)?:只能用在DayofMonth和DayofWeek两个域。它也匹配域的任意值，但实际不会。因为DayofMonth和DayofWeek会相互影响。例如想在每月的20日触发调度，不管20日到底是星期几，则只能使用如下写法： 13 13 15 20 </em> ?, 其中最后一位只能用？，而不能使用<em>，如果使用</em>表示不管星期几都会触发，实际上并不是这样。 (3)-:表示范围，例如在Minutes域使用5-20，表示从5分到20分钟每分钟触发一次 (4)/：表示起始时间开始触发，然后每隔固定时间触发一次，例如在Minutes域使用5/20,则意味着5分钟触发一次，而25，45等分别触发一次. (5),:表示列出枚举值值。例如：在Minutes域使用5,20，则意味着在5和20分每分钟触发一次。 (6)L:表示最后，只能出现在DayofWeek和DayofMonth域，如果在DayofWeek域使用5L,意味着在最后的一个星期四触发。 (7)W:表示有效工作日(周一到周五),只能出现在DayofMonth域，系统将在离指定日期的最近的有效工作日触发事件。例如：在 DayofMonth使用5W，如果5日是星期六，则将在最近的工作日：星期五，即4日触发。如果5日是星期天，则在6日(周一)触发；如果5日在星期一到星期五中的一天，则就在5日触发。另外一点，W的最近寻找不会跨过月份 (8)LW:这两个字符可以连用，表示在某个月最后一个工作日，即最后一个星期五。 (9)#:用于确定每个月第几个星期几，只能出现在DayofMonth域。例如在4#2，表示某月的第二个星期三。 举几个例子: 0 0 2 1 <em> ? </em> 表示在每月的1日的凌晨2点调度任务 0 15 10 ? <em> MON-FRI 表示周一到周五每天上午10：15执行作业 0 15 10 ? 6L 2002-2006 表示2002-2006年的每个月的最后一个星期五上午10:15执行作 一个cron表达式有至少6个（也可能7个）有空格分隔的时间元素。 按顺序依次为 秒（0~59） 分钟（0~59） 小时（0~23） 天（月）（0~31，但是你需要考虑你月的天数） 月（0~11） 天（星期）（1~7 1=SUN 或 SUN，MON，TUE，WED，THU，FRI，SAT） 年份（1970－2099） 其中每个元素可以是一个值(如6),一个连续区间(9-12),一个间隔时间(8-18/4)(/表示每隔4小时),一个列表(1,3,5),通配符。由于”月份中的日期”和”星期中的日期”这两个元素互斥的,必须要对其中一个设置? 0 0 10,14,16 </em> <em> ? 每天上午10点，下午2点，4点 0 0/30 9-17 </em> <em> ? 朝九晚五工作时间内每半小时 0 0 12 ? </em> WED 表示每个星期三中午12点 “0 0 12 <em> </em> ?” 每天中午12点触发 “0 15 10 ? <em> </em>“ 每天上午10:15触发 “0 15 10 <em> </em> ?” 每天上午10:15触发 “0 15 10 <em> </em> ? <em>“ 每天上午10:15触发 “0 15 10 </em> <em> ? 2005” 2005年的每天上午10:15触发 “0 </em> 14 <em> </em> ?” 在每天下午2点到下午2:59期间的每1分钟触发 “0 0/5 14 <em> </em> ?” 在每天下午2点到下午2:55期间的每5分钟触发 “0 0/5 14,18 <em> </em> ?” 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发 “0 0-5 14 <em> </em> ?” 在每天下午2点到下午2:05期间的每1分钟触发 “0 10,44 14 ? 3 WED” 每年三月的星期三的下午2:10和2:44触发 “0 15 10 ? <em> MON-FRI” 周一至周五的上午10:15触发 “0 15 10 15 </em> ?” 每月15日上午10:15触发 “0 15 10 L <em> ?” 每月最后一日的上午10:15触发 “0 15 10 ? </em> 6L” 每月的最后一个星期五上午10:15触发 “0 15 10 ? <em> 6L 2002-2005” 2002年至2005年的每月的最后一个星期五上午10:15触发 “0 15 10 ? </em> 6#3” 每月的第三个星期五上午10:15触发 有些子表达式能包含一些范围或列表 例如：子表达式（天（星期））可以为 “MON-FRI”，“MON，WED，FRI”，“MON-WED,SAT” “<em>”字符代表所有可能的值 因此，“</em>”在子表达式（月）里表示每个月的含义，“<em>”在子表达式（天（星期））表示星期的每一天 “/”字符用来指定数值的增量 例如：在子表达式（分钟）里的“0/15”表示从第0分钟开始，每15分钟 在子表达式（分钟）里的“3/20”表示从第3分钟开始，每20分钟（它和“3，23，43”）的含义一样 “？”字符仅被用于天（月）和天（星期）两个子表达式，表示不指定值 当2个子表达式其中之一被指定了值以后，为了避免冲突，需要将另一个子表达式的值设为“？” “L” 字符仅被用于天（月）和天（星期）两个子表达式，它是单词“last”的缩写 但是它在两个子表达式里的含义是不同的。 在天（月）子表达式中，“L”表示一个月的最后一天 在天（星期）自表达式中，“L”表示一个星期的最后一天，也就是SAT 如果在“L”前有具体的内容，它就具有其他的含义了 例如：“6L”表示这个月的倒数第６天，“FRIL”表示这个月的最一个星期五 注意：在使用“L”参数时，不要指定列表或范围，因为这会导致问题 字段 允许值 允许的特殊字符 秒 0-59 , - </em> / 分 0-59 , - <em> / 小时 0-23 , - </em> / 日期 1-31 , - <em> ? / L W C 月份 1-12 或者 JAN-DEC , - </em> / 星期 1-7 或者 SUN-SAT , - <em> ? / L C # 年（可选） 留空, 1970-2099 , - </em> /</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2015/05/08/cron-e8-a1-a8-e8-be-be-e5-bc-8f-e8-af-a6-e8-a7-a3/" data-id="cjo79gaar002qxs0f2x4lo7u8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" class="article-date">
@@ -105,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjo78uays0078p00fi6uy4wnp" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/07/ms-sql-e6-a3-80-e6-9f-a5-e6-ad-bb-e9-94-81/" data-id="cjo79gae9008exs0f22gay5aj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -147,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" data-id="cjo78uayn006qp00fakx2taly" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/jvm-e5-86-85-e5-ad-98-e5-8c-ba-e5-9f-9f-e5-88-92-e5-88-86eden-space-e3-80-81survivor-space-e3-80-81tenured-gen-ef-bc-8cperm-gen-e8-a7-a3-e9-87-8a/" data-id="cjo79gae3007xxs0fywb7d6h1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" data-id="cjo78uaym006np00fu3t2192a" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/jps-e3-80-81jinfo-e3-80-81jstat-e3-80-81jstack-e3-80-81jmap-e3-80-81jconsole-e7-ad-89-e5-91-bd-e4-bb-a4-e7-ae-80-e4-bb-8b/" data-id="cjo79gae2007vxs0fisvya64o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -232,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" data-id="cjo78uayl006kp00fmm4r57gi" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/05/06/java-vm-e5-8f-82-e6-95-b0-e9-85-8d-e7-bd-ae/" data-id="cjo79gae1007sxs0f9vtt4y5e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" data-id="cjo78uays0075p00fr2sv9k6m" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/28/linux-e5-a2-9e-e5-8a-a0-e9-9d-9e-e6-a0-87-e5-87-86-e7-ab-af-e5-8f-a3/" data-id="cjo79gae60085xs0f4lm67zxc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -397,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" data-id="cjo78uazv009lp00f2h5jpfzu" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/23/linux-cp-e5-91-bd-e4-bb-a4-e7-9a-8415-e4-b8-aa-e7-a4-ba-e4-be-8b-e5-88-9b-e5-bb-ba-e6-96-87-e4-bb-b6-e5-92-8c-e7-9b-ae-e5-bd-95-e7-9a-84-e5-89-af-e6-9c-ac/" data-id="cjo79gae4007zxs0f19e0e0q0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -468,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" data-id="cjo78uay4005bp00fo76se702" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/22/e9-98-b2-e5-be-a1-e6-9a-b4-e5-8a-9b-e7-a0-b4-e8-a7-a3ssh-e6-94-bb-e5-87-bb/" data-id="cjo79gadf0064xs0fhrrpbb9o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -509,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/21/1098/" data-id="cjo78uav9000ep00fenohyu4v" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/21/1098/" data-id="cjo79ga8o000nxs0fdk1muml0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -622,739 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" data-id="cjo78uaw4001up00fhpwu5tla" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/" class="article-date">
-  <time datetime="2015-04-17T19:20:46.000Z" itemprop="datePublished">2015-04-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/">常用文件后缀与Content-Type对照表</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>文件扩展名</p>
-<p>Content-Type(Mime-Type)</p>
-<p>文件扩展名</p>
-<p>Content-Type(Mime-Type)</p>
-<p>.*（ 二进制流，不知道下载文件类型）</p>
-<p>application/octet-stream</p>
-<p>.tif</p>
-<p>image/tiff</p>
-<p>.001</p>
-<p>application/x-001</p>
-<p>.301</p>
-<p>application/x-301</p>
-<p>.323</p>
-<p>text/h323</p>
-<p>.906</p>
-<p>application/x-906</p>
-<p>.907</p>
-<p>drawing/907</p>
-<p>.a11</p>
-<p>application/x-a11</p>
-<p>.acp</p>
-<p>audio/x-mei-aac</p>
-<p>.ai</p>
-<p>application/postscript</p>
-<p>.aif</p>
-<p>audio/aiff</p>
-<p>.aifc</p>
-<p>audio/aiff</p>
-<p>.aiff</p>
-<p>audio/aiff</p>
-<p>.anv</p>
-<p>application/x-anv</p>
-<p>.asa</p>
-<p>text/asa</p>
-<p>.asf</p>
-<p>video/x-ms-asf</p>
-<p>.asp</p>
-<p>text/asp</p>
-<p>.asx</p>
-<p>video/x-ms-asf</p>
-<p>.au</p>
-<p>audio/basic</p>
-<p>.avi</p>
-<p>video/avi</p>
-<p>.awf</p>
-<p>application/vnd.adobe.workflow</p>
-<p>.biz</p>
-<p>text/xml</p>
-<p>.bmp</p>
-<p>application/x-bmp</p>
-<p>.bot</p>
-<p>application/x-bot</p>
-<p>.c4t</p>
-<p>application/x-c4t</p>
-<p>.c90</p>
-<p>application/x-c90</p>
-<p>.cal</p>
-<p>application/x-cals</p>
-<p>.cat</p>
-<p>application/vnd.ms-pki.seccat</p>
-<p>.cdf</p>
-<p>application/x-netcdf</p>
-<p>.cdr</p>
-<p>application/x-cdr</p>
-<p>.cel</p>
-<p>application/x-cel</p>
-<p>.cer</p>
-<p>application/x-x509-ca-cert</p>
-<p>.cg4</p>
-<p>application/x-g4</p>
-<p>.cgm</p>
-<p>application/x-cgm</p>
-<p>.cit</p>
-<p>application/x-cit</p>
-<p>.class</p>
-<p>java/*</p>
-<p>.cml</p>
-<p>text/xml</p>
-<p>.cmp</p>
-<p>application/x-cmp</p>
-<p>.cmx</p>
-<p>application/x-cmx</p>
-<p>.cot</p>
-<p>application/x-cot</p>
-<p>.crl</p>
-<p>application/pkix-crl</p>
-<p>.crt</p>
-<p>application/x-x509-ca-cert</p>
-<p>.csi</p>
-<p>application/x-csi</p>
-<p>.css</p>
-<p>text/css</p>
-<p>.cut</p>
-<p>application/x-cut</p>
-<p>.dbf</p>
-<p>application/x-dbf</p>
-<p>.dbm</p>
-<p>application/x-dbm</p>
-<p>.dbx</p>
-<p>application/x-dbx</p>
-<p>.dcd</p>
-<p>text/xml</p>
-<p>.dcx</p>
-<p>application/x-dcx</p>
-<p>.der</p>
-<p>application/x-x509-ca-cert</p>
-<p>.dgn</p>
-<p>application/x-dgn</p>
-<p>.dib</p>
-<p>application/x-dib</p>
-<p>.dll</p>
-<p>application/x-msdownload</p>
-<p>.doc</p>
-<p>application/msword</p>
-<p>.dot</p>
-<p>application/msword</p>
-<p>.drw</p>
-<p>application/x-drw</p>
-<p>.dtd</p>
-<p>text/xml</p>
-<p>.dwf</p>
-<p>Model/vnd.dwf</p>
-<p>.dwf</p>
-<p>application/x-dwf</p>
-<p>.dwg</p>
-<p>application/x-dwg</p>
-<p>.dxb</p>
-<p>application/x-dxb</p>
-<p>.dxf</p>
-<p>application/x-dxf</p>
-<p>.edn</p>
-<p>application/vnd.adobe.edn</p>
-<p>.emf</p>
-<p>application/x-emf</p>
-<p>.eml</p>
-<p>message/rfc822</p>
-<p>.ent</p>
-<p>text/xml</p>
-<p>.epi</p>
-<p>application/x-epi</p>
-<p>.eps</p>
-<p>application/x-ps</p>
-<p>.eps</p>
-<p>application/postscript</p>
-<p>.etd</p>
-<p>application/x-ebx</p>
-<p>.exe</p>
-<p>application/x-msdownload</p>
-<p>.fax</p>
-<p>image/fax</p>
-<p>.fdf</p>
-<p>application/vnd.fdf</p>
-<p>.fif</p>
-<p>application/fractals</p>
-<p>.fo</p>
-<p>text/xml</p>
-<p>.frm</p>
-<p>application/x-frm</p>
-<p>.g4</p>
-<p>application/x-g4</p>
-<p>.gbr</p>
-<p>application/x-gbr</p>
-<p>.</p>
-<p>application/x-</p>
-<p>.gif</p>
-<p>image/gif</p>
-<p>.gl2</p>
-<p>application/x-gl2</p>
-<p>.gp4</p>
-<p>application/x-gp4</p>
-<p>.hgl</p>
-<p>application/x-hgl</p>
-<p>.hmr</p>
-<p>application/x-hmr</p>
-<p>.hpg</p>
-<p>application/x-hpgl</p>
-<p>.hpl</p>
-<p>application/x-hpl</p>
-<p>.hqx</p>
-<p>application/mac-binhex40</p>
-<p>.hrf</p>
-<p>application/x-hrf</p>
-<p>.hta</p>
-<p>application/hta</p>
-<p>.htc</p>
-<p>text/x-component</p>
-<p>.htm</p>
-<p>text/html</p>
-<p>.html</p>
-<p>text/html</p>
-<p>.htt</p>
-<p>text/webviewhtml</p>
-<p>.htx</p>
-<p>text/html</p>
-<p>.icb</p>
-<p>application/x-icb</p>
-<p>.ico</p>
-<p>image/x-icon</p>
-<p>.ico</p>
-<p>application/x-ico</p>
-<p>.iff</p>
-<p>application/x-iff</p>
-<p>.ig4</p>
-<p>application/x-g4</p>
-<p>.igs</p>
-<p>application/x-igs</p>
-<p>.iii</p>
-<p>application/x-iphone</p>
-<p>.img</p>
-<p>application/x-img</p>
-<p>.ins</p>
-<p>application/x-internet-signup</p>
-<p>.isp</p>
-<p>application/x-internet-signup</p>
-<p>.IVF</p>
-<p>video/x-ivf</p>
-<p>.java</p>
-<p>java/*</p>
-<p>.jfif</p>
-<p>image/jpeg</p>
-<p>.jpe</p>
-<p>image/jpeg</p>
-<p>.jpe</p>
-<p>application/x-jpe</p>
-<p>.jpeg</p>
-<p>image/jpeg</p>
-<p>.jpg</p>
-<p>image/jpeg</p>
-<p>.jpg</p>
-<p>application/x-jpg</p>
-<p>.js</p>
-<p>application/x-javascript</p>
-<p>.jsp</p>
-<p>text/html</p>
-<p>.la1</p>
-<p>audio/x-liquid-file</p>
-<p>.lar</p>
-<p>application/x-laplayer-reg</p>
-<p>.latex</p>
-<p>application/x-latex</p>
-<p>.lavs</p>
-<p>audio/x-liquid-secure</p>
-<p>.lbm</p>
-<p>application/x-lbm</p>
-<p>.lmsff</p>
-<p>audio/x-la-lms</p>
-<p>.ls</p>
-<p>application/x-javascript</p>
-<p>.ltr</p>
-<p>application/x-ltr</p>
-<p>.m1v</p>
-<p>video/x-mpeg</p>
-<p>.m2v</p>
-<p>video/x-mpeg</p>
-<p>.m3u</p>
-<p>audio/mpegurl</p>
-<p>.m4e</p>
-<p>video/mpeg4</p>
-<p>.mac</p>
-<p>application/x-mac</p>
-<p>.man</p>
-<p>application/x-troff-man</p>
-<p>.math</p>
-<p>text/xml</p>
-<p>.mdb</p>
-<p>application/msaccess</p>
-<p>.mdb</p>
-<p>application/x-mdb</p>
-<p>.mfp</p>
-<p>application/x-shockwave-flash</p>
-<p>.mht</p>
-<p>message/rfc822</p>
-<p>.mhtml</p>
-<p>message/rfc822</p>
-<p>.mi</p>
-<p>application/x-mi</p>
-<p>.mid</p>
-<p>audio/mid</p>
-<p>.midi</p>
-<p>audio/mid</p>
-<p>.mil</p>
-<p>application/x-mil</p>
-<p>.mml</p>
-<p>text/xml</p>
-<p>.mnd</p>
-<p>audio/x-musicnet-download</p>
-<p>.mns</p>
-<p>audio/x-musicnet-stream</p>
-<p>.mocha</p>
-<p>application/x-javascript</p>
-<p>.movie</p>
-<p>video/x-sgi-movie</p>
-<p>.mp1</p>
-<p>audio/mp1</p>
-<p>.mp2</p>
-<p>audio/mp2</p>
-<p>.mp2v</p>
-<p>video/mpeg</p>
-<p>.mp3</p>
-<p>audio/mp3</p>
-<p>.mp4</p>
-<p>video/mpeg4</p>
-<p>.mpa</p>
-<p>video/x-mpg</p>
-<p>.mpd</p>
-<p>application/vnd.ms-project</p>
-<p>.mpe</p>
-<p>video/x-mpeg</p>
-<p>.mpeg</p>
-<p>video/mpg</p>
-<p>.mpg</p>
-<p>video/mpg</p>
-<p>.mpga</p>
-<p>audio/rn-mpeg</p>
-<p>.mpp</p>
-<p>application/vnd.ms-project</p>
-<p>.mps</p>
-<p>video/x-mpeg</p>
-<p>.mpt</p>
-<p>application/vnd.ms-project</p>
-<p>.mpv</p>
-<p>video/mpg</p>
-<p>.mpv2</p>
-<p>video/mpeg</p>
-<p>.mpw</p>
-<p>application/vnd.ms-project</p>
-<p>.mpx</p>
-<p>application/vnd.ms-project</p>
-<p>.mtx</p>
-<p>text/xml</p>
-<p>.mxp</p>
-<p>application/x-mmxp</p>
-<p>.net</p>
-<p>image/pnetvue</p>
-<p>.nrf</p>
-<p>application/x-nrf</p>
-<p>.nws</p>
-<p>message/rfc822</p>
-<p>.odc</p>
-<p>text/x-ms-odc</p>
-<p>.out</p>
-<p>application/x-out</p>
-<p>.p10</p>
-<p>application/pkcs10</p>
-<p>.p12</p>
-<p>application/x-pkcs12</p>
-<p>.p7b</p>
-<p>application/x-pkcs7-certificates</p>
-<p>.p7c</p>
-<p>application/pkcs7-mime</p>
-<p>.p7m</p>
-<p>application/pkcs7-mime</p>
-<p>.p7r</p>
-<p>application/x-pkcs7-certreqresp</p>
-<p>.p7s</p>
-<p>application/pkcs7-signature</p>
-<p>.pc5</p>
-<p>application/x-pc5</p>
-<p>.pci</p>
-<p>application/x-pci</p>
-<p>.pcl</p>
-<p>application/x-pcl</p>
-<p>.pcx</p>
-<p>application/x-pcx</p>
-<p>.pdf</p>
-<p>application/pdf</p>
-<p>.pdf</p>
-<p>application/pdf</p>
-<p>.pdx</p>
-<p>application/vnd.adobe.pdx</p>
-<p>.pfx</p>
-<p>application/x-pkcs12</p>
-<p>.pgl</p>
-<p>application/x-pgl</p>
-<p>.pic</p>
-<p>application/x-pic</p>
-<p>.pko</p>
-<p>application/vnd.ms-pki.pko</p>
-<p>.pl</p>
-<p>application/x-perl</p>
-<p>.plg</p>
-<p>text/html</p>
-<p>.pls</p>
-<p>audio/scpls</p>
-<p>.plt</p>
-<p>application/x-plt</p>
-<p>.png</p>
-<p>image/png</p>
-<p>.png</p>
-<p>application/x-png</p>
-<p>.pot</p>
-<p>application/vnd.ms-powerpoint</p>
-<p>.ppa</p>
-<p>application/vnd.ms-powerpoint</p>
-<p>.ppm</p>
-<p>application/x-ppm</p>
-<p>.pps</p>
-<p>application/vnd.ms-powerpoint</p>
-<p>.ppt</p>
-<p>application/vnd.ms-powerpoint</p>
-<p>.ppt</p>
-<p>application/x-ppt</p>
-<p>.pr</p>
-<p>application/x-pr</p>
-<p>.prf</p>
-<p>application/pics-rules</p>
-<p>.prn</p>
-<p>application/x-prn</p>
-<p>.prt</p>
-<p>application/x-prt</p>
-<p>.ps</p>
-<p>application/x-ps</p>
-<p>.ps</p>
-<p>application/postscript</p>
-<p>.ptn</p>
-<p>application/x-ptn</p>
-<p>.pwz</p>
-<p>application/vnd.ms-powerpoint</p>
-<p>.r3t</p>
-<p>text/vnd.rn-realtext3d</p>
-<p>.ra</p>
-<p>audio/vnd.rn-realaudio</p>
-<p>.ram</p>
-<p>audio/x-pn-realaudio</p>
-<p>.ras</p>
-<p>application/x-ras</p>
-<p>.rat</p>
-<p>application/rat-file</p>
-<p>.rdf</p>
-<p>text/xml</p>
-<p>.rec</p>
-<p>application/vnd.rn-recording</p>
-<p>.red</p>
-<p>application/x-red</p>
-<p>.rgb</p>
-<p>application/x-rgb</p>
-<p>.rjs</p>
-<p>application/vnd.rn-realsystem-rjs</p>
-<p>.rjt</p>
-<p>application/vnd.rn-realsystem-rjt</p>
-<p>.rlc</p>
-<p>application/x-rlc</p>
-<p>.rle</p>
-<p>application/x-rle</p>
-<p>.rm</p>
-<p>application/vnd.rn-realmedia</p>
-<p>.rmf</p>
-<p>application/vnd.adobe.rmf</p>
-<p>.rmi</p>
-<p>audio/mid</p>
-<p>.rmj</p>
-<p>application/vnd.rn-realsystem-rmj</p>
-<p>.rmm</p>
-<p>audio/x-pn-realaudio</p>
-<p>.rmp</p>
-<p>application/vnd.rn-rn_music_package</p>
-<p>.rms</p>
-<p>application/vnd.rn-realmedia-secure</p>
-<p>.rmvb</p>
-<p>application/vnd.rn-realmedia-vbr</p>
-<p>.rmx</p>
-<p>application/vnd.rn-realsystem-rmx</p>
-<p>.rnx</p>
-<p>application/vnd.rn-realplayer</p>
-<p>.rp</p>
-<p>image/vnd.rn-realpix</p>
-<p>.rpm</p>
-<p>audio/x-pn-realaudio-plugin</p>
-<p>.rsml</p>
-<p>application/vnd.rn-rsml</p>
-<p>.rt</p>
-<p>text/vnd.rn-realtext</p>
-<p>.rtf</p>
-<p>application/msword</p>
-<p>.rtf</p>
-<p>application/x-rtf</p>
-<p>.rv</p>
-<p>video/vnd.rn-realvideo</p>
-<p>.sam</p>
-<p>application/x-sam</p>
-<p>.sat</p>
-<p>application/x-sat</p>
-<p>.sdp</p>
-<p>application/sdp</p>
-<p>.sdw</p>
-<p>application/x-sdw</p>
-<p>.sit</p>
-<p>application/x-stuffit</p>
-<p>.slb</p>
-<p>application/x-slb</p>
-<p>.sld</p>
-<p>application/x-sld</p>
-<p>.slk</p>
-<p>drawing/x-slk</p>
-<p>.smi</p>
-<p>application/smil</p>
-<p>.smil</p>
-<p>application/smil</p>
-<p>.smk</p>
-<p>application/x-smk</p>
-<p>.snd</p>
-<p>audio/basic</p>
-<p>.sol</p>
-<p>text/plain</p>
-<p>.sor</p>
-<p>text/plain</p>
-<p>.spc</p>
-<p>application/x-pkcs7-certificates</p>
-<p>.spl</p>
-<p>application/futuresplash</p>
-<p>.spp</p>
-<p>text/xml</p>
-<p>.ssm</p>
-<p>application/streamingmedia</p>
-<p>.sst</p>
-<p>application/vnd.ms-pki.certstore</p>
-<p>.stl</p>
-<p>application/vnd.ms-pki.stl</p>
-<p>.stm</p>
-<p>text/html</p>
-<p>.sty</p>
-<p>application/x-sty</p>
-<p>.svg</p>
-<p>text/xml</p>
-<p>.swf</p>
-<p>application/x-shockwave-flash</p>
-<p>.tdf</p>
-<p>application/x-tdf</p>
-<p>.tg4</p>
-<p>application/x-tg4</p>
-<p>.tga</p>
-<p>application/x-tga</p>
-<p>.tif</p>
-<p>image/tiff</p>
-<p>.tif</p>
-<p>application/x-tif</p>
-<p>.tiff</p>
-<p>image/tiff</p>
-<p>.tld</p>
-<p>text/xml</p>
-<p>.top</p>
-<p>drawing/x-top</p>
-<p>.torrent</p>
-<p>application/x-bittorrent</p>
-<p>.tsd</p>
-<p>text/xml</p>
-<p>.txt</p>
-<p>text/plain</p>
-<p>.uin</p>
-<p>application/x-icq</p>
-<p>.uls</p>
-<p>text/iuls</p>
-<p>.vcf</p>
-<p>text/x-vcard</p>
-<p>.vda</p>
-<p>application/x-vda</p>
-<p>.vdx</p>
-<p>application/vnd.visio</p>
-<p>.vml</p>
-<p>text/xml</p>
-<p>.vpg</p>
-<p>application/x-vpeg005</p>
-<p>.vsd</p>
-<p>application/vnd.visio</p>
-<p>.vsd</p>
-<p>application/x-vsd</p>
-<p>.vss</p>
-<p>application/vnd.visio</p>
-<p>.vst</p>
-<p>application/vnd.visio</p>
-<p>.vst</p>
-<p>application/x-vst</p>
-<p>.vsw</p>
-<p>application/vnd.visio</p>
-<p>.vsx</p>
-<p>application/vnd.visio</p>
-<p>.vtx</p>
-<p>application/vnd.visio</p>
-<p>.vxml</p>
-<p>text/xml</p>
-<p>.wav</p>
-<p>audio/wav</p>
-<p>.wax</p>
-<p>audio/x-ms-wax</p>
-<p>.wb1</p>
-<p>application/x-wb1</p>
-<p>.wb2</p>
-<p>application/x-wb2</p>
-<p>.wb3</p>
-<p>application/x-wb3</p>
-<p>.wbmp</p>
-<p>image/vnd.wap.wbmp</p>
-<p>.wiz</p>
-<p>application/msword</p>
-<p>.wk3</p>
-<p>application/x-wk3</p>
-<p>.wk4</p>
-<p>application/x-wk4</p>
-<p>.wkq</p>
-<p>application/x-wkq</p>
-<p>.wks</p>
-<p>application/x-wks</p>
-<p>.wm</p>
-<p>video/x-ms-wm</p>
-<p>.wma</p>
-<p>audio/x-ms-wma</p>
-<p>.wmd</p>
-<p>application/x-ms-wmd</p>
-<p>.wmf</p>
-<p>application/x-wmf</p>
-<p>.wml</p>
-<p>text/vnd.wap.wml</p>
-<p>.wmv</p>
-<p>video/x-ms-wmv</p>
-<p>.wmx</p>
-<p>video/x-ms-wmx</p>
-<p>.wmz</p>
-<p>application/x-ms-wmz</p>
-<p>.wp6</p>
-<p>application/x-wp6</p>
-<p>.wpd</p>
-<p>application/x-wpd</p>
-<p>.wpg</p>
-<p>application/x-wpg</p>
-<p>.wpl</p>
-<p>application/vnd.ms-wpl</p>
-<p>.wq1</p>
-<p>application/x-wq1</p>
-<p>.wr1</p>
-<p>application/x-wr1</p>
-<p>.wri</p>
-<p>application/x-wri</p>
-<p>.wrk</p>
-<p>application/x-wrk</p>
-<p>.ws</p>
-<p>application/x-ws</p>
-<p>.ws2</p>
-<p>application/x-ws</p>
-<p>.wsc</p>
-<p>text/scriptlet</p>
-<p>.wsdl</p>
-<p>text/xml</p>
-<p>.wvx</p>
-<p>video/x-ms-wvx</p>
-<p>.xdp</p>
-<p>application/vnd.adobe.xdp</p>
-<p>.xdr</p>
-<p>text/xml</p>
-<p>.xfd</p>
-<p>application/vnd.adobe.xfd</p>
-<p>.xfdf</p>
-<p>application/vnd.adobe.xfdf</p>
-<p>.xhtml</p>
-<p>text/html</p>
-<p>.xls</p>
-<p>application/vnd.ms-excel</p>
-<p>.xls</p>
-<p>application/x-xls</p>
-<p>.xlw</p>
-<p>application/x-xlw</p>
-<p>.xml</p>
-<p>text/xml</p>
-<p>.xpl</p>
-<p>audio/scpls</p>
-<p>.xq</p>
-<p>text/xml</p>
-<p>.xql</p>
-<p>text/xml</p>
-<p>.xquery</p>
-<p>text/xml</p>
-<p>.xsd</p>
-<p>text/xml</p>
-<p>.xsl</p>
-<p>text/xml</p>
-<p>.xslt</p>
-<p>text/xml</p>
-<p>.xwd</p>
-<p>application/x-xwd</p>
-<p>.x_b</p>
-<p>application/x-x_b</p>
-<p>.sis</p>
-<p>application/vnd.symbian.install</p>
-<p>.sisx</p>
-<p>application/vnd.symbian.install</p>
-<p>.x_t</p>
-<p>application/x-x_t</p>
-<p>.ipa</p>
-<p>application/vnd.iphone</p>
-<p>.apk</p>
-<p>application/vnd.android.package-archive</p>
-<p>.xap</p>
-<p>application/x-silverlight-app</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2015/04/18/e5-b8-b8-e7-94-a8-e6-96-87-e4-bb-b6-e5-90-8e-e7-bc-80-e4-b8-8econtent-type-e5-af-b9-e7-85-a7-e8-a1-a8/" data-id="cjo78uazt009hp00f1y5e9o06" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2015/04/20/android-sdkversion-e5-8f-82-e6-95-b0-e5-88-97-e8-a1-a8/" data-id="cjo79gaah002cxs0fr8xcunb8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1408,7 +717,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">February 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">August 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">December 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/10/">October 2007</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/09/">September 2007</a></li></ul>
     </div>
   </div>
 
@@ -1419,6 +728,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/11/07/j2ee-container2/">j2ee-container2</a>
+          </li>
         
           <li>
             <a href="/2018/10/21/apache-start/">Mac下启动Apache</a>
@@ -1434,10 +747,6 @@
         
           <li>
             <a href="/2018/10/21/the-summary-day/">那年夏天</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/21/feature/">我们的未来</a>
           </li>
         
       </ul>
