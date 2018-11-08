@@ -72,6 +72,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-tomcat9-jndi" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/08/tomcat9-jndi/" class="article-date">
+  <time datetime="2018-11-08T04:42:28.000Z" itemprop="datePublished">2018-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/08/tomcat9-jndi/">tomcat9-jndi</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><p> Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。</p>
+<pre><code>Tomcat provides a JNDI InitialContext implementation instance for each web application running under it, in a manner that is compatible with those provided by a Java Enterprise Edition application server. The Java EE standard provides a standard set of elements in the /WEB-INF/web.xml file to reference/define resources.
+</code></pre><p>有关JNDI的API以及Java Enterprise Edition（Java EE）服务器支持的功能的更多信息，请参阅以下规范，Tomcat为其提供的服务模拟这些功能：</p>
+<pre><code>See the following Specifications for more information about programming APIs for JNDI, and for the features supported by Java Enterprise Edition (Java EE) servers, which Tomcat emulates for the services that it provides:
+
+Java Naming and Directory Interface (included in JDK 1.4 onwards)
+Java EE Platform Specification (in particular, see Chapter 5 on Naming)
+</code></pre><h1 id="web-xml-configuration"><a href="#web-xml-configuration" class="headerlink" title="web.xml configuration"></a>web.xml configuration</h1><pre><code>The following elements may be used in the web application deployment descriptor (/WEB-INF/web.xml) of your web application to define resources:
+
+&lt;env-entry&gt; - Environment entry, a single-value parameter that can be used to configure how the application will operate.
+&lt;resource-ref&gt; - Resource reference, which is typically to an object factory for resources such as a JDBC DataSource, a JavaMail Session, or custom object factories configured into Tomcat.
+
+&lt;resource-env-ref&gt; - Resource environment reference, a new variation of resource-ref added in Servlet 2.4 that is simpler to configure for resources that do not require authentication information.
+
+Providing that Tomcat is able to identify an appropriate resource factory to use to create the resource and that no further configuration information is required, Tomcat will use the information in /WEB-INF/web.xml to create the resource.
+
+Tomcat provides a number of Tomcat specific options for JNDI resources that cannot be specified in web.xml. These include closeMethod that enables faster cleaning-up of JNDI resources when a web application stops and singleton that controls whether or not a new instance of the resource is created for every JNDI lookup. To use these configuration options the resource must be specified in a web application&apos;s &lt;Context&gt; element or in the &lt;GlobalNamingResources&gt; element of $CATALINA_BASE/conf/server.xml.
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2018/11/08/tomcat9-jndi/" data-id="cjo83w1nl008kcz0f9lbo24cr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-JNDI" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/07/java-JNDI/" class="article-date">
@@ -107,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-JNDI/" data-id="cjo7e4oji007jdr0f0lrvrl7y" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-JNDI/" data-id="cjo83w1oy009qcz0fyzykkvfr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -147,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-multi-thread/" data-id="cjo7e4oju008ddr0fktfgri73" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-multi-thread/" data-id="cjo83w1my006qcz0feqsgppcw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/java-io/" data-id="cjo7e4ojk007qdr0f9c8ptedn" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/java-io/" data-id="cjo83w1mz006tcz0f1bt6zlpy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -225,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo7e4ok0008ndr0f9ufg8n0u" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/message-queue2/" data-id="cjo83w1oz009ucz0fahlsgfa3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -261,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/cache/" data-id="cjo7e4ogp002mdr0f71nxyc44" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/cache/" data-id="cjo83w1kn0020cz0fmyd9e0r8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/07/j2ee-container2/" data-id="cjo7e4ojj007mdr0ffe7dcikj" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/07/j2ee-container2/" data-id="cjo83w1mw006lcz0fmqdymcwh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -345,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/apache-start/" data-id="cjo7e4ogo002kdr0fzwmtrhfr" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/apache-start/" data-id="cjo83w1kk001scz0f9aqchu7e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -386,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/feature2/" data-id="cjo7e4oja006ydr0fpzeqn0ee" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/feature2/" data-id="cjo83w1mm005vcz0flnn2o20z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -427,83 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/world-without-language/" data-id="cjo7e4okt00a9dr0fdn7iiyhb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-the-summary-day" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/21/the-summary-day/" class="article-date">
-  <time datetime="2018-10-21T03:44:52.000Z" itemprop="datePublished">2018-10-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/未分类/">未分类</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/21/the-summary-day/">那年夏天</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>那个夏天，我在街上漫步，心里一直在思念，思念着你。</p>
-<p>那个夏天，我沿河泛舟，一直为我们的故事流泪，痛哭。</p>
-<p>那个夏天，我画笔零乱，思绪万千，陷入深深的悲痛之中不能自持，泣不成声。</p>
-<p>那个夏天，我怀着你的话语入眠，在漆黑的夜里，我一次次地梦到你笑容。</p>
-<p>谁能告诉我</p>
-<p>谁能理解我</p>
-<p>当初，我的决定是那么的坚定。</p>
-<p>而如今我的感受却是…</p>
-<p>从此</p>
-<p>那个夏天的夜晚，我停下了脚步，去仰望美丽而深蓝的夜空，去寻找那可爱的星星。</p>
-<p>那个夏天的夜晚，我放下了双桨，去聆听潺潺的河水，和她一起歌唱</p>
-<p>那个夏天的夜晚，我放下了画笔，静静地呆着，让自己变成了一幅图画，</p>
-<p>那个夏天的夜晚，我不再入睡，整夜整夜地回忆和你一起的美好时光</p>
-<p>我期待着清晨第一屡阳光拥抱着我，给我温暖。</p>
-<p>我在等待，等待，我也只需等待。</p>
-<p>但是，不久我就睡着了。</p>
-<p>我进入了一个有你的梦乡。</p>
-<p>我选择在梦中与你畅所欲言，没有人知道我是多么的从容。</p>
-<p>我选择午夜里在你身边尽情欢笑，你不知道我有多么的轻松。</p>
-<p>最后我选择带着那种，那种美妙的感觉面对现实的世界。</p>
-<p>最后我选择了微笑，微笑着看你从我身边经过。</p>
-<p>最后我选择独自一人做个诚实的自己，而不是在人群中掩饰自己。</p>
-<p>今天，是一个美好夏日里的一天，你已经走进了我美好的幻想中。</p>
-<p>明天，一样，直到永远……</p>
-<p>带着这样的感觉我将变得坚强快乐直到永远。<br>我，我行吗？</p>
-<p>忘记我们的过去，去过快乐的生活，<br>你，你能吗？</p>
-<p>我想：如果我从来没有来到这个世界，没有经历我们的故事，那么我就从来没有活过。</p>
-<p>我想：如果不是偶然之间听到你的歌声，我将永远不能从你那获得足够的勇气。</p>
-<p>如果说这是我生活中的一部分，必定也是你生活中的一部分，但没有人相信。</p>
-<p>可是，一旦我相信了，我的世界会有所不同。</p>
-<p>那个夏天，就像四季中的任何一天，没什么不同。</p>
-<p>我的故事也是如此的短暂、微不足道，但是我的感觉、我的回忆却是如此的绵长。</p>
-<p>那个夏天，是如此的美好，但我必须努力，努力地忘记，因为现在已是深秋，冬天也将临近…..</p>
-<p>最后送上我深深的祝愿</p>
-<p>希望你能安稳的入睡，过上幸福的生活</p>
-<p>就这样吧……</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/10/21/the-summary-day/" data-id="cjo7e4okn009zdr0fsgri1vad" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/10/21/world-without-language/" data-id="cjo83w1nr008ycz0f5ff2cna0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -570,6 +547,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/08/tomcat9-jndi/">tomcat9-jndi</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-JNDI/">JNDI -- java名与目录接口</a>
           </li>
         
@@ -583,10 +564,6 @@
         
           <li>
             <a href="/2018/11/07/message-queue2/">消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

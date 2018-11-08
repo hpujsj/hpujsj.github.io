@@ -72,6 +72,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" class="article-date">
+  <time datetime="2011-10-11T06:14:07.000Z" itemprop="datePublished">2011-10-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/"> 采用XMPP协议向android客户端推送消息</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>XMPP(可扩展通讯和表示协议)是基于可扩展标记语言（XML）的协议，它用于即时消息（IM）以及在线探测。这个协议可能最终允许<a href="http://baike.baidu.com/view/1706.htm" target="_blank" rel="noopener">因特网</a>用户向因特网上的其他任何人发送即时消息。 <a href="http://sourceforge.net/projects/androidpn" target="_blank" rel="noopener">androidpn</a>是一个基于XMPP协议的java开源Android push notification实现。它包含了完整的客户端和服务器端。经过源代码研究我发现，该服务器端基本是在另外一个开源工程<a href="http://www.igniterealtime.org/projects/openfire/" target="_blank" rel="noopener">openfire</a>基础上修改实现的，不过比较郁闷的是androidpn的文档是由韩语写的，所以整个研究过程基本都是读源码。它的实现示意图如下： <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c148b8d63f8056de3afff671bd463898.gif" alt=""> androidpn客户端需要用到一个基于java的开源XMPP协议包<a href="http://code.google.com/p/asmack/" target="_blank" rel="noopener">asmack</a>，这个包同样也是基于openfire下的另外一个开源项目<a href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=smack/smack_3_2_0.tar.gz" target="_blank" rel="noopener">smack</a>，不过我们不需要自己编译，可以直接把androidpn客户端里面的asmack.jar拿来使用。客户端利用asmack中提供的XMPPConnection类与服务器建立持久连接，并通过该连接进行用户注册和登录认证，同样也是通过这条连接，接收服务器发送的通知。 androidpn服务器端也是java语言实现的，基于openfire开源工程，不过它的Web部分采用的是spring框架，这一点与openfire是不同的。Androidpn服务器包含两个部分，一个是侦听在5222端口上的XMPP服务，负责与客户端的XMPPConnection类进行通信，作用是用户注册和身份认证，并发送推送通知消息。另外一部分是Web服务器，采用一个轻量级的HTTP服务器，负责接收用户的Web请求。服务器架构如下： 最上层包含四个组成部分，分别是SessionManager，Auth Manager，PresenceManager以及Notification Manager。SessionManager负责管理客户端与服务器之间的会话，Auth Manager负责客户端用户认证管理，Presence Manager负责管理客户端用户的登录状态，NotificationManager负责实现服务器向客户端推送消息功能。 服务器端界面如下，分别对应了上述的几个功能模块： 发送以后，我们可以在手机端看到接收的消息： 这个解决方案的最大优势就是简单，我们不需要象C2DM那样依赖操作系统版本，也不会担心某一天Google服务器不可用。利用XMPP协议我们还可以进一步的对协议进行扩展，实现更为完善的功能。 采用这个方案，我们目前只能发送文字消息，不过对于推送来说一般足够了，因为我们不能指望通过推送得到所有的数据，一般情况下，利用推送只是告诉手机端服务器发生了某些改变，当客户端收到通知以后，应该主动到服务器获取最新的数据，这样才是推送服务的完整实现。 相关资料:</p>
+<h3 id="谷歌Android如何从云端推送消息到手机"><a href="#谷歌Android如何从云端推送消息到手机" class="headerlink" title="谷歌Android如何从云端推送消息到手机"></a><a href="http://www.cz88.net/it/Google/9970/" target="_blank" rel="noopener">谷歌Android如何从云端推送消息到手机</a></h3><p><a href="http://tokudu.com/2010/how-to-implement-push-notifications-for-android/" title="Permanent Link to How to Implement Push Notifications for Android" target="_blank" rel="noopener">How to Implement Push Notifications for Android</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" data-id="cjo83w1mf005ccz0fg3gckpay" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e9-bb-84-e8-8b-b9-e6-9e-9c" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/" class="article-date">
@@ -103,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/" data-id="cjo7e4oj7006pdr0fhqkpr4dl" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/09/17/e9-bb-84-e8-8b-b9-e6-9e-9c/" data-id="cjo83w1ml005rcz0fzpeshbfn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" data-id="cjo7e4oeo000odr0foa4a8e6g" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/09/14/2007-e5-b9-b4-e7-9a-84-e5-ad-a6-e4-b9-a0-e8-ae-a1-e5-88-92/" data-id="cjo83w1jj000acz0f3ofx12ph" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" data-id="cjo7e4oh60038dr0f6nfk9s1c" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/09/14/e4-b8-a4-e4-b8-aasql-e8-af-ad-e5-8f-a5-e6-80-a7-e8-83-bd-e7-9b-b8-e5-b7-ae-e5-a6-82-e6-ad-a4-e5-a4-a7/" data-id="cjo83w1kz002mcz0fdtlszebf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/14/e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83/" data-id="cjo7e4oj2006cdr0fdqo2cx92" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/09/14/e9-a1-b5-e9-9d-a2-e8-ae-be-e8-ae-a1-e4-b8-ad-e7-9a-84-e5-87-a0-e4-b8-aa-e8-a7-84-e8-8c-83/" data-id="cjo83w1mj005hcz0fuq88n5g1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/09/13/tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8/" data-id="cjo7e4okj009tdr0f0sbjohep" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/09/13/tomcat-e5-90-af-e5-8a-a8-e6-97-b6-e6-8a-a5no-default-web-xml-e5-bc-82-e5-b8-b8/" data-id="cjo83w1nm008mcz0fizjsohy0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -307,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/08/28/e6-81-92-e6-98-9f-e6-83-a8-e8-a2-ab-e9-bb-91-e6-b4-9e-e6-92-95-e6-88-90-e7-a2-8e-e7-89-87-e5-90-9e-e5-99-ac/" data-id="cjo7e4oie004ydr0fafjzr3ln" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/08/28/e6-81-92-e6-98-9f-e6-83-a8-e8-a2-ab-e9-bb-91-e6-b4-9e-e6-92-95-e6-88-90-e7-a2-8e-e7-89-87-e5-90-9e-e5-99-ac/" data-id="cjo83w1lv0045cz0fll8q0tuk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -348,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/08/26/e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95/" data-id="cjo7e4oii0054dr0f5bd1psrj" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/08/26/e6-b8-85-e9-99-a4linux-e7-b3-bb-e7-bb-9f-e4-b8-advarspoolclientmqueue-e7-9b-ae-e5-bd-95/" data-id="cjo83w1m2004fcz0fvfd816qf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -389,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/08/15/java-e5-9f-ba-e7-a1-80/" data-id="cjo7e4ojl007tdr0fw44s7nqy" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/08/15/java-e5-9f-ba-e7-a1-80/" data-id="cjo83w1mx006ocz0fbphb5pj8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -430,48 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/08/12/mysql-e8-a1-a8-e6-8d-9f-e5-9d-8f-e4-bf-ae-e5-a4-8d-e6-96-b9-e6-b3-95table-s-is-marked-as-crashed-and-last-automatic-repair-failed/" data-id="cjo7e4ok1008pdr0fqzcswmfe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/" class="article-date">
-  <time datetime="2011-07-22T03:30:42.000Z" itemprop="datePublished">2011-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/j2ee/">j2ee</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/">SSH项目查找问题的一般方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">SSH</a>开发项目是目前十分流行的一个趋势。对于从事JavaEE项目开发多年的朋友来说，开发时使用SSH确实能带来不少的便利。SSH帮你做了一个规划，让你将不同的程序代码放到不同的地方。使整个工程看起来，更加工整，大家都采用这种模式开发程序，相互更容易沟通。新的成员也更容易融入到项目中。但对于刚入行的朋友来说，有点力不从心。有些朋友会说我只是实现一个很小的功能，为什么要写那么多的代码，建立那么多的类，还有一大堆的配置文件。出现一些问题还要花上半天去找原因，真是麻烦。所以在这里我想结合自己的体会、经历，对于初涉及到SSH项目的朋友，说说如何快速定位问题。 1、直接根据错误日志找到出错位置。(这种方法比较容易，大家常用的，不多说) 对一些不明错误（所谓不明错误是指编译没有问题，运行过程也不报错，但就是得不到预期的结果）用第一种方法是找不到原因的。要查找此类问题要根据SSH框架的结构，我们都知道： SSH框架是由三个框架有机组合而成的，它们分工明确，流水作业。从前台到后台，从Http请求到数据库,依次为<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Stucts</a>-&gt;<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Spring</a>-&gt;<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">Hibernate</a>。所以当出现错误时，我们可采用两种方法： 2、顺藤摸瓜： 从Stucts开始，看看是否能接收到正确的请求数据。如果正确，接着往下看看Spring中的业务操作是否正确，如果没有问题就接着往下找，到Hibernate层看看，操作数据库是否有问题。对于一般的问题通过这三个步骤都能找出问题的原因。但这种找原因方法破费太大了一些。对于那些隐蔽较好的错误。或者，开发者，过于疲劳没有思路时才如此全面检查。另外：这种方法对初涉及SSH项目的朋友比较有好处，多如此查找几次你就明白了<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">SSH</a>框架的运行机制。 3、大胆猜测，定点检查： 如果你从事SSH项目有一年半载了，对SSH比较熟悉了，并且对所做项目比较了解。遇到不明错误就可根据经验猜测什么地方出现了问题，就在那打上一个断点，或者多猜测几个位置，用一组测试数据测试，当运行到断点时，看看数据是否有异常。 转载请标明出处：<a href="../">3G Study</a> :<a href="http://blog.3gstdy.com/archives/594" target="_blank" rel="noopener">http://blog.3gstdy.com/archives/594</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/07/22/ssh-e9-a1-b9-e7-9b-ae-e6-9f-a5-e6-89-be-e9-97-ae-e9-a2-98-e7-9a-84-e4-b8-80-e8-88-ac-e6-96-b9-e6-b3-95/" data-id="cjo7e4oko00a1dr0fmug5ilus" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/08/12/mysql-e8-a1-a8-e6-8d-9f-e5-9d-8f-e4-bf-ae-e5-a4-8d-e6-96-b9-e6-b3-95table-s-is-marked-as-crashed-and-last-automatic-repair-failed/" data-id="cjo83w1n8007mcz0ftwgywir8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -538,6 +539,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/08/tomcat9-jndi/">tomcat9-jndi</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-JNDI/">JNDI -- java名与目录接口</a>
           </li>
         
@@ -551,10 +556,6 @@
         
           <li>
             <a href="/2018/11/07/message-queue2/">消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>

@@ -72,6 +72,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/02/17/e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6/" class="article-date">
+  <time datetime="2012-02-17T06:16:15.000Z" itemprop="datePublished">2012-02-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/17/e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6/">用DisplayMetrics判断屏幕密度</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果用下述代码判断屏幕密度，只能识别出密度为240,160,120的屏幕，其它的将无法识别； DisplayMetrics dm = new DisplayMetrics(); switch (dm.densityDpi) { case DisplayMetrics.DENSITY_HIGH: break; case DisplayMetrics.DENSITY_MEDIUM: break; case DisplayMetrics.DENSITY_LOW: break; default : } 因为android终端种类很多，比如魅族M9的为320 所以在识别时最好加对上不是上述三种类型手机的处理： DisplayMetrics dm = new DisplayMetrics(); switch (dm.densityDpi) { case DisplayMetrics.DENSITY_HIGH: break; case DisplayMetrics.DENSITY_MEDIUM: break; case DisplayMetrics.DENSITY_LOW: break; default : if(dm.densityDpi&gt;DisplayMetrics.DENSITY_HIGH){ } else if(dm.densityDpi &lt; DisplayMetrics.DENSITY_LOW){ } else { } }</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2012/02/17/e7-94-a8displaymetrics-e5-88-a4-e6-96-ad-e5-b1-8f-e5-b9-95-e5-af-86-e5-ba-a6/" data-id="cjo83w1m6004qcz0fnxe9i9xe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" class="article-date">
@@ -103,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" data-id="cjo7e4oi30049dr0f0pv5hv84" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/02/08/e5-a6-82-e4-bd-95-e4-bd-bf32-e4-bd-8d-e4-b8-8e64-e4-bd-8d-e7-9a-84eclipse-e5-90-8c-e6-97-b6-e8-bf-90-e8-a1-8c/" data-id="cjo83w1lk003kcz0fv2fa1ynz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" data-id="cjo7e4of20014dr0fvx01bewh" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/01/13/android-e4-b8-8d-e9-9c-80-e8-a6-81-e7-84-a6-e7-82-b9-e7-9a-84-textview-e8-b7-91-e9-a9-ac-e7-81-af-marqueetextview/" data-id="cjo83w1jv000ocz0fxepxtprw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" data-id="cjo7e4ofs001tdr0f3npo2uof" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2012/01/13/android-e6-96-87-e5-ad-97-e9-98-b4-e5-bd-b1-e6-95-88-e6-9e-9c/" data-id="cjo83w1k90018cz0f8h5i7hsl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjo7e4ogl002fdr0fyrsl1kzq" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/22/android-sqlite3/" data-id="cjo83w1ov009icz0f46nar8yl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjo7e4of00011dr0fxrmyjp81" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/22/android-e4-b8-8b-e7-9a-843d-e5-bc-95-e6-93-8e/" data-id="cjo83w1jt000jcz0fc7j7cy7y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjo7e4ohf003jdr0f71t3m1tt" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/15/e4-bb-8eactivitygroup-e7-9a-84child-activity-e8-bf-94-e5-9b-9e-e6-95-b0-e6-8d-ae/" data-id="cjo83w1l60030cz0f6jjnf38p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -349,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" data-id="cjo7e4oiw005xdr0f0qc5lej3" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/14/e8-a7-a3-e5-86-b3android-content-res-resources-notfoundexception-e7-9a-84-e4-b8-80-e4-b8-aa-e6-96-b9-e6-b3-95/" data-id="cjo83w1mb0055cz0ff20cpy8q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1042,7 +1083,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjo7e4of60018dr0fv1wmvrhn" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/12/14/android-e4-b8-ad-e5-a6-82-e4-bd-95-e8-87-aa-e5-ae-9a-e4-b9-89menu-e8-8f-9c-e5-8d-95/" data-id="cjo83w1ou009gcz0fkm0ww8q8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1083,49 +1124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/11/26/e9-ab-98-e7-89-88-e6-9c-acapk-e8-bf-90-e8-a1-8c-e5-9c-a8android-1-5-e4-b8-8a-e5-87-ba-e7-8e-b0-e7-9a-84-e9-97-ae-e9-a2-98-e5-8f-8a-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjo7e4oj3006fdr0fj7vbuy9c" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" class="article-date">
-  <time datetime="2011-10-11T06:14:07.000Z" itemprop="datePublished">2011-10-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/"> 采用XMPP协议向android客户端推送消息</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>XMPP(可扩展通讯和表示协议)是基于可扩展标记语言（XML）的协议，它用于即时消息（IM）以及在线探测。这个协议可能最终允许<a href="http://baike.baidu.com/view/1706.htm" target="_blank" rel="noopener">因特网</a>用户向因特网上的其他任何人发送即时消息。 <a href="http://sourceforge.net/projects/androidpn" target="_blank" rel="noopener">androidpn</a>是一个基于XMPP协议的java开源Android push notification实现。它包含了完整的客户端和服务器端。经过源代码研究我发现，该服务器端基本是在另外一个开源工程<a href="http://www.igniterealtime.org/projects/openfire/" target="_blank" rel="noopener">openfire</a>基础上修改实现的，不过比较郁闷的是androidpn的文档是由韩语写的，所以整个研究过程基本都是读源码。它的实现示意图如下： <img src="http://blog.daahe.com/wp-content/uploads/2012/12/c148b8d63f8056de3afff671bd463898.gif" alt=""> androidpn客户端需要用到一个基于java的开源XMPP协议包<a href="http://code.google.com/p/asmack/" target="_blank" rel="noopener">asmack</a>，这个包同样也是基于openfire下的另外一个开源项目<a href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=smack/smack_3_2_0.tar.gz" target="_blank" rel="noopener">smack</a>，不过我们不需要自己编译，可以直接把androidpn客户端里面的asmack.jar拿来使用。客户端利用asmack中提供的XMPPConnection类与服务器建立持久连接，并通过该连接进行用户注册和登录认证，同样也是通过这条连接，接收服务器发送的通知。 androidpn服务器端也是java语言实现的，基于openfire开源工程，不过它的Web部分采用的是spring框架，这一点与openfire是不同的。Androidpn服务器包含两个部分，一个是侦听在5222端口上的XMPP服务，负责与客户端的XMPPConnection类进行通信，作用是用户注册和身份认证，并发送推送通知消息。另外一部分是Web服务器，采用一个轻量级的HTTP服务器，负责接收用户的Web请求。服务器架构如下： 最上层包含四个组成部分，分别是SessionManager，Auth Manager，PresenceManager以及Notification Manager。SessionManager负责管理客户端与服务器之间的会话，Auth Manager负责客户端用户认证管理，Presence Manager负责管理客户端用户的登录状态，NotificationManager负责实现服务器向客户端推送消息功能。 服务器端界面如下，分别对应了上述的几个功能模块： 发送以后，我们可以在手机端看到接收的消息： 这个解决方案的最大优势就是简单，我们不需要象C2DM那样依赖操作系统版本，也不会担心某一天Google服务器不可用。利用XMPP协议我们还可以进一步的对协议进行扩展，实现更为完善的功能。 采用这个方案，我们目前只能发送文字消息，不过对于推送来说一般足够了，因为我们不能指望通过推送得到所有的数据，一般情况下，利用推送只是告诉手机端服务器发生了某些改变，当客户端收到通知以后，应该主动到服务器获取最新的数据，这样才是推送服务的完整实现。 相关资料:</p>
-<h3 id="谷歌Android如何从云端推送消息到手机"><a href="#谷歌Android如何从云端推送消息到手机" class="headerlink" title="谷歌Android如何从云端推送消息到手机"></a><a href="http://www.cz88.net/it/Google/9970/" target="_blank" rel="noopener">谷歌Android如何从云端推送消息到手机</a></h3><p><a href="http://tokudu.com/2010/how-to-implement-push-notifications-for-android/" title="Permanent Link to How to Implement Push Notifications for Android" target="_blank" rel="noopener">How to Implement Push Notifications for Android</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/10/11/e9-87-87-e7-94-a8xmpp-e5-8d-8f-e8-ae-ae-e5-90-91android-e5-ae-a2-e6-88-b7-e7-ab-af-e6-8e-a8-e9-80-81-e6-b6-88-e6-81-af/" data-id="cjo7e4oiy0060dr0fjfsc0qoo" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/11/26/e9-ab-98-e7-89-88-e6-9c-acapk-e8-bf-90-e8-a1-8c-e5-9c-a8android-1-5-e4-b8-8a-e5-87-ba-e7-8e-b0-e7-9a-84-e9-97-ae-e9-a2-98-e5-8f-8a-e8-a7-a3-e5-86-b3-e6-96-b9-e6-b3-95/" data-id="cjo83w1mk005kcz0fxpv48q09" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1192,6 +1191,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/08/tomcat9-jndi/">tomcat9-jndi</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/07/java-JNDI/">JNDI -- java名与目录接口</a>
           </li>
         
@@ -1205,10 +1208,6 @@
         
           <li>
             <a href="/2018/11/07/message-queue2/">消息队列</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/cache/">缓存技术</a>
           </li>
         
       </ul>
