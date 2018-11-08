@@ -7,18 +7,18 @@
   
   <title>tomcat9-jndi | 达合</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。 Tomcat provides a JNDI InitialContext implementation instance">
+  <meta name="description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。1Tomcat provides a JNDI InitialContext implementation instance">
 <meta name="keywords" content="达合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tomcat9-jndi">
 <meta property="og:url" content="http://www.daahe.com/2018/11/08/tomcat9-jndi/index.html">
 <meta property="og:site_name" content="达合">
-<meta property="og:description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。 Tomcat provides a JNDI InitialContext implementation instance">
+<meta property="og:description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。1Tomcat provides a JNDI InitialContext implementation instance">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-08T04:42:28.509Z">
+<meta property="og:updated_time" content="2018-11-08T04:46:16.227Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tomcat9-jndi">
-<meta name="twitter:description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。 Tomcat provides a JNDI InitialContext implementation instance">
+<meta name="twitter:description" content="导言 Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。1Tomcat provides a JNDI InitialContext implementation instance">
   
     <link rel="alternate" href="/atom.xml" title="达合" type="application/atom+xml">
   
@@ -93,28 +93,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><p> Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。</p>
-<pre><code>Tomcat provides a JNDI InitialContext implementation instance for each web application running under it, in a manner that is compatible with those provided by a Java Enterprise Edition application server. The Java EE standard provides a standard set of elements in the /WEB-INF/web.xml file to reference/define resources.
-</code></pre><p>有关JNDI的API以及Java Enterprise Edition（Java EE）服务器支持的功能的更多信息，请参阅以下规范，Tomcat为其提供的服务模拟这些功能：</p>
-<pre><code>See the following Specifications for more information about programming APIs for JNDI, and for the features supported by Java Enterprise Edition (Java EE) servers, which Tomcat emulates for the services that it provides:
-
-Java Naming and Directory Interface (included in JDK 1.4 onwards)
-Java EE Platform Specification (in particular, see Chapter 5 on Naming)
-</code></pre><h1 id="web-xml-configuration"><a href="#web-xml-configuration" class="headerlink" title="web.xml configuration"></a>web.xml configuration</h1><pre><code>The following elements may be used in the web application deployment descriptor (/WEB-INF/web.xml) of your web application to define resources:
-
-&lt;env-entry&gt; - Environment entry, a single-value parameter that can be used to configure how the application will operate.
-&lt;resource-ref&gt; - Resource reference, which is typically to an object factory for resources such as a JDBC DataSource, a JavaMail Session, or custom object factories configured into Tomcat.
-
-&lt;resource-env-ref&gt; - Resource environment reference, a new variation of resource-ref added in Servlet 2.4 that is simpler to configure for resources that do not require authentication information.
-
-Providing that Tomcat is able to identify an appropriate resource factory to use to create the resource and that no further configuration information is required, Tomcat will use the information in /WEB-INF/web.xml to create the resource.
-
-Tomcat provides a number of Tomcat specific options for JNDI resources that cannot be specified in web.xml. These include closeMethod that enables faster cleaning-up of JNDI resources when a web application stops and singleton that controls whether or not a new instance of the resource is created for every JNDI lookup. To use these configuration options the resource must be specified in a web application&apos;s &lt;Context&gt; element or in the &lt;GlobalNamingResources&gt; element of $CATALINA_BASE/conf/server.xml.
-</code></pre>
+        <h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><p> Tomcat为其下运行的Web应用提供一个JNDI InitialContext实例。从某种程度上能与Java Enterprise Edition 应用服务提供的相兼容。Java EE规范在/WEB-INF/web.xml中提供了一组标准的标签，用于引用或定义资源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tomcat provides a JNDI InitialContext implementation instance for each web application running under it, in a manner that is compatible with those provided by a Java Enterprise Edition application server. The Java EE standard provides a standard set of elements in the /WEB-INF/web.xml file to reference/define resources.</span><br></pre></td></tr></table></figure></p>
+<p>有关JNDI的API以及Java Enterprise Edition（Java EE）服务器支持的功能的更多信息，请参阅以下规范，Tomcat为其提供的服务模拟这些功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">See the following Specifications for more information about programming APIs for JNDI, and for the features supported by Java Enterprise Edition (Java EE) servers, which Tomcat emulates for the services that it provides:</span><br><span class="line"></span><br><span class="line">Java Naming and Directory Interface (included in JDK 1.4 onwards)</span><br><span class="line">Java EE Platform Specification (in particular, see Chapter 5 on Naming)</span><br></pre></td></tr></table></figure></p>
+<h1 id="web-xml-configuration"><a href="#web-xml-configuration" class="headerlink" title="web.xml configuration"></a>web.xml configuration</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">The following elements may be used in the web application deployment descriptor (/WEB-INF/web.xml) of your web application to define resources:</span><br><span class="line"></span><br><span class="line">&lt;env-entry&gt; - Environment entry, a single-value parameter that can be used to configure how the application will operate.</span><br><span class="line">&lt;resource-ref&gt; - Resource reference, which is typically to an object factory for resources such as a JDBC DataSource, a JavaMail Session, or custom object factories configured into Tomcat.</span><br><span class="line"></span><br><span class="line">&lt;resource-env-ref&gt; - Resource environment reference, a new variation of resource-ref added in Servlet 2.4 that is simpler to configure for resources that do not require authentication information.</span><br><span class="line"></span><br><span class="line">Providing that Tomcat is able to identify an appropriate resource factory to use to create the resource and that no further configuration information is required, Tomcat will use the information in /WEB-INF/web.xml to create the resource.</span><br><span class="line"></span><br><span class="line">Tomcat provides a number of Tomcat specific options for JNDI resources that cannot be specified in web.xml. These include closeMethod that enables faster cleaning-up of JNDI resources when a web application stops and singleton that controls whether or not a new instance of the resource is created for every JNDI lookup. To use these configuration options the resource must be specified in a web application&apos;s &lt;Context&gt; element or in the &lt;GlobalNamingResources&gt; element of $CATALINA_BASE/conf/server.xml.</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2018/11/08/tomcat9-jndi/" data-id="cjo83w1nl008kcz0f9lbo24cr" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2018/11/08/tomcat9-jndi/" data-id="cjo840vmv008ngq0ftpe85lv1" class="article-share-link">Share</a>
       
       
     </footer>
