@@ -72,6 +72,158 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-oracle-e4-b8-adimp-e5-91-bd-e4-bb-a4-e8-af-a6-e8-a7-a3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/23/oracle-e4-b8-adimp-e5-91-bd-e4-bb-a4-e8-af-a6-e8-a7-a3/" class="article-date">
+  <time datetime="2011-03-23T08:11:21.000Z" itemprop="datePublished">2011-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/23/oracle-e4-b8-adimp-e5-91-bd-e4-bb-a4-e8-af-a6-e8-a7-a3/">oracle中imp命令详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="oracle中imp命令详解"><a href="#oracle中imp命令详解" class="headerlink" title="oracle中imp命令详解"></a><a href="http://huanyue.javaeye.com/blog/533982" target="_blank" rel="noopener">oracle中imp命令详解</a></h3><p>1. 获取帮助</p>
+<p> imp help=y</p>
+<p>2. 导入一个完整数据库</p>
+<p> imp system/manager file=bible_db log=dible_db full=y ignore=y</p>
+<p>3. 导入一个或一组指定用户所属的全部表、索引和其他对象</p>
+<p> imp system/manager file=seapark log=seapark fromuser=seapark imp </p>
+<p> system/manager file=seapark log=seapark fromuser=(seapark,amy,amyc,harold)</p>
+<p>4. 将一个用户所属的数据导入另一个用户</p>
+<p> imp system/manager file=tank log=tank fromuser=seapark touser=seapark_copy</p>
+<p> imp system/manager file=tank log=tank fromuser=(seapark,amy)</p>
+<p> touser=(seapark1, amy1)</p>
+<p>5. 导入一个表</p>
+<p> imp system/manager file=tank log=tank fromuser=seapark TABLES=(a,b)</p>
+<p>6. 从多个文件导入</p>
+<p> imp system/manager file=(paycheck_1,paycheck_2,paycheck_3,paycheck_4) </p>
+<p>log=paycheck, filesize=1G full=y</p>
+<p>7. 使用参数文件</p>
+<p> imp system/manager parfile=bible_tables.par</p>
+<blockquote>
+<p>bible_tables.par参数文件：</p>
+</blockquote>
+<p> #Import the sample tables used for the Oracle8i Database Administrator’s </p>
+<p>Bible. fromuser=seapark touser=seapark_copy file=seapark log=seapark_import</p>
+<p>8. 增量导入</p>
+<p> imp system./manager inctype= RECTORE FULL=Y FILE=A</p>
+<p>##### </p>
+<p><a href="http://blog.csdn.net/adijava/archive/2004/07/28/54573.aspx" target="_blank" rel="noopener">Oracle imp/exp</a></p>
+<p>C:Documents and Settingsadministrator&gt;exp help=y</p>
+<p>Export: Release 9.2.0.1.0 - Production on 星期三 7月 28 17:04:43 2004</p>
+<p>Copyright (c) 1982, 2002, Oracle Corporation.   All rights reserved.</p>
+<p>通过输入 EXP 命令和用户名/口令，您可以<br>后接用户名/口令的命令:</p>
+<p>例程: EXP SCOTT/TIGER</p>
+<p>或者，您也可以通过输入跟有各种参数的 EXP 命令来控制“导出”<br>按照不同参数。要指定参数，您可以使用关键字:</p>
+<p>格式: EXP KEYWORD=value 或 KEYWORD=(value1,value2,…,valueN)<br>例程: EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)<br>或 TABLES=(T1: P1,T1: P2)，如果 T1 是分区表</p>
+<p>USERID 必须是命令行中的第一个参数。</p>
+<p>关键字   说明(默认)         关键字       说明(默认)<br>--------------------------------------------------------------------------<br>USERID    用户名/口令            FULL          导出整个文件 (N)<br>BUFFER    数据缓冲区大小          OWNER      所有者用户名列表<br>FILE        输出文件 (EXPDAT.DMP)   TABLES        表名称列表<br>COMPRESS    导入到一个区 (Y) RECORDLENGTH IO 记录的长度<br>GRANTS   导出权限 (Y)            INCTYPE       增量导出类型<br>INDEXES     导出索引 (Y)          RECORD        跟踪增量导出 (Y)<br>DIRECT      直接路径 (N)             TRIGGERS      导出触发器 (Y)<br>LOG         屏幕输出的日志文件   STATISTICS    分析对象 (ESTIMATE)<br>ROWS     导出数据行 (Y)         PARFILE       参数文件名<br>CONSISTENT 交叉表的一致性 (N) CONSTRAINTS   导出的约束条件 (Y)</p>
+<p>OBJECT_CONSISTENT     只在对象导出期间设置为读的事务处理 (N)<br>FEEDBACK              每 x 行的显示进度 (0)<br>FILESIZE              每个转储文件的最大大小<br>FLASHBACK_SCN         用于将会话快照设置回以前状态的 SCN<br>FLASHBACK_TIME        用于获取最接近指定时间的 SCN 的时间<br>QUERY                 用于导出表的子集的 select 子句<br>RESUMABLE             遇到与空格相关的错误时挂起 (N)<br>RESUMABLE_NAME        用于标识可恢复语句的文本字符串<br>RESUMABLE_TIMEOUT     RESUMABLE 的等待时间<br>TTS_FULL_CHECK        对 TTS 执行完整的或部分相关性检查<br>TABLESPACES           要导出的表空间列表<br>TRANSPORT_TABLESPACE 导出可传输的表空间元数据 (N)<br>TEMPLATE              调用 iAS 模式导出的模板名</p>
+<h1 id="在没有警告的情况下成功终止导出。"><a href="#在没有警告的情况下成功终止导出。" class="headerlink" title="在没有警告的情况下成功终止导出。  "></a>在没有警告的情况下成功终止导出。  </h1><p>C:Documents and Settingsadministrator&gt;imp help=y</p>
+<p>Import: Release 9.2.0.1.0 - Production on 星期三 7月 28 17:06:54 2004</p>
+<p>Copyright (c) 1982, 2002, Oracle Corporation.   All rights reserved.</p>
+<p>可以通过输入 IMP 命令和您的用户名/口令<br>后接用户名/口令的命令:</p>
+<p>例程: IMP SCOTT/TIGER</p>
+<p>或者, 可以通过输入 IMP 命令和各种参数来控制“导入”<br>按照不同参数。要指定参数，您可以使用关键字:</p>
+<p>格式: IMP KEYWORD=value 或 KEYWORD=(value1,value2,…,vlaueN)<br>例程: IMP SCOTT/TIGER IGNORE=Y TABLES=(EMP,DEPT) FULL=N<br>或 TABLES=(T1: P1,T1: P2)，如果 T1 是分区表</p>
+<p>USERID 必须是命令行中的第一个参数。</p>
+<p>关键字   说明（默认）         关键字       说明（默认）<br>--------------------------------------------------------------------------<br>USERID    用户名/口令            FULL          导入整个文件 (N)<br>BUFFER    数据缓冲区大小          FROMUSER      所有人用户名列表<br>FILE      输入文件 (EXPDAT.DMP)     TOUSER        用户名列表<br>SHOW      只列出文件内容 (N) TABLES       表名列表<br>IGNORE    忽略创建错误 (N)     RECORDLENGTH   IO 记录的长度<br>GRANTS   导入权限 (Y)            INCTYPE       增量导入类型<br>INDEXES 导入索引 (Y)           COMMIT        提交数组插入 (N)<br>ROWS     导入数据行 (Y)         PARFILE       参数文件名<br>LOG       屏幕输出的日志文件    CONSTRAINTS   导入限制 (Y)<br>DESTROY                 覆盖表空间数据文件 (N)<br>INDEXFILE               将表/索引信息写入指定的文件<br>SKIP_UNUSABLE_INDEXES   跳过不可用索引的维护 (N)<br>FEEDBACK                每 x 行显示进度 (0)<br>TOID_NOVALIDATE         跳过指定类型 ID 的验证<br>FILESIZE                每个转储文件的最大大小<br>STATISTICS              始终导入预计算的统计信息<br>RESUMABLE             在遇到有关空间的错误时挂起 (N)<br>RESUMABLE_NAME          用来标识可恢复语句的文本字符串<br>RESUMABLE_TIMEOUT       RESUMABLE 的等待时间<br>COMPILE                 编译过程, 程序包和函数 (Y)<br>STREAMS_CONFIGURATION   导入 Streams 的一般元数据 (Y)<br>STREAMS_INSTANITATION   导入 Streams 的实例化元数据 (N)</p>
+<p>下列关键字仅用于可传输的表空间<br>TRANSPORT_TABLESPACE 导入可传输的表空间元数据 (N)<br>TABLESPACES 将要传输到数据库的表空间<br>DATAFILES 将要传输到数据库的数据文件<br>TTS_OWNERS 拥有可传输表空间集中数据的用户</p>
+<p>成功终止导入，但出现警告。</p>
+<h2 id="oracle的imp和exp的一些用法"><a href="#oracle的imp和exp的一些用法" class="headerlink" title="oracle的imp和exp的一些用法- -"></a>oracle的imp和exp的一些用法- -</h2><p>Oracle8i/9i EXP/IMP使用经验<br>一、8i EXP常用选项 </p>
+<p>1、FULL，这个用于导出整个数据库，在ROWS=N一起使用时，可以导出整个数据库的结构。例如： </p>
+<p>exp sys file=./db_str.dmp log=./db_str.log full=y rows=n compress=y direct=y </p>
+<p>2、BUFFER和FEEDBACK，在导出比较多的数据时，我会考虑设置这两个参数。例如： </p>
+<p>exp new file=yw97_2003.dmp log=yw97_2003_3.log feedback=10000 buffer=100000000 tables=WO4,OK_YT </p>
+<p>3、FILL和LOG，这两个参数分别指定备份的DMP名称和LOG名称，包括文件名和目录，例子见上面。 </p>
+<p>需要说明的是，EXP可以直接备份到磁带中，即使用FILE=/dev/rmt0(磁带设备名)，但是一般我们都不这么做，原因有二：一、这样做的速度会慢很多，二、现在一般都是使用磁带库的，不建议直接对磁带进行操作。至于没有使用磁带库的朋友可以考虑和UNIX的TAR结合使用。 </p>
+<p>如果你真想使用EXP直接到磁带，你可以参考Metalink文章“EXPORTING TO TAPE ON UNIX SYSTEMS”（文档号：30428.1），该文中有详细解释。 </p>
+<p>4、COMPRESS参数将在导出的同时合并碎块，尽量把数据压缩到initial的EXTENT里，默认是N，一般建议使用。DIRECT参数将告诉EXP直接读取数据，而不像传统的EXP那样，使用SELECT来读取表中的数据，这样就减少了SQL语句处理过程。一般也建议使用。不过有些情况下DIRECT参数是无法使用的。 </p>
+<p>5、如何使用SYSDBA执行EXP/IMP？ </p>
+<p>这是一个很现实的问题，有时候我们需要使用SYSDBA来执行EXP/IMP，如进行传输表空间的EXP/IMP，以及在9i下用SYS用户来执行EXP/IMP时，都需要使用SYSDBA才可。我们可以使用下面方式连入EXP/IMP： </p>
+<p>exp “‘sys/sys as sysdba’” file=1.dmp tables=gototop.t rows=n </p>
+<p>6、QUERY参数后面跟的是where条件，值得注意的是，整个where子句需要使用””括起来，where子句的写法和SELECT中相同，如果是UNIX平台所有”和’都需要使用u26469屏蔽它们的特殊含义： </p>
+<p>exp gototop/gototop file=1.dmp log=1.log tables=cyx.t query=”where c1=20 and c2=gototop” </p>
+<p>如果是windows平台，则使用下面的格式： </p>
+<p>exp <a href="mailto:c/c@ncn" target="_blank" rel="noopener">c/c@ncn</a> file=c.dmp log=c.log tables=t query=”””where id=1 and name=’gototop’””” </p>
+<p>二、8i IMP常用选项 </p>
+<p>1、FROMUSER和TOUSER，使用它们实现将数据从一个SCHEMA中导入到另外一个SCHEMA中。 </p>
+<p>2、IGNORE、GRANTS和INDEXES，其中IGNORE参数将忽略表的存在，继续导入，这个对于需要调整表的存储参数时很有用，我们可以先根据实际情况用合理的存储参数建好表，然后直接导入数据。而GRANTS和INDEXES则表示是否导入授权和索引，如果想使用新的存储参数重建索引，或者为了加快到入速度，我们可以考虑将INDEXES设为N，而GRANTS一般都是Y。 </p>
+<p>另外一个EXP/IMP都有的参数是PARFILE，它是用来定义EXP/IMP的参数文件，也就是说，上面的参数都可以写在一个参数文件中，但我们一般很少使用。 </p>
+<p>三、Oracle9i EXP功能描述 </p>
+<p>Oracle9i EXP在原有的基础上新增了部分新的参数，按功能主要分为以下几个部分： </p>
+<p>1、OBJECT_CONSISTENT - 用于设置EXP对象为只读以保持对象的一致性。默认是N。 </p>
+<p>2、FLASHBACK_SCN和FLASHBACK_TIME - 用于支持FLASHBACK功能而新增。 </p>
+<p>3、RESUMABLE、RESUMABLE_NAME和RESUMABLE_TIMEOUT - 用于支持RESUMABLE空间分配而新增。 </p>
+<p>4、TTS_FULL_CHECK - 用于在传输表空间时使用依赖性检查。 </p>
+<p>5、TEMPLATE - 用于支持iAS。 </p>
+<p>6、TABLESPACES - 设置表空间导出模式。个人觉得对于一般用户而言，这个才是新增参数中最实用的一个，可以让用户在原来的FULL、OWNER、TABLES的基础上多了一种选择，使得EXP更加灵活。 </p>
+<p>四、不同版本的EXP/IMP问题？ </p>
+<p>一般来说，从低版本导入到高版本问题不大，麻烦的是将高版本的数据导入到低版本中，在Oracle9i之前，不同版本Oracle之间的EXP/IMP可以通过下面的方法来解决： </p>
+<p>1、在高版本数据库上运行底版本的catexp.sql； </p>
+<p>2、使用低版本的EXP来导出高版本的数据； </p>
+<p>3、使用低版本的IMP将数据库导入到底版本数据库中； </p>
+<p>4、在高版本数据库上重新运行高版本的catexp.sql脚本。 </p>
+<p>但在9i中，上面的方法并不能解决问题。如果直接使用底版本EXP/IMP会出现如下错误： </p>
+<p>EXP-00008: ORACLE error %lu encountered </p>
+<p>ORA-00904: invalid column name </p>
+<p>这已经是一个公布的BUG，需要等到Oracle10.0才能解决，BUG号为2261，你可以到METALINK上去查看有关此BUG的详细信息。 </p>
+<p>BUG归BUG，我们的工作还是要做，在没有Oracle的支持之前，我们就自己解决。在Oracle9i中执行下面的SQL重建exu81rls视图即可。 </p>
+<p>CREATE OR REPLACE view exu81rls  </p>
+<p>(objown,objnam,policy,polown,polsch,polfun,stmts,chkopt,enabled,spolicy)  </p>
+<p>AS select u.name, o.name, r.pname, r.pfschma, r.ppname, r.pfname,  </p>
+<p>decode(bitand(r.stmt_type,1), 0,’’, ‘SELECT,’)  </p>
+<p>|| decode(bitand(r.stmt_type,2), 0,’’, ‘INSERT,’)  </p>
+<p>|| decode(bitand(r.stmt_type,4), 0,’’, ‘UPDATE,’)  </p>
+<p>|| decode(bitand(r.stmt_type,8), 0,’’, ‘DELETE,’),  </p>
+<p>r.check_opt, r.enable_flag,  </p>
+<p>DECODE(BITAND(r.stmt_type, 16), 0, 0, 1)  </p>
+<p>from user$ u, obj$ o, rls$ r  </p>
+<p>where u.user# = o.owner#  </p>
+<p>and r.obj# = o.obj#  </p>
+<p>and (uid = 0 or  </p>
+<p>uid = o.owner# or  </p>
+<p>exists ( select * from session_roles where role=’SELECT_CATALOG_ROLE’)  </p>
+<p>)  </p>
+<p>/  </p>
+<p>grant select on sys.exu81rls to public;  </p>
+<p>/  </p>
+<p>五、其他问题 </p>
+<p>本文只讨论了Oracle8i和9i中的EXP/IMP的一些情况，对于之前的版本，在8.0.X中，除了QUERY参数不能用外，其它差别不大。针对没有QUERY的情况，我们可以先在数据库中使用查询条件建立临时中间表，然后使用EXP导出这个中间表即可。至于Oracle7因为目前使用的人较少，gototop不打算在此做详细解释了，如果读者朋友有需求，你可以参考Metalink文档：“Overview of Export and Import in Oracle7”（文档号：61949.1）。关于EXP/IMP的详细参数信息你可以通过EXP/IMP HELP=Y来获得。 </p>
+<p>另外关于传输表空间的更多信息可以参考下面的Metelink文档，本文不再详述。 </p>
+<p>[NOTE:77523.1] Transportable Tablespaces – An Example to setup and use.  </p>
+<p>[NOTE:100698.1] Perform tablespace point-in-time recovery using Transportable Tablespace.  </p>
+<p>在进行并行EXP/IMP的时候，如果IMP过程建索引的话不建议同时运行5个以上的IMP，如果你想加快速度</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.daahe.com/2011/03/23/oracle-e4-b8-adimp-e5-91-bd-e4-bb-a4-e8-af-a6-e8-a7-a3/" data-id="cjofrkhp6009z8t0faj7274cm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e5-85-b3-e4-ba-8e-e5-b0-8f-e5-9b-a2-e9-98-9f-e5-bc-80-e5-8f-91-e9-a1-b9-e7-9b-ae-e7-9a-84-e4-b8-80-e7-82-b9-e5-bb-ba-e8-ae-ae" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2011/03/23/e5-85-b3-e4-ba-8e-e5-b0-8f-e5-9b-a2-e9-98-9f-e5-bc-80-e5-8f-91-e9-a1-b9-e7-9b-ae-e7-9a-84-e4-b8-80-e7-82-b9-e5-bb-ba-e8-ae-ae/" class="article-date">
@@ -103,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/23/e5-85-b3-e4-ba-8e-e5-b0-8f-e5-9b-a2-e9-98-9f-e5-bc-80-e5-8f-91-e9-a1-b9-e7-9b-ae-e7-9a-84-e4-b8-80-e7-82-b9-e5-bb-ba-e8-ae-ae/" data-id="cjo8oenn70036r90flekwsh8y" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/23/e5-85-b3-e4-ba-8e-e5-b0-8f-e5-9b-a2-e9-98-9f-e5-bc-80-e5-8f-91-e9-a1-b9-e7-9b-ae-e7-9a-84-e4-b8-80-e7-82-b9-e5-bb-ba-e8-ae-ae/" data-id="cjofrkhl200358t0f2ih4vkm1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -156,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjo8oenmc001kr90f35wcvzdo" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/22/android-e7-94-a8sax-e8-af-bb-e5-8f-96xml-e6-97-b6-e4-b8-8d-e8-83-bd-e8-af-bb-e5-8f-96-e6-8d-a2-e8-a1-8c-e7-ac-a6-e5-8f-b7-e5-90-8e-e9-9d-a2-e7-9a-84-e5-86-85-e5-ae-b9-e7-9a-84-e9-97-ae-e9-a2-98/" data-id="cjofrkhk3001h8t0fx23ejh0l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" data-id="cjo8oenqo00a0r90fx0qqn0dk" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/22/sqlite-e6-95-b0-e6-8d-ae-e7-b1-bb-e5-9e-8b/" data-id="cjofrkhp700a38t0fjh6tait2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -271,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/" data-id="cjo8oenlu000wr90fy7cl9k2f" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/18/android-e5-88-9b-e5-bb-basdcard-e8-af-a6-e7-bb-86-e5-9b-be-e8-a7-a3/" data-id="cjofrkhjs000w8t0fbwfefxft" class="article-share-link">Share</a>
       
       
     </footer>
@@ -312,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/17/listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/" data-id="cjo8oenp1007fr90f8o4zh0aq" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/17/listview-e7-9a-84item-e4-b8-ad-e6-9c-89checkbox-ef-bc-8cbutton-ef-bc-8c-e5-af-bc-e8-87-b4onitemclick-e4-b8-8d-e5-93-8d-e5-ba-94-e7-9a-84-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/" data-id="cjofrkhn1007h8t0fc9ic6fc9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -353,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/17/e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2/" data-id="cjo8oennp0042r90fjll1ccqb" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/17/e5-be-85-e5-86-99-e5-8d-9a-e5-ae-a2/" data-id="cjofrkhlm00418t0fvw2m34qx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -394,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/17/e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1/" data-id="cjo8oenmz002or90f6e09yrnk" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/17/e4-b8-ad-e5-9b-bd-e8-ae-be-e5-a4-87-e5-95-86-e5-bf-99-e5-bb-baandroid-e5-ba-94-e7-94-a8-e5-95-86-e5-ba-97-e8-b0-b7-e6-ad-8c-e5-a6-82-e4-bd-95-e8-b5-9a-e9-92-b1/" data-id="cjofrkhks002m8t0fl7rdsupn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -437,7 +589,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/17/e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80/" data-id="cjo8oennv004cr90fxp30lny4" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/17/e6-94-b6-e9-9b-86-e4-b8-80-e4-ba-9b-e7-bd-91-e5-9d-80/" data-id="cjofrkhlr004b8t0fq5ohgput" class="article-share-link">Share</a>
       
       
     </footer>
@@ -484,48 +636,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/13/e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae/" data-id="cjo8oeno1004rr90ffn3fm1xe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/" class="article-date">
-  <time datetime="2011-03-09T01:46:01.000Z" itemprop="datePublished">2011-03-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/">Red Hat的版本号代表什么含义</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Linux是GNU/Linux的缩写，通常指各种Linux发行版的通称。常见的Linux厂家主要有Redhat/Novell等。 Redhat有两大Linux产品系列，其一是免费的Fedora Core系列主要用于桌面版本，提供了较多新特性的支持。另外一个产品系列是收费的Enterprise系列，这个系列分成：AS/ES/WS等分支。 Advanced Server，缩写即AS。AS在标准Linux内核的基础上，做了性能上的增强，并提高了可靠性，集成了众多常见服务器的驱动程序。可轻松识别IBM/DELL/HP等常见机架式服务器的磁盘阵列卡等设备。 AS主要版本2.x/3.x/4.x，也就是我们所说的AS3/AS4每一个版本还有若干个升级，例如最早推出的AS4后，遇到了一些更新此时就会发 布AS4 Update1，以后还会陆续有AS4 Update2/Update3等出现简称AS4u1/AS4u2/AS4u3等。这和微软的发布形式也是非常类似的，微软的Windows NT4 从SP1出到SP6，Windows2000从SP1出到SP4。。。。 AS这些Update版本所包含的主要程序包版本都有一定差别，最好不要混用，否则很容易出现问题。Prima和Plesk的安装包，对于各种发行版都有了针对性的设计，在下载页面上，通常都会标识出来，支持哪些版本和哪些update的系统。 ES，是AS的精简版本。他与常见的AS系列的区别是，AS支持到4路以上CPU，而ES只能支持两路CPU。AS和ES在大多数程序包上并无区别， 只在内核等少数软件包上有差异。AS和ES的售价差别比较大，通常ES用在随服务器一同购买的OEM版本中。例如购买DELL服务器，搭配的Linux会 是ES系列。如果要搭配AS系列，则需要多花数千元。 WS，是ES的进一步简化版，主要针对企业内部的桌面办公市场，国内较少采用。 Redhat的Fedora Core Linux和Enterprise Linux，都需要遵循GNU协议即需要发布自己的源代码。 所以，对于免费的Fedora Core Linux，从Redhat网站上可以直接下载ISO刻盘，还能下载到SRPM的ISO，即程序包源码光盘。对于收费的Enterprise Linux系列，是一款商业产品，所以网站上不能下载到ISO文件，需要购买正式授权方可。由于Enterprise Linux也需要遵循GNU协议，故必须发布源代码。所以在Redhat的网站上，可以获得AS/ES/WS系列的SRPM源码ISO文件。这些文件可以 被自由的下载，修改代码，重新编译使用。 一个名为Community Enterprise Operating System的项目诞生了。他的缩写既是CentOS。CentOS社区将Redhat的网站上的所有源代码下载下来，进行重新编译。重新编译后，由于 AS/ES/WS是商业产品，必须将所有Redhat的Logo和标识改成自己的CentOS标识。比如将AS4原版的SRPM源码编译后，就成为了 CentOS 4.0。AS4Update1的源码编译后，就成为了CentOS4.1。AS4Update2的源码编译后，就成为了CentOS4.2。同 理，CentOS的3.x/4.x都对应着相应的版本。 所以我们说，CentOS就是Redhat的AS/ES/WS的免费版本。使用CentOS，可以获得和AS/ES相同的性能和感受。CentOS除 了提供标准的编号1~4或者1~5的若干张ISO以外，还提供了最小化1CD的Server光盘。用Server光盘安装好的系统，就是一个最小化的 Linux内核加上常用的httpd/mysql等包不包含Xwindows桌面等对于服务器无用的软件。 Prima、Plesk、Virtuozzo和都可以安装在CentOS上。 CentOS 中国科学技术大学(USTC)镜像站点(每小时更新一次)下载地址：<a href="http://centos.ustc.edu.cn/" title="http://centos.ustc.edu.cn/" target="_blank" rel="noopener">http://centos.ustc.edu.cn/</a> <a href="http://download.chinaunix.net/download.php?id=25105&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.2-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25054&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.1-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25055&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.1-x86_64-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31679&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31680&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-LiveCD.iso</a> <a href="http://download.chinaunix.net/download.php?id=31681&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-i386-netinstall.iso</a> <a href="http://download.chinaunix.net/download.php?id=31682&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.5-x86_64-bin-DVD-1of2.iso</a> <a href="http://download.chinaunix.net/download.php?id=25240&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.3-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=25241&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.3-x86_64-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=30555&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-4of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30556&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-1of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30557&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-2of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30558&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-3of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30559&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-5of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30560&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-6of6.iso</a> <a href="http://download.chinaunix.net/download.php?id=30561&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-i386-bin-DVD.iso</a> <a href="http://download.chinaunix.net/download.php?id=30562&amp;ResourceID=12271" target="_blank" rel="noopener">CentOS-5.4-x86_64-bin-DVD.iso</a> red Hat 官方下载地址 <a href="https://rhn.redhat.com/rhn/software/downloads/AllISOs.do" target="_blank" rel="noopener">https://rhn.redhat.com/rhn/software/downloads/AllISOs.do</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.daahe.com/2011/03/09/red-hat-e7-9a-84-e7-89-88-e6-9c-ac-e5-8f-b7-e4-bb-a3-e8-a1-a8-e4-bb-80-e4-b9-88-e5-90-ab-e4-b9-89/" data-id="cjo8oenpb0086r90fqv23ehq9" class="article-share-link">Share</a>
+      <a data-url="http://www.daahe.com/2011/03/13/e7-bb-99-e4-b8-80-e7-ba-bf-e5-bc-80-e5-8f-91-e4-ba-ba-e5-91-98-e4-b8-80-e7-82-b9-e5-b0-8f-e7-9a-84-e5-bb-ba-e8-ae-ae/" data-id="cjofrkhm3004z8t0fbwdksjf0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -592,6 +703,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/13/big-data-architect-skills/">大数据架构师该掌握的技能-硬能力</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/08/tomcat9-jndi/">tomcat9-jndi</a>
           </li>
         
@@ -605,10 +720,6 @@
         
           <li>
             <a href="/2018/11/07/java-io/">java-io</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/07/message-queue2/">消息队列</a>
           </li>
         
       </ul>
