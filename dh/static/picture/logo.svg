@@ -1,24 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="229.148" height="80" viewBox="0 0 229.148 80">
-  <defs>
-    <linearGradient id="linear-gradient" x1="-1101.047" y1="-11664.363" x2="198.821" y2="2100.62" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#009cdc"/>
-      <stop offset="1" stop-color="#48227e"/>
-    </linearGradient>
-    <linearGradient id="linear-gradient-2" x1="-46.751" y1="-817.098" x2="9.406" y2="154.598" xlink:href="#linear-gradient"/>
-    <linearGradient id="linear-gradient-3" x1="-239.697" y1="-3700.07" x2="44.079" y2="671.888" xlink:href="#linear-gradient"/>
-    <linearGradient id="linear-gradient-4" x1="-6.348" y1="-22.477" x2="1.524" y2="3.937" xlink:href="#linear-gradient"/>
-  </defs>
-  <g id="Group_7190" data-name="Group 7190" transform="translate(-138.852 -80)">
-    <text id="Brand_Tagline" data-name="Brand Tagline" transform="translate(239 157)" fill="#25265e" font-size="12" font-family="Rubik-Regular, Rubik" letter-spacing="0.2em"><tspan x="0" y="0">BRAND TAGLINE</tspan></text>
-    <text id="Grad" transform="translate(230 136)" fill="#04004d" font-size="60" font-family="Rubik-Medium, Rubik" font-weight="500"><tspan x="0" y="0">Grad</tspan></text>
-    <g id="Group_7189" data-name="Group 7189" transform="translate(-52.173 -143.251)">
-      <path id="Path_12002" data-name="Path 12002" d="M318.266,319.478l.038,0Z" transform="translate(-61.662 -46.63)" fill="url(#linear-gradient)"/>
-      <path id="Path_12003" data-name="Path 12003" d="M316.214,319.554c.3-.011.6-.028.883-.051C316.794,319.522,316.506,319.538,316.214,319.554Z" transform="translate(-60.668 -46.644)" fill="url(#linear-gradient-2)"/>
-      <path id="Path_12004" data-name="Path 12004" d="M318.1,319.481l-.175.011.124-.007Z" transform="translate(-61.498 -46.634)" fill="url(#linear-gradient-3)"/>
-      <path id="Path_12005" data-name="Path 12005" d="M318.34,317.709a13.964,13.964,0,0,0,6.3-1.877A15.254,15.254,0,0,1,318.34,317.709Z" transform="translate(-61.698 -44.865)" fill="url(#linear-gradient-4)"/>
-      <path id="Path_12006" data-name="Path 12006" d="M197.695,304.589c-12.636,9.23-6.122,29.237,9.527,29.257l25.214.031a10.83,10.83,0,0,0,10.787-10.069h0a10.83,10.83,0,0,0-10.714-11.591l-28.081-.087a6.361,6.361,0,0,1-3.509-1.069l-.16-.107a5.926,5.926,0,0,1-2.572-4.055l-.36-2.407Z" transform="translate(0 -39.37)" fill="#645cfe"/>
-      <path id="Path_12007" data-name="Path 12007" d="M291.317,306.993c14.137,6.711,28.621-8.551,21.181-22.318L300.51,262.494a10.83,10.83,0,0,0-13.992-4.684h0a10.83,10.83,0,0,0-5.084,14.943l13.3,24.728a6.361,6.361,0,0,1,.732,3.595l-.018.191a5.927,5.927,0,0,1-2.339,4.194l-1.944,1.463Z" transform="translate(-43.198 -16.276)" fill="#fcbe2d"/>
-      <path id="Path_12008" data-name="Path 12008" d="M253.611,235.5c-2.133-13.8-20.661-16.843-27.095-4.449l-10.366,19.97a9.665,9.665,0,0,0,3.557,12.679h0a9.665,9.665,0,0,0,13.58-3.738l11.586-22.219a5.675,5.675,0,0,1,2.287-2.343l.15-.083a5.291,5.291,0,0,1,4.268-.376l2.055.7Z" transform="translate(-11.655)" fill="#00c58d"/>
-    </g>
+<svg width="229.148" height="80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient gradientUnits="objectBoundingBox" y2="2100.62" x2="198.821" y1="-11664.363" x1="-1101.047" id="linear-gradient">
+   <stop stop-color="#009cdc" offset="0"/>
+   <stop stop-color="#48227e" offset="1"/>
+  </linearGradient>
+  <linearGradient xlink:href="#linear-gradient" y2="154.598" x2="9.406" y1="-817.098" x1="-46.751" id="linear-gradient-2"/>
+  <linearGradient xlink:href="#linear-gradient" y2="671.888" x2="44.079" y1="-3700.07" x1="-239.697" id="linear-gradient-3"/>
+  <linearGradient xlink:href="#linear-gradient" y2="3.937" x2="1.524" y1="-22.477" x1="-6.348" id="linear-gradient-4"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="Group_7190">
+   <text x="100.147995" y="77" font-family="Rubik-Regular, Rubik" font-size="12" fill="#25265e" id="Brand_Tagline">
+    <tspan id="svg_1" y="0" x="0">BRAND TAGLINE</tspan>
+   </text>
+   <text x="91.147995" y="56" font-weight="500" font-family="Rubik-Medium, Rubik" font-size="60" fill="#04004d" id="Grad">
+    <tspan id="svg_2" y="0" x="0">Grad</tspan>
+   </text>
+   <g id="Group_7189">
+    <path fill="url(#linear-gradient)" d="m65.578996,49.596992l0.038,0l-0.038,0z" id="Path_12002"/>
+    <path fill="url(#linear-gradient-2)" d="m64.520995,49.658992c0.3,-0.011 0.6,-0.028 0.883,-0.051c-0.303,0.019 -0.591,0.035 -0.883,0.051z" id="Path_12003"/>
+    <path fill="url(#linear-gradient-3)" d="m65.576994,49.595994l-0.175,0.011l0.124,-0.007l0.051,-0.004z" id="Path_12004"/>
+    <path fill="url(#linear-gradient-4)" d="m65.616993,49.592991a13.964,13.964 0 0 0 6.3,-1.877a15.254,15.254 0 0 1 -6.3,1.877z" id="Path_12005"/>
+    <path stroke="null" fill="#645cfe" d="m43.669995,30.967994c-12.636,9.23 -6.122,29.237 9.527,29.257l25.214,0.031a10.83,10.83 0 0 0 10.787,-10.069l0,0a10.83,10.83 0 0 0 -10.714,-11.591l-28.081,-0.087a6.361,6.361 0 0 1 -3.509,-1.069l-0.16,-0.107a5.926,5.926 0 0 1 -2.572,-4.055l-0.36,-2.407l-0.132,0.097z" id="Path_12006"/>
+    <path stroke="null" fill="#fcbe2d" d="m28.093993,64.465994c14.137,6.711 28.621,-8.551 21.181,-22.318l-11.988,-22.181a10.83,10.83 0 0 0 -13.992,-4.684l0,0a10.83,10.83 0 0 0 -5.084,14.943l13.3,24.728a6.361,6.361 0 0 1 0.732,3.595l-0.018,0.191a5.927,5.927 0 0 1 -2.339,4.194l-1.944,1.463l0.152,0.069z" id="Path_12007"/>
+    <path stroke="null" fill="#00c58d" d="m71.930995,28.248993c-2.133,-13.8 -20.661,-16.843 -27.095,-4.449l-10.366,19.97a9.665,9.665 0 0 0 3.557,12.679l0,0a9.665,9.665 0 0 0 13.58,-3.738l11.586,-22.219a5.675,5.675 0 0 1 2.287,-2.343l0.15,-0.083a5.291,5.291 0 0 1 4.268,-0.376l2.055,0.7l-0.022,-0.141z" id="Path_12008"/>
+   </g>
   </g>
+ </g>
 </svg>
